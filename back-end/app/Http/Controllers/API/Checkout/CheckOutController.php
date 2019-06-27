@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers\API\CheckOut;
+
+use App\Address;
+use App\Cart;
+use App\City;
+use App\Notifications\OrderPlaced;
+use App\Order;
+use App\OrderProduct;
+use App\Product;
+use App\Shipper;
+use App\Http\Controllers\Controller;
+
+use App\Shipping;
+use function foo\func;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use mysql_xdevapi\Exception;
+use PHPUnit\Util\Json;
+
+class CheckOutController extends Controller
+{
+
+    public function index(Request $request){
+        DB::beginTransaction();
+        try {
+            $address = Address::where(['id'=>$request->address,'_token'=>$request->token])->first();
+            if (!$address) {
+                throw new \Exception();
+            }
+            $shipper = Shipper::find(1);
+            $order = new Order(['_token'=>Str::random(20)]);
+            $order->Address()->associate($address);
+            $order->Shipper()->associate($shipper);
+            $location = $address->Location();
+            $shipping = Shipping::where('shipper_id', $shipper->id)
+                ->where('city_id', $location instanceof City ? $location->id : $location->City()->first()->id)
+                ->first();
+            $order->shipping_fees = $shipping->fees;
+            $order->save();
+            $products = $request->products;
+            if(count($products)<=0) throw new Exception();
+            foreach ($products as $product) {
+                $p = Product::find($product['id']);
+                if ($p && $p->quantity >= $product['quantity']) {
+                    $item = new OrderProduct(["order_id" => $order->id, "product_id" => $p->id, "price" => $p->sale_price ?? $p->price, "quantity" => $product['quantity']]);
+                    $item->save();
+                    $p->quantity -= $product['quantity'];
+                    $p->save();
+
+                    if(Auth('api')->check()){
+                        $pp=Cart::whereHas('User',function ($q){
+                            $q->where([['id',Auth('api')->user()->id]]);
+                        })
+                            ->whereHas('Product',function($q) use ($p){
+                                $q->where([['id',$p->id]]);
+                            })->first();
+                        if($pp==null) throw new \Exception();
+                        $pp->delete();
+                    }
+                } else {
+                    throw new \Exception();
+                }
+            }
+
+            DB::commit();
+            $address->notify(new OrderPlaced($order));
+            return response()->json(["success" => "order placed successfully",
+                "url"=>url(config('app.url').route('order.mail', ['id' => $order->id,'token'=>$order->_token], false))
+                                    ]);
+        }catch (\Exception $exception){
+            DB::rollback();
+            return response()->json(["error" => "order can't be placed"], 400);
+        }
+
+    }
+    public function shipping_fees(){
+
+    }
+}

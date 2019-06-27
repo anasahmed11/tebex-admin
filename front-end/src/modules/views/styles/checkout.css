@@ -1,0 +1,17 @@
+.slider-moving-animation{
+    animation-name: deliveryBox;
+    animation-duration: 4s;
+    position: absolute;
+    width: 150px;
+    animation-iteration-count: infinite;
+}
+
+
+@-webkit-keyframes deliveryBox {
+    from {left: -150px;}
+    to {left: 100%;}
+}
+@keyframes deliveryBox {
+    from {left: -150px;}
+    to {left: 100%;}
+}

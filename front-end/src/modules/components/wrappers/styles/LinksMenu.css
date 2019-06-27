@@ -1,0 +1,24 @@
+.example-enter {
+    transform: translateY(100%);
+}
+  
+.example-enter.example-enter-active {
+    animation: slide-in ease-out 700ms forwards; 
+}
+  
+.example-leave {
+    transform: translateY(0%);
+}
+  
+.example-leave.example-leave-active {
+    animation: slide-out ease-in-out 700ms forwards; 
+}
+
+@keyframes slide-in {
+    0%   {transform: translateY(100%);}
+    100%   {transform: translateY(0%);}
+}
+@keyframes slide-out {
+    0%   {transform: translateY(0%);}
+    100%   {transform: translateY(100%);}
+}

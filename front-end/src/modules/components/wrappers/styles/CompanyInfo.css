@@ -1,0 +1,28 @@
+.info-enter {
+    transform: translateY(100%);
+    opacity: 0;
+}
+  
+.info-enter.info-enter-active {
+    animation: slide-in ease-out 2s forwards; 
+}
+  
+.info-leave {
+    transform: translateY(0%);
+}
+  
+.info-leave.info-leave-active {
+    animation: slide-out ease-in-out 2s forwards; 
+}
+
+@keyframes slide-in {
+    0%   {transform: translateY(100%);opacity: 0;}
+    25%  {transform: translateY(50%); opacity: 0.1;}
+    50%  {transform: translateY(20%); opacity: 0.2;}
+    75%  {transform: translateY(10%); opacity: 0.3;}
+    100%  {transform: translateY(0%);opacity: 1;}
+}
+@keyframes slide-out {
+    0%   {transform: translateY(0%);}
+    100%   {transform: translateY(100%);}
+}

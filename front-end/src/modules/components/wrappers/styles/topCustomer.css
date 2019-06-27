@@ -1,0 +1,24 @@
+.topCustomer-enter {
+    opacity: 0.1;
+}
+  
+.topCustomer-enter.topCustomer-enter-active {
+    animation: slide-in ease-out 2000ms forwards; 
+}
+  
+.topCustomer-leave {
+    opacity: 1;
+}
+  
+.topCustomer-leave.topCustomer-leave-active {
+    animation: slide-out ease-in-out 2000ms forwards; 
+}
+
+@keyframes slide-in {
+    0%   {opacity: 0.1;}
+    100%   {opacity: 1}
+}
+@keyframes slide-out {
+    0%   {opacity: 1;}
+    100%   {opacity: 0;}
+}
