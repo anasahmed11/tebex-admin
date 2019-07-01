@@ -36,6 +36,7 @@ Route::get('honored', 'API\HonorController@index');
 Route::prefix('category')->group(function () {
     Route::get('/', 'API\Category\CategoryController@index');
     Route::get('/{category}/products', 'API\Category\CategoryController@products');
+    Route::get('/{category}/specs', 'API\Category\CategoryController@specs');
     Route::get('/{category}/products/filters', 'API\Category\CategoryController@products');
 
 });
