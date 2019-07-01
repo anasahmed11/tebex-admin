@@ -32,18 +32,9 @@ const globalVariables = {
         },
 
 // POPUP TYPES
-    TYPE_SUCCESS:{
-            'en': 'success',
-            'ar': '',
-        },
-    TYPE_ERROR:{
-            'en': 'error',
-            'ar': '',
-        },
-    TYPE_INFO:{
-            'en': 'info',
-            'ar': '',
-        },
+    TYPE_SUCCESS: 'success',
+    TYPE_ERROR: 'error',
+    TYPE_INFO: 'info',
 
 // LOGIN FORM
     FORM_LOGIN_LABEL_TITLE:{

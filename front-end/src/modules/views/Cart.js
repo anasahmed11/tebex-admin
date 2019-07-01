@@ -1,65 +1,29 @@
 import React from 'react';
-import { Typography, withStyles, Grid, Button, Snackbar } from '@material-ui/core';
-import {connect} from 'react-redux';
-import 'typeface-roboto';
-import {Link, withRouter} from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
+import { Typography, withStyles, Grid, Button, Snackbar } from '@material-ui/core';
+
+import 'typeface-roboto';
+
+import { deleteFromCart, cartFinish } from '../../store/actions/shoppingCart';
 
 import CartEmpty from '../components/parts/CartEmpty'
-
 import MySnackbar from '../components/parts/MySnackbar'
 import CheckoutSummary from '../components/parts/CheckoutSummary';
 import ShopCartItem from '../components/parts/ShopCartItem';
 
-import { deleteFromCart, cartFinish } from '../../store/actions/shoppingCart';
-
-import Cookies from 'universal-cookie';
-
-const cookies = new Cookies();
-
-
-
-const styles = theme => ({
-    root: {
-        padding: `${theme.spacing.unit * 4}px 0px`,
-        minHeight:'500px',   
-        position:'relative',
-        backgroundColor:'rgb(0,0,0,0.01)',
-        
-    },
-    root2:{
-        padding: `${theme.spacing.unit * 2}px 0px`,
-        position:'relative',
-        backgroundColor:'white',
-    },
-    root3:{
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 1}px`,
-        minHeight:'200px',
-        boxShadow:' 0px 0px 30px 10px rgba(0, 0, 0, 0.06)'
-    },
-    checkoutButton:{
-        padding: `${theme.spacing.unit * 2}px 0px`
-    },
-    sweetLoading:{
-        textAlign:'center'
-    }
-    
-});
-
+import { styles } from '../../assets/jss/views/Cart';
 
 class Cart extends React.Component{
     state = {
         items:[]
-
     }
    
-
     handelDelete = (id) => {
        this.props.handleDeleteFromCart(id,this.props.items)
     }
     handleCheckout = () => {
-        
     }
 
     render(){
@@ -68,9 +32,6 @@ class Cart extends React.Component{
         const totalItems = this.props.numItems
         return(
             <Grid container justify="center" className={classes.root}>
-
-                
-                
                 <Snackbar
                     style={{direction:'ltr', bottom:'50px'}}   
                     anchorOrigin={{
@@ -87,10 +48,8 @@ class Cart extends React.Component{
                         variant={messageType}
                         message={serverMessage}
                     />
-                
                 </Snackbar>
 
-                
                 <Grid item md={10} sm={10} xs={11}>
                     <Grid container justify="center">
                         <Grid item xs={12} className={classes.root2} style={{backgroundColor:'transparent'}}>
@@ -98,8 +57,6 @@ class Cart extends React.Component{
                             <Typography inline component='h2' variant='caption' style={{color:'gray'}}> ({totalItems} منتج)</Typography>
                         </Grid>
                         <Grid item xs={12} className={classes.root2}>
-
-
                             {isLoading?
                                 <Grid container justify="center" >
                                         <ClipLoader
@@ -120,8 +77,6 @@ class Cart extends React.Component{
                                             <ShopCartItem key={item.id} item={item} handelDelete={this.handelDelete}/>
                                             ))
                                     }
-                                                                      
-
                                 </Grid>
 
                                 <Grid item md={4} xs={10} style={{padding:'0px 4px'}}>

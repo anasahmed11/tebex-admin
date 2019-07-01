@@ -1,9 +1,9 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-import { ACCESS_TOKEN } from '../global-variables';
+import globalVariables from '../global-variables';
 
 const cookies = new Cookies();
-const access_token = cookies.get(ACCESS_TOKEN);
+const access_token = cookies.get(globalVariables.ACCESS_TOKEN);
 
 const baseURL = "http://127.0.0.1:8000/api/"
 

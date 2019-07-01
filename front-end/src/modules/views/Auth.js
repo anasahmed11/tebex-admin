@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import * as globalVariables from '../../global-variables';
+import globalVariables from '../../global-variables';
 
 import { withStyles, Grid, Button, Hidden, Divider, Snackbar, } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
