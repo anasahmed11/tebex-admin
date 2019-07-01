@@ -57,7 +57,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $request['password'] = Hash::make($request['password']);
-        event(new Registered($user = User::create($request,User::first())));
+        event(new Registered($user = User::create($request->all(),User::first())));
         #event(new Registered($user = User::create($request)));
         $tokenResult = $user->createToken(config('app.name'));
         return response([
