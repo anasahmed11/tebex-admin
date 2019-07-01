@@ -42,28 +42,28 @@ const globalVariables = {
 
 // LOGIN FORM
     FORM_LOGIN_LABEL_TITLE:{
-            'en': '',
-            'ar': '',
+            'en': 'Login',
+            'ar': 'تسجيل الدخول',
         },
     FORM_LOGIN_LABEL_EMAIL:{
-            'en': '',
-            'ar': '',
+            'en': 'Email',
+            'ar': 'البريد الالكتروني',
         },
     FORM_LOGIN_LABEL_PASS:{
-            'en': '',
-            'ar': '',
+            'en': 'Password',
+            'ar': 'كلمة المرور',
         },
     FORM_LOGIN_LABEL_LOGIN:{
-            'en': '',
-            'ar': '',
+            'en': 'Login',
+            'ar': 'تسجيل الدخول',
         },
     FORM_LOGIN_LABEL_FORGOT:{
-            'en': '',
-            'ar': '',
+            'en': 'Forgot your password?',
+            'ar': 'هل نسيت كلمة المرور؟',
         },
     FORM_LOGIN_LABEL_REMEMBER:{
-            'en': '',
-            'ar': '',
+            'en': 'Remember me',
+            'ar': 'تذكرني',
         },
     FORM_LOGIN_ERR_EMAIL:{
             'en': 'Invalid email.',
@@ -72,6 +72,11 @@ const globalVariables = {
     FORM_LOGIN_ERR_PASS:{
             'en': 'Invalid password.',
             'ar': '',
+        },
+// Register
+    FORM_REGISTER_LABEL_TITLE:{
+            'en': 'Create new account',
+            'ar': 'انشاء حساب جديد'
         },
 }
 export default globalVariables;

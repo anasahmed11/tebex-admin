@@ -6,6 +6,7 @@ const initialState = {
     isLoading: false,
     message: "",
     popup: false,
+    registerErrors:[],
     messageType: globalVariables.TYPE_INFO,
     isAuthinticated: false,
     redirectPath:'/home'
@@ -25,7 +26,7 @@ export default function auth(state = initialState, action){
                 isLoading: false,
                 token: action.token,
                 messageType: globalVariables.TYPE_SUCCESS,
-                message: globalVariables.MSG_LOGIN_SUCCESS,
+                message: globalVariables.MSG_LOGIN_SUCCESS[globalVariables.LANG],
                 popup: true,
                 isAuthinticated:true
             };
@@ -50,7 +51,7 @@ export default function auth(state = initialState, action){
                 isLoading: false,
                 token: action.token,
                 messageType: globalVariables.TYPE_SUCCESS,
-                message: globalVariables.MSG_REGISTER_SUCCESS,
+                message: globalVariables.MSG_REGISTER_SUCCESS[globalVariables.LANG],
                 popup: true,
                 isAuthinticated:true
             };
@@ -60,19 +61,20 @@ export default function auth(state = initialState, action){
                 isLoading: false,
                 messageType: globalVariables.TYPE_ERROR,
                 message: action.error,
+                registerErrors: action.registerErrors,
                 popup: true
             };
         case actionTypes.LOGOUT_SUCCESS:
             return {
                 ...state,
-                message: globalVariables.MSG_LOGOUT_SUCCESS,
+                message: globalVariables.MSG_LOGOUT_SUCCESS[globalVariables.LANG],
                 messageType: globalVariables.TYPE_SUCCESS,
                 popup: true
             }
         case actionTypes.LOGOUT_FAIL:
             return {
                 ...state,
-                message: globalVariables.MSG_LOGOUT_FAIL,
+                message: globalVariables.MSG_LOGOUT_FAIL[globalVariables.LANG],
                 messageType: globalVariables.TYPE_ERROR,
                 popup: true
             }
