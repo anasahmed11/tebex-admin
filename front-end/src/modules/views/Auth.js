@@ -32,7 +32,8 @@ class Auth extends React.Component {
         const {classes, isLoading, isPopup, serverMessage, messageType, handlePopupClose} = this.props;
         if(messageType === globalVariables.TYPE_SUCCESS){
             this.props.handleInitCart()
-            this.props.history.push(this.props.redirectPath);
+            if(this.state.loginView) setTimeout(()=>{this.props.history.push(this.props.redirectPath)},3000)
+            else setTimeout(()=>{this.props.history.push(this.props.redirectPath)},5000)
         }
         
         return (

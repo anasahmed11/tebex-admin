@@ -73,14 +73,14 @@ class Login extends React.Component{
             <Grid container justify='center'>
 
                 <Grid item xs={12} className={classes.paddingTop}>
-                    <Typography component="h6" variant="h6" gutterBottom>{globalVariables.FORM_LOGIN_LABEL_TITLE}</Typography>
+                    <Typography component="h6" variant="h6" gutterBottom>{globalVariables.FORM_LOGIN_LABEL_TITLE[globalVariables.LANG]}</Typography>
                 </Grid>
                 <Grid item xs={12} className={classes.paddingTop}>
                 
                         <TextField
                             className={classes.margin}
                             id="outlined-email-input"
-                            label={globalVariables.FORM_LOGIN_LABEL_EMAIL}
+                            label={globalVariables.FORM_LOGIN_LABEL_EMAIL[globalVariables.LANG]}
                             type="email"
                             error={this.state.emailError?true:false}
                             helperText={this.state.emailError}
@@ -107,7 +107,7 @@ class Login extends React.Component{
                         required
                         error={this.state.passError?true:false}
                         helperText={this.state.passError}
-                        label={globalVariables.FORM_LOGIN_LABEL_PASS}
+                        label={globalVariables.FORM_LOGIN_LABEL_PASS[globalVariables.LANG]}
                         type={this.state.showPassword? 'text' : 'password'}
                         onChange={this.handleChange('password')}
                         InputProps={{
@@ -128,7 +128,7 @@ class Login extends React.Component{
                 
                 <Grid item xs={12} className={classes.paddingTop}>
                     <Button variant="contained" color="primary" className={classes.button} onClick={this.handleLogin}>
-                        {globalVariables.FORM_LOGIN_LABEL_LOGIN}
+                        {globalVariables.FORM_LOGIN_LABEL_LOGIN[globalVariables.LANG]}
                     </Button>
                     <FormControlLabel
                         control={
@@ -138,12 +138,12 @@ class Login extends React.Component{
                                 value={this.state.rememberme}
                             />
                         }
-                        label={globalVariables.FORM_LOGIN_LABEL_REMEMBER}
+                        label={globalVariables.FORM_LOGIN_LABEL_REMEMBER[globalVariables.LANG]}
                     />
                     
                 </Grid>
                 <Grid item xs={12} className={classes.paddingTop}>
-                    هل نسيت كلمة المرور؟
+                    {globalVariables.FORM_LOGIN_LABEL_FORGOT[globalVariables.LANG]}
                 </Grid>   
             </Grid>
         );
