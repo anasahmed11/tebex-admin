@@ -16,13 +16,6 @@ const styles = theme => ({
 });
 
 
-function createLevels() {
-    let levels=[]
-    for (let i = 1; i <= 8; i++)
-        levels.push({value: '' + i, label: 'المستوى ' + i})
-    return levels;
-}
-
 const GENDER = [
     {value: 'M', label: 'ذكر'},
     {value: 'F', label: 'انثى'}
@@ -39,7 +32,6 @@ class Register extends React.Component{
         firstNameError: '',
         lastName: '',
         lastNameError: '',
-        level: '1',
         gender: 'M',
         birthday: '2000-01-01',
     }
@@ -81,7 +73,6 @@ class Register extends React.Component{
             password: this.state.password,
             password_confirmation: this.state.password,
             phone: this.state.phone,
-            level: this.state.level,
             gender: this.state.gender,
             birth_date: this.state.birthday,
         };
@@ -198,23 +189,6 @@ class Register extends React.Component{
                 </Grid>
 
                 <Grid item xs = {12} className = {classes.paddingTop}>
-                   <TextField
-                        id = "register-level"
-                        select
-                        label = "مستوى الحساب"
-                        className = {classes.margin}
-                        value = {this.state.level}
-                        onChange = {this.handleChange('level')}
-                        InputLabelProps = {{
-                            shrink: true,
-                        }}
-                    >
-                        {createLevels().map(option => (
-                            <MenuItem key = {uuid()} value={option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
                     <TextField
                         id = "register-sex"
                         select

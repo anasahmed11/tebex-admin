@@ -1,5 +1,5 @@
 import * as actionTypes from "../actionTypes"
-import * as globalVariables from '../../global-variables';
+import globalVariables from '../../global-variables';
 
 const initialState = {
     numItems: 0,

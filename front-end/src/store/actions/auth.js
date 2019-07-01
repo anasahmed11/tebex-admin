@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie';
 
-import { ACCESS_TOKEN, MSG_LOGIN_FAIL } from '../../global-variables';
+import globalVariables from '../../global-variables';
 import * as actionTypes from '../actionTypes';
 import {authِAPI as axios} from '../../api/api';
 
@@ -40,11 +40,11 @@ export const loginUser = (email, password, rememberme) => {
         axios.post('login', data)
         .then(res => {
             const expirationDate = new Date(res.data.expires_at);
-            cookies.set(ACCESS_TOKEN, res.data.access_token, { path: '/', expires: expirationDate, sameSite : true });
+            cookies.set(globalVariables.ACCESS_TOKEN, res.data.access_token, { path: '/', expires: expirationDate, sameSite : true });
             dispatch(authSuccess(res.data.access_token));
         })
         .catch(err => {
-            dispatch(authFailed(MSG_LOGIN_FAIL)); // Authentication failed
+            dispatch(authFailed(globalVariables.MSG_LOGIN_FAIL)); // Authentication failed
             // Implement: handle network error.
         })
        
@@ -73,13 +73,15 @@ export const registerUser = (data) => {
         axios.post('register', data)
         .then(res => {
             const expirationDate = new Date(res.data.expires_at);
-            cookies.set(ACCESS_TOKEN, res.data.access_token, { path: '/', expires: expirationDate, sameSite : true });
+            cookies.set(globalVariables.ACCESS_TOKEN, res.data.access_token, { path: '/', expires: expirationDate, sameSite : true });
             dispatch(registerSuccess(res.data.access_token));
         })
-        .catch(err => {
-            // Unsuccessful registeration message
-            dispatch(registerFailed(err.response.data.message));
-            // Implement: handle network error.
+        .catch(error => {
+
+            if (error.response)dispatch(registerFailed(error.response.data.message));
+            else if (error.request) dispatch(registerFailed(globalVariables.MSG_NETWORK_ERROR));
+            else console.log('Error', error.message);
+           
         })
     }
 }
@@ -103,7 +105,7 @@ export const logoutUser = () => {
         axios.get('logout')
         .then(res => {
             dispatch(logoutSuccess(res.data.access_token));
-            cookies.remove(ACCESS_TOKEN)
+            cookies.remove(globalVariables.ACCESS_TOKEN)
         })
         .catch(err => {
             dispatch(logoutFail("Error."));

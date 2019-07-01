@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import LoadingScreen from 'react-loading-screen';
 import Cookies from 'universal-cookie';
-import * as globalVariables from './global-variables';
+import globalVariables from './global-variables';
 
 import {connect} from 'react-redux';
 import { initCart } from './store/actions/shoppingCart'

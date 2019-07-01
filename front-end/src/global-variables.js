@@ -30,6 +30,10 @@ const globalVariables = {
             'en': 'Registeration failed.',
             'ar': '',
         },
+    MSG_NETWORK_ERROR:{
+            'en': 'No response from server.\ntry again later',
+            'ar': 'لا يوجد استجابة من السيرفر\nحاول مجددا في وقت لاحق'
+        },
 
 // POPUP TYPES
     TYPE_SUCCESS:{
