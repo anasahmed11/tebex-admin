@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:20|unique:users',
             #'level' => 'required|integer|between:1,8',
-            'image'=>'required|string',
+            'image'=>'string',
             'gender' => 'required|enum_key:' . Gender::class,
             'birth_date' => 'required|date',
             #'referral' => 'integer',
