@@ -2,7 +2,7 @@ import Cookies from 'universal-cookie';
 
 import globalVariables from '../../global-variables';
 import * as actionTypes from '../actionTypes';
-import {authِAPI as axios} from '../../api/api';
+import { authِAPI as axios } from '../../api/api';
 
 const cookies = new Cookies();
 
@@ -44,7 +44,7 @@ export const loginUser = (email, password, rememberme) => {
             dispatch(authSuccess(res.data.access_token));
         })
         .catch(err => {
-            dispatch(authFailed(globalVariables.MSG_LOGIN_FAIL)); // Authentication failed
+            dispatch(authFailed(globalVariables.MSG_LOGIN_FAIL[globalVariables.LANG])); // Authentication failed
             // Implement: handle network error.
         })
        

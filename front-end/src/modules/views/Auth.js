@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import globalVariables from '../../global-variables';

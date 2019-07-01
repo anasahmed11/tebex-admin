@@ -1,16 +1,17 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import LoadingScreen from 'react-loading-screen';
 import Cookies from 'universal-cookie';
 import globalVariables from './global-variables';
 
-import {connect} from 'react-redux';
-import { initCart } from './store/actions/shoppingCart'
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'typeface-roboto';
+
+import { initCart } from './store/actions/shoppingCart'
 
 import Auth from './modules/views/Auth';
 import Home from './modules/views/Home';
@@ -65,7 +66,7 @@ class App extends React.Component {
   render() {
     
     const { isLoading, } = this.state;
-
+    
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
 
     return (
