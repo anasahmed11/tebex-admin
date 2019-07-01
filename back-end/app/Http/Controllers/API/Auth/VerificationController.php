@@ -15,6 +15,7 @@ class VerificationController extends Controller
         $this->middleware('auth:api');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+
     }
     public function verify(Request $request)
     {
