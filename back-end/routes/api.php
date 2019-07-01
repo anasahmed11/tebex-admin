@@ -35,6 +35,9 @@ Route::prefix('auth')->group(function () {
 Route::get('honored', 'API\HonorController@index');
 Route::prefix('category')->group(function () {
     Route::get('/', 'API\Category\CategoryController@index');
+    Route::get('/{category}/products', 'API\Category\CategoryController@products');
+    Route::get('/{category}/products/filters', 'API\Category\CategoryController@products');
+
 });
 
 
