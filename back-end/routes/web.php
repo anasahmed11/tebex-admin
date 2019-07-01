@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/verify/email/{id}',function(){
+    return view('welcome');
+})->name('verification.verify');
+Route::get('/reset/password/{token}',function (){
+    return view('welcome');
+})->name('password.reset');
+Route::get('/{route}',function(){
+    return view('welcome');
+});
