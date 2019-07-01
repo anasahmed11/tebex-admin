@@ -24,7 +24,7 @@ Route::prefix('auth')->group(function () {
         'middleware' => 'auth:api'
     ], function() {
         Route::get('verify/email/{id}', 'API\Auth\VerificationController@verify')->name('verification.verify');
-        Route::post('verify/resend/email', 'API\Auth\VerificationController@resend');
+        Route::get('verify/resend/email', 'API\Auth\VerificationController@resend');
         Route::get('logout', 'API\Auth\AuthController@logout');
         Route::get('details', 'API\Auth\AuthController@details');
     });
