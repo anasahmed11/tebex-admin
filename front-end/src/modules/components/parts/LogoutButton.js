@@ -1,7 +1,11 @@
 import React from 'react';
-import { Button, withStyles, Snackbar } from '@material-ui/core';
 import {connect} from 'react-redux';
+
+import { Button, withStyles, Snackbar } from '@material-ui/core';
+
 import { logoutUser, closePopup } from '../../../store/actions/auth';
+import { initCart } from '../../../store/actions/shoppingCart';
+
 import MySnackbar from './MySnackbar';
 const styles = theme => ({
     
@@ -10,10 +14,11 @@ const styles = theme => ({
 class LogoutButton extends React.Component{
 
     handleLogout = (handleRedirect) => {
-        
+        this.props.handleInitCart()
         this.props.handleLogout()
         if(this.props.messageType==="success"){
             handleRedirect()
+            
         }
     }
     render(){
@@ -58,6 +63,7 @@ const mapDispatchToProps = dispatch => {
     return{
         handleLogout: () => dispatch(logoutUser()),
         handlePopupClose: () => dispatch(closePopup()),
+        handleInitCart: () => dispatch(initCart()),
 
     }
 }

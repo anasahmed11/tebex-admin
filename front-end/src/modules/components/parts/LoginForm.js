@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import globalVariables from '../../../global-variables';
 
-import { 
-    Grid, Button, Checkbox, TextField, Typography, InputAdornment, FormControlLabel, IconButton, withStyles, 
-} from '@material-ui/core';
+import { Grid, Button, Checkbox, TextField, Typography, InputAdornment, FormControlLabel, IconButton, withStyles } from '@material-ui/core';
 import { AccountCircle, Visibility, VisibilityOff} from '@material-ui/icons';
 
-import { loginUser } from '../../../store/actions/auth'
+import { loginUser } from '../../../store/actions/auth';
 
 
 const styles = theme => ({
@@ -15,7 +14,7 @@ const styles = theme => ({
     },
     paddingTop:{
         padding:'10px 0px'
-    },  
+    }, 
 });
 
 
@@ -28,8 +27,7 @@ class Login extends React.Component{
         password: '',
         passError: '',
         showPassword: false,
-        rememberme: true,
-        
+        rememberme: true,  
     }
 
     handleChange = prop => event => {
@@ -57,32 +55,32 @@ class Login extends React.Component{
         let passwordError = "";
         let valid = true;
         if(!this.validateEmail(this.state.email)){
-            emailError = "البريد الالكتروني غير صحيح";
+            emailError = globalVariables.FORM_LOGIN_ERR_EMAIL;
             valid = false;
         }
         if(!this.validatePassword(this.state.password)){
-            passwordError = "يجب ان يحتوي الرقم السري على اكثر من 6 احرف";
+            passwordError = globalVariables.FORM_LOGIN_ERR_PASS;
             valid = false;
         }
-        this.setState({emailError:emailError, passError:passwordError})
-        
-        if(valid) this.props.onLogin(this.state.email,this.state.password,this.state.rememberme)
+        this.setState({emailError: emailError, passError: passwordError})
+        if(valid)
+            this.props.onLogin(this.state.email, this.state.password, this.state.rememberme)
     }
 
     render(){
         const { classes } = this.props
         return(
             <Grid container justify='center'>
-        
+
                 <Grid item xs={12} className={classes.paddingTop}>
-                    <Typography component="h6" variant="h6" gutterBottom>تسجيل الدخول</Typography>
+                    <Typography component="h6" variant="h6" gutterBottom>{globalVariables.FORM_LOGIN_LABEL_TITLE}</Typography>
                 </Grid>
                 <Grid item xs={12} className={classes.paddingTop}>
                 
                         <TextField
                             className={classes.margin}
                             id="outlined-email-input"
-                            label="البريد الالكتروني"
+                            label={globalVariables.FORM_LOGIN_LABEL_EMAIL}
                             type="email"
                             error={this.state.emailError?true:false}
                             helperText={this.state.emailError}
@@ -109,8 +107,8 @@ class Login extends React.Component{
                         required
                         error={this.state.passError?true:false}
                         helperText={this.state.passError}
-                        label="كلمة السر"
-                        type={this.state.showPassword ? 'text' : 'password'}
+                        label={globalVariables.FORM_LOGIN_LABEL_PASS}
+                        type={this.state.showPassword? 'text' : 'password'}
                         onChange={this.handleChange('password')}
                         InputProps={{
                             startAdornment: (
@@ -129,9 +127,8 @@ class Login extends React.Component{
                 </Grid>
                 
                 <Grid item xs={12} className={classes.paddingTop}>
-                
                     <Button variant="contained" color="primary" className={classes.button} onClick={this.handleLogin}>
-                        تسجيل الدخول
+                        {globalVariables.FORM_LOGIN_LABEL_LOGIN}
                     </Button>
                     <FormControlLabel
                         control={
@@ -141,7 +138,7 @@ class Login extends React.Component{
                                 value={this.state.rememberme}
                             />
                         }
-                        label="تذكرني"
+                        label={globalVariables.FORM_LOGIN_LABEL_REMEMBER}
                     />
                     
                 </Grid>

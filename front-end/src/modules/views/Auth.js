@@ -1,13 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import * as globalVariables from '../../global-variables';
+import globalVariables from '../../global-variables';
 
 import { withStyles, Grid, Button, Hidden, Divider, Snackbar, } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 
 import {closePopup} from '../../store/actions/auth'
+import { initCart } from '../../store/actions/shoppingCart';
 
 import Login from '../components/parts/LoginForm';
 import Register from '../components/parts/RegisterForm';
@@ -29,11 +30,10 @@ class Auth extends React.Component {
 
     render(){
         const {classes, isLoading, isPopup, serverMessage, messageType, handlePopupClose} = this.props;
-        if(messageType === globalVariables.TYPE_SUCCESS)
-            setTimeout(() => {
-                this.props.history.push(this.props.redirectPath);
-                window.location.reload();
-            }, 3000)
+        if(messageType === globalVariables.TYPE_SUCCESS){
+            this.props.handleInitCart()
+            this.props.history.push(this.props.redirectPath);
+        }
         
         return (
             <Grid container justify='center' className={classes.root}>
@@ -120,6 +120,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         handlePopupClose: () => dispatch(closePopup()),
+        handleInitCart: () => dispatch(initCart()),
     }
 }
 

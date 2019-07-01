@@ -1,17 +1,77 @@
+const globalVariables = {
+    LANG: 'en',
 // VARIABLES
-export const ACCESS_TOKEN = 'access_token';
+    ACCESS_TOKEN: 'access_token',
 
 // MESSAGES
-export const MSG_LOGIN_FAIL = 'Login failed.';
-export const MSG_LOGIN_SUCCESS = 'Logged in successfully.';
+    MSG_LOGIN_FAIL:{
+            'en': 'Login failed.',
+            'ar': '',
+        },
+    MSG_LOGIN_SUCCESS:{
+            'en': 'Logged in successfully.',
+            'ar': '',
+        },
 
-export const MSG_LOGOUT_FAIL = 'Error.';
-export const MSG_LOGOUT_SUCCESS = 'Logged out successfully.';
+    MSG_LOGOUT_FAIL:{
+            'en': 'Error.',
+            'ar': '',
+        },
+    MSG_LOGOUT_SUCCESS:{
+            'en': 'Logged out successfully.',
+            'ar': '',
+        },
 
-export const MSG_REGISTER_SUCCESS = 'Registered successfully.\nCheck your mail for account activation.';
-export const MSG_REGISTER_FAIL = 'Registeration failed.'
+    MSG_REGISTER_SUCCESS:{
+            'en': 'Registered successfully.\nCheck your mail for account activation.',
+            'ar': '',
+        },
+    MSG_REGISTER_FAIL:{
+            'en': 'Registeration failed.',
+            'ar': '',
+        },
+    MSG_NETWORK_ERROR:{
+            'en': 'No response from server.\ntry again later',
+            'ar': 'لا يوجد استجابة من السيرفر\nحاول مجددا في وقت لاحق'
+        },
 
 // POPUP TYPES
-export const TYPE_SUCCESS = 'success';
-export const TYPE_ERROR = 'error';
-export const TYPE_INFO = 'info';
+    TYPE_SUCCESS: 'success',
+    TYPE_ERROR: 'error',
+    TYPE_INFO: 'info',
+
+// LOGIN FORM
+    FORM_LOGIN_LABEL_TITLE:{
+            'en': '',
+            'ar': '',
+        },
+    FORM_LOGIN_LABEL_EMAIL:{
+            'en': '',
+            'ar': '',
+        },
+    FORM_LOGIN_LABEL_PASS:{
+            'en': '',
+            'ar': '',
+        },
+    FORM_LOGIN_LABEL_LOGIN:{
+            'en': '',
+            'ar': '',
+        },
+    FORM_LOGIN_LABEL_FORGOT:{
+            'en': '',
+            'ar': '',
+        },
+    FORM_LOGIN_LABEL_REMEMBER:{
+            'en': '',
+            'ar': '',
+        },
+    FORM_LOGIN_ERR_EMAIL:{
+            'en': 'Invalid email.',
+            'ar': '',
+        },
+    FORM_LOGIN_ERR_PASS:{
+            'en': 'Invalid password.',
+            'ar': '',
+        },
+}
+export default globalVariables;
