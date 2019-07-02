@@ -10,9 +10,10 @@ import {
     EventNote as NotesIcon,
 } from '@material-ui/icons';
 
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import LogoutButton from './LogoutButton';
+import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     root: {
@@ -45,7 +46,7 @@ const styles = theme => ({
 class SettingsSection extends React.Component{
 
     handleRedirect = (props) =>{
-        setTimeout(()=>{this.props.history.push('/auth',{pathname:'http://localhost:3000'});},3000)
+        setTimeout(()=>{this.props.history.push('/',{pathname:'http://localhost:3000'});},500)
     }
     render(){
         const {classes, } = this.props;
@@ -57,7 +58,7 @@ class SettingsSection extends React.Component{
                         <ListItemIcon className={classes.icon}>
                             <AccountIcon />
                         </ListItemIcon>
-                        <ListItemText classes={{ primary: classes.primary }} className={classes.link} inset primary="الملف الشخصي" /> 
+                        <ListItemText classes={{ primary: classes.primary }} className={classes.link} inset primary={globalVariables.SETTINGS_SECTION_PROFILE[globalVariables.LANG]} /> 
                     </MenuItem>
                 </Link>
                 <Link to="/orders" className={classes.link}>
@@ -65,7 +66,7 @@ class SettingsSection extends React.Component{
                         <ListItemIcon className={classes.icon}>
                             <NotesIcon />
                         </ListItemIcon>
-                        <ListItemText classes={{ primary: classes.primary }} className={classes.link} inset primary="مشترياتي" /> 
+                        <ListItemText classes={{ primary: classes.primary }} className={classes.link} inset primary={globalVariables.SETTINGS_SECTION_ORDERS[globalVariables.LANG]} /> 
                     </MenuItem>
                 </Link>
                 <Link to="/dashboard" className={classes.link}>
@@ -73,7 +74,7 @@ class SettingsSection extends React.Component{
                         <ListItemIcon className={classes.icon}>
                             <DashboardIcon />
                         </ListItemIcon>
-                    <ListItemText classes={{ primary: classes.primary }} inset primary="داش بورد" /> 
+                    <ListItemText classes={{ primary: classes.primary }} inset primary={globalVariables.SETTINGS_SECTION_DASHBOARD[globalVariables.LANG]} /> 
                     </MenuItem>
                 </Link>
                 <Link to="/linkgenerator" className={classes.link}> 
@@ -81,7 +82,7 @@ class SettingsSection extends React.Component{
                         <ListItemIcon className={classes.icon}>
                             <LinkIcon />
                         </ListItemIcon>
-                        <ListItemText classes={{ primary: classes.primary }} inset primary="مولد اللنكات" />
+                        <ListItemText classes={{ primary: classes.primary }} inset primary={globalVariables.SETTINGS_SECTION_LINK_GENERATOR[globalVariables.LANG]} />
                     </MenuItem>
                 </Link>
                 <Link to="/tree" className={classes.link}>
@@ -89,7 +90,7 @@ class SettingsSection extends React.Component{
                         <ListItemIcon className={classes.icon}>
                             <PeopleIcon />
                         </ListItemIcon>
-                        <ListItemText classes={{ primary: classes.primary }} inset primary="شجرة الفريق" /> 
+                        <ListItemText classes={{ primary: classes.primary }} inset primary={globalVariables.SETTINGS_SECTION_TEAM_TREE[globalVariables.LANG]} /> 
                     </MenuItem>
                 </Link>
                 <Divider />
@@ -99,7 +100,7 @@ class SettingsSection extends React.Component{
                         <ListItemIcon className={classes.icon}>
                             <LogoutIcon />
                         </ListItemIcon>
-                        <ListItemText classes={{ primary: classes.primary }} inset primary="تسجيل الخروج" /> 
+                        <ListItemText classes={{ primary: classes.primary }} inset primary={globalVariables.SETTINGS_SECTION_SIGN_OUT[globalVariables.LANG]} /> 
                     </MenuItem>
                 </LogoutButton>
             </MenuList>

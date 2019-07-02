@@ -43,7 +43,7 @@ export default function auth(state = initialState, action){
                 ...state,
                 popup: false,
                 message: "",
-                messageType: globalVariables.TYPE_INFO
+                messageType: globalVariables.TYPE_INFO,
             };
         case actionTypes.REG_SUCCESS:
             return {

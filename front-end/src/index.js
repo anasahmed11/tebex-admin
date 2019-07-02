@@ -16,7 +16,7 @@ import './index.css';
 const logger = store => {
     return next => {
         return action => {
-            console.log("Middle-ware: ", action)
+            //console.log("Middle-ware: ", action)
             return next(action);
         }
     }

@@ -5,26 +5,27 @@ import { Button, withStyles, Snackbar } from '@material-ui/core';
 
 import { logoutUser, closePopup } from '../../../store/actions/auth';
 import { initCart } from '../../../store/actions/shoppingCart';
-
 import MySnackbar from './MySnackbar';
+
+
+import globalVariables from '../../../global-variables';
+
+
+
 const styles = theme => ({
     
 });
 
+
 class LogoutButton extends React.Component{
 
     handleLogout = (handleRedirect) => {
-        
         this.props.handleLogout()
-        if(this.props.messageType==="success"){
-            handleRedirect()
-            
-        }
+        handleRedirect()
         this.props.handleInitCart()
     }
     render(){
         const {classes, handlePopupClose, messageType, serverMessage, isPopup, handleRedirect} = this.props
-        console.log(this.props)
         return(
                 <Button onClick={() => this.handleLogout(handleRedirect)} fullWidth>
                     <Snackbar
