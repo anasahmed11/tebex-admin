@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\VerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -62,5 +63,9 @@ class User extends Authenticatable implements MustVerifyEmail
             ->leftJoin("products","products.id","=","carts.product_id")
             ->leftJoin("stores","stores.id","=","products.store_id")
             ->select(['stores.*','products.*','carts.quantity as cart_quantity']);*/
+    }
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmail);
     }
 }
