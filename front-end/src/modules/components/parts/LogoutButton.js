@@ -14,12 +14,13 @@ const styles = theme => ({
 class LogoutButton extends React.Component{
 
     handleLogout = (handleRedirect) => {
-        this.props.handleInitCart()
+        
         this.props.handleLogout()
         if(this.props.messageType==="success"){
             handleRedirect()
             
         }
+        this.props.handleInitCart()
     }
     render(){
         const {classes, handlePopupClose, messageType, serverMessage, isPopup, handleRedirect} = this.props

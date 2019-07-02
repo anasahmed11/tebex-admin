@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as actionTypes from '../actionTypes';
 import Cookies from 'universal-cookie';
 import {cartAPI} from '../../api/api'
+import globalVariables from '../../global-variables';
 
 const cookies = new Cookies();
 
@@ -43,7 +44,7 @@ export const addToCart = (product, quantity, messageShow=true, isModifiyOperatio
     return dispatch => {
         dispatch(cartStart())
         
-        if(cookies.get('access_token')){
+        if(cookies.get(globalVariables.ACCESS_TOKEN)){
             console.log("auth")
 
             let data=
@@ -117,7 +118,7 @@ export const deleteFromCart = (productID,shopping_cart) => {
         console.log(productID,shopping_cart)
         dispatch(cartStart())
         //localStorage.setItem('shopping_cart',JSON.stringify([{id:1,quantity:2},{id:2,quantity:2},{id:3,quantity:2}])) //for testing only
-        if(cookies.get('access_token')){
+        if(cookies.get(globalVariables.ACCESS_TOKEN)){
             let data = {
                 "product":{"id":productID}	
             }
@@ -169,9 +170,11 @@ const initCartOperation = (cartItems) => {
 }
 
 export const initCart = (message="") => {
+    
     return dispatch => {
+        
         dispatch(cartStart())
-        if(cookies.get('access_token')){
+        if(cookies.get(globalVariables.ACCESS_TOKEN)){
             cartAPI.get('')
             .then((res)=>{
                 let modified=false

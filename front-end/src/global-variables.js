@@ -34,6 +34,10 @@ const globalVariables = {
             'en': 'No response from server.\ntry again later',
             'ar': 'لا يوجد استجابة من السيرفر\nحاول مجددا في وقت لاحق'
         },
+    MSG_VERIFIY_ACCOUNT:{
+            'en': 'Please verifiy your account, check your mail!',
+            'ar': 'رجاء قم بتفعيل حسابك, قم بتفقد بريدك الالكتروني!'
+        },
 
 // POPUP TYPES
     TYPE_SUCCESS: 'success',

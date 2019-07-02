@@ -10,111 +10,85 @@ export const webURL = "http://localhost:3000"
 
 const instances = []
 
-
+const headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+}
 export const authِAPI = axios.create({
     baseURL: `${baseURL}auth/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 });
 instances.push(authِAPI)
 
 
 export const verifyAPI = axios.create({
     baseURL: `${baseURL}auth/verify/email/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 });
 instances.push(verifyAPI)
 
 
 export const locationAPI = axios.create({
     baseURL: `${baseURL}address/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 })
 instances.push(locationAPI)
 
 
 export const storesAPI = axios.create({
     baseURL: `${baseURL}store/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 })
 instances.push(storesAPI)
 
 
 export const productsAPI = axios.create({
     baseURL: `${baseURL}product/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 })
 instances.push(productsAPI)
 
 
 export const honoredAPI = axios.create({
     baseURL: `${baseURL}honored/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
+    headers: headers
 })
 instances.push(honoredAPI)
 
 
 export const categoryAPI = axios.create({
     baseURL: `${baseURL}category/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 })
 instances.push(categoryAPI)
 
 
 export const checkoutAPI = axios.create({
     baseURL: `${baseURL}checkout/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 })
 instances.push(checkoutAPI)
 
 
-
 export const cartAPI = axios.create({
     baseURL: `${baseURL}cart/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
+    headers: headers
 })
 instances.push(cartAPI)
 
 
-
-
-
-
 export const orderAPI = axios.create({
     baseURL: `${baseURL}orders/`,
-    headers:  {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-
-    }
+    headers: headers
 })
 instances.push(orderAPI)
+
+
+export const resendAPI = axios.create({
+    baseURL: `${baseURL}auth/verify/resend/email/`,
+    headers: headers
+});
+instances.push(resendAPI)
 
 
 instances.forEach( intance =>{

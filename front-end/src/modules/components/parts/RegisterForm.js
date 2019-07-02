@@ -102,7 +102,7 @@ class Register extends React.Component{
 
     render(){
         const {classes} = this.props;
-        console.log(this.props.registerErrors)
+
         const { email, phone, first_name, last_name, password  } = this.props.registerErrors;
         return(
             <Grid container justify = 'center'>
