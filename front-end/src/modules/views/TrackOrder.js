@@ -21,11 +21,10 @@ class TrackOrder extends React.Component {
     }
 
     componentDidMount(){
-        orderAPI.get(`${this.props.match.params.id}`)
+        orderAPI.get(`${this.props.match.params.id}/${this.props.match.params.token}`)
         .then(res=>{
-            this.setState({order:res.data[0], isLoading:false})
+            this.setState({order:res.data, isLoading:false})
         }).catch(res=>{
-            console.log(res.data)
             this.props.history.push('/')
         })
     }
