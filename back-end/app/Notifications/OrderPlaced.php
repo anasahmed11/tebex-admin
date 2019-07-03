@@ -48,7 +48,7 @@ class OrderPlaced extends Notification
             ->line(Lang::getFromJson('we want to inform you that your order placed successfully'))
             ->action(
                 Lang::getFromJson('Track Your Order'),
-                url(config('app.url').route('order.mail', ['id' => $this->order->id,'token'=>$this->order->_token], false))
+                url(config('app.url').str_replace('api/','',route('order.mail', ['id' => $this->order->id,'token'=>$this->order->_token], false)))
             )
             ->line(Lang::getFromJson('if you have any problem don\'t histate to  contact us' ));
     }

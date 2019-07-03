@@ -61,7 +61,7 @@ class VerifyEmail extends VerifyEmailNotification
      */
     protected function verificationUrl($notifiable)
     {
-        return (str_replace('api/auth/','',URL::temporarySignedRoute(
+        return (str_replace('api/auth/verify/email/','/verify/',URL::temporarySignedRoute(
             'verification.verify.api',
             Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
             ['id' => $notifiable->getKey()]
