@@ -102,7 +102,7 @@ class Register extends React.Component{
 
     render(){
         const {classes} = this.props;
-        console.log(this.props.registerErrors)
+
         const { email, phone, first_name, last_name, password  } = this.props.registerErrors;
         return(
             <Grid container justify = 'center'>
@@ -114,7 +114,7 @@ class Register extends React.Component{
                     <TextField
                         className = {classes.margin}
                         id = "register-email"
-                        label = "البريد الالكتروني"
+                        label = {globalVariables.FORM_REGISTER_LABEL_EMAIL[globalVariables.LANG]}
                         type = "email"
                         autoComplete = "email"
                         error = {(this.state.emailError || email)?true:false}
@@ -133,7 +133,7 @@ class Register extends React.Component{
                         id = "register-password"
                         value = {this.state.password}
                         required
-                        label = "كلمة السر"
+                        label = {globalVariables.FORM_REGISTER_LABEL_PASSWORD[globalVariables.LANG]}
                         type = "password"
                         autoComplete = "current-password"
                         error = {this.state.passError || password?true:false}
@@ -149,7 +149,7 @@ class Register extends React.Component{
                     <TextField
                         className = {classes.margin}
                         id = "register-firstname"
-                        label = " الاسم الاول"
+                        label = {globalVariables.FORM_REGISTER_LABEL_FIRST_NAME[globalVariables.LANG]}
                         value = {this.state.firstName}
                         onChange = {this.handleChange('firstName')}
                         required
@@ -165,7 +165,7 @@ class Register extends React.Component{
                     <TextField
                         className = {classes.margin}
                         id = "register-lastname"
-                        label = "الاسم الاخير"
+                        label = {globalVariables.FORM_REGISTER_LABEL_LAST_NAME[globalVariables.LANG]}
                         value = {this.state.lastName}
                         onChange = {this.handleChange('lastName')}
                         required
@@ -179,7 +179,7 @@ class Register extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         id = "register-phone"
-                        label = "رقم الهاتف"
+                        label = {globalVariables.FORM_REGISTER_LABEL_PHONE[globalVariables.LANG]}
                         value = {this.state.phone}
                         onChange = {this.handleChange('phone')}
                         className = {classes.margin}
@@ -196,7 +196,7 @@ class Register extends React.Component{
                     <TextField
                         id = "register-sex"
                         select
-                        label = "الجنس"
+                        label = {globalVariables.FORM_REGISTER_LABEL_SEX[globalVariables.LANG]}
                         className = {classes.textField}
                         value = {this.state.gender}
                         onChange = {this.handleChange('gender')}
@@ -212,7 +212,7 @@ class Register extends React.Component{
                     </TextField>
                     <TextField
                         id = "register-birthdate"
-                        label = "Birthday"
+                        label = {globalVariables.FORM_REGISTER_LABEL_BIRTHDAY[globalVariables.LANG]}
                         type = "date"
                         value = {this.state.birthday}
                         className = {classes.margin}
@@ -231,7 +231,7 @@ class Register extends React.Component{
                         className = {classes.button} 
                         onClick = {this.handleRegister}
                     >
-                        تسجيل الحساب
+                        {globalVariables.FORM_REGISTER_LABEL_REGISTER[globalVariables.LANG]}
                     </Button>
                 </Grid>
             

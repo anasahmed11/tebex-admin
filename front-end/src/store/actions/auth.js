@@ -100,6 +100,7 @@ const logoutFail = () => {
 }
 
 export const logoutUser = () => {
+    
     return dispatch => {
 
         axios.get('logout')

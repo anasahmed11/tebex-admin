@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import {Cancel} from '@material-ui/icons';
+import globalVariables from '../../../global-variables';
 
 
 const styles = theme => ({
@@ -66,19 +67,19 @@ function SimpleCard(props) {
       <Cancel onClick={()=>props.handleDelete(props.id)} color="secondary" className={classes.deleteIcon} />
       <div className={classes.addressContainer}>
         <div className={classes.row}>
-          <Typography gutterBottom className={classes.rowKey}>الإسم</Typography>
+          <Typography gutterBottom className={classes.rowKey}>{globalVariables.LABEL_NAME[globalVariables.LANG]}</Typography>
           <Typography gutterBottom className={classes.rowVal}>{props.name}</Typography>
         </div>
         <div className={classes.row}>
-          <Typography gutterBottom className={classes.rowKey}>العنوان</Typography>
+          <Typography gutterBottom className={classes.rowKey}>{globalVariables.LABEL_ADDRESS[globalVariables.LANG]}</Typography>
           <Typography gutterBottom className={classes.rowVal}>{props.address}</Typography>
         </div>
         <div className={classes.row}>
-          <Typography gutterBottom className={classes.rowKey}>الرقم</Typography>
+          <Typography gutterBottom className={classes.rowKey}>{globalVariables.LABEL_PHONE[globalVariables.LANG]}</Typography>
           <Typography gutterBottom className={classes.rowVal}>{props.phone}</Typography>
         </div>
       </div>
-      <Button size="small">تفاصيل</Button>
+      <Button size="small">{globalVariables.LABEL_DETAILS[globalVariables.LANG]}</Button>
     </Paper>
   );
 }

@@ -96,7 +96,11 @@ class Auth extends React.Component {
                                 onClick={this.handleSwitchAuth}
                             >   
                                 <OpenInNew style={{padding:"0px 10px"}}  /> 
-                                {(this.state.loginView)?"انشاء حساب":"تسجيل الدخول"}
+                                {
+                                (this.state.loginView)?
+                                    globalVariables.FORM_REGISTER_LABEL_TITLE[globalVariables.LANG] : 
+                                    globalVariables.FORM_LOGIN_LABEL_TITLE[globalVariables.LANG]
+                                }
                             </Button>
                         </Grid>
                     </Grid>

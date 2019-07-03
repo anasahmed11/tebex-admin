@@ -10,10 +10,11 @@ import {
     IconButton, 
     TextField
  } from '@material-ui/core';
- 
 import { DeleteForever } from '@material-ui/icons';
-
+ 
 import { addToCart } from '../../../store/actions/shoppingCart';
+
+import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     root: {
@@ -83,16 +84,16 @@ class ShopCartItem extends Component{
                         </Grid>
                         <Grid item>
                             <Typography gutterBottom variant='h6' className={classes.textSection}>
-                                البائع: <Link to={`shop/${product.store.id}`} className={classes.cleanLink}>{product.store.name}</Link>
+                                {globalVariables.LABEL_SELLER[globalVariables.LANG]}: <Link to={`shop/${product.store.id}`} className={classes.cleanLink}>{product.store.name}</Link>
                             </Typography>
                         </Grid>
                     </Grid>
 
                     <Grid item sm={3} xs={12}>
-                            <Typography gutterBottom variant='h6' className={classes.textSection}>سعر المنتج: {price} جنيه</Typography>
+                            <Typography gutterBottom variant='h6' className={classes.textSection}>{globalVariables.LABEL_PRODUCT_PRICE[globalVariables.LANG]}: {price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
                             <div style={{display: 'flex', alignItems: 'center'}}>
                             <Typography gutterBottom variant='h6' className={classes.textSection}>
-                                الكمية: 
+                                {globalVariables.LABEL_QUANTITY[globalVariables.LANG]}: 
                                 </Typography>
                                 {previewOnly? 
                                     <Typography gutterBottom variant='h6' className={classes.textSection}>
@@ -113,7 +114,7 @@ class ShopCartItem extends Component{
                                     </form>
                                 }
                             </div>
-                            <Typography gutterBottom variant='h6' className={classes.textSection}>الاجمالي: {quantity * price} جنيه</Typography>
+                            <Typography gutterBottom variant='h6' className={classes.textSection}>{globalVariables.CART_ORDER_TOTAL_PRICE[globalVariables.LANG]}: {quantity * price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
                     </Grid>  
                 </Grid>
 

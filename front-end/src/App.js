@@ -79,6 +79,7 @@ class App extends React.Component {
       
         <MuiThemeProvider theme = {this.theme}>
           <Navbar />
+          
           <Switch>
             <Route exact path = '/checkout' component = {Checkout} />
 

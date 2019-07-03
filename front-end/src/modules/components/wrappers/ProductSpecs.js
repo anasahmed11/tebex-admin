@@ -3,6 +3,8 @@ import 'typeface-roboto';
 import {withStyles, Grid, Typography,Divider} from '@material-ui/core';
 import ProductSpec from '../parts/SelectMenu';
 
+import globalVariables from '../../../global-variables';
+
 const styles = theme => ({
     root: {
       textAlign: 'initial',
@@ -43,11 +45,11 @@ function ProductSpecs(props){
     return (
         <Grid container className={classes.root}>
             <Grid item xs={12}>
-                <Typography component="h5" variant="h5" className={classes.salePrice}>{salePrice} جنيه</Typography>
+                <Typography component="h5" variant="h5" className={classes.salePrice}>{salePrice} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
             </Grid>
             <Grid item xs={12}>
-                <Typography component="h5" variant="h5" inline gutterBottom className={classes.price}>{price} جنيه</Typography>
-                <Typography component="h5" variant="h5" inline gutterBottom className={classes.priceSave}> - انت ستوفر {price-salePrice} جنيه</Typography>
+                <Typography component="h5" variant="h5" inline gutterBottom className={classes.price}>{price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
+                <Typography component="h5" variant="h5" inline gutterBottom className={classes.priceSave}> - انت ستوفر {price-salePrice} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
             </Grid>
             <Grid item xs={12} className={classes.divider}>
                 <Divider/>
@@ -74,14 +76,15 @@ function ProductSpecs(props){
                 <Grid item xs={12}>
                     <Divider/>
                 </Grid>
-                </React.Fragment>:null
-            }
+            
             <Grid item xs={12}>
-                <Typography gutterBottom variant="title" style={{fontSize: 15}} >الوصف</Typography>
+                <Typography gutterBottom variant="title" style={{fontSize: 15}} >{globalVariables.LABEL_DESCRIPTION[globalVariables.LANG]}</Typography>
             </Grid>
             <Grid item xs={12}>
                 <Typography gutterBottom variant="title" style={{fontSize: 17}} >{props.description}</Typography>
             </Grid>
+            </React.Fragment>:null
+            }
         </Grid>
 
     );

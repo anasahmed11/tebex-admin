@@ -17,6 +17,7 @@ import { locationAPI as axios, checkoutAPI } from '../../api/api';
 import { clearCart, cartStart, cartSuccess, cartFail, cartFinish } from '../../store/actions/shoppingCart';
 
 import CartEmpty from '../components/parts/CartEmpty'
+import globalVariables from '../../global-variables';
 
 
 const cookies = new Cookies();
@@ -46,7 +47,11 @@ const styles = theme => ({
 
 
 function getSteps() {
-    return ['عنوان الشحن', 'تاكيد عملية الشراء', 'شكرا'];
+    return [
+        globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG],
+        globalVariables.LABEL_PAYMENT[globalVariables.LANG],
+        globalVariables.LABEL_THANKS[globalVariables.LANG]
+    ];
 }
 
 
