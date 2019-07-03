@@ -11,10 +11,12 @@ import globalVariables from '../../../global-variables';
 const logo = 'logo-ar.png';
 
 const upperLinks = [
+  globalVariables.UPPERBAR_LANGUAGE[globalVariables.LANG],
   globalVariables.UPPERBAR_US[globalVariables.LANG],
   globalVariables.UPPERBAR_Q[globalVariables.LANG],
   globalVariables.UPPERBAR_MAGAZINE[globalVariables.LANG],
-  globalVariables.UPPERBAR_CALL_US[globalVariables.LANG]
+  globalVariables.UPPERBAR_CALL_US[globalVariables.LANG],
+  
   
   ];
 const bottomLinks = ['تسجيل دخول', 'اللغة', 'الهبد'];

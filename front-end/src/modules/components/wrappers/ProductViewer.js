@@ -23,7 +23,7 @@ const styles = theme => ({
     },
     slider:{
         position:'absolute',
-        margin:'50% 0',
+        top:'50%',
     },
     imagesParent:{
         maxWidth:'50px',

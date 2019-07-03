@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import uuid from 'uuid';
 import { locationAPI as axios } from '../../../api/api';
 
-
+import globalVariables from '../../../global-variables';
 const styles = theme => ({
     root: {
         margin:'auto'
@@ -129,7 +129,7 @@ class CheckoutForm extends React.Component{
                  <TextField
                      className={classes.margin}
                      id="outlined-first_name-input"
-                     label="الاسم الاول"
+                     label={globalVariables.FORM_ADDRESS_LABEL_FIRST_NAME[globalVariables.LANG]}
                      type="text"
                      /*error={this.state.emailError?true:false}
                      helperText={this.state.emailError}*/
@@ -146,7 +146,7 @@ class CheckoutForm extends React.Component{
                  <TextField
                      className={classes.margin}
                      id="outlined-last_name-input"
-                     label="الاسم الاخير"
+                     label={globalVariables.FORM_ADDRESS_LABEL_LAST_NAME[globalVariables.LANG]}
                      type="text"
                      /*error={this.state.emailError?true:false}
                      helperText={this.state.emailError}*/
@@ -166,7 +166,7 @@ class CheckoutForm extends React.Component{
                      className={classes.margin}
                      id="outlined-email-input"
                      select
-                     label="الدولة"
+                     label={globalVariables.FORM_ADDRESS_LABEL_COUNTRY[globalVariables.LANG]}
                      type="text"
                      
                      value={this.state.country}
@@ -191,7 +191,7 @@ class CheckoutForm extends React.Component{
                          className={classes.margin}
                          id="outlined-email-input"
                          select
-                         label="المدينة"
+                         label={globalVariables.FORM_ADDRESS_LABEL_CITY[globalVariables.LANG]}
                          type="text"
                          /*error={this.state.emailError?true:false}
                          helperText={this.state.emailError}*/
@@ -218,7 +218,7 @@ class CheckoutForm extends React.Component{
                          className={classes.margin}
                          id="outlined-email-input"
                          select
-                         label="المنطقة"
+                         label={globalVariables.FORM_ADDRESS_LABEL_AREA[globalVariables.LANG]}
                          type="text"
                          value={this.state.area}
                          onChange={this.handleChange('area')}
@@ -244,7 +244,7 @@ class CheckoutForm extends React.Component{
                  <TextField
                      className={classes.margin}
                      id="outlined-appartment-input"
-                     label="العنوان"
+                     label={globalVariables.FORM_ADDRESS_LABEL_ADDRESS[globalVariables.LANG]}
                      type="text"
                      
                      value={this.state.address}
@@ -261,7 +261,7 @@ class CheckoutForm extends React.Component{
                  <TextField
                      className={classes.margin}
                      id="outlined-appartment-input"
-                     label="علامة مميزة"
+                     label={globalVariables.FORM_ADDRESS_LABEL_LAND_MARK[globalVariables.LANG]}
                      type="text"
                      /*error={this.state.emailError?true:false}
                      helperText={this.state.emailError}*/
@@ -279,7 +279,7 @@ class CheckoutForm extends React.Component{
                  <TextField
                      className={classes.margin}
                      id="outlined-appartment-input"
-                     label="رقم الهاتف"
+                     label={globalVariables.FORM_ADDRESS_LABEL_PHONE[globalVariables.LANG]}
                      type="text"
                      /*error={this.state.emailError?true:false}
                      helperText={this.state.emailError}*/
@@ -296,7 +296,7 @@ class CheckoutForm extends React.Component{
                  <TextField
                      className={classes.margin}
                      id="outlined-email-input"
-                     label="البريد الالكتروني"
+                     label={globalVariables.FORM_ADDRESS_LABEL_EMAIL[globalVariables.LANG]}
                      type="email"
                      /*error={this.state.emailError?true:false}
                      helperText={this.state.emailError}*/
@@ -314,7 +314,7 @@ class CheckoutForm extends React.Component{
                  <TextField
                      className={classes.margin}
                      id="outlined-notes-input"
-                     label="ملاحظة"
+                     label={globalVariables.FORM_ADDRESS_LABEL_NOTE[globalVariables.LANG]}
                      type="text"
                      /*error={this.state.emailError?true:false}
                      helperText={this.state.emailError}*/
@@ -339,13 +339,13 @@ class CheckoutForm extends React.Component{
         </DialogContent>
         <DialogActions>
           <Button onClick={this.props.onClose} color="primary">
-            رجوع
+          {globalVariables.FORM_ADDRESS_LABEL_BACK[globalVariables.LANG]}
           </Button>
           <Button
             onClick={() => this.handleCreateAddress(this.props.formAction)}
             color="primary"
             >
-            موافق
+            {globalVariables.FORM_ADDRESS_LABEL_OK[globalVariables.LANG]}
           </Button>
         </DialogActions>
       </Dialog>

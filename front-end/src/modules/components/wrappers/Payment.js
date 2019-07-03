@@ -1,16 +1,16 @@
 import React from 'react';
 import { Typography, withStyles, Grid, Button,  } from '@material-ui/core';
-import CheckoutSummary from '../parts/CheckoutSummary';
-import AddressSummary from '../parts/AddressSummary';
 import 'typeface-roboto';
 
-const styles = theme => ({
+import AddressSummary from '../parts/AddressSummary';
+import CheckoutSummary from '../parts/CheckoutSummary';
 
+import globalVariables from '../../../global-variables';
+
+const styles = theme => ({
     root:{
         padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 1}px`,
-    },
-
-       
+    },    
 });
 
 
@@ -30,7 +30,7 @@ class Payment extends React.Component{
         return(
             <React.Fragment>
                 <Grid item xs={12} >
-                    <Typography inline gutterBottom component='h2' variant='h5'>الدفع</Typography>
+                    <Typography inline gutterBottom component='h2' variant='h5'>{globalVariables.LABEL_PAYMENT[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 <Grid item xs={12}>
@@ -50,10 +50,10 @@ class Payment extends React.Component{
                             
                         
                         <Button color='primary' variant='contained' style={{margin:'10px'}} onClick={this.props.handleNextButton}>
-                            شراء
+                            {globalVariables.LABEL_BUY[globalVariables.LANG]}
                         </Button>     
                         <Button color='secondary' variant='contained' disabled={this.props.stepIndex===0} style={{margin:'10px'}} onClick={this.props.handleBackButton}>
-                            السابق
+                            {globalVariables.LABEL_PREVIOUS[globalVariables.LANG]}
                         </Button>   
                         
                     </Grid>
