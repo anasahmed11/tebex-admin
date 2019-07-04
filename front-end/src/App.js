@@ -85,6 +85,7 @@ class App extends React.Component {
             <Route exact path = '/home' component = {Home}/>
             <Route exact path = '/product/:id' component = {Product}/>
             <Route exact path = '/shop' component = {Shop}/>
+            <Route exact path = '/shop/:slug' component = {Shop}/>
             <Route exact path = '/auth' render = {props =>authenticated?<Redirect to = '/profile'/>:<Auth {...props} />} /> 
 						<Route exact path = '/verify/:id' component = {Verify}/>
             <Route exact path = '/cart' component = {Cart}/>

@@ -9,7 +9,7 @@ import CategoriesList from "../parts/CategoriesList";
 import ProductCard from "../parts/ProductCard";
 import SelectMenu from "../parts/SelectMenu";
 
-import { productsAPI as axios } from '../../../api/api';
+import { productsAPI, categoryAPI } from '../../../api/api';
 
 import {connect} from 'react-redux';
 import { withRouter} from 'react-router-dom';
@@ -43,29 +43,64 @@ class Store extends Component {
     }
 
     componentDidMount(){
-        
-        axios.get('/')
+        let categories = [];
+        categoryAPI.get('/')
         .then(res => {
-            const { products } = this.state;
-            for (let item of res.data){
-              // First image for this product
-              let link = item.images[0];
-              products.push({
-                id: item.id,
-                img: link,
-                link: item.slug,
-                title: item.name,
-                price: item.price,
-                salePrice: item.sale_price,
-              });
+            let cats = res.data[0].children;
+            for(let cat of cats){
+              const sublinks = []
+              for(let subcat of cat.children){
+                sublinks.push(subcat.name);
+              }
+              if(cat.slug === this.props.match.params.slug)
+                this.setState({
+                    categoryID: cat.id
+                })
+              categories.push({
+                title: cat.name,
+                subtitle: cat.name,
+                slug: cat.slug,
+                links: {
+                  'عنوان': sublinks,
+                }
+              })
             }
             this.setState({
-              products: products,
+              categories: categories,
+            });
+            let cat = this.state.categoryID + '/products' || '';
+            categoryAPI.get(`/${cat}`)
+            .then(res => {
+                const { products } = this.state;
+                for (let item of res.data){
+                // First image for this product
+                    let link = item.images[0];
+                    products.push({
+                        id: item.id,
+                        img: link,
+                        link: item.slug,
+                        title: item.name,
+                        price: item.price,
+                        salePrice: item.sale_price,
+                    });
+                }
+                this.setState({
+                    products: products,
+                })
+            })
+            .catch(res => {
+                console.log('SHOP ERR', res)
+            }) 
+            categoryAPI.get(`/${this.state.categoryID}/specs`)
+            .then(res => {
+                this.setState({
+                    catSpecs: res.data
+                })
             })
         })
         .catch(res => {
             console.log(res)
-        })   
+        })
     }
 
     render(){
@@ -106,7 +141,7 @@ class Store extends Component {
 
     return <Grid container className={classes.root}>
                 <Grid md={3} sm={12}>
-                    <CategoriesList />
+                    <CategoriesList catSpecs={this.state.catSpecs} />
                 </Grid>
                 <Grid md={9} sm={12}>
                     <SelectMenu />

@@ -35,10 +35,6 @@ class InteractiveList extends React.Component {
   state = {
     dense: true,
     secondary: false,
-    filters: [
-      {'name': 'اللون', 'values': ['ازرق', 'اسود ومهبب', 'مطين']},
-      {'name': 'القمودية', 'values': ['قمد', 'تفتيس', 'شبح']}
-    ],
     checked: [1],
   };
 
@@ -60,7 +56,8 @@ class InteractiveList extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { dense, secondary, filters } = this.state;
+    const filters = this.props.catSpecs;
+    const { dense, secondary } = this.state;
 
     return (
       <div className={classes.root}>
@@ -69,12 +66,12 @@ class InteractiveList extends React.Component {
                 انواع
             </Typography>
         </div>*/}
-        <div className={classes.demo}>
+        {filters? <div className={classes.demo}>
             <List dense={dense}>
               {filters.map((filter) =>
                 <React.Fragment>
                   <Typography className={classes.filterTitle} variant="subheading">{filter.name}</Typography>
-                  {filter.values.map((value, idx) =>
+                  {filter.values['ar'].map((value, idx) =>
                     <ListItem button key={uuid()}>
                       <ListItemText
                           primary={value}
@@ -92,6 +89,7 @@ class InteractiveList extends React.Component {
                 )}
             </List>
         </div>
+        : null}
       </div>
     );
   }

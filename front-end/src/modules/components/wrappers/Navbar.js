@@ -5,7 +5,7 @@ import Drawer from '../parts/MobileDrawer';
 import SupportNavbar from '../parts/AboveAppBar';
 import BelowAppBar from '../parts/BelowAppBar';
 
-import { categoryAPI as axios } from '../../../api/api';
+import { categoryAPI } from '../../../api/api';
 
 const logo = 'logo-ar.png';
 
@@ -36,7 +36,7 @@ class Navbar extends Component {
   }
 
   componentDidMount(){
-    axios.get('/')
+    categoryAPI.get('/')
     .then(res => {
         let { categories } = this.state;
         let cats = res.data[0].children;
