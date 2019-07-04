@@ -17,6 +17,7 @@ import { locationAPI as axios, checkoutAPI } from '../../api/api';
 import { clearCart, cartStart, cartSuccess, cartFail, cartFinish } from '../../store/actions/shoppingCart';
 
 import CartEmpty from '../components/parts/CartEmpty'
+import globalVariables from '../../global-variables';
 
 
 const cookies = new Cookies();
@@ -46,19 +47,23 @@ const styles = theme => ({
 
 
 function getSteps() {
-    return ['عنوان الشحن', 'تاكيد عملية الشراء', 'شكرا'];
+    return [
+        globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG],
+        globalVariables.LABEL_PAYMENT[globalVariables.LANG],
+        globalVariables.LABEL_THANKS[globalVariables.LANG]
+    ];
 }
 
 
 function ThanXPage(props){
-    //console.log(props.trackOrder)
+    
     return(
         
         <Grid container justify="center" alignItems="center" spacing={16} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
             <Grid item xs={11}>
-                <Typography variant="h4" gutterBottom>لقد تمت عملية الشراء بنجاح!</Typography>
+                <Typography variant="h4" gutterBottom>{globalVariables.CHECKOUT_THANKS_STATUS[globalVariables.LANG]}</Typography>
                 <Typography variant="h6">
-                    شكرا لثقتكم بنا, يمكنك متابعة حالة طلبك من <Link to={props.trackOrder}>هنا</Link>
+                   {globalVariables.CHECKOUT_THANKS_REDIRECT[globalVariables.LANG]} <Link to={props.trackOrder}>{globalVariables.LABEL_HERE[globalVariables.LANG]}</Link>
                 </Typography>
             
                 <img className="slider-moving-animation" src="https://cnnh.org/wp-content/uploads/2017/02/moving2348563724.jpg" alt="order dlivery"/>
@@ -123,7 +128,6 @@ class Checkout extends React.Component{
         })
         .catch(res=>{
             alert("عنوانك غير مدعوم في الشحن")
-            console.log(res)
         })
 
         
@@ -140,7 +144,11 @@ class Checkout extends React.Component{
                 products.push(data)
             })
 
-            const data ={address:this.state.address.id,products:products}
+            const data = {
+                    address: this.state.address.id,
+                    products: products,
+                    token: this.state.address._token    
+                }
             
             checkoutAPI.post('',data)
             .then(res=>{
@@ -154,7 +162,6 @@ class Checkout extends React.Component{
             .catch(res=>{
                 this.props.handleCartFail("فشل في تنفيذ العملية")
                 this.setState({isLoading:false})
-                console.log(res)
             })
         }
         

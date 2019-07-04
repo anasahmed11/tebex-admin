@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
 import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
+
+import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
 
 import { registerUser } from '../../../store/actions/auth';
 
@@ -33,6 +35,7 @@ class Register extends React.Component{
         lastName: '',
         lastNameError: '',
         gender: 'M',
+        phone:"",
         birthday: '2000-01-01',
     }
 
@@ -99,21 +102,23 @@ class Register extends React.Component{
 
     render(){
         const {classes} = this.props;
+
+        const { email, phone, first_name, last_name, password  } = this.props.registerErrors;
         return(
             <Grid container justify = 'center'>
                 <Grid item xs = {12} className = {classes.paddingTop}>
-                    <Typography component = "h6" variant = "h6" gutterBottom> انشاء حساب</Typography>
+                    <Typography component = "h6" variant = "h6" gutterBottom>{globalVariables.FORM_REGISTER_LABEL_TITLE[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
                         id = "register-email"
-                        label = "البريد الالكتروني"
+                        label = {globalVariables.FORM_REGISTER_LABEL_EMAIL[globalVariables.LANG]}
                         type = "email"
                         autoComplete = "email"
-                        error = {this.state.emailError?true:false}
-                        helperText = {this.state.emailError}
+                        error = {(this.state.emailError || email)?true:false}
+                        helperText = {this.state.emailError || email}
                         value = {this.state.email}
                         onChange = {this.handleChange('email')}
                         required
@@ -128,11 +133,11 @@ class Register extends React.Component{
                         id = "register-password"
                         value = {this.state.password}
                         required
-                        label = "كلمة السر"
+                        label = {globalVariables.FORM_REGISTER_LABEL_PASSWORD[globalVariables.LANG]}
                         type = "password"
                         autoComplete = "current-password"
-                        error = {this.state.passError?true:false}
-                        helperText = {this.state.passError}
+                        error = {this.state.passError || password?true:false}
+                        helperText = {this.state.passError || password}
                         onChange = {this.handleChange('password')}
                         InputLabelProps = {{
                             shrink: true,
@@ -144,12 +149,12 @@ class Register extends React.Component{
                     <TextField
                         className = {classes.margin}
                         id = "register-firstname"
-                        label = " الاسم الاول"
+                        label = {globalVariables.FORM_REGISTER_LABEL_FIRST_NAME[globalVariables.LANG]}
                         value = {this.state.firstName}
                         onChange = {this.handleChange('firstName')}
                         required
-                        error = {this.state.firstNameError?true:false}
-                        helperText = {this.state.firstNameError}
+                        error = {this.state.firstNameError || first_name?true:false}
+                        helperText = {this.state.firstNameError || first_name}
                         InputLabelProps = {{
                             shrink: true,
                         }}
@@ -160,12 +165,12 @@ class Register extends React.Component{
                     <TextField
                         className = {classes.margin}
                         id = "register-lastname"
-                        label = "الاسم الاخير"
+                        label = {globalVariables.FORM_REGISTER_LABEL_LAST_NAME[globalVariables.LANG]}
                         value = {this.state.lastName}
                         onChange = {this.handleChange('lastName')}
                         required
-                        error = {this.state.lastNameError?true:false}
-                        helperText = {this.state.lastNameError}
+                        error = {this.state.lastNameError || last_name?true:false}
+                        helperText = {this.state.lastNameError || last_name}
                         InputLabelProps = {{
                             shrink: true,
                         }}
@@ -174,13 +179,12 @@ class Register extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         id = "register-phone"
-                        label = "رقم الهاتف"
+                        label = {globalVariables.FORM_REGISTER_LABEL_PHONE[globalVariables.LANG]}
                         value = {this.state.phone}
                         onChange = {this.handleChange('phone')}
-                        type = "number"
                         className = {classes.margin}
-                        error = {this.state.phoneError?true:false}
-                        helperText = {this.state.phoneError}
+                        error = {this.state.phoneError || phone?true:false}
+                        helperText = {this.state.phoneError || phone}
                         required
                         InputLabelProps = {{
                             shrink: true,
@@ -192,7 +196,7 @@ class Register extends React.Component{
                     <TextField
                         id = "register-sex"
                         select
-                        label = "الجنس"
+                        label = {globalVariables.FORM_REGISTER_LABEL_SEX[globalVariables.LANG]}
                         className = {classes.textField}
                         value = {this.state.gender}
                         onChange = {this.handleChange('gender')}
@@ -208,7 +212,7 @@ class Register extends React.Component{
                     </TextField>
                     <TextField
                         id = "register-birthdate"
-                        label = "Birthday"
+                        label = {globalVariables.FORM_REGISTER_LABEL_BIRTHDAY[globalVariables.LANG]}
                         type = "date"
                         value = {this.state.birthday}
                         className = {classes.margin}
@@ -227,14 +231,22 @@ class Register extends React.Component{
                         className = {classes.button} 
                         onClick = {this.handleRegister}
                     >
-                        تسجيل الحساب
+                        {globalVariables.FORM_REGISTER_LABEL_REGISTER[globalVariables.LANG]}
                     </Button>
                 </Grid>
             
                 
             </Grid>
-        );
+        );  
 
+    }
+}
+
+
+const mapStateToProps = state => {
+    return {
+        registerErrors: state.auth.registerErrors,
+        
     }
 }
 
@@ -244,4 +256,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(Register));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Register));

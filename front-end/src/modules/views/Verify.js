@@ -1,26 +1,27 @@
 import React from 'react';
-import Cookies from 'universal-cookie';
 import {connect} from 'react-redux';
-import {verifyAPI as axios} from '../../api/api';
+
+
 import { withStyles, Grid, Typography, LinearProgress, Snackbar   } from '@material-ui/core';
+
+import {verifyAPI as axios, resendAPI} from '../../api/api';
+
 import MySnackbar from '../components/parts/MySnackbar'
 
-
-const cookies = new Cookies();
 
 const styles = theme => ({
     root: {
         padding: `${theme.spacing.unit * 4}px 0px`,
            
         alignItems: 'center',
-        position:'relative',
+        position: 'relative',
     },
-    item:{
+    item: {
         padding: theme.spacing.unit * 2,
         padding: theme.spacing.unit * 2,   
     },
-    paddingTop:{
-        padding:'10px 0px'
+    paddingTop: {
+        padding: '10px 0px'
     },  
 });
 
@@ -28,47 +29,48 @@ const styles = theme => ({
 class Verify extends React.Component{
 
     state = {
-        isLoading:true,
-        message:"",
-        isPopup:false,
-        messageType:"",
-        serverMessage:"",
+        isLoading: true,
+        message: "",
+        isPopup: false,
+        messageType: "",
+        serverMessage: "",
     }
 
     componentDidMount(){
-        
+        console.log(`${this.props.match.params.id}${this.props.location.search}`)
         axios.get(`${this.props.match.params.id}${this.props.location.search}`)
         .then(res => {
             this.setState({
-                isLoading:false,
-                message:"شكرا على ثقتكم بنا, يمكنك الان التصفح وشراء منتجاتنا. تحويل ...",
-                messageType:"success",
-                isPopup:true,
-                serverMessage:"Email Verified Successfully",
+                isLoading: false,
+                message: "شكرا على ثقتكم بنا, يمكنك الان التصفح وشراء منتجاتنا. تحويل ...",
+                messageType: "success",
+                isPopup: true,
+                serverMessage: "Email Verified Successfully",
             })
-            setTimeout(()=>{this.props.history.push(this.props.redirectPath,{pathname:'http://localhost:3000'});},3000)
+            setTimeout(()=>{this.props.history.push(this.props.redirectPath,{pathname: 'http://localhost:3000'});},3000)
         })
         .catch(err=>{
+            resendAPI.get('')
             this.setState({
-                isLoading:false,
-                message:"تم ارسال كود تفعيل جديد للحساب, يرجى تفعيل الحساب في غضون 24 ساعة",
-                messageType:"error",
-                isPopup:true,
-                serverMessage:"Email Verification Failed"
+                isLoading: false,
+                message: "تم ارسال كود تفعيل جديد للحساب, يرجى تفعيل الحساب في غضون 24 ساعة",
+                messageType: "error",
+                isPopup: true,
+                serverMessage: "Email Verification Failed"
             })
         })
     }
 
     handlePopupClose = () => {
-        this.setState({isPopup:false})
+        this.setState({isPopup: false})
     }
 
     render(){
 
         const {classes} = this.props
-        const [text,progressPar] = this.state.isLoading? ["تحميل ...",<LinearProgress />]:[this.state.message,""]
+        const [text,progressPar] = this.state.isLoading? ["تحميل ...",<LinearProgress />] : [this.state.message,""]
         const snack =   <Snackbar
-                            style={{direction:'ltr', bottom:'50px'}}   
+                            style={{direction: 'ltr', bottom: '50px'}}   
                             anchorOrigin={{
                                 vertical: 'bottom',
                                 horizontal: 'center',
@@ -96,7 +98,7 @@ class Verify extends React.Component{
                             <Typography component="h2" variant="h4" gutterBottom>تفعيل الحساب</Typography>
                         </Grid>
                     </Grid>
-                    <Grid container justify='flex-start' className={classes.item} style={{minHeight:'200px'}}>
+                    <Grid container justify='flex-start' className={classes.item} style={{minHeight: '200px'}}>
                         <Grid item  md={12} sm={12}>
                             <Typography component="h2" variant="h6" gutterBottom>{text}</Typography>
                         </Grid>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, withStyles, Grid,   } from '@material-ui/core';
+import globalVariables from '../../../global-variables';
 
 
 const styles = theme => ({
@@ -36,7 +37,7 @@ function CheckoutSummary(props){
             <Grid item xs={11}>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Typography gutterBottom component='h1' variant='h5' className={classes.textHeader}>العنوان</Typography>
+                        <Typography gutterBottom component='h1' variant='h5' className={classes.textHeader}>{globalVariables.LABEL_ADDRESS[globalVariables.LANG]}</Typography>
                     </Grid>
                     
                 </Grid>
@@ -45,7 +46,7 @@ function CheckoutSummary(props){
             <Grid item xs={11}>
                 <Grid container>
                     <Grid item xs={4}>
-                        <Typography component='h1' variant='h6' className={classes.textHead}>الاسم</Typography>
+                        <Typography component='h1' variant='h6' className={classes.textHead}>{globalVariables.LABEL_NAME[globalVariables.LANG]}</Typography>
                     </Grid>
                     <Grid item xs={8}> 
                         <Typography component='h1' variant='h6' className={classes.textSection}>{address.first_name+' '+address.last_name}</Typography>
@@ -56,7 +57,7 @@ function CheckoutSummary(props){
             <Grid item xs={11}>
                 <Grid container>
                     <Grid item xs={4}>
-                        <Typography component='h1' variant='h6' className={classes.textHead}>العنوان</Typography>
+                        <Typography component='h1' variant='h6' className={classes.textHead}>{globalVariables.LABEL_ADDRESS[[globalVariables.LANG]]}</Typography>
                     </Grid>
                     <Grid item xs={8}> 
                         <Typography gutterBottom component='h1' variant='h6' className={classes.textSection}>{'Egypt' + ', ' + addressName + ', ' + address.address}</Typography>
@@ -67,7 +68,7 @@ function CheckoutSummary(props){
             <Grid item xs={11}>
                 <Grid container>
                     <Grid item xs={4}>
-                        <Typography component='h1' variant='h6' className={classes.textHead}>موبايل</Typography>
+                        <Typography component='h1' variant='h6' className={classes.textHead}>{globalVariables.LABEL_PHONE[globalVariables.LANG]}</Typography>
                     </Grid>
                     <Grid item xs={8}> 
                         <Typography gutterBottom component='h1' variant='h6' className={classes.textSection}>{address.phone}</Typography>

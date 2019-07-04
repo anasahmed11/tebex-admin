@@ -58,16 +58,17 @@ const registerSuccess = (access_token) => {
     };
 };
 
-const registerFailed = (error) =>{
+const registerFailed = (error,registerErrors=[]) =>{
     return {
         type: actionTypes.REG_FAIL,
-        error: error
+        error: error,
+        registerErrors: registerErrors
     };
 };
 
 export const registerUser = (data) => {
     return dispatch => {
-
+        console.log(data)
         dispatch(authStart());
 
         axios.post('register', data)
@@ -77,9 +78,8 @@ export const registerUser = (data) => {
             dispatch(registerSuccess(res.data.access_token));
         })
         .catch(error => {
-
-            if (error.response)dispatch(registerFailed(error.response.data.message));
-            else if (error.request) dispatch(registerFailed(globalVariables.MSG_NETWORK_ERROR));
+            if (error.response) dispatch(registerFailed(error.response.data.message, error.response.data.errors));
+            else if (error.request) dispatch(registerFailed(globalVariables.MSG_NETWORK_ERROR[globalVariables.LANG]));
             else console.log('Error', error.message);
            
         })
@@ -100,6 +100,7 @@ const logoutFail = () => {
 }
 
 export const logoutUser = () => {
+    
     return dispatch => {
 
         axios.get('logout')

@@ -8,6 +8,8 @@ import 'typeface-roboto';
 
 import { deleteFromCart, cartFinish } from '../../store/actions/shoppingCart';
 
+import globalVariables from '../../global-variables';
+
 import CartEmpty from '../components/parts/CartEmpty'
 import MySnackbar from '../components/parts/MySnackbar'
 import CheckoutSummary from '../components/parts/CheckoutSummary';
@@ -53,8 +55,8 @@ class Cart extends React.Component{
                 <Grid item md={10} sm={10} xs={11}>
                     <Grid container justify="center">
                         <Grid item xs={12} className={classes.root2} style={{backgroundColor:'transparent'}}>
-                            <Typography inline gutterBottom component='h2' variant='h5'>عربة التسوق</Typography>
-                            <Typography inline component='h2' variant='caption' style={{color:'gray'}}> ({totalItems} منتج)</Typography>
+                            <Typography inline gutterBottom component='h2' variant='h5'>{globalVariables.CART_TITLE[globalVariables.LANG]}</Typography>
+                            <Typography inline component='h2' variant='caption' style={{color:'gray'}}> ({totalItems} {globalVariables.LABEL_PRODUCT[globalVariables.LANG]})</Typography>
                         </Grid>
                         <Grid item xs={12} className={classes.root2}>
                             {isLoading?
@@ -82,7 +84,7 @@ class Cart extends React.Component{
                                 <Grid item md={4} xs={10} style={{padding:'0px 4px'}}>
                                     <CheckoutSummary totalPrice={totalPrice}/>    
                                     <Grid container justify="center" alignItems="center" className={classes.checkoutButton}>
-                                        <Button color='primary' variant='contained' disabled={totalItems===0} fullWidth component={Link} to="/checkout">متابعة عملية الشراء</Button>                                    
+                                        <Button color='primary' variant='contained' disabled={totalItems===0} fullWidth component={Link} to="/checkout">{globalVariables.CART_CHECKOUT[globalVariables.LANG]}</Button>                                    
                                     </Grid>
                                 </Grid>
                             </Grid>

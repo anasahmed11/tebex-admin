@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route, Link } from 'react-router-dom';
 
-import { Grid, withStyles, Menu, Badge, IconButton, AppBar, MenuItem } from '@material-ui/core';
-import {Menu as MenuIcon, Mail as MailIcon, AccountCircle} from '@material-ui/icons';
-import {  Route, Link } from 'react-router-dom';
+import { Grid, withStyles, Menu, IconButton, AppBar, MenuItem } from '@material-ui/core';
+import {Menu as MenuIcon, AccountCircle} from '@material-ui/icons';
 
 import CartIcon from './CartIcon'
 import Cookies from 'universal-cookie';
 
 import SettingsSection from './SettingsSection';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-
 import ProfileAvatar from './ProfileAvatar';
-
 import SearchBar from './SearchBar';
+
+
+import globalVariables from '../../../global-variables';
 
 
 
@@ -80,6 +80,18 @@ const styles = theme => ({
   grow: {
     flexGrow: 1,
   },
+  link:{
+    textDecoration:'none'
+  },
+  menuItem: {
+    textAlign:'inherit',
+    '&:focus': {
+        backgroundColor: theme.palette.primary.main,
+        '& $primary, & $icon': {
+            color: theme.palette.common.white,
+        },
+    },
+  },
 });
 
 class PrimarySearchAppBar extends React.Component {
@@ -136,9 +148,11 @@ class PrimarySearchAppBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem>
-          تسجيل الدخول
-        </MenuItem>
+        <Link to="/auth" className={classes.link}> 
+          <MenuItem className={classes.menuItem}>
+            {globalVariables.SETTINGS_SECTION_LOGIN[globalVariables.LANG]}
+          </MenuItem>
+        </Link>
       </Menu>
     );
 
@@ -151,7 +165,7 @@ class PrimarySearchAppBar extends React.Component {
               </div>
             </div>
             <div className={classes.searchBar}>
-              <SearchBar placeholder='ابحث..' searchIcon />
+              <SearchBar placeholder={globalVariables.APPBAR_SEARCH[globalVariables.LANG]} searchIcon />
             </div>
             <div className={classes.sectionDesktop}>
               <div style={{
@@ -161,7 +175,7 @@ class PrimarySearchAppBar extends React.Component {
                   justifyContent: 'flex-end',
                   alignItems: 'center',
                 }}>
-              <Link to="/shop" className={classes.appBarLink} onMouseEnter={this.handleCategoriesList}>تسوق</Link>
+              <Link to="/shop" className={classes.appBarLink} onMouseEnter={this.handleCategoriesList}>{globalVariables.APPBAR_SHOP[globalVariables.LANG]}</Link>
               <Route component={CartIcon} />
               
               

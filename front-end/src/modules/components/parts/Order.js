@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import SelectMenu from "./SelectMenu";
 import ShopCartItem from "./ShopCartItem";
 import Stepper from "./Stepper";
+import globalVariables from '../../../global-variables';
 
 
 
@@ -52,15 +53,15 @@ function Order(props){
         <Grid component={Paper} container className={classes.root} justify='center' xs={12}>
                         
             <Grid item className={classes.orderInfoSection} xs={12}>
-                <Typography gutterBottom className={classes.orderInfoItem}>رقم الطلب: #{order.id}</Typography>
-                <Typography gutterBottom className={classes.orderInfoItem}>تاريخ الطلب: {order.created_at}</Typography>
-                <Typography gutterBottom className={classes.orderInfoItem}>المشتري: {order.address.first_name +' '+ order.address.last_name}</Typography>
-                <Typography gutterBottom className={classes.orderInfoItem}>حالة الطلب: {order.status}</Typography>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_NUMBER[globalVariables.LANG]}: #{order.id}</Typography>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_DATE[globalVariables.LANG]}: {order.created_at}</Typography>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_RECIPIENT[[globalVariables.LANG]]}: {order.address.first_name +' '+ order.address.last_name}</Typography>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_STATUS[[globalVariables.LANG]]}: {order.status}</Typography>
                 <Typography gutterBottom className={classes.orderInfoItem}>
-                    اجمالي السعر: {order.products.reduce((total, product) => total + product.price * product.quantity, 0) + order.shipping_fees}
+                    {globalVariables.TRACK_OREDER_TOTAL_PRICE[globalVariables.LANG]}: {order.products.reduce((total, product) => total + product.price * product.quantity, 0) + order.shipping_fees}
                 </Typography>
                 <Typography gutterBottom className={classes.orderInfoItem}>
-                    <Link to={`orders/${order.id}`}>تفاصيل الطلب</Link>
+                    <Link to={`orders/${order.id}`}>{globalVariables.TRACK_OREDER_DETAIL[globalVariables.LANG]}</Link>
                 </Typography>
             </Grid>
             

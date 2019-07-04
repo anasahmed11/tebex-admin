@@ -10,6 +10,7 @@ import { ClipLoader } from 'react-spinners';
 
 
 import 'typeface-roboto';
+import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     
@@ -40,7 +41,6 @@ class CheckoutAddress extends React.Component{
         })
         .catch(res => {
             this.setState({isLoading:false})
-            console.log(res)
         })
         
     }
@@ -93,7 +93,7 @@ class CheckoutAddress extends React.Component{
         return(
             <React.Fragment>
                 <Grid item xs={12}>
-                    <Typography inline gutterBottom component='h2' variant='h5'>عنوان الشحن</Typography>
+                    <Typography inline gutterBottom component='h2' variant='h5'>{globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 {isLoading?
@@ -123,22 +123,22 @@ class CheckoutAddress extends React.Component{
                                 handleDelete={this.handleDelete}
                             />
                         )}
-                        <ButtonCard onClick={this.addAddressDialogToggle} text={"+ اضافة عنوان جديد"} />
+                        <ButtonCard onClick={this.addAddressDialogToggle} text={"+ "+ globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG ]} />
                     </Grid>
                     
                         <CheckoutForm
                             open={this.state.addForm}
-                            title={"إضافة عنوان جديد"}
+                            title={globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]}
                             onClose={this.addAddressDialogToggle.bind(this)}
                             formAction={this.formActionHandler.bind(this)}
                         />
                         
                         
                         <Button color='primary' variant='contained' style={{margin:'10px'}} onClick={() => this.handleNextButton(this.props.handleNextButton)}>
-                            التالي
+                            {globalVariables.LABEL_NEXT[globalVariables.LANG]}
                         </Button>     
                         <Button color='secondary' disabled variant='contained' style={{margin:'10px'}}>
-                            السابق
+                            {globalVariables.LABEL_PREVIOUS[globalVariables.LANG]}
                         </Button>   
                         
                     </Grid>

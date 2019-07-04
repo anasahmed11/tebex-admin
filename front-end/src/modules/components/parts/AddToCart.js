@@ -1,12 +1,13 @@
 import {withStyles, Grid, Typography, Divider, TextField, Button } from '@material-ui/core';
 import React from 'react';
-import 'typeface-roboto';
 import { withRouter, Link } from 'react-router-dom';
+import 'typeface-roboto';
 
 import { ClipLoader } from 'react-spinners';
 
+import { locationAPI,  } from '../../../api/api';
 
-import { locationAPI,  } from '../../../api/api'
+import globalVariables from '../../../global-variables';
 
 const styles= theme => ({
     root:{
@@ -75,7 +76,7 @@ class AddToCart extends React.Component{
         .catch(res=>{
             this.setState({
                 shipping: {
-                    message:'هذه المنطقة غير مدعومة في الشحن'
+                    message: globalVariables.PRODUCT_SHIPPING_STATUS[globalVariables.LANG]
                 },
                 isLoading: false,
             })
@@ -111,7 +112,7 @@ class AddToCart extends React.Component{
                 
                 <Grid container alignItems="center" xs={12} className={classes.padding}>
                     <Grid item>
-                        <Typography variant="h6" inline className={classes.ship} > الشحن الى:</Typography>
+                        <Typography variant="h6" inline className={classes.ship} >{globalVariables.LABEL_SHIPPING_TO[globalVariables.LANG]}</Typography>
                     </Grid>
                     <Grid item>
                         <b>
@@ -149,7 +150,7 @@ class AddToCart extends React.Component{
                 <React.Fragment>
                 <Grid container xs={12} className={classes.padding}>
                     <Grid item xs={6}>
-                        <Typography variant="h6" inline className={classes.ship} > السعر: {this.state.shipping.fees} جنيه </Typography>
+                        <Typography variant="h6" inline className={classes.ship} > {globalVariables.LABEL_PRICE[globalVariables.LANG]}: {this.state.shipping.fees} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]} </Typography>
                     </Grid>
                     <Grid item xs={6}>
                         <Typography variant="h6" inline className={classes.ship} > يصل في: {this.state.shipping.min_days} - {this.state.shipping.max_days} ايام </Typography>
@@ -162,7 +163,7 @@ class AddToCart extends React.Component{
                 <Grid container xs={12} className={classes.padding}>
                     <Grid item xs={6}>
                         <Typography variant="h6" inline className={classes.ship} >
-                             البائع: 
+                            {globalVariables.LABEL_SELLER[globalVariables.LANG]}
                             <Link to={`/store/${store.id}`} className={classes.cleanLink}>
                                 {' ' + store.name}
                             </Link> 
@@ -173,7 +174,7 @@ class AddToCart extends React.Component{
 
                 <Grid container xs={12} alignItems="center" className={classes.padding}>
                     <Grid item >
-                        <Typography variant="h6" inline className={classes.ship} > الكمية: </Typography>
+                        <Typography variant="h6" inline className={classes.ship} > {globalVariables.LABEL_QUANTITY[globalVariables.LANG]} </Typography>
                     </Grid>
                     <Grid item >                    
                         <form style={{display:'inline'}}>
@@ -209,7 +210,7 @@ class AddToCart extends React.Component{
                         disabled={QUANTITIES.length===0}
                         onClick={()=>this.props.addToCart(this.state.quantity)}
                     > 
-                        اضف الى العربة      
+                        {globalVariables.CART_ADD[globalVariables.LANG]}      
                     </Button>               
                 </Grid>
                 

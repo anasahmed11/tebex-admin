@@ -79,6 +79,7 @@ class App extends React.Component {
       
         <MuiThemeProvider theme = {this.theme}>
           <Navbar />
+          
           <Switch>
             <Route exact path = '/checkout' component = {Checkout} />
 
@@ -91,7 +92,7 @@ class App extends React.Component {
             <Route exact path = '/cart' component = {Cart}/>
             <Route exact path = "/(profile|dashboard|tree|linkgenerator|orders)/"  render = {props =>authenticated?<UserPanel {...props} />:<Redirect to = '/auth'/> } />}
             
-            <Route exact path = '/orders/:id' component = {TrackOrder} />
+            <Route exact path = '/orders/:id/:token' component = {TrackOrder} />
             <Route exact path = '/' component = {Home}/>
 
             <Route component = {NotFound}/>
