@@ -5,13 +5,13 @@ import Drawer from '../parts/MobileDrawer';
 import SupportNavbar from '../parts/AboveAppBar';
 import BelowAppBar from '../parts/BelowAppBar';
 
-import { categoryAPI as axios } from '../../../api/api';
+import { categoryAPI } from '../../../api/api';
 import globalVariables from '../../../global-variables';
 
 const logo = 'logo-ar.png';
 
 const upperLinks = [
-  globalVariables.UPPERBAR_LANGUAGE[globalVariables.LANG],
+  
   globalVariables.UPPERBAR_US[globalVariables.LANG],
   globalVariables.UPPERBAR_Q[globalVariables.LANG],
   globalVariables.UPPERBAR_MAGAZINE[globalVariables.LANG],
@@ -45,7 +45,7 @@ class Navbar extends Component {
   }
 
   componentDidMount(){
-    axios.get('/')
+    categoryAPI.get('/')
     .then(res => {
         let { categories } = this.state;
         let cats = res.data[0].children;
@@ -91,7 +91,7 @@ class Navbar extends Component {
             upperLinks={upperLinks}
             bottomLinks={bottomLinks}
         />
-        <SupportNavbar links={upperLinks} />
+        <SupportNavbar links={upperLinks} language={globalVariables.UPPERBAR_LANGUAGE[globalVariables.LANG]} />
         <AppBar logo={logo} menuButtonHandler={this.drawerHandler} />
         <BelowAppBar links={this.state.categories}/>
       </React.Fragment>

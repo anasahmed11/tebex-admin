@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import globalVariables from '../../global-variables';
 
-import StoreBanner from '../components/parts/TextBanner';
-import ShopComponent from '../components/wrappers/ShopComponent';
+import TextBanner from '../components/parts/TextBanner';
+import ProductsListWrapper from '../components/wrappers/ProductsListWrapper';
 
-
-const styles = theme => ({
-  shopComponent: {
-      boxShadow: '0px 0px 20px 0px gray',
-      marginTop: -8 * theme.spacing.unit ,
-      marginBottom: 8 * theme.spacing.unit ,
-  }
-})
-
+import { styles } from '../../assets/jss/views/Shop';
 
 class Shop extends Component {
-
   state = {
     
-  }
-
-  _handleWaypointEnter = () => {
-    alert("entered");
   }
 
   render() {
@@ -30,10 +18,10 @@ class Shop extends Component {
     const {products} = this.state;
     return (
         <Grid container>
-          <StoreBanner text='تسوق يلا' />
+          <TextBanner text={globalVariables.LABEL_SHOP_BANNER[globalVariables.LANG]} />
           <Grid container justify='center'>
-            <Grid lg={10} className={classes.shopComponent}>
-              <ShopComponent items = {products} />
+            <Grid lg={10} className={classes.shopComponentContainer}>
+              <ProductsListWrapper items = {products} />
             </Grid>
           </Grid>
         </Grid>

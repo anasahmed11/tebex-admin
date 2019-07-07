@@ -1,8 +1,16 @@
+import Cookies from 'universal-cookie';
+
+
+const cookies = new Cookies();
+
+if(cookies.get('lang')===undefined) cookies.set('lang','ar');
+
 const globalVariables = {
-    LANG: 'en',
+    LANG: cookies.get('lang'),
 // VARIABLES
     ACCESS_TOKEN: 'access_token',
-
+    LANGUGAE: 'lang',
+    
 // MESSAGES
     MSG_LOGIN_FAIL:{
             en: 'Login failed.',
@@ -136,6 +144,14 @@ const globalVariables = {
             en: 'Checkout',
             ar: 'متابعة عملية الشراء'
         },
+    CART_EMPTY: {
+            en: 'Shopping cart is empty',
+            ar: 'لا يوجد منتجات في عربة التسوق',
+        },
+    CART_VISIT_STORE: {
+            en: 'Please visit our shop and add some items from',
+            ar: 'يمكنك زيارة متجرنا واضافة بعض المنتجات من'
+        },  
 
 // Product
     PRODUCT_SHIPPING_STATUS: {
@@ -148,6 +164,29 @@ const globalVariables = {
             en: 'Shipping address',
             ar: 'عنوان الشحن'
         },
+    CHECKOUT_THANKS_STATUS: {
+            en: 'Order has been placed successfully!',
+            ar: 'لقد تمت عملية الشراء بنجاح!'
+        },
+    CHECKOUT_THANKS_REDIRECT: {
+            en: 'Thank you!, you can check your order status from',
+            ar: 'شكرا لثقتك بنا, يمكنك متابعة حالة طلبك من'
+        },
+    
+    CHECKOUT_ADD_NEW_ADDRESS: {
+            en: 'Add new address',
+            ar: 'اضف عنوان جديد'
+        },
+
+//Labels
+    LABEL_NO_PRODUCTS: {
+        en: 'No products.',
+        ar: 'لا يوجد منتجات.'
+    },
+    LABEL_SHOP_BANNER: {
+        en: 'Shop Now!',
+        ar: 'تسوق الان!',
+    },
     LABEL_PAYMENT: {
             en: 'Payment',
             ar: 'الدفع'
@@ -156,12 +195,10 @@ const globalVariables = {
             en: 'Thanks',
             ar: 'شكرا'
         },
-    CHECKOUT_ADD_NEW_ADDRESS: {
-            en: 'Add new address',
-            ar: 'اضف عنوان جديد'
+    LABEL_HERE: {
+            en: 'Here',
+            ar: 'هنا'
         },
-
-//Labels
     LABEL_SHIPPING_TO: {
             en: 'Shipping to:',
             ar: 'الشحن الى:'
@@ -193,6 +230,10 @@ const globalVariables = {
     LABEL_PRODUCT: {
             en: 'Product',
             ar: 'منتج'
+        },
+    LABEL_PRODUCT_DISCOUNT: {
+            en: 'OFF',
+            ar: 'خصم'
         },
     LABEL_PRODUCT_PRICE: {
             en: 'Product price',
@@ -355,6 +396,32 @@ const globalVariables = {
             ar: 'رجوع'
         },
  
+// Track Order
+    TRACK_OREDER_RECIPIENT: {
+            en: 'Recipient',
+            ar: 'المتسلم'
+        },
+    TRACK_OREDER_TOTAL_PRICE: {
+            en: 'Total price',
+            ar: 'اجمالي السعر'
+        },
+    TRACK_OREDER_DATE: {
+            en: 'Order placed on',
+            ar: 'تاريخ الطلب'
+        },
+    TRACK_OREDER_STATUS: {
+            en: 'Order Status',
+            ar: 'حالة الطلب'
+        },
+    TRACK_OREDER_NUMBER: {
+            en: 'Order Number',
+            ar: 'رقم الطلب'
+        },
+    TRACK_OREDER_DETAIL: {
+            en: 'Order details',
+            ar: 'تفاصيل الطلب'
+        },
+
     
 }
 export default globalVariables;

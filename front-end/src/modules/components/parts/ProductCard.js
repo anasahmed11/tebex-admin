@@ -1,16 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
 import {connect} from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import globalVariables from '../../../global-variables';
+
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography} from '@material-ui/core';
+
 import { addToCart } from '../../../store/actions/shoppingCart';
 
 const styles = theme => ({
@@ -26,7 +22,7 @@ const styles = theme => ({
           opacity: 1,
           top: 0,
         },
-        '& $subtitleDiv': {
+        '& $priceDiv': {
           top: 0,
         }
     },
@@ -36,26 +32,40 @@ const styles = theme => ({
     justifyContent: 'space-between',
   },
   media: {
-    height: 240,
+    height: 200,
     backgroundSize: 'contain',
   },
   actions: {
   },
-  subtitleDiv: {
+  priceDiv: {
     display: 'flex',
-    padding: theme.spacing.unit * 1,
+    flexDirection: 'column',
+    padding: theme.spacing.unit,
     position: 'relative',
     top: 40,
     transition: 'all 0.4s ease'
   },
-  subtitle: {
+  price: {
     color: 'blue',
   },
-  subtitleOld: {
+  oldPriceDiv: {
+    display: 'flex',
+  },
+  oldPrice: {
     color: 'gray',
     textDecorationLine: 'line-through',
-    alignSelf: 'center',
-    marginRight: theme.spacing.unit * 1,
+    marginRight: theme.spacing.unit,
+  },
+  discount: {
+    padding: '2px 4px 2px 4px',
+    marginRight: theme.spacing.unit,
+    marginTop: '2px',
+    height: 'fit-content',
+    border: '1px solid #eded2c',
+    borderRadius: '2px',
+    background: 'yellow',
+    fontWeight: 'bold',
+    fontSize: '10px',
   },
   button: {
     opacity: 0,
@@ -70,17 +80,20 @@ function MediaCard(props) {
 
   return (
     <Card className={classes.card} style={props.flex? {width: '100%'}: props.slider? {maxWidth: 290} : {}}>
-      <Link to={`product/${props.id}`}>
+      <Link style={{textDecorationLine: 'none'}} to={`product/${props.id}`}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          style = {props.slider? {height: 140} : {}}
+          style={props.slider? {height: 140} : {}}
           image={props.img}
           title={props.title}
         />
 
-        <CardContent>
-          <Typography gutterBottom variant="title">
+        <CardContent style={{padding: '4px 10px 4px 10px',}}>
+          <Typography gutterBottom variant="overline">
+            الشركة
+          </Typography>
+          <Typography gutterBottom variant="h6">
             {props.title}
           </Typography>
         </CardContent>
@@ -88,15 +101,21 @@ function MediaCard(props) {
       </CardActionArea>
       </Link>
       <div>
-        <div className={classes.subtitleDiv}>
-          <Typography className={classes.subtitle} variant="headline">
-            {props.subtitle} {props.currency}
-          </Typography>
-          {props.subtitleOld?
-            <Typography className={classes.subtitleOld} variant="subtitle">
-              {props.subtitleOld}
-            </Typography> : null
+        <div className={classes.priceDiv}>
+          {props.oldPrice?
+            <div className={classes.oldPriceDiv}>
+              <Typography className={classes.oldPrice} variant="subtitle1">
+                {props.oldPrice} {props.currency}
+              </Typography> 
+              <Typography className={classes.discount} variant="subtitle2">
+                {Math.round((props.oldPrice - props.price) * 100 / props.oldPrice)}% {globalVariables.LABEL_PRODUCT_DISCOUNT[globalVariables.LANG]}
+              </Typography> 
+            </div>
+            : null
           }
+          <Typography className={classes.price} variant="h6">
+            {props.price} {props.currency}
+          </Typography>
         </div>
         <CardActions className={classes.actions}>
           <Button className={classes.button} fullWidth color="primary" onClick={() => props.addProductToCart(props.product)}>
