@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import globalVariables from '../../../global-variables';
 import uuid from 'uuid';
 
@@ -17,6 +17,8 @@ import SelectMenu from "../parts/SelectMenu";
 import { deleteFromCart, cartFinish } from '../../../store/actions/shoppingCart';
 
 import { styles } from '../../../assets/jss/components/wrappers/ProductsListWrapper.jsx';
+import { isArray } from "util";
+import { ClipLoader } from "react-spinners";
 
 const flattenObject = (obj, _objects=[]) => {
     let {children, ...currentObject} = obj;
@@ -26,31 +28,59 @@ const flattenObject = (obj, _objects=[]) => {
 	return _objects;
 };
 
+const getCategoryID = (categories, slugs, id=1, lvl=0) => {
+    if(!slugs) return -1;
+    for(let category of categories)
+        if(category.slug === slugs[lvl] && category.parent_id === id){
+            if(lvl + 1 === slugs.length)
+                return category.id;
+            return getCategoryID(categories, slugs, category.id, lvl+1);
+        }
+}
+
+const Loading = () => <Grid container justify="center" >
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={75}
+                            color={'#123abc'}
+                            loading={true}
+                        />
+                    </Grid>
+
 class Store extends Component {
   
     state = {
+        _isLoading: true,
         products: [],
         filterPanels: null,
-        categoryID: -1,
+        id: 1, // Category id, 1 is a needed initial value.
     }
 
     componentDidMount(){
+        const slug = this.props.match.params.slug? this.props.match.params.slug.split('/') : null;
         categoryAPI.get('/')
         .then(res => {
             const categories = flattenObject(res.data[0]);
-            const idx = categories.findIndex(category => category.slug === this.props.match.params.slug);
-            if(idx > -1)
-                this.setState({ id: categories[idx].id });
-            this.setState({ categories: categories, });
+            const slugToID = getCategoryID(categories, slug);
+            const idx = slugToID? categories.findIndex(category => category.id === slugToID) : -1;
+
+            if(isArray(slug)){
+                this.setState({ id: idx > -1? categories[idx].id : 0, categories: categories });
+                if(!this.state.id) {
+                    this.setState({_isLoading: false})
+                };
+            }
+            else
+                this.setState({ id: -1, categories: categories }); // ALL
             
-            const api = this.state.id? categoryAPI : productsAPI;
-            const route = this.state.id? this.state.id + '/products' : '';
+            // Products from a *Category* : *All Products*
+            const api = this.state.id > -1? categoryAPI : productsAPI;
+            const route = this.state.id > -1? this.state.id + '/products' : '';
             api.get(`/${route}`)
             .then(res => {
                 const products = [];
                 for (let item of res.data){
                     let link = item.images[0];
-                    for(let i=0; i<8; i++)
                     products.push({
                         id: item.id,
                         img: link,
@@ -64,20 +94,19 @@ class Store extends Component {
                     products: products,
                 })
             })
-            .catch(res => {
-                console.log('SHOP ERR', res)
-            }) 
-            if(this.state.categoryID > -1)
-                categoryAPI.get(`/${this.state.categoryID}/specs`)
+            .catch(res => console.log('ERROR FETCHING PRODUCTS', res));
+
+            if(this.state.id > -1)
+                categoryAPI.get(`/${this.state.id}/specs`)
                 .then(res => {
                     this.setState({
                         filterPanels: res.data
                     })
+                    this.setState({ _isLoading: false });
                 })
+                .catch(res => console.log('ERROR FETCHING A CATEGORY SPECS', res));
         })
-        .catch(res => {
-            console.log(res)
-        })
+        .catch(res => console.log('ERROR FETCHING CATEGORIES', res))
     }
 
 
@@ -117,8 +146,10 @@ class Store extends Component {
             />
         </Grid>
     )
-
-    return <Grid container className={classes.root}>
+    console.log('ID IN STATE:', this.state.id)
+    return this.state._isLoading? <Loading />
+            : this.state.id?  
+            <Grid container className={classes.root}>
                 <Grid md={3} sm={12}>
                     <FiltersPanel filterPanels={this.state.filterPanels} />
                 </Grid>
@@ -129,6 +160,7 @@ class Store extends Component {
                     </div>
                 </Grid>
             </Grid>
+            : <Redirect to = '/404' /> 
     }
 }
 
