@@ -84,7 +84,85 @@ const globalVariables = {
             en: 'Sign Out',
             ar: 'تسجيل الخروج'
         },
+    SETTINGS_SECTION_AFFILIATE:{
+            en:'Affiliate Program',
+            ar:'برنامج التسويق',
+        },
+    SETTINGS_SECTION_SELLER:{
+            en:'Seller Program',
+            ar:'برنامج التجار',
+        },
 
+//Afiliate
+    AFFILIATE_PAGE1:{
+            en:'Your registration request has been submitted successfully and will be reviewed soon.',
+            ar:'قد تم استلام طلبك بنجاح وسيتم مراجعته قريبا.',
+        },
+    AFFILIATE_PAGE2:{
+            en:'Your are already in affiliate program.',
+            ar:'انت مسجل في البرنامج بالفعل.',
+        },
+    FORM_AFFILIATE_LABEL_VODAFONE:{
+            en:'Vodafone Cash',
+            ar:'فودافون كاش',
+        },
+    FORM_AFFILIATE_LABEL_ETISALAT:{
+            en:'Etisalat Cash',
+            ar:'اتصالات كاش',
+        },
+    FORM_AFFILIATE_LABEL_PACKAGE:{
+            en:'Package',
+            ar:'الحزمة',
+        },
+    Package1_AFFILIATE:{
+            en:['Discount 25%'],
+            ar:['خصم 25%']
+        },
+    Package2_AFFILIATE:{
+            en:['Discount 20%'],
+            ar:['خصم 20%']
+        },
+    Package3_AFFILIATE:{
+            en:['Discount 10%'],
+            ar:['خصم 10%']
+        },
+
+
+//Seller
+    SELLER_PAGE1:{
+            en:'Your registration request has been submitted successfully and will be reviewed soon.',
+            ar:'قد تم استلام طلبك بنجاح وسيتم مراجعته قريبا.',
+        },
+    SELLER_PAGE2:{
+            en:'Your are already in seller program.',
+            ar:'انت مسجل في البرنامج بالفعل.',
+        },
+    FORM_SELLER_LABEL_VODAFONE:{
+            en:'Vodafone Cash',
+            ar:'فودافون كاش',
+        },
+    FORM_SELLER_LABEL_ETISALAT:{
+            en:'Etisalat Cash',
+            ar:'اتصالات كاش',
+        },
+    FORM_SELLER_LABEL_STORE_URL:{
+            en:'Store URL',
+            ar:'الحزمة',
+        },
+    FORM_SELLER_LABEL_STORE_ADDRESS:{
+            en:'Store Address',
+            ar:'الحزمة',
+        },
+    
+    FORM_SELLER_LABEL_PICKUP_ADDRESS:{
+            en:'Pickup Address',
+            ar:'الحزمة',
+        },
+    FORM_SELLER_LABEL_PICKUP_PHONE:{
+            en:'Pickup Phone',
+            ar:'الحزمة',
+        },
+        
 //Upperbar
     UPPERBAR_LANGUAGE: {
             en: 'العربية',
@@ -222,6 +300,10 @@ const globalVariables = {
     LABEL_PRICE: {
             en: 'Price',
             ar: 'السعر'
+        },
+    LABEL_FREE: {
+            en: 'FREE',
+            ar: 'مجاني'
         },
     LABEL_DESCRIPTION: {
             en: 'Description',

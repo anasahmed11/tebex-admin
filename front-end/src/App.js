@@ -34,7 +34,7 @@ class App extends React.Component {
 
   state = {
     language: 'ar',
-    direction: 'rtl',
+    direction: globalVariables.LANG==='ar'?'rtl':'ltr',
     isLoading: true,
   }
 
@@ -90,7 +90,7 @@ class App extends React.Component {
             <Route exact path = '/auth' render = {props =>authenticated?<Redirect to = '/profile'/>:<Auth {...props} />} /> 
 						<Route exact path = '/verify/:id' component = {Verify}/>
             <Route exact path = '/cart' component = {Cart}/>
-            <Route exact path = "/(profile|dashboard|tree|linkgenerator|orders)/"  render = {props =>authenticated?<UserPanel {...props} />:<Redirect to = '/auth'/> } />}
+            <Route exact path = "/(profile|dashboard|tree|linkgenerator|orders|affiliate|seller)/"  render = {props =>authenticated?<UserPanel {...props} />:<Redirect to = '/auth'/> } />}
             
             <Route exact path = '/orders/:id/:token' component = {TrackOrder} />
             <Route exact path = '/' component = {Home}/>

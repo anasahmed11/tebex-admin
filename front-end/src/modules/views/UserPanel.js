@@ -12,6 +12,9 @@ import UserDashBoard from '../components/wrappers/UserDashBoard';
 import LinkGenerator from '../components/wrappers/LinkGenerator';
 import Tree from '../components/wrappers/Tree';
 import Orders from '../components/wrappers/UserOrders';
+import Affiliate from '../components/wrappers/Affiliate';
+import Seller from '../components/wrappers/Seller';
+
 
 const styles = theme => ({
     root: {
@@ -50,6 +53,8 @@ class UserpanelLayout extends React.Component{
                             <Route exact path='/linkgenerator' component={LinkGenerator} />
                             <Route exact path='/tree' component={Tree} /> 
                             <Route exact path='/orders' component={Orders} />
+                            <Route exact path='/affiliate' component={Affiliate} />
+                            <Route exact path='/seller' component={Seller} />
                         </Switch>
                     </Grid>
                 </Grid>
