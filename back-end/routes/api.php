@@ -43,6 +43,8 @@ Route::prefix('category')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::get('/', 'API\User\UserController@user');
+    Route::post('/program/seller', 'API\User\ProgramController@Stores');
+    Route::post('/program/affiliate', 'API\User\ProgramController@Affiliates');
 
 });
 Route::prefix('address')->group(function () {

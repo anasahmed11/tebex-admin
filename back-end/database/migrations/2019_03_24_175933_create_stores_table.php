@@ -15,14 +15,23 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('name_en');
-            $table->string('image');
-            $table->json('address')->nullable();
-            $table->string('email')->nullable();
-            $table->string('phone');
-            $table->string('slug');
-            $table->timestamps();
+                $table->string('name');
+                $table->string('name_en');
+                $table->string('url')->nullable();
+                $table->string('type');
+                $table->string('image')->nullable();
+                $table->string('address');
+                $table->string('phone');
+                $table->string('email')->nullable();
+                $table->string('slug');
+                $table->enum('method',['cash','bank']);
+                $table->json('account');
+                $table->bigInteger('user_id')->unsigned();
+                $table->enum('status',['approved','refused','pending'])->default('pending');
+                $table->timestamps();
+        });
+        Schema::table('stores',function(Blueprint $table){
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
