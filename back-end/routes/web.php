@@ -21,5 +21,5 @@ Route::get('/reset/password/{token}',function (){
     return view('welcome');
 })->name('password.reset');
 Route::get('/{route}',function(){
-    return view('welcome');
+    //return view('welcome');
 });

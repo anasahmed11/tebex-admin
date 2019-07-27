@@ -1,22 +1,10 @@
 import React from "react";
+
+import { Typography } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { Typography } from "@material-ui/core";
 
-const styles = theme => ({
-    root: {
-        padding: theme.spacing.unit * 20,
-        backgroundColor: 'lightblue',
-    },
-    banner: {
-        borderRadius: '0px'
-    },
-    text: {
-        [theme.breakpoints.down("xs")]: {
-            fontSize: 30
-        }
-    }
-})
+import { styles } from '../../../assets/jss/components/parts/TextBanner.jsx';
 
 function StoreBanner(props){
     

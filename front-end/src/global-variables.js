@@ -257,6 +257,14 @@ const globalVariables = {
         },
 
 //Labels
+    LABEL_NO_PRODUCTS: {
+        en: 'No products.',
+        ar: 'لا يوجد منتجات.'
+    },
+    LABEL_SHOP_BANNER: {
+        en: 'Shop Now!',
+        ar: 'تسوق الان!',
+    },
     LABEL_PAYMENT: {
             en: 'Payment',
             ar: 'الدفع'
@@ -304,6 +312,10 @@ const globalVariables = {
     LABEL_PRODUCT: {
             en: 'Product',
             ar: 'منتج'
+        },
+    LABEL_PRODUCT_DISCOUNT: {
+            en: 'OFF',
+            ar: 'خصم'
         },
     LABEL_PRODUCT_PRICE: {
             en: 'Product price',

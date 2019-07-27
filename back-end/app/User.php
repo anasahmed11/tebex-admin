@@ -25,7 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     //protected $with =['Addresses','Points'];
     protected $fillable = [
-        'first_name','last_name', 'email', 'password','phone','gender','birth_date','level','image'
+        'first_name','last_name', 'email', 'password','phone','gender','birth_date','level','image','store_id'
     ];
 
     /**
@@ -67,5 +67,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail);
+    }
+    public function Store(){
+        return $this->hasOne(Store::class);
     }
 }
