@@ -16,3 +16,7 @@ export const CART_FAIL              =   "CART_FAIL"
 export const CART_FINISH            =   "CART_FINISH" 
 export const CLEAR_CART             =   "CLEAR_CART"
 export const INIT_CATT_OPERATION    =   "INIT_CATT_OPERATION"
+
+
+// User
+export const INIT_USER_OPERATION = "INIT_USER_OPERATION"

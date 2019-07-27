@@ -110,9 +110,17 @@ const globalVariables = {
             en:'Etisalat Cash',
             ar:'اتصالات كاش',
         },
+    FORM_AFFILIATE_LABEL_Bank:{
+            en:'Bank',
+            ar:'حساب بنكي',
+        },
     FORM_AFFILIATE_LABEL_PACKAGE:{
             en:'Package',
             ar:'الحزمة',
+        },
+    FORM_AFFILIATE_LABEL_PAYMENT_METHOD:{
+            en:'Payment Method',
+            ar:'طريقة الدفع',
         },
     Package1_AFFILIATE:{
             en:['Discount 25%'],
@@ -145,22 +153,41 @@ const globalVariables = {
             en:'Etisalat Cash',
             ar:'اتصالات كاش',
         },
+    FORM_SELLER_LABEL_ITEMS:{
+            en:'Item\'s Type',
+            ar:'انواع المنتجات',
+        },
+    FORM_SELLER_LABEL_NAME:{
+            en:'Store Name(Arabic)',
+            ar:'اسم المتجر(عربي)',
+        },
+    FORM_SELLER_LABEL_NAME_EN:{
+            en:'Store Name(English)',
+            ar:'اسم المتجر(انجليزي)',
+        },
     FORM_SELLER_LABEL_STORE_URL:{
             en:'Store URL',
-            ar:'الحزمة',
+            ar:'URL المتجر',
         },
     FORM_SELLER_LABEL_STORE_ADDRESS:{
             en:'Store Address',
-            ar:'الحزمة',
+            ar:'عنوان المتجر',
         },
-    
-    FORM_SELLER_LABEL_PICKUP_ADDRESS:{
-            en:'Pickup Address',
-            ar:'الحزمة',
+    FORM_SELLER_LABEL_STORE_SLUG:{
+            en:'SLUG',
+            ar:'سلاج',
         },
+    FORM_SELLER_LABEL_STORE_EMAIL:{
+            en:'Store Email',
+            ar:'ايميل المتجر',
+        },
+    // FORM_SELLER_LABEL_PICKUP_ADDRESS:{
+    //         en:'Pickup Address',
+    //         ar:'موقع الشحن',
+    //     },
     FORM_SELLER_LABEL_PICKUP_PHONE:{
-            en:'Pickup Phone',
-            ar:'الحزمة',
+            en:'Store Phone',
+            ar:'رقم المتجر',
         },
         
 //Upperbar
@@ -237,7 +264,7 @@ const globalVariables = {
             ar: 'هذه المنطقة غير مدعومة في الشحن'
         },
     
-// Checkou
+// Checkout
     CHECKOUT_SHIPPING_ADDRESS: {
             en: 'Shipping address',
             ar: 'عنوان الشحن'
@@ -422,7 +449,6 @@ const globalVariables = {
         },
 
 // Form Address
-
     FORM_ADDRESS_LABEL_EMAIL: {
             en: 'Email',
             ar: 'البريد الالكتروني'

@@ -7,8 +7,9 @@ import globalVariables from '../../global-variables';
 import { withStyles, Grid, Button, Hidden, Divider, Snackbar, } from '@material-ui/core';
 import { OpenInNew } from '@material-ui/icons';
 
-import {closePopup} from '../../store/actions/auth'
+import { closePopup } from '../../store/actions/auth'
 import { initCart } from '../../store/actions/shoppingCart';
+import { initUser } from '../../store/actions/user';
 
 import Login from '../components/parts/LoginForm';
 import Register from '../components/parts/RegisterForm';
@@ -32,6 +33,7 @@ class Auth extends React.Component {
         const {classes, isLoading, isPopup, serverMessage, messageType, handlePopupClose} = this.props;
         if(messageType === globalVariables.TYPE_SUCCESS){
             this.props.handleInitCart()
+            this.props.handleInitUser()
             if(this.state.loginView) setTimeout(()=>{this.props.history.push(this.props.redirectPath)},3000)
             else setTimeout(()=>{this.props.history.push(this.props.redirectPath)},5000)
         }
@@ -126,6 +128,7 @@ const mapDispatchToProps = dispatch => {
     return{
         handlePopupClose: () => dispatch(closePopup()),
         handleInitCart: () => dispatch(initCart()),
+        handleInitUser: () => dispatch(initUser()),
     }
 }
 
