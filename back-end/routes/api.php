@@ -41,7 +41,10 @@ Route::prefix('category')->group(function () {
 
 });
 
+Route::prefix('user')->group(function () {
+    Route::get('/', 'API\User\UserController@user');
 
+});
 Route::prefix('address')->group(function () {
     Route::get('/', 'API\Address\AddressController@show');
     Route::post('create', 'API\Address\AddressController@create');
