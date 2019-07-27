@@ -32,7 +32,7 @@ class SellerRequest extends FormRequest
             'address'=>'required|string',
             'phone'=>'required|string',
             'email'=>'string',
-            'slug'=>'required|string',
+            'slug'=>'required|string|unique:affiliates',
             'method'=>'required|enum_key:'. Methods::class,
             'account'=>'required|json',
 
