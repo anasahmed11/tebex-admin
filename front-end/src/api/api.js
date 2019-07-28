@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 import globalVariables from '../global-variables';
+import { initCart } from '../store/actions/shoppingCart';
+import { initUser } from '../store/actions/user';
 
 const cookies = new Cookies();
 
@@ -90,12 +92,32 @@ export const resendAPI = axios.create({
 });
 instances.push(resendAPI)
 
+export const userAPI = axios.create({
+    baseURL: `${baseURL}user/`,
+    headers: headers
+});
+instances.push(userAPI)
 
 instances.forEach( intance =>{
     intance.interceptors.request.use(function(config) {
         config.headers.Authorization = cookies.get(globalVariables.ACCESS_TOKEN)? `Bearer ${cookies.get(globalVariables.ACCESS_TOKEN)}` : '';
         return config;
     }, function(err) {
+        return Promise.reject(err);
+    });
+    intance.interceptors.response.use(function(response) {
+        console.log("response",response)
+        
+        return response
+        
+    }, function(err) {
+        console.log("response error",err.response.status)
+
+        if(err.response && err.response.status===401){
+            cookies.remove(globalVariables.ACCESS_TOKEN)
+            initCart()
+            initUser()
+        }
         return Promise.reject(err);
     });
 })

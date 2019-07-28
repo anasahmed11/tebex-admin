@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import cartReducer from './store/reducers/shoppingCart';
+import userReducer from './store/reducers/user';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -27,6 +28,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
     auth: authReducer,
     cart: cartReducer,
+    user: userReducer,
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));

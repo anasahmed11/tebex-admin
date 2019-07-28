@@ -5,6 +5,8 @@ import { Button, withStyles, Snackbar } from '@material-ui/core';
 
 import { logoutUser, closePopup } from '../../../store/actions/auth';
 import { initCart } from '../../../store/actions/shoppingCart';
+import { initUser } from '../../../store/actions/user';
+
 import MySnackbar from './MySnackbar';
 
 
@@ -23,6 +25,7 @@ class LogoutButton extends React.Component{
         this.props.handleLogout()
         handleRedirect()
         this.props.handleInitCart()
+        this.props.handleInitUser()
     }
     render(){
         const {classes, handlePopupClose, messageType, serverMessage, isPopup, handleRedirect} = this.props
@@ -66,6 +69,7 @@ const mapDispatchToProps = dispatch => {
         handleLogout: () => dispatch(logoutUser()),
         handlePopupClose: () => dispatch(closePopup()),
         handleInitCart: () => dispatch(initCart()),
+        handleInitUser: () => dispatch(initUser()),
 
     }
 }

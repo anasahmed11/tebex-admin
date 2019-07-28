@@ -12,6 +12,8 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import 'typeface-roboto';
 
 import { initCart } from './store/actions/shoppingCart'
+import { initUser } from './store/actions/user'
+
 
 import Auth from './modules/views/Auth';
 import Home from './modules/views/Home';
@@ -46,6 +48,7 @@ class App extends React.Component {
   componentDidMount = () => {
     this.setState({isLoading:false})
     this.props.handleInitCart()
+    this.props.handleInitUser()
   }
   componentWillUnmount = () => {
     document.body.dir = null;
@@ -111,6 +114,7 @@ library.add(fab);
 const mapDispatchToProps = dispatch => {
   return{
       handleInitCart: () => dispatch(initCart()),
+      handleInitUser: () => dispatch(initUser()),
   }
 }
 

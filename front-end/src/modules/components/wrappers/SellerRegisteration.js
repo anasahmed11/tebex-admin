@@ -13,20 +13,27 @@ import { styles } from '../../../assets/jss/wrappers/AffiliateReg';
 import globalVariables from '../../../global-variables';
 import PackageCard from '../parts/PackageCard';
 import SellerForm from '../parts/SellerForm';
+import { userAPI } from '../../../api/api';
 
 class AffiliateRegisteration extends React.Component {
     state = {
-        isLoading:false
+        isLoading: false,
+        isPopup: false,
     }
-    handleFormSubmition = () => {
+    
+    handleFormSubmition = (data) => {
         this.setState({isLoading:true})
-        /*
-        axios
-        
+        userAPI.post('program/seller',data)
         .then(res=>{
             this.props.handleNextStep()
         })
-        */
+        .catch(err=>{
+            this.setState({isLoading:false, isPopup:true})
+        })
+    }
+
+    handlePopupClose = () => {
+        this.setState({isPopup:false})
     }
 
     render(){
@@ -44,7 +51,23 @@ class AffiliateRegisteration extends React.Component {
                         />
                     </Grid> :
                     <React.Fragment>
-                        
+                        <Snackbar
+                            style={{direction:'ltr', bottom:'50px'}}   
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            open={this.state.isPopup}
+                            autoHideDuration={6000}
+                            onClose={this.handlePopupClose}
+                        >
+                            <MySnackbar 
+                                className={classes.margin}
+                                onClose={this.handlePopupClose}
+                                variant={globalVariables.TYPE_ERROR}
+                                message={globalVariables.MSG_NETWORK_ERROR[globalVariables.LANG]}
+                            />
+                        </Snackbar>
                        
 
                        <SellerForm handleFormSubmition={this.handleFormSubmition} />
