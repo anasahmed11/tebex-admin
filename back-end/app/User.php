@@ -69,6 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new VerifyEmail);
     }
     public function Store(){
-        return $this->hasOne(Store::class);
+        return $this->hasOne(Store::class)->where('status','pending');
+    }
+    public function Affiliate(){
+        return $this->hasOne(Affiliate::class)->where('status','pending');
     }
 }
