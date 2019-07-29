@@ -9,8 +9,8 @@ const cookies = new Cookies();
 
 const initUserOperation = (userData) => {
     return{
-        type:actionTypes.INIT_USER_OPERATION,
-        user:userData,
+        type: actionTypes.INIT_USER_OPERATION,
+        userData: userData,
     }
 }
 

@@ -44,7 +44,7 @@ class UserDashBoard extends React.Component{
         try{
             
         const url = new URL(this.state.url)
-        url.searchParams.set(globalVariables.AFFILIATE_PARAM,this.props.user.user.id)
+        url.searchParams.set(globalVariables.AFFILIATE_PARAM,this.props.user.id)
         this.setState({affiliateLink: url.href})
 
         }

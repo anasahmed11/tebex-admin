@@ -11,6 +11,7 @@ const globalVariables = {
     ACCESS_TOKEN: 'access_token',
     LANGUGAE: 'lang',
     AFFILIATE_PARAM: 'ref',
+    AFFILIATE_COOKIE: 'ref',
 // MESSAGES
     MSG_LOGIN_FAIL:{
             en: 'Login failed.',

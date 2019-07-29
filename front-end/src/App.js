@@ -37,6 +37,12 @@ const cookies = new Cookies();
 function fetchAffiliate(){
   const url = new URL(window.location.href);
   const affiliate = url.searchParams.get(globalVariables.AFFILIATE_PARAM)
+  
+  const expirationDate = new Date()
+  expirationDate.setDate(expirationDate.getDate()+7)
+  
+  if(affiliate !== null) cookies.set(globalVariables.AFFILIATE_COOKIE, affiliate, { path: '/', expires: expirationDate, sameSite : true })
+  
 }
 
 class App extends React.Component {
