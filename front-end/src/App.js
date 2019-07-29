@@ -9,6 +9,8 @@ import globalVariables from './global-variables';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons'
+
 import 'typeface-roboto';
 
 import { initCart } from './store/actions/shoppingCart'
@@ -32,6 +34,11 @@ import Footer from './modules/components/wrappers/Footer';
 
 const cookies = new Cookies();
 
+function fetchAffiliate(){
+  const url = new URL(window.location.href);
+  const affiliate = url.searchParams.get(globalVariables.AFFILIATE_PARAM)
+}
+
 class App extends React.Component {
 
   state = {
@@ -45,10 +52,14 @@ class App extends React.Component {
     document.body.style.backgroundColor = 'white';
   }
 
+
   componentDidMount = () => {
     this.setState({isLoading:false})
     this.props.handleInitCart()
     this.props.handleInitUser()
+
+    fetchAffiliate()
+    
   }
   componentWillUnmount = () => {
     document.body.dir = null;
@@ -109,7 +120,7 @@ class App extends React.Component {
   }
 }
 
-library.add(fab);
+library.add(fab,fas);
 
 const mapDispatchToProps = dispatch => {
   return{
