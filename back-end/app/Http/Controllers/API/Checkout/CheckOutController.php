@@ -13,6 +13,7 @@ use App\Shipper;
 use App\Http\Controllers\Controller;
 
 use App\Shipping;
+use App\User;
 use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,12 +30,16 @@ class CheckOutController extends Controller
         try {
             $address = Address::where(['id'=>$request->address,'_token'=>$request->token])->first();
             if (!$address) {
-                throw new \Exception();
+                throw new \Exception('address not found');
             }
             $shipper = Shipper::find(1);
             $order = new Order(['_token'=>Str::random(20)]);
             $order->Address()->associate($address);
             $order->Shipper()->associate($shipper);
+            if(!Auth('api')->check()) {
+                $referral = User::find($request->referral);
+                $order->Referral()->associate($referral);
+            }
             $location = $address->Location();
             $shipping = Shipping::where('shipper_id', $shipper->id)
                 ->where('city_id', $location instanceof City ? $location->id : $location->City()->first()->id)
@@ -42,7 +47,7 @@ class CheckOutController extends Controller
             $order->shipping_fees = $shipping->fees;
             $order->save();
             $products = $request->products;
-            if(count($products)<=0) throw new Exception();
+            if(count($products)<=0) throw new Exception('there is no product');
             foreach ($products as $product) {
                 $p = Product::find($product['id']);
                 if ($p && $p->quantity >= $product['quantity']) {
@@ -58,22 +63,22 @@ class CheckOutController extends Controller
                             ->whereHas('Product',function($q) use ($p){
                                 $q->where([['id',$p->id]]);
                             })->first();
-                        if($pp==null) throw new \Exception();
+                        if($pp==null) throw new \Exception('item not in cart');
                         $pp->delete();
                     }
                 } else {
-                    throw new \Exception();
+                    throw new \Exception('quantity of items less than exist');
                 }
             }
 
             DB::commit();
-            $address->notify(new OrderPlaced($order));
+            //$address->notify(new OrderPlaced($order));
             return response()->json(["success" => "order placed successfully",
                 "url"=>url(config('app.url').route('order.mail', ['id' => $order->id,'token'=>$order->_token], false))
                                     ]);
         }catch (\Exception $exception){
             DB::rollback();
-            return response()->json(["error" => "order can't be placed"], 400);
+            return response()->json(["error" => "order can't be placed reason: ".$exception->getMessage()], 400);
         }
 
     }
