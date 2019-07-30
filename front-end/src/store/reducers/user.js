@@ -13,7 +13,8 @@ export default function auth(state = initialState, action){
         case actionTypes.INIT_USER_OPERATION: 
             return{
                 ...state,
-                user: action.user,
+                user: action.userData.user,
+                program: action.userData.program
             }
         default: 
             console.log('_DEFAULT_USER');

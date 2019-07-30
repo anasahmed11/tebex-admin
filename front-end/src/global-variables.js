@@ -10,7 +10,8 @@ const globalVariables = {
 // VARIABLES
     ACCESS_TOKEN: 'access_token',
     LANGUGAE: 'lang',
-    
+    AFFILIATE_PARAM: 'ref',
+    AFFILIATE_COOKIE: 'ref',
 // MESSAGES
     MSG_LOGIN_FAIL:{
             en: 'Login failed.',
@@ -376,7 +377,28 @@ const globalVariables = {
             en: 'Adress',
             ar: 'العنوان'
         },
-
+    LABEL_BUILD: {
+            en: 'Build',
+            ar: 'توليد'
+        },
+    LABEL_URL: {
+            en: 'URL',
+            ar: 'رابط'
+        },
+// Link Genrator Page
+    LINK_GENERATOR_TITLE: {
+            en: 'Affiliate Link Generator',
+            ar: 'مولد لينك الافيليت'
+        },
+    LINK_GENERATOR_PUT: {
+            en: 'Put Page URL Here',
+            ar: 'ضع الرابط هنا'
+        },
+    LINK_GENERATOR_AFFILIATE_LINK: {
+            en: 'Affiliate Link',
+            ar: 'رابط الافيليت'
+        },
+    
 // LOGIN FORM
     FORM_LOGIN_LABEL_TITLE:{
             en: 'Login',

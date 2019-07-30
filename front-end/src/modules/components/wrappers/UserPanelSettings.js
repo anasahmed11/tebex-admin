@@ -56,7 +56,6 @@ const styles = theme => ({
 
 function UserPanelSettings (props){
     const {classes, } = props;
-    console.log(props.user)
 
     return(
         <Grid container justify='center' xs={11} className={classes.root}>

@@ -2,11 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
+import Cookies from 'universal-cookie';
 
 import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
 
 import { registerUser } from '../../../store/actions/auth';
 
+const cookies = new Cookies();
 
 const styles = theme => ({
     margin: {margin: theme.spacing.unit * 2,},
@@ -69,6 +71,7 @@ class Register extends React.Component{
             lastNameError: lastnameError
         })
         
+
         const data = {
             first_name: this.state.firstName,
             last_name: this.state.lastName,
@@ -78,6 +81,7 @@ class Register extends React.Component{
             phone: this.state.phone,
             gender: this.state.gender,
             birth_date: this.state.birthday,
+            referral: cookies.get(globalVariables.AFFILIATE_COOKIE) !== undefined? cookies.get(globalVariables.AFFILIATE_COOKIE):0
         };
 
         if(valid)
