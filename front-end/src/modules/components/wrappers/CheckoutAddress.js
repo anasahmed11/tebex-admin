@@ -110,7 +110,7 @@ class CheckoutAddress extends React.Component{
                 <Grid item xs={12} >
                     <Grid container justify="center" className={classes.root}>
                     
-                    <Grid container xs={12} className={classes.addressCardsRoot}>
+                    <Grid container item xs={12} className={classes.addressCardsRoot}>
                         {addresses.map((obj, index) => 
                             <AddressCard 
                                 id={obj.id}

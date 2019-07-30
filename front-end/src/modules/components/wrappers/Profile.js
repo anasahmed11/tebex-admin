@@ -60,10 +60,10 @@ class Profile extends React.Component{
 
         return(
             
-            <Grid container alignItems='center' justify="center" className={classes.root} xs={11}>
+            <Grid container item alignItems='center' justify="center" className={classes.root} xs={11}>
                 
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>الملف الشخصي</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>الملف الشخصي</Typography>
                 </Grid>
 
 
@@ -78,12 +78,12 @@ class Profile extends React.Component{
                         </ExpansionPanelSummary>
                         
                         <ExpansionPanelDetails className={classes.expanDetails}>
-                            <Grid container justify="center" xs={12} spacing={16} className={classes.padding}>
+                            <Grid container item justify="center" xs={12} spacing={16} className={classes.padding}>
                     
                                         <Grid item sm={4} xs={11} className={classes.padding}>
                                             <TextField
                                                 className={classes.margin}
-                                                id="outlined-appartment-input"
+                                                id={uuid()}
                                                 label="الاسم الاول"
                                                 type="text"
                                                 /*error={this.state.emailError?true:false}
@@ -100,7 +100,7 @@ class Profile extends React.Component{
                                         <Grid item sm={4} xs={11} className={classes.padding}>
                                             <TextField
                                                 className={classes.margin}
-                                                id="outlined-email-input"
+                                                id={uuid()}
                                                 label="الاسم الاخير"
                                                 type="text"
                                                 /*error={this.state.emailError?true:false}
@@ -118,7 +118,7 @@ class Profile extends React.Component{
                                         <Grid item sm={3} xs={5} className={classes.padding}>
                                             <TextField
                                                 className={classes.margin}
-                                                id="outlined-email-input"
+                                                id={uuid()}
                                                 select
                                                 label="اللغة"
                                                 type="text"
@@ -163,13 +163,13 @@ class Profile extends React.Component{
                         </ExpansionPanelSummary>
                         
                         <ExpansionPanelDetails className={classes.expanDetails}>
-                            <Grid container justify="center" xs={12} spacing={16} className={classes.padding}>
+                            <Grid container item justify="center" xs={12} spacing={16} className={classes.padding}>
                     
 
                                 <Grid item  xs={10}>
                                     <TextField
                                         className={classes.margin}
-                                        id="outlined-email-input"
+                                        id={uuid()}
                                         select
                                         label="المدينة"
                                         type="text"
@@ -194,7 +194,7 @@ class Profile extends React.Component{
                                 <Grid item xs={10}>
                                     <TextField
                                         className={classes.margin}
-                                        id="outlined-appartment-input"
+                                        id={uuid()}
                                         label="رقم الشقة, رقم العمارة, اسم العمارة"
                                         type="text"
                                         /*error={this.state.emailError?true:false}
@@ -211,7 +211,7 @@ class Profile extends React.Component{
                                 <Grid item  xs={10}>
                                     <TextField
                                         className={classes.margin}
-                                        id="outlined-street-input"
+                                        id={uuid()}
                                         label="اسم الشارع"
                                         type="text"
                                         /*error={this.state.emailError?true:false}
@@ -228,7 +228,7 @@ class Profile extends React.Component{
                                 <Grid item  xs={10}>
                                     <TextField
                                             
-                                        id="outlined-appartment-input"
+                                        id={uuid()}
                                         label="رقم الهاتف"
                                         type="text"
                                         /*error={this.state.emailError?true:false}
@@ -265,12 +265,12 @@ class Profile extends React.Component{
                         </ExpansionPanelSummary>
                         
                         <ExpansionPanelDetails className={classes.expanDetails}>
-                            <Grid container justify="center" xs={12} spacing={16} className={classes.padding}>
+                            <Grid container item justify="center" xs={12} spacing={16} className={classes.padding}>
                     
                                 <Grid item xs={10} >
                                     <TextField
                                         className={classes.margin}
-                                        id="register-email"
+                                        id={uuid()}
                                         label="البريد الالكتروني"
                                         type="email"
                                         autoComplete="email"
@@ -288,7 +288,7 @@ class Profile extends React.Component{
                                 <Grid item xs={10} >
                                     <TextField
                                         className={classes.margin}
-                                        id="register-password"
+                                        id={uuid()}
                                         value={this.state.password}
                                         required
                                         label="كلمة السر"

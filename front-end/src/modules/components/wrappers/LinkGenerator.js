@@ -64,15 +64,15 @@ class UserDashBoard extends React.Component{
         const {classes, } = this.props;
         
         return(
-            <Grid container justify='center' xs={11}>
+            <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>{globalVariables.LINK_GENERATOR_TITLE[globalVariables.LANG]}</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.LINK_GENERATOR_TITLE[globalVariables.LANG]}</Typography>
                 </Grid>
                 
-                <Grid container spacing={8}>
+                <Grid container item spacing={8}>
                     <Grid item xs={12}>
                         <Paper className={classes.root} elevation={1} >
-                            <Typography component='h3' variant="title">
+                            <Typography component='h3' variant="h6">
                                 {globalVariables.LINK_GENERATOR_PUT[globalVariables.LANG]}
                             </Typography>
                             <TextField

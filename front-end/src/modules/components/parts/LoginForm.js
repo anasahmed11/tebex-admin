@@ -31,7 +31,7 @@ class Login extends React.Component{
     }
 
     handleChange = prop => event => {
-        if(prop === "rememberme"){
+        if(event.target.value === "checkbox"){
             this.setState({ [prop]: event.target.checked });
             return
         }
@@ -55,14 +55,15 @@ class Login extends React.Component{
         let passwordError = "";
         let valid = true;
         if(!this.validateEmail(this.state.email)){
-            emailError = globalVariables.FORM_LOGIN_ERR_EMAIL;
+            emailError = globalVariables.FORM_LOGIN_ERR_EMAIL[globalVariables.LANG];
             valid = false;
         }
         if(!this.validatePassword(this.state.password)){
-            passwordError = globalVariables.FORM_LOGIN_ERR_PASS;
+            passwordError = globalVariables.FORM_LOGIN_ERR_PASS[globalVariables.LANG];
             valid = false;
         }
         this.setState({emailError: emailError, passError: passwordError})
+        console.log(this.state.rememberme)
         if(valid)
             this.props.onLogin(this.state.email, this.state.password, this.state.rememberme)
     }
@@ -135,7 +136,7 @@ class Login extends React.Component{
                             <Checkbox
                                 checked={this.state.rememberme}
                                 onChange={this.handleChange('rememberme')}
-                                value={this.state.rememberme}
+                                value='checkbox'
                             />
                         }
                         label={globalVariables.FORM_LOGIN_LABEL_REMEMBER[globalVariables.LANG]}

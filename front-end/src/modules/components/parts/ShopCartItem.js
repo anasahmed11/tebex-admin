@@ -11,7 +11,7 @@ import {
     TextField
  } from '@material-ui/core';
 import { DeleteForever } from '@material-ui/icons';
- 
+import uuid from 'uuid';
 import { addToCart } from '../../../store/actions/shoppingCart';
 
 import globalVariables from '../../../global-variables';
@@ -64,7 +64,7 @@ class ShopCartItem extends Component{
         const price = previewOnly? item.price : item.sale_price;
         const quantity = previewOnly? item.quantity : item.cart.quantity;
         const options = previewOnly? 
-            null : [...Array(item.quantity + 1).keys()].slice(1).map(n => <option value={n}> {n} </option>);
+            null : [...Array(item.quantity + 1).keys()].slice(1).map(n => <option key={uuid()} value={n}> {n} </option>);
         
         return(
             <Grid item xs={12} className={classes.root}>

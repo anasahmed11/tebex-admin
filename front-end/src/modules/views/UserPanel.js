@@ -36,17 +36,17 @@ class UserpanelLayout extends React.Component{
         
         return(
             <React.Fragment>
-                <Grid container sm={12} justify="center" alignItems="center">
+                <Grid container item sm={12} justify="center" alignItems="center">
                     <SnackbarContent className={classes.error} style={{maxWidth:'100%', width:'100%', justifyContent:"center"}} message={globalVariables.MSG_VERIFIY_ACCOUNT[globalVariables.LANG]} />
                 </Grid>
             
             <Grid container justify="center" className={classes.root}>
                
-                <Grid container sm={10}>
-                    <Grid container justify="center" alignItems='flex-start' lg={3} md={4} xs={12}>
+                <Grid container item sm={10}>
+                    <Grid container item justify="center" alignItems='flex-start' lg={3} md={4} xs={12}>
                         <Route component={UserPanelSettings} />
                     </Grid>
-                    <Grid container justify="center" alignItems='flex-start' lg={9} md={8} xs={12}>
+                    <Grid container item justify="center" alignItems='flex-start' lg={9} md={8} xs={12}>
                         <Switch>
                             <Route exact path='/profile' component={Profile} />
                             <Route exact path='/dashboard' component={UserDashBoard} />

@@ -157,7 +157,7 @@ class BelowAppBar extends Component {
         ));
 
         return  <Grid container justify='center' className={classes.root}>
-                    <Grid container spacing={24} xs={10}>
+                    <Grid container item spacing={24} xs={10}>
                         {links}
                     </Grid>
                 </Grid>

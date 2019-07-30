@@ -514,11 +514,11 @@ const globalVariables = {
         },
     FORM_LOGIN_ERR_EMAIL:{
             en: 'Invalid email.',
-            ar: '',
+            ar: 'البريد غير صحيح',
         },
     FORM_LOGIN_ERR_PASS:{
             en: 'Invalid password.',
-            ar: '',
+            ar: 'كلمة المرور غير صحيح',
         },
 // Register
     FORM_REGISTER_LABEL_TITLE:{

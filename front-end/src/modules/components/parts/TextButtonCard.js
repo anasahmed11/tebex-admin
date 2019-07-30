@@ -32,7 +32,7 @@ function SimpleCard(props) {
 
   return (
     <Paper onClick={props.onClick} className={classes.root}>
-        <Typography variant="title">{props.text}</Typography>
+        <Typography variant="h6">{props.text}</Typography>
     </Paper>
   );
 }
