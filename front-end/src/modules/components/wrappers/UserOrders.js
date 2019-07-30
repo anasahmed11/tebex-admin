@@ -5,8 +5,10 @@ import { withStyles, Grid, Typography, } from '@material-ui/core';
 import {orderAPI} from '../../../api/api'
 
 import { ClipLoader } from 'react-spinners';
+import { Link, } from 'react-router-dom';
 
 import Order from '../parts/Order';
+import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     root: {
@@ -49,7 +51,7 @@ class UserDashBoard extends React.Component{
         return(
             <Grid container justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>مشترياتي</Typography>
+                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>{globalVariables.LABEL_MY_ORDERS[globalVariables.LANG]}</Typography>
                 </Grid>
                 {isLoading?
                 <Grid container alignItems="center" justify="center" >
@@ -59,10 +61,19 @@ class UserDashBoard extends React.Component{
                         color={'#123abc'}
                         loading={isLoading}
                     />
-                </Grid> :
+                </Grid> : this.state.orders.length?
                 this.state.orders.map(order =>
                     <Order order={order}/>    
-                )}
+                ):
+                <Grid container alignItems="center" justify="center" style={{textAlign:'center',position:'relative', overflow:"hidden"}}>
+                    <Grid itemxs={12}>
+                        <Typography variant="h4" gutterBottom>{globalVariables.MY_ORDERS_EMPTY[globalVariables.LANG]}</Typography>
+                        <Typography variant="h6">
+                            {globalVariables.MY_ORDERS_VISIT_STORE[globalVariables.LANG]} <Link to='/shop'> {globalVariables.LABEL_HERE[globalVariables.LANG]}</Link>
+                        </Typography>
+                    </Grid>
+                </Grid>
+                }
             </Grid>
             
         );

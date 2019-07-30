@@ -11,6 +11,7 @@ import {
 
 import StatsCard from '../parts/StatsCard';
 import ChartCard from '../parts/ChartCard';
+import globalVariables from '../../../global-variables';
 
 
 const styles = theme => ({
@@ -48,19 +49,19 @@ class UserDashBoard extends React.Component{
         return(
             <Grid container justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>الإحصائيات</Typography>
+                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>{globalVariables.LABEL_DASHBOARD[globalVariables.LANG]}</Typography>
                 </Grid>
                 <Grid container xs={12} className={classes.statsCardsRoot}>
-                    <StatsCard title={'الكليكات'} highlight={300} desc={'خربانة'} />
-                    <StatsCard title={'اجمالي الطلبات'} highlight={59} desc={'خلال الشهر'} />
-                    <StatsCard title={'الطلبات المكتملة '} highlight={51} desc={'خلال الشهر'} />
-                    <StatsCard title={'ارباح الطلبات'} highlight={300} desc={'خلال الشهر'} currency=' جنيه' />
+                    <StatsCard title={globalVariables.DASHBOARD_CLICKS[globalVariables.LANG]} highlight={300} desc={globalVariables.DASHBOARD_CLICKS_DESC[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_TOTAL_ORDERS[globalVariables.LANG]} highlight={59} desc={globalVariables.DASHBOARD_TOTAL_ORDERS_DESC[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_ORDERS[globalVariables.LANG]} highlight={51} desc={globalVariables.DASHBOARD_CONFIRMED_ORDERS_DESC[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_ORDERS_EARNING[globalVariables.LANG]} highlight={300} desc={globalVariables.DASHBOARD_ORDERS_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
                 </Grid>
                 <Grid container xs={12} className={classes.statsCardsRoot}>
-                    <StatsCard title={'فريقي'} highlight={21} desc={'اجمالي العدد'} link="/tree" />
-                    <StatsCard title={'ارباح الفريق'} highlight={390} desc={'خلال الشهر'} currency=' جنيه' />
-                    <StatsCard title={'ارباح المحول'} highlight={300} desc={'خربانة'} currency=' جنيه' />
-                    <StatsCard title={'الرصيد المتاح'} highlight={155} desc={'قابل للسحب'} />
+                    <StatsCard title={globalVariables.DASHBOARD_TEAM_MEMBERS[globalVariables.LANG]} highlight={21} desc={globalVariables.DASHBOARD_TEAM_MEMBERS_DESC[globalVariables.LANG]} link="/tree" />
+                    <StatsCard title={globalVariables.DASHBOARD_TEAM_EARNING[globalVariables.LANG]} highlight={390} desc={globalVariables.DASHBOARD_TEAM_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_REFERRAL_EARNING[globalVariables.LANG]} highlight={300} desc={globalVariables.DASHBOARD_REFERRAL_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_EARNING[globalVariables.LANG]} highlight={155} desc={globalVariables.DASHBOARD_CONFIRMED_EARNING_DESC[globalVariables.LANG]} />
                 </Grid>
                 <Grid container xs={12} className={classes.statsCardsRoot}>
                     <ChartCard title={'ارباح'} highlight={

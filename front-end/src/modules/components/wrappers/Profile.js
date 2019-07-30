@@ -3,6 +3,7 @@ import 'typeface-roboto';
 import { withStyles, Grid, Typography, Button, TextField, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, MenuItem } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons';
 import uuid from 'uuid';
+import RTL from './RTL';
 
 const styles = theme => ({
     root: {
@@ -59,8 +60,9 @@ class Profile extends React.Component{
        
 
         return(
+            
             <Grid container alignItems='center' justify="center" className={classes.root} xs={11}>
-              
+                
                 <Grid item xs={12}>
                     <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>الملف الشخصي</Typography>
                 </Grid>

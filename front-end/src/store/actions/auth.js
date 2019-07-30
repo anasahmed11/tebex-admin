@@ -111,6 +111,7 @@ export const logoutUser = () => {
         .catch(err => {
             dispatch(logoutFail("Error."));
             // Implement: handle network error.
+            cookies.remove(globalVariables.ACCESS_TOKEN)
         })
     }
 }

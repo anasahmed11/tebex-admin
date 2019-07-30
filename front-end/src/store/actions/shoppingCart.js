@@ -179,6 +179,7 @@ export const initCart = (message="") => {
     return dispatch => {
         
         dispatch(cartStart())
+        console.log(cookies.get(globalVariables.ACCESS_TOKEN))
         if(cookies.get(globalVariables.ACCESS_TOKEN)){
             cartAPI.get('')
             .then((res)=>{

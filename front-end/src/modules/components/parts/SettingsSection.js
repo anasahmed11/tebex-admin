@@ -50,7 +50,7 @@ const styles = theme => ({
 class SettingsSection extends React.Component{
 
     handleRedirect = (props) =>{
-        setTimeout(()=>{this.props.history.push('/',{pathname:'http://localhost:3000'});},500)
+        setTimeout(()=>{this.props.history.push('./');},1500)
     }
     render(){
         const {classes, } = this.props;

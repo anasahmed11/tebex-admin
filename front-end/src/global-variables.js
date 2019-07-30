@@ -190,7 +190,73 @@ const globalVariables = {
             en:'Store Phone',
             ar:'رقم المتجر',
         },
-        
+// User Dashboard
+    DASHBOARD_CLICKS: {
+        en: 'Clikcs',
+        ar: 'الكليكات',
+    },
+    DASHBOARD_CLICKS_DESC: {
+        en: 'Number of affiliate...',
+        ar: 'عدد ضغطات رابط الافيليت ؟',
+    },
+    DASHBOARD_TOTAL_ORDERS: {
+        en: 'Total Orders',
+        ar: 'اجمالي الطلبات',
+    },
+    DASHBOARD_TOTAL_ORDERS_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_CONFIRMED_ORDERS: {
+        en: 'Confirmed Orders',
+        ar: 'الطلبات المكتملة',
+    },
+    DASHBOARD_CONFIRMED_ORDERS_DESC: {
+        en: '',
+        ar: '',
+    },        
+    DASHBOARD_ORDERS_EARNING: {
+        en: 'Orders Earning',
+        ar: 'ارباح الطلبات',
+    },
+    DASHBOARD_ORDERS_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_TEAM_MEMBERS: {
+        en: 'My Team',
+        ar: 'فريقي',
+    },
+    DASHBOARD_TEAM_MEMBERS_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_TEAM_EARNING: {
+        en: 'Team Earning',
+        ar: 'ارباح الفريق',
+    },
+    DASHBOARD_TEAM_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_REFERRAL_EARNING: {
+        en: 'Refferal Earning',
+        ar: 'ارباح المحول',
+    },
+    DASHBOARD_REFERRAL_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_CONFIRMED_EARNING: {
+        en: 'Confirmed Earning',
+        ar: 'الارباح',
+    },
+    DASHBOARD_CONFIRMED_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+
+
 //Upperbar
     UPPERBAR_LANGUAGE: {
             en: 'العربية',
@@ -385,6 +451,14 @@ const globalVariables = {
             en: 'URL',
             ar: 'رابط'
         },
+    LABEL_MY_ORDERS: {
+            en: 'My Orders',
+            ar: 'مشترياتي'
+        },
+    LABEL_DASHBOARD: {
+            en: 'Dashbaord',
+            ar: 'الاحصائيات'
+        },
 // Link Genrator Page
     LINK_GENERATOR_TITLE: {
             en: 'Affiliate Link Generator',
@@ -398,7 +472,20 @@ const globalVariables = {
             en: 'Affiliate Link',
             ar: 'رابط الافيليت'
         },
-    
+
+
+        
+// My Orders 
+    MY_ORDERS_EMPTY: {
+        en: 'You haven\'t make any order',
+        ar: 'لم تقم بشراء اي منتج',
+    },
+    MY_ORDERS_VISIT_STORE: {
+        en: 'Please visit our shop and buy items from',
+        ar: 'يمكنك زيارة متجرنا وشراء بعض المنتجات من'
+    },  
+
+
 // LOGIN FORM
     FORM_LOGIN_LABEL_TITLE:{
             en: 'Login',

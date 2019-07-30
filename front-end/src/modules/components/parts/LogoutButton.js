@@ -11,7 +11,8 @@ import MySnackbar from './MySnackbar';
 
 
 import globalVariables from '../../../global-variables';
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 
 const styles = theme => ({
@@ -23,12 +24,17 @@ class LogoutButton extends React.Component{
 
     handleLogout = (handleRedirect) => {
         this.props.handleLogout()
+        
         handleRedirect()
-        this.props.handleInitCart()
-        this.props.handleInitUser()
+        setTimeout(()=>{
+            this.props.handleInitCart()
+            this.props.handleInitUser()
+        },4000)
+        
     }
     render(){
         const {classes, handlePopupClose, messageType, serverMessage, isPopup, handleRedirect} = this.props
+        
         return(
                 <Button onClick={() => this.handleLogout(handleRedirect)} fullWidth>
                     <Snackbar
