@@ -136,34 +136,36 @@ class Checkout extends React.Component{
         if(this.state.address === undefined) return //handle error
         
         this.setState({isLoading:true})
-        if(cookies.get('access_token')){
-            this.props.handleCartStart()
-            const products=[]
-            this.props.items.forEach(item=>{
-                let data={id:item.id,quantity:item.cart.quantity}
-                products.push(data)
-            })
+        
+       
+        this.props.handleCartStart()
+        const products=[]
+        this.props.items.forEach(item=>{
+            let data={id:item.id,quantity:item.cart.quantity}
+            products.push(data)
+        })
 
-            const data = {
-                    address: this.state.address.id,
-                    products: products,
-                    token: this.state.address._token    
-                }
-            
-            checkoutAPI.post('',data)
-            .then(res=>{
-                
-                this.props.handleClearCart()
-                const trackOrder = "orders/"+res.data.url.split("/").pop()
-                this.setState({trackOrder:trackOrder,isLoading:false})
-                this.stepAdvance()
-                this.props.handleCartSuccess("العملية تمت بنجاح")
-            })
-            .catch(res=>{
-                this.props.handleCartFail("فشل في تنفيذ العملية")
-                this.setState({isLoading:false})
-            })
+        const data = {
+                address: this.state.address.id,
+                products: products,
+                token: this.state.address._token,
+                referral: cookies.get(globalVariables.AFFILIATE_COOKIE) !== undefined? cookies.get(globalVariables.AFFILIATE_COOKIE):0
         }
+        
+        checkoutAPI.post('',data)
+        .then(res=>{
+            this.props.handleClearCart()
+            const trackOrder = "orders/"+res.data.url.split("/").pop()
+            this.setState({trackOrder: trackOrder, isLoading: false})
+            this.stepAdvance()
+            this.props.handleCartSuccess("العملية تمت بنجاح")
+        })
+        .catch(res=>{
+            this.props.handleCartFail("فشل في تنفيذ العملية")
+            this.setState({isLoading:false})
+        })
+        
+        
         
     }
 

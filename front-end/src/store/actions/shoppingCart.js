@@ -71,11 +71,14 @@ export const addToCart = (product, quantity, messageShow=true, isModifiyOperatio
 
             let shopping_cart = JSON.parse(localStorage.getItem('shopping_cart'))
             
-            const idx = shopping_cart.findindex(item=>item.id===product.id)
-            
+            const idx = shopping_cart.findIndex(item=>item.id===product.id)
+            console.log(product)
             if(idx !== -1) shopping_cart[idx].cart.quantity = quantity
             else {
+                product.cart = {}
                 product.cart.quantity=quantity
+                product.cart.user_id = 0
+                product.cart.product_id = product.id
                 shopping_cart.push(product)
             }
 
@@ -86,6 +89,8 @@ export const addToCart = (product, quantity, messageShow=true, isModifiyOperatio
             const message = isModifiyOperation? "تم تعديل المنتج في السلة":"تم اضافة المنتج للسلة"
             dispatch(cartSuccess(messageShow?message:""))
 
+
+            console.log(shopping_cart)
             
         }
     }

@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             //$table->uuid('order_id');
             $table->bigInteger('address_id')->unsigned();
             $table->bigInteger('referral_id')->unsigned()->nullable();
-            $table->bigInteger('shipper_id')->unsigned();
+            $table->integer('shipper_id')->unsigned();
             $table->string('_token',20);
             $table->enum('status',['Pending','Active','Shipped','Delivered','Canceled','Returned']);
             $table->double('shipping_fees');

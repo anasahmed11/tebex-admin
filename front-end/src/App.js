@@ -36,8 +36,8 @@ const cookies = new Cookies();
 
 function fetchAffiliate(){
   const url = new URL(window.location.href);
-  const affiliate = url.searchParams.get(globalVariables.AFFILIATE_PARAM)
-  
+  let affiliate = url.searchParams.get(globalVariables.AFFILIATE_PARAM)
+
   const expirationDate = new Date()
   expirationDate.setDate(expirationDate.getDate()+7)
   
