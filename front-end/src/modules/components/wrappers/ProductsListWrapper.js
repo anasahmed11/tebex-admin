@@ -112,7 +112,7 @@ class Store extends Component {
 
     render(){
     
-    const { classes, isPopup, serverMessage, handlePopupClose, handleDeleteFromCart, messageType } = this.props
+    const { classes, isPopup, serverMessage, handlePopupClose, messageType } = this.props
 
     let products = this.state.products.map(product => 
         <Grid key={uuid()} md={4} sm={6} xs={12}>

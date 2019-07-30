@@ -4,7 +4,6 @@ import { withStyles, Grid, Typography,  } from '@material-ui/core';
 
 import ChartistGraph from "react-chartist";
 import {
-        dailySalesChart,
         emailsSubscriptionChart,
         completedTasksChart
 } from "../../../charts";

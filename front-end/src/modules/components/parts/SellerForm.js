@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
@@ -83,7 +82,7 @@ class SellerForm extends React.Component{
                                 required
                             />
                         </Grid>    
-            case 2:
+            default:
                 return <React.Fragment>
                         <Grid item xs = {12} className = {classes.paddingTop}>
                             <TextField
@@ -158,7 +157,7 @@ class SellerForm extends React.Component{
                 return {
                     etisalat_cash:this.state.etisalat
                 }
-            case 2:
+            default:
                 return {
                     swift_code: this.state.swiftCode,
                     bemeficiary_name: this.state.bemeficiaryName,

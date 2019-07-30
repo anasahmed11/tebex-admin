@@ -3,7 +3,6 @@ import 'typeface-roboto';
 import { withStyles, Grid, Typography, Button, TextField, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, MenuItem } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons';
 import uuid from 'uuid';
-import RTL from './RTL';
 
 const styles = theme => ({
     root: {

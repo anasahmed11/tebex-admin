@@ -48,6 +48,8 @@ class Affiliate extends React.Component{
                 return <Page1 />
             case 2:
                 return <Page2 />
+            default:
+                return <SellerRegisteration handleNextStep={this.handleNextStep} />
         }
     }
     render(){

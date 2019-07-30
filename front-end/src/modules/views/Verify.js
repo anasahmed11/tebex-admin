@@ -17,7 +17,6 @@ const styles = theme => ({
         position: 'relative',
     },
     item: {
-        padding: theme.spacing.unit * 2,
         padding: theme.spacing.unit * 2,   
     },
     paddingTop: {

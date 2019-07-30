@@ -12,6 +12,7 @@ const globalVariables = {
     LANGUGAE: 'lang',
     AFFILIATE_PARAM: 'ref',
     AFFILIATE_COOKIE: 'ref',
+    AVATAR_COLOR_COOKIE: 'avatar_color',
 // MESSAGES
     MSG_LOGIN_FAIL:{
             en: 'Login failed.',

@@ -4,7 +4,8 @@ import { withStyles, Grid, Typography,  } from '@material-ui/core';
 
 import { ClipLoader } from 'react-spinners';
 
-import {affiliateAPI} from '../../../api/api'
+//import {affiliateAPI} from '../../../api/api'
+
 import globalVariables from '../../../global-variables';
 
 import AffiliateRegisteration from './AffiliateRegisteration';
@@ -49,6 +50,8 @@ class Affiliate extends React.Component{
                 return <Page1 />
             case 2:
                 return <Page2 />
+            default:
+                return <AffiliateRegisteration handleNextStep={this.handleNextStep} />
         }
     }
     render(){

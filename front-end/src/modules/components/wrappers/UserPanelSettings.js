@@ -1,7 +1,7 @@
 import React from 'react';
 import 'typeface-roboto';
 import { withStyles, Grid, Paper, Typography,  } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
+
 import {connect} from 'react-redux';
 
 import { Route, withRouter } from 'react-router-dom';
@@ -60,7 +60,7 @@ function UserPanelSettings (props){
     return(
         <Grid container justify='center' xs={11} className={classes.root}>
             <Grid item xs={12} className={classes.avatarDiv}>
-                <ProfileAvatar img={props.user.img} style={{ margin: 10,width: 60,height: 60,}}/>
+                <ProfileAvatar img={props.user.img} name={props.user.first_name} style={{ margin: 10, width: 60, height: 60,}}/>
                 <div>
                     <Typography variant='title' className={classes.textHead}>{props.user.first_name} {props.user.last_name}</Typography>
                     <Typography variant='subheading' className={classes.textMail}>{props.user.email}</Typography>

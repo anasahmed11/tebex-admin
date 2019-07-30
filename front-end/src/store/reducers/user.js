@@ -1,5 +1,4 @@
 import * as actionTypes from "../actionTypes";
-import globalVariables from '../../global-variables';
 
 const initialState = {
     user:{},

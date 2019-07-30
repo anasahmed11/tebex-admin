@@ -83,7 +83,7 @@ class ProductSlider extends Component {
     return (
         <Grid container className={classes.root}>
           <LinedTitle>
-            عروضنا الجميلة 😂
+            عروضنا الجميلة 
           </LinedTitle>
           <SlickSlider>
             {products}

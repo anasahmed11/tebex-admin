@@ -1,17 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 
-import { withStyles, Grid, Button, Hidden, Divider, Snackbar, Paper, } from '@material-ui/core';
-import { OpenInNew } from '@material-ui/icons';
+import { withStyles, Grid, Snackbar, } from '@material-ui/core';
 
 import MySnackbar from '../parts/MySnackbar';
 
 
 import { styles } from '../../../assets/jss/wrappers/AffiliateReg';
 import globalVariables from '../../../global-variables';
-import PackageCard from '../parts/PackageCard';
 import SellerForm from '../parts/SellerForm';
 import { userAPI } from '../../../api/api';
 

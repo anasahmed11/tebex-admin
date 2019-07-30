@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, withStyles, Grid, Divider, TextField, MenuItem, Button } from '@material-ui/core';
+import { withStyles, Grid, TextField, MenuItem, Button } from '@material-ui/core';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';

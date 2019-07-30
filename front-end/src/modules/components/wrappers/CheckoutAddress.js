@@ -116,7 +116,7 @@ class CheckoutAddress extends React.Component{
                                 id={obj.id}
                                 key={obj.id}
                                 name={obj.first_name + ' ' + obj.last_name} 
-                                address={'Egypt' + ', ' + (obj.location.city_name!==undefined? obj.location.city_name:obj.location.area_name) + ', ' + obj.address}
+                                address={'Egypt, ' + (obj.location.city_name!==undefined? obj.location.city_name:obj.location.area_name) + ', ' + obj.address}
                                 phone={obj.phone}
                                 selected={this.state.selectedAddress === index? true : false}
                                 onClick={this.addressClickHandler.bind(this, index)}

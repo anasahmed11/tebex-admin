@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { withStyles, Grid, Button, Hidden, Divider, Snackbar, Paper, } from '@material-ui/core';
-import { OpenInNew } from '@material-ui/icons';
+import { withStyles, Grid, Paper, } from '@material-ui/core';
 
 import uuid from 'uuid'
 import globalVariables from '../../../global-variables';

@@ -48,6 +48,8 @@ class TopCustomer extends React.Component {
     };
 
     componentDidMount(){
+        setTimeout(this.handleImageSliding, 4000);
+
         axios.get('/')
         .then(res => {
             const { persons } = this.state;
@@ -74,9 +76,7 @@ class TopCustomer extends React.Component {
         this.setState({selectedImage:selectedImage});
         setTimeout(this.handleImageSliding, 4000);
     }
-    componentDidMount(){
-        setTimeout(this.handleImageSliding, 4000);
-    }
+    
 
     render(){
         const {classes} = this.props;

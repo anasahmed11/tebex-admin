@@ -9,7 +9,6 @@ import {
 
 import { Link } from 'react-router-dom';
 
-import SelectMenu from "./SelectMenu";
 import ShopCartItem from "./ShopCartItem";
 import Stepper from "./Stepper";
 import globalVariables from '../../../global-variables';
@@ -42,9 +41,7 @@ const styles = theme => ({
     },
 });
 
-const selectmenu = <Grid justify='flex-end' style={{display: 'flex', flexGrow: 1,}}>
-    <SelectMenu />
-</Grid>
+
 
 function Order(props){
     const { order, classes } = props;

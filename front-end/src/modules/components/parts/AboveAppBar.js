@@ -39,7 +39,7 @@ class TopNav extends React.Component {
 
   };
   handleLanguageToggle = () => {
-    globalVariables.LANG = globalVariables.LANG == 'en'?'ar':'en';
+    globalVariables.LANG = globalVariables.LANG === 'en'?'ar':'en';
     cookies.set(globalVariables.LANGUGAE,globalVariables.LANG);
     window.location.reload();
   }

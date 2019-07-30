@@ -61,6 +61,7 @@ const styles = theme => ({
         zIndex: 10,
         right: 0,
         top: '82%',
+        left:'0px',
         width: '400px',
         transition: theme.transitions.create(),
         visibility: 'hidden',

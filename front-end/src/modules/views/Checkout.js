@@ -208,7 +208,7 @@ class Checkout extends React.Component{
                                     />
                                 </Grid>:null
                             }
-                            {isLoading && this.state.stepIndex==1?null:this.getStepContent()}
+                            {isLoading && this.state.stepIndex===1?null:this.getStepContent()}
                         </Grid>
                     </React.Fragment>
                     :

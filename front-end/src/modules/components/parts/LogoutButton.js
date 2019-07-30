@@ -10,10 +10,6 @@ import { initUser } from '../../../store/actions/user';
 import MySnackbar from './MySnackbar';
 
 
-import globalVariables from '../../../global-variables';
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
-
 
 const styles = theme => ({
     
