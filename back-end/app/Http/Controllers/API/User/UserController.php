@@ -20,24 +20,23 @@ class UserController extends Controller
         $user=Auth::user();
         $data['user']=$user;
         $data['user']['verified']=$user->hasVerifiedEmail();
-        $seller=$user->Store();
         $sellerStatus='Not Applied';
-        if($seller->where('status','refused')->count()>0)
+        if($user->Store()->where('status','refused')->count() > 0)
             $sellerStatus='Refused';
-        elseif($seller->where('status','pending')->count()>0)
+        elseif($user->Store()->where('status','pending')->count() > 0)
             $sellerStatus='Pending';
-        elseif($seller->where('status','approved')->count()>0)
+        elseif($user->Store()->where('status','approved')->count() > 0)
             $sellerStatus='Approved';
-        $aff=$user->Affiliate();
         $affStatus='Not Applied';
-        if($aff->where('status','refused')->count()>0)
+        #dd($aff->where('status','pending')->count());
+        if($user->Affiliate()->where('status','refused')->count() > 0)
             $affStatus='Refused';
-        elseif($aff->where('status','pending')->count()>0)
+        elseif($user->Affiliate()->where('status','pending')->count() > 0)
             $affStatus='Pending';
-        elseif($aff->where('status','approved')->count()>0)
+        elseif($user->Affiliate()->where('status','approved')->count() > 0)
             $affStatus='Approved';
         $data['program']['seller']= $sellerStatus;
-        $data['program']['affiliate']=$affStatus;
+        $data['program']['affiliate']= $affStatus;
         return response()->json($data);
     }
 }
