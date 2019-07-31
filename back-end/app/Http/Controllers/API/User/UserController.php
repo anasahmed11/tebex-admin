@@ -24,17 +24,17 @@ class UserController extends Controller
         $sellerStatus='Not Applied';
         if($seller->where('status','refused')->count()>0)
             $sellerStatus='Refused';
-        elseif($seller->where('status','Pending')->count()>0)
+        elseif($seller->where('status','pending')->count()>0)
             $sellerStatus='Pending';
-        elseif($seller->where('status','Approved')->count()>0)
+        elseif($seller->where('status','approved')->count()>0)
             $sellerStatus='Approved';
         $aff=$user->Affiliate();
         $affStatus='Not Applied';
         if($aff->where('status','refused')->count()>0)
             $affStatus='Refused';
-        elseif($aff->where('status','Pending')->count()>0)
+        elseif($aff->where('status','pending')->count()>0)
             $affStatus='Pending';
-        elseif($aff->where('status','Approved')->count()>0)
+        elseif($aff->where('status','approved')->count()>0)
             $affStatus='Approved';
         $data['program']['seller']= $sellerStatus;
         $data['program']['affiliate']=$affStatus;
