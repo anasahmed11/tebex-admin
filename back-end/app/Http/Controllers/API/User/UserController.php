@@ -19,8 +19,25 @@ class UserController extends Controller
         $data=[];
         $user=Auth::user();
         $data['user']=$user;
-        $data['program']['seller']= $user->Store()->count();
-        $data['program']['affiliate']=$user->Affiliate()->count();
+        $data['user']['verified']=$user->hasVerifiedEmail();
+        $seller=$user->Store();
+        $sellerStatus='Not Applied';
+        if($seller->where('status','refused')->count()>0)
+            $sellerStatus='Refused';
+        elseif($seller->where('status','Pending')->count()>0)
+            $sellerStatus='Pending';
+        elseif($seller->where('status','Approved')->count()>0)
+            $sellerStatus='Approved';
+        $aff=$user->Affiliate();
+        $affStatus='Not Applied';
+        if($aff->where('status','refused')->count()>0)
+            $affStatus='Refused';
+        elseif($aff->where('status','Pending')->count()>0)
+            $affStatus='Pending';
+        elseif($aff->where('status','Approved')->count()>0)
+            $affStatus='Approved';
+        $data['program']['seller']= $sellerStatus;
+        $data['program']['affiliate']=$affStatus;
         return response()->json($data);
     }
 }
