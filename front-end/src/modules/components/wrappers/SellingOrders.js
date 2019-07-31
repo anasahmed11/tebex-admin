@@ -2,8 +2,6 @@ import React from 'react';
 import 'typeface-roboto';
 import { withStyles, Grid, Typography,  } from '@material-ui/core';
 
-import Table from '../parts/Table';
-
 
 const styles = theme => ({
     root: {
