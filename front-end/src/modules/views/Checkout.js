@@ -18,6 +18,7 @@ import { clearCart, cartStart, cartSuccess, cartFail, cartFinish } from '../../s
 
 import CartEmpty from '../components/parts/CartEmpty'
 import globalVariables from '../../global-variables';
+import cancelablePromise from '../../Providers/CancelablePromise';
 
 
 const cookies = new Cookies();
@@ -59,7 +60,7 @@ function ThanXPage(props){
     
     return(
         
-        <Grid container justify="center" alignItems="center" spacing={16} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
+        <Grid container item justify="center" alignItems="center" spacing={16} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
             <Grid item xs={11}>
                 <Typography variant="h4" gutterBottom>{globalVariables.CHECKOUT_THANKS_STATUS[globalVariables.LANG]}</Typography>
                 <Typography variant="h6">
@@ -75,7 +76,6 @@ function ThanXPage(props){
 }
 
 
-
 class Checkout extends React.Component{
     state = {
         items: [],
@@ -86,6 +86,17 @@ class Checkout extends React.Component{
         trackOrder: '/orders',
         isLoading: true
     }
+
+    pendingPromises = [];
+    componentWillUnmount = () => 
+        this.pendingPromises.map(p => p.cancel());
+    appendPendingPromise = promise =>
+        this.pendingPromises = [...this.pendingPromises, promise];
+    removePendingPromise = promise =>
+        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
+
+
 
     getStepContent = () => {
         switch (this.state.stepIndex) {
@@ -121,14 +132,18 @@ class Checkout extends React.Component{
             alert('please create a new address or select one')
             return
         }
-        axios.get(`${address.id}/shipping`)
+
+        const wrappedPromise = cancelablePromise(axios.get(`${address.id}/shipping`));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
         .then(res=>{    
             this.setState({address:address, shipment:res.data })
             this.stepAdvance()
         })
-        .catch(res=>{
-            alert("عنوانك غير مدعوم في الشحن")
-        })
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(res=>{alert("عنوانك غير مدعوم في الشحن")})
 
         
     }
@@ -152,7 +167,11 @@ class Checkout extends React.Component{
                 referral: cookies.get(globalVariables.AFFILIATE_COOKIE) !== undefined? cookies.get(globalVariables.AFFILIATE_COOKIE):0
         }
         
-        checkoutAPI.post('',data)
+        const wrappedPromise = cancelablePromise(checkoutAPI.post('',data));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
         .then(res=>{
             this.props.handleClearCart()
             const trackOrder = "orders/"+res.data.url.split("/").pop()
@@ -160,9 +179,12 @@ class Checkout extends React.Component{
             this.stepAdvance()
             this.props.handleCartSuccess("العملية تمت بنجاح")
         })
-        .catch(res=>{
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(err=>{
+            if (!err.isCanceled) {
+                this.setState({isLoading: false})
+            }
             this.props.handleCartFail("فشل في تنفيذ العملية")
-            this.setState({isLoading:false})
         })
         
         

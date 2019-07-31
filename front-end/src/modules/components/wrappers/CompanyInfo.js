@@ -57,7 +57,6 @@ class CompanyInfo extends React.Component {
     _handleWaypointEnter = () =>{
         
         const display=this.state.display;
-        console.log(display);
         this.setState({display:display+1});
     }
 

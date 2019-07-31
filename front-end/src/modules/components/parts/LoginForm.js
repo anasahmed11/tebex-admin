@@ -4,6 +4,7 @@ import globalVariables from '../../../global-variables';
 
 import { Grid, Button, Checkbox, TextField, Typography, InputAdornment, FormControlLabel, IconButton, withStyles } from '@material-ui/core';
 import { AccountCircle, Visibility, VisibilityOff} from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 import { loginUser } from '../../../store/actions/auth';
 
@@ -128,9 +129,6 @@ class Login extends React.Component{
                 </Grid>
                 
                 <Grid item xs={12} className={classes.paddingTop}>
-                    <Button variant="contained" color="primary" className={classes.button} onClick={this.handleLogin}>
-                        {globalVariables.FORM_LOGIN_LABEL_LOGIN[globalVariables.LANG]}
-                    </Button>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -141,10 +139,15 @@ class Login extends React.Component{
                         }
                         label={globalVariables.FORM_LOGIN_LABEL_REMEMBER[globalVariables.LANG]}
                     />
+
+                    <Button variant="contained" color="primary" className={classes.button} onClick={this.handleLogin}>
+                        {globalVariables.FORM_LOGIN_LABEL_LOGIN[globalVariables.LANG]}
+                    </Button>
+                   
                     
                 </Grid>
                 <Grid item xs={12} className={classes.paddingTop}>
-                    {globalVariables.FORM_LOGIN_LABEL_FORGOT[globalVariables.LANG]}
+                    <Link to='/'>{globalVariables.FORM_LOGIN_LABEL_FORGOT[globalVariables.LANG]}</Link>
                 </Grid>   
             </Grid>
         );

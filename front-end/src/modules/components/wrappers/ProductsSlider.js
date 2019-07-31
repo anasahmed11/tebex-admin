@@ -22,16 +22,13 @@ const styles = theme => ({
     margin: 'auto'
   }
 });
+const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 
 class ProductSlider extends Component {
 
   state = {  
     products: [
-      {
-        img: 'https://target.scene7.com/is/image/Target/GUEST_5722806b-5fc2-4cd0-b619-a7e5f2ea2726?wid=1400&fmt=webp',
-        title: 'ازرق',
-        price: '400'
-      },
+      
     ]
   }
 
@@ -74,7 +71,7 @@ class ProductSlider extends Component {
             subtitle={item.salePrice? item.salePrice : item.price}
             subtitleOld={item.salePrice? item.price : false}
             currency={'جنيه'}
-            img={item.img}
+            img={item.img?item.img:noImage}
             slider
           />
         </div>
