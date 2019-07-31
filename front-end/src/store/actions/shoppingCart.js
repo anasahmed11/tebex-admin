@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actionTypes from '../actionTypes';
 import Cookies from 'universal-cookie';
 import {cartAPI} from '../../api/api'
@@ -40,12 +39,10 @@ export const cartFail = (message) => {
 
 
 export const addToCart = (product, quantity, messageShow=true, isModifiyOperation=false) =>{
-    console.log(product.id,quantity)
     return dispatch => {
         dispatch(cartStart())
         
         if(cookies.get(globalVariables.ACCESS_TOKEN)){
-            console.log("auth")
 
             let data=
                 {
@@ -61,21 +58,21 @@ export const addToCart = (product, quantity, messageShow=true, isModifiyOperatio
                 
             })
             .catch(res=>{
-                console.log(res.data)
                 dispatch(cartFail(messageShow?"فشل في اضافة المنتج":""))
             })
         }
         else{
-            console.log("not auth")
             if(!localStorage.getItem('shopping_cart')) localStorage.setItem('shopping_cart',JSON.stringify([]))
 
             let shopping_cart = JSON.parse(localStorage.getItem('shopping_cart'))
             
-            const idx = shopping_cart.findindex(item=>item.id===product.id)
-            
+            const idx = shopping_cart.findIndex(item=>item.id===product.id)
             if(idx !== -1) shopping_cart[idx].cart.quantity = quantity
             else {
+                product.cart = {}
                 product.cart.quantity=quantity
+                product.cart.user_id = 0
+                product.cart.product_id = product.id
                 shopping_cart.push(product)
             }
 
@@ -85,6 +82,7 @@ export const addToCart = (product, quantity, messageShow=true, isModifiyOperatio
 
             const message = isModifiyOperation? "تم تعديل المنتج في السلة":"تم اضافة المنتج للسلة"
             dispatch(cartSuccess(messageShow?message:""))
+
 
             
         }
@@ -115,7 +113,6 @@ export const clearCart = () => {
 
 export const deleteFromCart = (productID,shopping_cart) => {
     return dispatch => {
-        console.log(productID,shopping_cart)
         dispatch(cartStart())
         //localStorage.setItem('shopping_cart',JSON.stringify([{id:1,quantity:2},{id:2,quantity:2},{id:3,quantity:2}])) //for testing only
         if(cookies.get(globalVariables.ACCESS_TOKEN)){
@@ -130,7 +127,6 @@ export const deleteFromCart = (productID,shopping_cart) => {
                 dispatch(addToCartOperation(shopping_cart))
             })
             .catch(res=>{
-                console.log(res.data)
                 dispatch(cartFail("فشل في حذف المنتج"))
             })
 
@@ -179,7 +175,6 @@ export const initCart = (message="") => {
             .then((res)=>{
                 let modified=false
                 let cartItems = res.data
-                console.log(cartItems)
                 for(let i=0;i<cartItems.length;i++){
                     if(cartItems[i].quantity<cartItems[i].cart.quantity){
                         cartItems[i].cart.quantity = cartItems[i].quantity
@@ -194,7 +189,6 @@ export const initCart = (message="") => {
 
             })
             .catch((res) => {
-                console.log(res.data)
                 dispatch(cartFail("فشل في تحميل السلة"))
             })
 

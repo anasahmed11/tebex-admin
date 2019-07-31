@@ -6,7 +6,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
   card: {
@@ -20,6 +21,9 @@ const styles = theme => ({
     },
   },
   title: {
+    fontSize: 14,
+  },
+  currency: {
     fontSize: 14,
   },
   pos: {
@@ -37,14 +41,14 @@ function SimpleCard(props) {
           {props.title}
         </Typography>
         <Typography variant="h5" component="h2">
-          {props.highlight}{props.currency}
+          {props.highlight} <Typography color="textSecondary" inline className={classes.currency}>{props.currency}</Typography>
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           {props.desc}
         </Typography>
       </CardContent>
       <CardActions>
-        {props.link?<Link to={props.link}><Button size="small">تفاصيل</Button></Link>:null}
+        {props.link?<Link to={props.link}><Button size="small">{globalVariables.LABEL_DETAILS[globalVariables.LANG]}</Button></Link>:null}
       </CardActions>
     </Card>
   );

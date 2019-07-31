@@ -48,6 +48,8 @@ class Affiliate extends React.Component{
                 return <Page1 />
             case 2:
                 return <Page2 />
+            default:
+                return <SellerRegisteration handleNextStep={this.handleNextStep} />
         }
     }
     render(){
@@ -55,9 +57,9 @@ class Affiliate extends React.Component{
         const { isLoading } = this.state
         
         return(
-            <Grid container justify='center' xs={11}>
+            <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_SELLER[globalVariables.LANG]}</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_SELLER[globalVariables.LANG]}</Typography>
                 </Grid>
                 {isLoading?
                 <Grid container alignItems="center" justify="center" >
@@ -68,7 +70,7 @@ class Affiliate extends React.Component{
                         loading={isLoading}
                     />
                 </Grid> :
-                <Grid container justify='center' alignItems='center' xs={12} className={classes.root}>
+                <Grid container item justify='center' alignItems='center' xs={12} className={classes.root}>
                     {this.getPage()}
                 </Grid>
                 }

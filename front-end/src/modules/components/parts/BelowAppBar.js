@@ -61,6 +61,7 @@ const styles = theme => ({
         zIndex: 10,
         right: 0,
         top: '82%',
+        left:'0px',
         width: '400px',
         transition: theme.transitions.create(),
         visibility: 'hidden',
@@ -156,7 +157,7 @@ class BelowAppBar extends Component {
         ));
 
         return  <Grid container justify='center' className={classes.root}>
-                    <Grid container spacing={24} xs={10}>
+                    <Grid container item spacing={24} xs={10}>
                         {links}
                     </Grid>
                 </Grid>

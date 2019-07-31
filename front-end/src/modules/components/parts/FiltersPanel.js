@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
-import globalVariables from '../../../global-variables';
 
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Typography } from '@material-ui/core';
@@ -11,7 +10,6 @@ import { styles } from '../../../assets/jss/components/parts/FiltersPanel';
 class InteractiveList extends React.Component {
   state = {
     dense: true,
-    secondary: false,
     checked: [1],
   };
 
@@ -34,7 +32,7 @@ class InteractiveList extends React.Component {
   render() {
     const { classes } = this.props;
     const filterPanels = this.props.filterPanels;
-    const { dense, secondary } = this.state;
+    const { dense } = this.state;
 
     return (
       <div className={classes.root}>

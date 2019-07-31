@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actionTypes from '../actionTypes';
 import Cookies from 'universal-cookie';
 import {userAPI} from '../../api/api'
@@ -22,6 +21,8 @@ export const initUser = () => {
         userAPI.get('')
         .then(res=>{
             dispatch(initUserOperation(res.data))
+            const color = res.data.user.gender==='M'?'lightslategrey':'lightcoral';
+            cookies.set(globalVariables.AVATAR_COLOR_COOKIE,color)
         })
         .catch(err=>{
             dispatch(initUserOperation({}))

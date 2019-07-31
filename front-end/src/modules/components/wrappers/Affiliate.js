@@ -4,7 +4,8 @@ import { withStyles, Grid, Typography,  } from '@material-ui/core';
 
 import { ClipLoader } from 'react-spinners';
 
-import {affiliateAPI} from '../../../api/api'
+//import {affiliateAPI} from '../../../api/api'
+
 import globalVariables from '../../../global-variables';
 
 import AffiliateRegisteration from './AffiliateRegisteration';
@@ -49,6 +50,8 @@ class Affiliate extends React.Component{
                 return <Page1 />
             case 2:
                 return <Page2 />
+            default:
+                return <AffiliateRegisteration handleNextStep={this.handleNextStep} />
         }
     }
     render(){
@@ -56,9 +59,9 @@ class Affiliate extends React.Component{
         const { isLoading } = this.state
         
         return(
-            <Grid container justify='center' xs={11}>
+            <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_AFFILIATE[globalVariables.LANG]}</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_AFFILIATE[globalVariables.LANG]}</Typography>
                 </Grid>
                 {isLoading?
                 <Grid container alignItems="center" justify="center" >
@@ -69,7 +72,7 @@ class Affiliate extends React.Component{
                         loading={isLoading}
                     />
                 </Grid> :
-                <Grid container justify='center' alignItems='center' xs={12} className={classes.root}>
+                <Grid container item justify='center' alignItems='center' xs={12} className={classes.root}>
                     {this.getPage()}
                 </Grid>
                 }

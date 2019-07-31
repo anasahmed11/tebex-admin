@@ -54,7 +54,7 @@ class Auth extends React.Component {
                     : null
                 }
                 <Snackbar
-                    style={{direction:'ltr', bottom:'50px'}}   
+                    style={{bottom:'50px'}}   
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',

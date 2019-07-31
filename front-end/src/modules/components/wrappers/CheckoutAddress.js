@@ -11,6 +11,7 @@ import { ClipLoader } from 'react-spinners';
 
 import 'typeface-roboto';
 import globalVariables from '../../../global-variables';
+import cancelablePromise from '../../../Providers/CancelablePromise';
 
 const styles = theme => ({
     
@@ -24,7 +25,6 @@ const styles = theme => ({
 
 
 
-
 class CheckoutAddress extends React.Component{
     state = {
         addForm: false,
@@ -33,14 +33,30 @@ class CheckoutAddress extends React.Component{
         isLoading:true
     }
 
+    pendingPromises = [];
+
+    componentWillUnmount = () => 
+        this.pendingPromises.map(p => p.cancel());
+
+    appendPendingPromise = promise =>
+        this.pendingPromises = [...this.pendingPromises, promise];
+
+    removePendingPromise = promise =>
+        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
    
     componentDidMount(){
-        axios.get('/')
-        .then(res => {
-            this.setState({addresses:res.data,isLoading:false})
-        })
-        .catch(res => {
-            this.setState({isLoading:false})
+        const wrappedPromise = cancelablePromise(axios.get('/'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
+        .then(res => {this.setState({addresses:res.data,isLoading:false})})
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(err => {
+            if (!err.isCanceled) {
+                this.setState({isLoading: false})
+            }
         })
         
     }
@@ -72,14 +88,19 @@ class CheckoutAddress extends React.Component{
 
     handleDelete = (id) => {
         let addresses = [...this.state.addresses]
-        axios.get(`${id}/delete`)
+        const wrappedPromise = cancelablePromise(axios.get(`${id}/delete`));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
         .then(res => {
             const idx = addresses.findIndex(item=>item.id===id)
             addresses.splice(idx,1)
             this.setState({addresses:addresses})
         })
+        .then(() => this.removePendingPromise(wrappedPromise))
         .catch(res => {
-            console.log(res)
+            
         })
         
     }
@@ -110,13 +131,13 @@ class CheckoutAddress extends React.Component{
                 <Grid item xs={12} >
                     <Grid container justify="center" className={classes.root}>
                     
-                    <Grid container xs={12} className={classes.addressCardsRoot}>
+                    <Grid container item xs={12} className={classes.addressCardsRoot}>
                         {addresses.map((obj, index) => 
                             <AddressCard 
                                 id={obj.id}
                                 key={obj.id}
                                 name={obj.first_name + ' ' + obj.last_name} 
-                                address={'Egypt' + ', ' + (obj.location.city_name!==undefined? obj.location.city_name:obj.location.area_name) + ', ' + obj.address}
+                                address={'Egypt, ' + (obj.location.city_name!==undefined? obj.location.city_name:obj.location.area_name) + ', ' + obj.address}
                                 phone={obj.phone}
                                 selected={this.state.selectedAddress === index? true : false}
                                 onClick={this.addressClickHandler.bind(this, index)}

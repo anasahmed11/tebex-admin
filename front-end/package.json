@@ -23,6 +23,7 @@
     "react-chartist": "^0.13.3",
     "react-dom": "^16.8.6",
     "react-image-magnify": "^2.7.4",
+    "react-jss": "^8.6.1",
     "react-loading-screen": "0.0.17",
     "react-magnifier": "^2.1.2",
     "react-redux": "^7.1.0",

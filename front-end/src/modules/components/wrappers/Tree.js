@@ -23,11 +23,11 @@ class UserDashBoard extends React.Component{
         const {classes, } = this.props;
         
         return(
-            <Grid container justify='center' xs={11}>
+            <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>فريقي</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>فريقي</Typography>
                 </Grid>
-                <Grid container xs={12}>
+                <Grid container item xs={12}>
                     <Table />
                 </Grid>
             </Grid>
