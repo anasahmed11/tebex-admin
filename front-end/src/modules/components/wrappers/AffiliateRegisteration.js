@@ -24,6 +24,7 @@ class AffiliateRegisteration extends React.Component {
         userAPI.post('program/affiliate',data)
         .then(res=>{
             this.props.handleNextStep()
+            this.setState({isLoading:false})
         })
         .catch(err=>{
             this.setState({isLoading:false, isPopup:true})

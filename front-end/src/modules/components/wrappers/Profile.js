@@ -3,14 +3,17 @@ import 'typeface-roboto';
 import { withStyles, Grid, Typography, Button, TextField, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, MenuItem } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons';
 import uuid from 'uuid';
+import Cookies from 'universal-cookie';
+import { ClipLoader } from 'react-spinners';
 
 const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        // padding: `${theme.spacing.unit * 4}px 0px`,
-      },
+    
     expanDetails:{
         display:'inherit'
+    },
+    textHead:{
+        fontWeight:'500',
+        marginBottom: theme.spacing.unit * 4,
     },
     padding:{
         padding: `${theme.spacing.unit * 2}px 0px`,
@@ -26,13 +29,18 @@ const REGIONS = [
 ,'الوادي الجديد','أسوان','أسيوط','بني سويف','بورسعيد','جنوب سيناء','دمياط','سوهاج','شمال سيناء','قنا','كفر الشيخ','مطروح']
 
 
+const cookies = new Cookies();
 
 
 
 class Profile extends React.Component{
     state ={
         firstname:'',
+        firstnameErr:'',
+        
         lastname:'',
+        lastnameErr:'',
+
         mobile:'',
         birthday:'',
         email:'',
@@ -41,7 +49,13 @@ class Profile extends React.Component{
         street:'',
         appartment:'',
         region:'الإسكندرية',
-        expanded:1
+        expanded:1,
+
+        isLoading: true,
+    }
+
+    componentDidMount(){
+        this.setState({isLoading: false})
     }
 
     handleChange = prop => event => {
@@ -52,21 +66,51 @@ class Profile extends React.Component{
         this.setState({
           expanded: panel,
         });
-      };
+    };
+
+
+    handleMainSettings = () => {
+        const data = {
+            first_name: this.state.firstname,
+            last_name: this.state.lastname,
+        }
+        if(this.state.language==="English") cookies.set('lang','en');
+        else cookies.set('lang','ar');
+        
+        let valid = true;
+
+        if(this.state.firstname==="") {this.setState({firstnameErr: 'Cann\'t be empty'});valid=false;}
+        if(this.state.lastname==="") {this.setState({lastnameErr: 'Cann\'t be empty'});valid=false;}
+
+        console.log(data)
+        //if(valid)
+        
+        
+        
+    }
+
     render(){
         const {classes, } = this.props;
-        
+        const {isLoading, } = this.state;
        
 
         return(
             
-            <Grid container item alignItems='center' justify="center" className={classes.root} xs={11}>
+            <Grid container item alignItems='center' justify="center" xs={11}>
                 
                 <Grid item xs={12}>
                     <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>الملف الشخصي</Typography>
                 </Grid>
 
-
+                {isLoading?
+                <Grid container alignItems="center" justify="center" >
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={75}
+                        color={'#123abc'}
+                        loading={isLoading}
+                    />
+                </Grid> :
                 <Grid item xs={12}>
                     
                     <ExpansionPanel 
@@ -85,12 +129,11 @@ class Profile extends React.Component{
                                                 className={classes.margin}
                                                 id={uuid()}
                                                 label="الاسم الاول"
-                                                type="text"
-                                                /*error={this.state.emailError?true:false}
-                                                helperText={this.state.emailError}*/
-                                                value={this.state.number}
-                                                onChange={this.handleChange('fitstname')}
+                                                helperText={this.state.firstnameErr}
+                                                value={this.state.fitstname}
+                                                onChange={this.handleChange('firstname')}
                                                 fullWidth
+                                                error={this.state.firstnameErr!==""}
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
@@ -103,11 +146,12 @@ class Profile extends React.Component{
                                                 id={uuid()}
                                                 label="الاسم الاخير"
                                                 type="text"
-                                                /*error={this.state.emailError?true:false}
-                                                helperText={this.state.emailError}*/
-                                                value={this.state.email}
+                                            
+                                                helperText={this.state.lastnameErr}
+                                                value={this.state.lastname}
                                                 onChange={this.handleChange('lastname')}
                                                 fullWidth
+                                                error={this.state.lastnameErr!==""}
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
@@ -147,7 +191,7 @@ class Profile extends React.Component{
                             
                             </Grid>
                             <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
-                                <Button color='primary' variant='contained'  >
+                                <Button color='primary' variant='contained' onClick={this.handleMainSettings} >
                                     حفظ التغيرات
                                 </Button>
                             </Grid>
@@ -246,7 +290,7 @@ class Profile extends React.Component{
                             
                             </Grid>
                             <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
-                                <Button color='primary' variant='contained'  >
+                                <Button color='primary' variant='contained' onClick={this.handleAddressSettings}>
                                     حفظ التغيرات
                                 </Button>
                             </Grid>
@@ -317,7 +361,8 @@ class Profile extends React.Component{
 
 
 
-                </Grid>     
+                </Grid>
+                }     
             </Grid>
                
         );

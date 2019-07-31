@@ -175,7 +175,6 @@ class AffiliateForm extends React.Component{
             if(paymentData[key]==="") valid=false;
         })
 
-        console.log(valid)
         if(valid)
             this.props.handleFormSubmition(data)
         else this.setState({error:true})

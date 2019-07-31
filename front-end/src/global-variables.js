@@ -94,6 +94,18 @@ const globalVariables = {
             en:'Seller Program',
             ar:'برنامج التجار',
         },
+    SETTINGS_SECTION_MY_PRODUCTS:{
+            en:'My Products',
+            ar:'منتجاتي',
+        },
+    SETTINGS_SECTION_SELLING_ORDERS:{
+            en:'Selling Orders',
+            ar:'اوردرات البيع',
+        },
+    SETTINGS_SECTION_ADD_PRODUCTS:{
+            en:'Add Products',
+            ar:'اضافة منتجات',
+        },
 
 //Afiliate
     AFFILIATE_PAGE1:{
@@ -103,6 +115,11 @@ const globalVariables = {
     AFFILIATE_PAGE2:{
             en:'Your are already in affiliate program.',
             ar:'انت مسجل في البرنامج بالفعل.',
+        },
+    AFFILIATE_REFUSED:{
+            en:'Your request have been refused, contact with support or send new application',
+            ar:'لقد تم رفض طلبك, تواصل مع الدعم او قم بارسال طلب جديد',
+
         },
     FORM_AFFILIATE_LABEL_VODAFONE:{
             en:'Vodafone Cash',
@@ -460,6 +477,12 @@ const globalVariables = {
             en: 'Dashbaord',
             ar: 'الاحصائيات'
         },
+
+    LABEL_AFFILIATE: {
+            en: 'Affiliate',
+            ar: 'مسوق',
+        },
+    
 // Link Genrator Page
     LINK_GENERATOR_TITLE: {
             en: 'Affiliate Link Generator',
