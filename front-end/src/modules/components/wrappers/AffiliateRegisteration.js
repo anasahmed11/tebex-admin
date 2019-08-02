@@ -69,7 +69,7 @@ class AffiliateRegisteration extends React.Component {
                             />
                         </Snackbar>
 
-                        <Grid container justify='center' className={classes.root} spacing={8}>
+                        <Grid container justify='center' className={classes.root} spacing={1}>
 
                             <Grid item lg={3} xs={7}>
                                 <PackageCard color="darkgray" title='2' price="1000" features={globalVariables.Package2_AFFILIATE[globalVariables.LANG]} />

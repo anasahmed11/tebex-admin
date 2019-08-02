@@ -1,6 +1,6 @@
 export const styles = theme => ({
     root: {
-        padding: `${theme.spacing.unit * 4}px 0px`,
+        padding: `${theme.spacing(4)}px 0px`,
         textAlign: 'center',
         alignItems: 'center',
         position:'relative'
@@ -33,10 +33,10 @@ export const styles = theme => ({
     },
     paper: {
         position: 'absolute',
-        width: theme.spacing.unit * 50,
+        width: theme.spacing(50),
         backgroundColor: theme.palette.background.paper,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
+        padding: theme.spacing(4),
         outline: 'none',
       },
  

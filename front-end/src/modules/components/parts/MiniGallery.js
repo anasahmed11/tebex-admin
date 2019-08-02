@@ -7,7 +7,7 @@ const styles = theme => ({
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        marginTop: theme.spacing.unit * 1,
+        marginTop: theme.spacing(1),
     },
     img: {
         height:'100px',

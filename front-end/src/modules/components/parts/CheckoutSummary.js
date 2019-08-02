@@ -5,7 +5,7 @@ import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     checkoutSummary:{
-        padding: `${theme.spacing.unit * 2}px 0px`,
+        padding: `${theme.spacing(2)}px 0px`,
         border:'1px solid rgba(0,0,0,0.1)',
         minHeight:'200px',
     },

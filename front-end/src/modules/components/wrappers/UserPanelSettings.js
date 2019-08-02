@@ -12,7 +12,7 @@ import SettingsSection from '../parts/SettingsSection';
 const styles = theme => ({
     root: {
         backgroundColor: 'white ',
-        // padding: `${theme.spacing.unit * 4}px 0px`,
+        // padding: `${theme.spacing(4)}px 0px`,
     },
     menuItem: {
         textAlign:'inherit',
@@ -30,7 +30,7 @@ const styles = theme => ({
     },
     settingsMenu: {
         width: '100%',
-        marginBottom: theme.spacing.unit * 4,
+        marginBottom: theme.spacing(4),
     },
     avatar: {
         margin: 10,

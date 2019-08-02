@@ -7,10 +7,10 @@ import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@mate
 
 
 const styles = theme => ({
-    margin: {margin: theme.spacing.unit * 2,},
+    margin: {margin: theme.spacing(2),},
     paddingTop:{padding: '10px 0px'},
     textField: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
         width: '200',
       },
 });

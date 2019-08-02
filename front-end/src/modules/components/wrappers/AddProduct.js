@@ -10,11 +10,11 @@ import GeneralDescrptionForm from '../parts/GeneralDescrptionForm';
 const styles = theme => ({
     root: {
       backgroundColor: 'white ',
-      padding: `${theme.spacing.unit * 4}px 0px`,
+      padding: `${theme.spacing(4)}px 0px`,
     },
     textHead:{
         fontWeight:'500',
-        marginBottom: theme.spacing.unit * 4,
+        marginBottom: theme.spacing(4),
     },
 });
 class Comp1 extends React.Component{

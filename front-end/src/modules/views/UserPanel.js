@@ -25,7 +25,7 @@ import SellingOrders from '../components/wrappers/SellingOrders';
 const styles = theme => ({
     root: {
       backgroundColor: 'white ',
-      padding: `${theme.spacing.unit * 4}px 0px`,
+      padding: `${theme.spacing(4)}px 0px`,
     },
     error: {
         backgroundColor: theme.palette.error.dark,

@@ -6,7 +6,8 @@ import Cookies from 'universal-cookie';
 import globalVariables from './global-variables';
 
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {  createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -32,6 +33,7 @@ import TrackOrder from './modules/views/TrackOrder';
 
 import Navbar from './modules/components/wrappers/Navbar';
 import Footer from './modules/components/wrappers/Footer';
+import RTL from './Providers/RTL';
 
 
 const cookies = new Cookies();
@@ -78,7 +80,7 @@ class App extends React.Component {
       useNextVariants: true,
       fontFamily: "'Droid Arabic Kufi', 'Roboto', 'Helvetica', 'Arial', sans-serif",
     },
-    direction: this.state.direction,
+    direction: globalVariables.LANG==='ar'?'rtl':'ltr',
   });
 
   _handleWaypointEnter = () => {
@@ -100,8 +102,9 @@ class App extends React.Component {
         spinnerColor = '#9ee5f8'
         textColor = '#676767'
       > 
-      
-        <MuiThemeProvider theme = {this.theme}>
+      <RTL>
+        <ThemeProvider theme = {this.theme}>
+          
           <Navbar />
           
           <Switch>
@@ -141,8 +144,9 @@ class App extends React.Component {
             <Route component = {NotFound}/>
           </Switch>
           <Footer />
-        </MuiThemeProvider>
-
+          
+        </ThemeProvider>
+      </RTL>
       </LoadingScreen>
     );
   }

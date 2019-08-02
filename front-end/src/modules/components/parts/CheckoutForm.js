@@ -142,7 +142,7 @@ class CheckoutForm extends React.Component{
               {this.props.desc}
             </DialogContentText> : null
           }
-          <Grid container item justify="center" className={classes.root} xs={11} spacing={16}>
+          <Grid container item justify="center" className={classes.root} xs={11} spacing={2}>
              
              <Grid item sm={6} xs={12}>
                  <TextField

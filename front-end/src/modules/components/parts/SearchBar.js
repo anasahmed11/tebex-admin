@@ -13,7 +13,7 @@ const styles = theme => ({
   },
   input: {
     flex: 1,
-    margin: theme.spacing.unit * 1,
+    margin: theme.spacing(1),
   },
   iconButton: {
   },

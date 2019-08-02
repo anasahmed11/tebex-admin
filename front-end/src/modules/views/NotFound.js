@@ -5,7 +5,7 @@ import { withStyles, Grid, Typography, Button,  } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
-        padding: `${theme.spacing.unit * 12}px 0px`,
+        padding: `${theme.spacing(12)}px 0px`,
         minHeight: '500px',
         alignItems: 'center',
         position:'relative',

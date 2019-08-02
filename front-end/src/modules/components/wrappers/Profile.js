@@ -11,10 +11,10 @@ const styles = theme => ({
     
     textHead:{
         fontWeight:'500',
-        marginBottom: theme.spacing.unit * 4,
+        marginBottom: theme.spacing(4),
     },
     padding:{
-        padding: `${theme.spacing.unit * 2}px 0px`,
+        padding: `${theme.spacing(2)}px 0px`,
     }
     
 });
@@ -68,7 +68,7 @@ class MainSettingsFrom extends React.Component{
         const {isLoading, } = this.state;
         return(
             <React.Fragment>
-                <Grid container item justify="center" xs={12} spacing={16} className={classes.padding}>
+                <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
                     
                     <Grid item sm={4} xs={11} className={classes.padding}>
                         <TextField
@@ -167,7 +167,7 @@ class AddressSettingsForm extends React.Component{
         const {isLoading, } = this.state;
         return(
             <React.Fragment>
-                <Grid container item justify="center" xs={12} spacing={16} className={classes.padding}>
+                <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
                     
 
                     <Grid item  xs={10}>
@@ -281,7 +281,7 @@ class SecuritySettingsForm extends React.Component{
         const {isLoading, } = this.state;
         return(
             <React.Fragment>
-                <Grid container item justify="center" xs={12} spacing={16} className={classes.padding}>
+                <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
                     
                     <Grid item xs={10} >
                         <TextField

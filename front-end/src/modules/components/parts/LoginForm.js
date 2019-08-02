@@ -11,7 +11,7 @@ import { loginUser } from '../../../store/actions/auth';
 
 const styles = theme => ({
     margin: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
     },
     paddingTop:{
         padding:'10px 0px'

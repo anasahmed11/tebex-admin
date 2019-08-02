@@ -20,8 +20,8 @@ const styles = theme => ({
         fontWeight:'300',
         fontSize:'x-large',
         backgroundColor:"#1E3953",
-        paddingTop: theme.spacing.unit * 4,
-        paddingBottom: theme.spacing.unit * 6,
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(6),
         // [theme.breakpoints.down('sm')]: {},
     },
     

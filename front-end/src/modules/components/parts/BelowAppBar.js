@@ -46,7 +46,7 @@ const styles = theme => ({
             height: '3px',
             transition: theme.transitions.create(),
             backgroundColor: 'yellow',
-            marginBottom: theme.spacing.unit * -0.5,
+            marginBottom: theme.spacing(-0.5),
             opacity: 0,
         },
         '&:hover:after': {
@@ -55,8 +55,8 @@ const styles = theme => ({
     },
     paper: {
         ...theme.mixins.gutters(),
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
         position: 'absolute',
         zIndex: 10,
         right: 0,
@@ -73,8 +73,8 @@ const styles = theme => ({
         padding: '0px 4px 0px 0px',
       },
     listItem: {
-        paddingTop: theme.spacing.unit / 2,
-        paddingBottom: theme.spacing.unit / 2,
+        paddingTop: theme.spacing(1), //it was theme.spacing.unit / 2
+        paddingBottom: theme.spacing(1),//it was theme.spacing.unit / 2
     },
     // footer
     footer: {
@@ -83,8 +83,8 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
         [theme.breakpoints.down('sm')]: {
             flexWrap: 'wrap',
         }
@@ -92,7 +92,7 @@ const styles = theme => ({
     // footerSection
     footerSection: {
         flex: '0 0 calc(50% - 4px)',
-        marginBottom: theme.spacing.unit * 2,
+        marginBottom: theme.spacing(2),
     },
     footerLink: {
         color: 'blue',
@@ -157,7 +157,7 @@ class BelowAppBar extends Component {
         ));
 
         return  <Grid container justify='center' className={classes.root}>
-                    <Grid container item spacing={24} xs={10}>
+                    <Grid container item spacing={1} xs={10}>
                         {links}
                     </Grid>
                 </Grid>

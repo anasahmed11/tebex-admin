@@ -50,7 +50,7 @@ const styles = theme => ({
 
     typo: {
         color: 'white',
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         transition: '0.5s',
         width: '50%',
         margin: '5% auto',

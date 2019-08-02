@@ -19,12 +19,12 @@ import globalVariables from '../../../global-variables';
 const styles = theme => ({
     root: {
         border:'1px solid rgba(0,0,0,0.1)',
-        margin: `0px 0px ${theme.spacing.unit * 2}px 0px`,
-        padding: theme.spacing.unit * 1,
+        margin: `0px 0px ${theme.spacing(2)}px 0px`,
+        padding: theme.spacing(1),
     },
     upperSection:{
         minHeight:'100px',
-        padding:`${theme.spacing.unit * 2}px 0px`
+        padding:`${theme.spacing(2)}px 0px`
     },
     imageRoot:{
         textAlign:'center',

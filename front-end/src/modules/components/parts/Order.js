@@ -18,7 +18,7 @@ import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     root: {
-      padding:theme.spacing.unit * 2,
+      padding:theme.spacing(2),
     },
     textHead:{
         fontWeight:'500'
@@ -31,7 +31,7 @@ const styles = theme => ({
     orderInfoSection: {
         display: 'flex',
         flexWrap: 'wrap',
-        marginBottom: theme.spacing.unit * 1,
+        marginBottom: theme.spacing(1),
     },
     orderInfoItem: {
         flex: '1 0 50%',

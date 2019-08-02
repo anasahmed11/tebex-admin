@@ -6,7 +6,7 @@ import { withStyles, Grid, Typography,  } from '@material-ui/core';
 const styles = theme => ({
     root: {
       backgroundColor: 'white ',
-      padding: `${theme.spacing.unit * 4}px 0px`,
+      padding: `${theme.spacing(4)}px 0px`,
     },
     textHead:{
         fontWeight:'500'

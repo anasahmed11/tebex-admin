@@ -7,7 +7,7 @@ const styles = theme => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
-        marginTop: theme.spacing.unit * 2,
+        marginTop: theme.spacing(2),
         width: '80%',
         justifyContent:'space-between',
         [theme.breakpoints.down('sm')]: {
@@ -19,14 +19,14 @@ const styles = theme => ({
         position: 'relative',
         overflow: 'hidden',
         height: 500,
-        marginLeft: theme.spacing.unit * 1,
-        marginTop: theme.spacing.unit * 1,
+        marginLeft: theme.spacing(1),
+        marginTop: theme.spacing(1),
         [theme.breakpoints.down('sm')]: {
             width: '100% !important', // Overrides inline-style
             height: 300,
             
-            marginRight: theme.spacing.unit * 1,
-            marginBottom: theme.spacing.unit * 1,
+            marginRight: theme.spacing(1),
+            marginBottom: theme.spacing(1),
             
         },
         '&:hover, &$focusVisible': {
@@ -78,7 +78,7 @@ const styles = theme => ({
     },
     imageTitle: {
         position: 'relative',
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px ${theme.spacing.unit + 6}px`,
+        padding: `${theme.spacing(2)}px ${theme.spacing(4)}px ${theme.spacing(1)+6}px`,
     },
     imageMarked: {
         height: 3,

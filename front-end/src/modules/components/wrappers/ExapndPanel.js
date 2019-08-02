@@ -12,10 +12,10 @@ const styles = theme => ({
     },
     textHead:{
         fontWeight:'500',
-        marginBottom: theme.spacing.unit * 4,
+        marginBottom: theme.spacing(4),
     },
     padding:{
-        padding: `${theme.spacing.unit * 2}px 0px`,
+        padding: `${theme.spacing(2)}px 0px`,
     }
     
 });
@@ -40,6 +40,7 @@ class Profile extends React.Component{
                 {
                     components.map((comp,idx)=>(
                         <ExpansionPanel 
+                            key={uuid()}
                             expanded={this.state.expanded===idx}
                             onChange={this.handlePanelChange(idx)} 
                             >

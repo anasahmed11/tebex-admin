@@ -40,7 +40,7 @@ const styles = theme => ({
   priceDiv: {
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     position: 'relative',
     top: 40,
     transition: 'all 0.4s ease'
@@ -54,11 +54,11 @@ const styles = theme => ({
   oldPrice: {
     color: 'gray',
     textDecorationLine: 'line-through',
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   discount: {
     padding: '2px 4px 2px 4px',
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     marginTop: '2px',
     height: 'fit-content',
     border: '1px solid #eded2c',

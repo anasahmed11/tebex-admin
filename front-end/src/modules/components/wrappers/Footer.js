@@ -12,14 +12,14 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-start',
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
         [theme.breakpoints.down('sm')]: {
             flexWrap: 'wrap',
         }
     },
     footerSection: {
-        marginBottom: theme.spacing.unit * 2,
+        marginBottom: theme.spacing(2),
         [theme.breakpoints.down('sm')]: {
             flex: '1 0 50%',
         },
@@ -36,8 +36,8 @@ const styles = theme => ({
         paddingLeft: 0,
       },
     listItem: {
-        paddingTop: theme.spacing.unit / 2,
-        paddingBottom: theme.spacing.unit / 2,
+        paddingTop: theme.spacing(0.5), // it was unit/2
+        paddingBottom: theme.spacing(0.5), // it was unit/2
     },
     footerLink: {
         color: 'lightblue',

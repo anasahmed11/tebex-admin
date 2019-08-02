@@ -10,7 +10,7 @@ import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
   card: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     flexBasis: 'calc(50% - 15px)',
     [theme.breakpoints.down('md')]: {
         flexBasis: '100%'
