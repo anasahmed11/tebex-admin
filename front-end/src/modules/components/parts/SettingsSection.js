@@ -182,7 +182,7 @@ class SettingsSection extends React.Component{
                         }
                         {isSeller?
                             <Collapse in={this.state.sellerOpen} timeout="auto" unmountOnExit>
-                                <Link to="/add_product" className={classes.link}>
+                                <Link to="/seller/waiting_orders" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
                                             <FontAwesomeIcon className={classes.fontawesomeIcon} icon="plus" />
@@ -190,7 +190,7 @@ class SettingsSection extends React.Component{
                                     <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_ADD_PRODUCTS[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
-                                <Link to="/my_products" className={classes.link}>
+                                <Link to="/seller/my_products" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
                                             <NotesIcon />
@@ -198,7 +198,7 @@ class SettingsSection extends React.Component{
                                     <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_MY_PRODUCTS[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
-                                <Link to="/selling_orders" className={classes.link}>
+                                <Link to="/seller/waiting_orders" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
                                             <FontAwesomeIcon className={classes.fontawesomeIcon} icon="clipboard-check" />

@@ -126,22 +126,22 @@ class App extends React.Component {
             :null
             }
             
-            <Route exact path = "/seller" render = {props =>!seller?<UserPanel {...props} />:<Redirect to = '/404'/> } />}
+            <Route exact path="/seller" render={props =>!seller?<UserPanel {...props} />:<Redirect to='/404'/> } />}
             {this.props.program.seller!==undefined?
-            <Route exact path = "/(my_products|add_product|selling_orders)/" render = {props =>seller?<UserPanel {...props} />:<Redirect to = '/404'/> } />
+            <Route exact path="/(seller/my_products|seller/add_product|seller/waiting_orders)/" render={props =>seller?<UserPanel {...props} />:<Redirect to='/404'/> } />
             :null
             }
-            <Route exact path = '/orders/:id/:token' component = {TrackOrder} />
+            <Route exact path='/orders/:id/:token' component={TrackOrder} />
             
-            <Route exact path = '/' component = {Home}/>
+            <Route exact path='/' component={Home}/>
 
-            <Route exact path = '/404' component = {NotFound}/>
+            <Route exact path='/404' component={NotFound}/>
             
             {this.props.program.affiliate===undefined || this.props.program.seller===undefined?
-            <Route component = {Blank}/>:null
+            <Route component={Blank}/>:null
             }
             
-            <Route component = {NotFound}/>
+            <Route component={NotFound}/>
           </Switch>
           <Footer />
           

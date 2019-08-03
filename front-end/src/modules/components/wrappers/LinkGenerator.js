@@ -19,7 +19,8 @@ const styles = theme => ({
         flexGrow: 1,
     },
     textHead:{
-        fontWeight:'500'
+        fontWeight:'500',
+        marginBottom: theme.spacing(4),
     },
     button: {
         margin: theme.spacing(1),

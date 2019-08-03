@@ -21,6 +21,7 @@ import AddProduct from '../components/wrappers/AddProduct';
 import MyProducts from '../components/wrappers/MyProducts';
 import SellingOrders from '../components/wrappers/SellingOrders';
 
+import NotFound from '../views/NotFound';
 
 const styles = theme => ({
     root: {
@@ -65,9 +66,10 @@ class UserpanelLayout extends React.Component{
                             <Route exact path='/orders' component={Orders} />
                             <Route exact path='/affiliate' component={Affiliate} />
                             <Route exact path='/seller' component={Seller} />
-                            <Route exact path='/add_product' component={AddProduct} />
-                            <Route exact path='/my_products' component={MyProducts} />
-                            <Route exact path='/selling_orders' component={SellingOrders} />
+                            <Route exact path='/seller/add_product' component={AddProduct} />
+                            <Route exact path='/seller/my_products' component={MyProducts} />
+                            <Route exact path='/seller/waiting_orders' component={SellingOrders} />
+                            <Route component = {NotFound}/>
                         </Switch>
                     </Grid>
                 </Grid>
