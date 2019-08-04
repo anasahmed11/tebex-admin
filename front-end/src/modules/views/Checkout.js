@@ -25,7 +25,7 @@ const cookies = new Cookies();
 
 const styles = theme => ({
     root: {
-        padding: `${theme.spacing.unit * 4}px 0px`,
+        padding: `${theme.spacing(4)}px 0px`,
         minHeight:'500px',   
         position:'relative',
         margin:'auto',
@@ -60,7 +60,7 @@ function ThanXPage(props){
     
     return(
         
-        <Grid container item justify="center" alignItems="center" spacing={16} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
+        <Grid container item justify="center" alignItems="center" spacing={2} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
             <Grid item xs={11}>
                 <Typography variant="h4" gutterBottom>{globalVariables.CHECKOUT_THANKS_STATUS[globalVariables.LANG]}</Typography>
                 <Typography variant="h6">
@@ -219,7 +219,7 @@ class Checkout extends React.Component{
                 { cartIsLoading || isLoading || numItems || this.state.stepIndex===2?
                     <React.Fragment>
                         <Stepper steps={this.state.steps} stepIndex={this.state.stepIndex} color="#dfdfda" />
-                        <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={16}>
+                        <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={2}>
                             {isLoading && this.state.stepIndex === 1?
                                 <Grid container alignItems="center" justify="center" >
                                     <ClipLoader
@@ -234,7 +234,7 @@ class Checkout extends React.Component{
                         </Grid>
                     </React.Fragment>
                     :
-                    <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={16}>
+                    <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={2}>
                         <CartEmpty />
                     </Grid>
                 }

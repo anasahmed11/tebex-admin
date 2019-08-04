@@ -9,7 +9,7 @@ import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     root:{
-        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 1}px`,
+        padding: `${theme.spacing(2)}px ${theme.spacing(1)}px`,
     },    
 });
 
@@ -34,7 +34,7 @@ class Payment extends React.Component{
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Grid container justify="center" className={classes.root} spacing={8}>
+                    <Grid container justify="center" className={classes.root} spacing={1}>
 
                        
                         <Grid item md={7} xs={11}>

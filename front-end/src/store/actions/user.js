@@ -12,6 +12,11 @@ const initUserOperation = (userData) => {
         userData: userData,
     }
 }
+const completeOperation = () => {
+    return{
+        type: actionTypes.USER_COMPLETE_OPERATION,
+    }
+}
 
 
 
@@ -23,9 +28,11 @@ export const initUser = () => {
             dispatch(initUserOperation(res.data))
             const color = res.data.user.gender==='M'?'lightslategrey':'lightcoral';
             cookies.set(globalVariables.AVATAR_COLOR_COOKIE,color)
+            dispatch(completeOperation())
         })
         .catch(err=>{
-            dispatch(initUserOperation({}))
+            dispatch(initUserOperation({user:{},program:{}}))
+            dispatch(completeOperation())
         })
     }
 

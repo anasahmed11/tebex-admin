@@ -23,8 +23,8 @@ const styles = theme => ({
   navLink: {
     fontFamily: "'Droid Arabic Kufi', 'Roboto'",
     fontSize: '14px',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     color: 'white',
     '&:hover': {
         cursor: 'pointer',

@@ -18,8 +18,8 @@ import {productsAPI} from '../../api/api'
 const styles = theme => ({
     root: {
       backgroundColor: 'white ',
-      paddingTop: theme.spacing.unit * 4,
-      paddingBottom: theme.spacing.unit * 4,
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
       textAlign:'center'
     },
 });
@@ -168,7 +168,7 @@ class Product extends React.Component{
                         </Grid>
                 </Grid>:
 
-                <Grid container justify='center' className={classes.root} spacing={16} style={{width: '100%',margin: '0'}}>
+                <Grid container justify='center' className={classes.root} spacing={2} style={{width: '100%',margin: '0'}}>
 
                     <Snackbar
                         style={{direction:'ltr', bottom:'50px'}}   

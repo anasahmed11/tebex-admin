@@ -13,8 +13,8 @@ import { productsAPI as axios } from '../../../api/api';
 const styles = theme => ({
   root: {
     backgroundColor: '#1E3953',
-    paddingTop: theme.spacing.unit * 1,
-    paddingBottom: theme.spacing.unit * 4,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(4),
   },
   
   sliderLayout: {

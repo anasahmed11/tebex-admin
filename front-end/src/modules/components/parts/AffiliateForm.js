@@ -7,10 +7,10 @@ import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@mate
 
 
 const styles = theme => ({
-    margin: {margin: theme.spacing.unit * 2,},
+    margin: {margin: theme.spacing(2),},
     paddingTop:{padding: '10px 0px'},
     textField: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
         width: '200',
       },
 });
@@ -175,7 +175,6 @@ class AffiliateForm extends React.Component{
             if(paymentData[key]==="") valid=false;
         })
 
-        console.log(valid)
         if(valid)
             this.props.handleFormSubmition(data)
         else this.setState({error:true})

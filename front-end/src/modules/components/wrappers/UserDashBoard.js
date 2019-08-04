@@ -16,7 +16,7 @@ import globalVariables from '../../../global-variables';
 const styles = theme => ({
     root: {
       backgroundColor: 'white ',
-      padding: `${theme.spacing.unit * 4}px 0px`,
+      padding: `${theme.spacing(4)}px 0px`,
     },
     textHead:{
         fontWeight:'500'
@@ -28,7 +28,7 @@ const styles = theme => ({
     },
     shit: {
         // backgroundColor: 'green',
-        // padding: theme.spacing.unit * 2,
+        // padding: theme.spacing(2),
         '& .ct-label': { 
             color: 'blue',
         },

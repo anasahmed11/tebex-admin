@@ -6,7 +6,8 @@ import Cookies from 'universal-cookie';
 import globalVariables from './global-variables';
 
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {  createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -24,12 +25,15 @@ import Shop from './modules/views/Shop';
 import UserPanel from './modules/views/UserPanel';
 import Verify from './modules/views/Verify';
 import NotFound from './modules/views/NotFound';
+import Blank from './modules/views/Blank';
+
 import Cart from './modules/views/Cart';
 import Checkout from './modules/views/Checkout';
 import TrackOrder from './modules/views/TrackOrder';
 
 import Navbar from './modules/components/wrappers/Navbar';
 import Footer from './modules/components/wrappers/Footer';
+import RTL from './Providers/RTL';
 
 
 const cookies = new Cookies();
@@ -76,7 +80,7 @@ class App extends React.Component {
       useNextVariants: true,
       fontFamily: "'Droid Arabic Kufi', 'Roboto', 'Helvetica', 'Arial', sans-serif",
     },
-    direction: this.state.direction,
+    direction: globalVariables.LANG==='ar'?'rtl':'ltr',
   });
 
   _handleWaypointEnter = () => {
@@ -88,7 +92,9 @@ class App extends React.Component {
     const { isLoading, } = this.state;
     
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
-
+    const affiliate = this.props.program.affiliate==="Approved"
+    const seller = this.props.program.seller==="Approved"
+    
     return (
       <LoadingScreen
         loading = {isLoading}
@@ -96,8 +102,9 @@ class App extends React.Component {
         spinnerColor = '#9ee5f8'
         textColor = '#676767'
       > 
-      
-        <MuiThemeProvider theme = {this.theme}>
+      <RTL>
+        <ThemeProvider theme = {this.theme}>
+          
           <Navbar />
           
           <Switch>
@@ -110,23 +117,50 @@ class App extends React.Component {
             <Route exact path = '/auth' render = {props =>authenticated?<Redirect to = '/profile'/>:<Auth {...props} />} /> 
 						<Route exact path = '/verify/:id' component = {Verify}/>
             <Route exact path = '/cart' component = {Cart}/>
-            <Route exact path = "/(profile|dashboard|tree|linkgenerator|orders|affiliate|seller)/"  render = {props =>authenticated?<UserPanel {...props} />:<Redirect to = '/auth'/> } />}
-            
-            <Route exact path = '/orders/:id/:token' component = {TrackOrder} />
-            <Route exact path = '/' component = {Home}/>
 
-            <Route exact path = '/404' component = {NotFound}/>
-            <Route component = {NotFound}/>
+            <Route exact path = "/(profile|orders)/"  render = {props =>authenticated?<UserPanel {...props} />:<Redirect to = '/auth'/> } />
+
+            <Route exact path = "/affiliate" render = {props =>!affiliate?<UserPanel {...props} />:<Redirect to = '/404'/> } />
+            {this.props.program.affiliate!==undefined?
+            <Route exact path = "/(dashboard|tree|linkgenerator)/" render = {props =>affiliate?<UserPanel {...props} />:<Redirect to = '/404'/> } />
+            :null
+            }
+            
+            <Route exact path="/seller" render={props =>!seller?<UserPanel {...props} />:<Redirect to='/404'/> } />}
+            {this.props.program.seller!==undefined?
+            <Route exact path="/(seller/my_products|seller/add_product|seller/waiting_orders)/" render={props =>seller?<UserPanel {...props} />:<Redirect to='/404'/> } />
+            :null
+            }
+            <Route exact path='/orders/:id/:token' component={TrackOrder} />
+            
+            <Route exact path='/' component={Home}/>
+
+            <Route exact path='/404' component={NotFound}/>
+            
+            {this.props.program.affiliate===undefined || this.props.program.seller===undefined?
+            <Route component={Blank}/>:null
+            }
+            
+            <Route component={NotFound}/>
           </Switch>
           <Footer />
-        </MuiThemeProvider>
-
+          
+        </ThemeProvider>
+      </RTL>
       </LoadingScreen>
     );
   }
 }
 
 library.add(fab,fas);
+
+
+
+const mapStateToProps = state => {
+  return {
+      program: state.user.program,
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return{
@@ -135,4 +169,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(null,mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(App));

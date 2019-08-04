@@ -11,7 +11,7 @@ import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
   card: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     flexBasis: 'calc(25% - 15px)',
     [theme.breakpoints.down('md')]: {
         flexBasis: 'calc(50% - 15px)'
@@ -41,7 +41,7 @@ function SimpleCard(props) {
           {props.title}
         </Typography>
         <Typography variant="h5" component="h2">
-          {props.highlight} <Typography color="textSecondary" inline className={classes.currency}>{props.currency}</Typography>
+          {props.highlight} <Typography color="textSecondary" inline="true" className={classes.currency}>{props.currency}</Typography>
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           {props.desc}

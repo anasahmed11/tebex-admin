@@ -22,9 +22,11 @@ class AffiliateRegisteration extends React.Component {
         userAPI.post('program/seller',data)
         .then(res=>{
             this.props.handleNextStep()
+            this.setState({isLoading:false})
         })
         .catch(err=>{
             this.setState({isLoading:false, isPopup:true})
+            console.log(err)
         })
     }
 

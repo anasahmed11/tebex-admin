@@ -24,8 +24,8 @@ const styles = theme => ({
   root: {
     backgroundColor: 'darkgreen',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit * 1.5,
-    paddingBottom: theme.spacing.unit * 1.5,
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
   },
   logo: {
     display: 'flex',
@@ -38,8 +38,8 @@ const styles = theme => ({
   appBarLink: {
     fontFamily: "'Droid Arabic Kufi', 'Roboto'",
     fontSize: '24px',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     color: 'white',
     transition: theme.transitions.create(['margin'], {duration: '0.3s'}),
     '&:hover': {
