@@ -4,9 +4,6 @@ import { withStyles, Grid, Typography, Paper, TextField, Button, InputAdornment,
 import globalVariables from '../../../global-variables';
 
 import {connect} from 'react-redux';
-import clsx from 'clsx';
-
-import 'font-awesome/css/font-awesome.min.css';
 
 import {  withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
