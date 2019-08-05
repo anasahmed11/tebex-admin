@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+
 import { ClipLoader } from 'react-spinners';
 
-import { withStyles, Grid, Button, Hidden, Divider, Snackbar, Paper, } from '@material-ui/core';
-import { OpenInNew } from '@material-ui/icons';
+import { withStyles, Grid, Snackbar, } from '@material-ui/core';
 
 import MySnackbar from '../parts/MySnackbar';
 
@@ -26,6 +24,7 @@ class AffiliateRegisteration extends React.Component {
         userAPI.post('program/affiliate',data)
         .then(res=>{
             this.props.handleNextStep()
+            this.setState({isLoading:false})
         })
         .catch(err=>{
             this.setState({isLoading:false, isPopup:true})
@@ -70,7 +69,7 @@ class AffiliateRegisteration extends React.Component {
                             />
                         </Snackbar>
 
-                        <Grid container justify='center' className={classes.root} spacing={8}>
+                        <Grid container justify='center' className={classes.root} spacing={1}>
 
                             <Grid item lg={3} xs={7}>
                                 <PackageCard color="darkgray" title='2' price="1000" features={globalVariables.Package2_AFFILIATE[globalVariables.LANG]} />

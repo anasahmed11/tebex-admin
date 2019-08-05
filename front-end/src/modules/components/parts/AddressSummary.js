@@ -5,7 +5,7 @@ import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     checkoutSummary:{
-        padding: `${theme.spacing.unit * 2}px 0px`,
+        padding: `${theme.spacing(2)}px 0px`,
         border:'1px solid rgba(0,0,0,0.1)',
         minHeight:'200px',
     },
@@ -60,7 +60,7 @@ function CheckoutSummary(props){
                         <Typography component='h1' variant='h6' className={classes.textHead}>{globalVariables.LABEL_ADDRESS[[globalVariables.LANG]]}</Typography>
                     </Grid>
                     <Grid item xs={8}> 
-                        <Typography gutterBottom component='h1' variant='h6' className={classes.textSection}>{'Egypt' + ', ' + addressName + ', ' + address.address}</Typography>
+                        <Typography gutterBottom component='h1' variant='h6' className={classes.textSection}>{'Egypt, ' + addressName + ', ' + address.address}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

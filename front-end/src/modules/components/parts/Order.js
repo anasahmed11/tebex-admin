@@ -8,8 +8,7 @@ import {
 } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
-
-import SelectMenu from "./SelectMenu";
+import uuid from 'uuid';
 import ShopCartItem from "./ShopCartItem";
 import Stepper from "./Stepper";
 import globalVariables from '../../../global-variables';
@@ -19,7 +18,7 @@ import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     root: {
-      padding:theme.spacing.unit * 2,
+      padding:theme.spacing(2),
     },
     textHead:{
         fontWeight:'500'
@@ -32,7 +31,7 @@ const styles = theme => ({
     orderInfoSection: {
         display: 'flex',
         flexWrap: 'wrap',
-        marginBottom: theme.spacing.unit * 1,
+        marginBottom: theme.spacing(1),
     },
     orderInfoItem: {
         flex: '1 0 50%',
@@ -42,15 +41,13 @@ const styles = theme => ({
     },
 });
 
-const selectmenu = <Grid justify='flex-end' style={{display: 'flex', flexGrow: 1,}}>
-    <SelectMenu />
-</Grid>
+
 
 function Order(props){
     const { order, classes } = props;
     
     return(
-        <Grid component={Paper} container className={classes.root} justify='center' xs={12}>
+        <Grid component={Paper} item container className={classes.root} justify='center' xs={12}>
                         
             <Grid item className={classes.orderInfoSection} xs={12}>
                 <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_NUMBER[globalVariables.LANG]}: #{order.id}</Typography>
@@ -65,9 +62,9 @@ function Order(props){
                 </Typography>
             </Grid>
             
-            <Grid container xs={11}>
+            <Grid container item xs={11}>
                 {order.products.map((item=>
-                    <ShopCartItem key={item.id} item={item} previewOnly />
+                    <ShopCartItem key={uuid()} item={item} previewOnly />
                 ))}                                    
             </Grid>
             <Stepper steps={['انا', 'في', 'الساحة', 'واقف', 'لوحدي']} stepIndex={order.state} />

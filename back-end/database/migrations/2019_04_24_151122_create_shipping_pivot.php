@@ -14,7 +14,7 @@ class CreateShippingPivot extends Migration
     public function up()
     {
         Schema::create('shipping', function (Blueprint $table) {
-            $table->integer('shipper_id')->unsigned();
+            $table->bigInteger('shipper_id')->unsigned();
             $table->integer('city_id')->unsigned();
             $table->integer('min_days');
             $table->integer('max_days')->nullable();

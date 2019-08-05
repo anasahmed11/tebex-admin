@@ -6,7 +6,7 @@ import {} from 'react-router-dom'
 
 const styles = theme => ({
   icon: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     fontSize: '30px',
     color: 'white',
     transition: theme.transitions.create('color'),

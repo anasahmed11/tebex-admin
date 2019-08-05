@@ -1,9 +1,11 @@
 import React from 'react';
 import 'typeface-roboto';
-import { withStyles, Grid, Typography, Paper, TextField, Button, InputAdornment, IconButton, FormControl, InputLabel, Input, Icon } from '@material-ui/core';
+import { withStyles, Grid, Typography, Paper, TextField, Button, InputAdornment, IconButton, FormControl, Input } from '@material-ui/core';
 import globalVariables from '../../../global-variables';
 
 import {connect} from 'react-redux';
+
+import 'font-awesome/css/font-awesome.min.css';
 
 import {  withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,19 +13,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const styles = theme => ({
     root: {
         ...theme.mixins.gutters(),
-        paddingTop: theme.spacing.unit * 2,
-        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),
         height: 'fit-content',
         flexGrow: 1,
     },
     textHead:{
-        fontWeight:'500'
+        fontWeight:'500',
+        marginBottom: theme.spacing(4),
     },
     button: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     },
     icon: {
-        margin: theme.spacing.unit,
+        margin: theme.spacing(1),
     },
 });
 
@@ -62,15 +65,15 @@ class UserDashBoard extends React.Component{
         const {classes, } = this.props;
         
         return(
-            <Grid container justify='center' xs={11}>
+            <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>{globalVariables.LINK_GENERATOR_TITLE[globalVariables.LANG]}</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.LINK_GENERATOR_TITLE[globalVariables.LANG]}</Typography>
                 </Grid>
                 
-                <Grid container spacing={8}>
+                <Grid container item spacing={8}>
                     <Grid item xs={12}>
                         <Paper className={classes.root} elevation={1} >
-                            <Typography component='h3' variant="title">
+                            <Typography component='h3' variant="h6">
                                 {globalVariables.LINK_GENERATOR_PUT[globalVariables.LANG]}
                             </Typography>
                             <TextField

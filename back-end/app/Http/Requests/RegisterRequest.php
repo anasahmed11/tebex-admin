@@ -35,7 +35,7 @@ class RegisterRequest extends FormRequest
             'honored'=>'int',
             'gender' => 'required|enum_key:' . Gender::class,
             'birth_date' => 'required|date',
-            #'referral' => 'integer',
+            'referral' => 'integer',
 
         ];
     }

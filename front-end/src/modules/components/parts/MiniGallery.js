@@ -1,12 +1,13 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
+import uuid from 'uuid';
 
 const styles = theme => ({
     root:{
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        marginTop: theme.spacing.unit * 1,
+        marginTop: theme.spacing(1),
     },
     img: {
         height:'100px',
@@ -18,6 +19,8 @@ const styles = theme => ({
 
 });
 
+const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
+
 function Gallery(props){
     const {persons , classes, selectedImage} = props;
 
@@ -25,10 +28,9 @@ function Gallery(props){
         <div className={classes.root}>
             {persons.map((person, idx) => (
                 (idx === selectedImage)?
-                <div className={classes.img} style={{backgroundImage:`url(${person.image})`}}></div>
+                <div key={uuid()} className={classes.img} style={{backgroundImage:`url(${person.image?person.image:noImage})`}}></div>
                 :
-                <div className={classes.img} style={{backgroundImage:`url(${person.image})`,filter:'opacity(30%)'
-            }}></div>
+                <div key={uuid()} className={classes.img} style={{backgroundImage:`url(${person.image?person.image:noImage})`,filter:'opacity(30%)'}}></div>
 
             ))}
             

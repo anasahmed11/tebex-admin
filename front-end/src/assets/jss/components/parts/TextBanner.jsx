@@ -1,6 +1,6 @@
 export const styles = theme => ({
     root: {
-        padding: theme.spacing.unit * 20,
+        padding: theme.spacing(20),
         backgroundColor: 'lightblue',
     },
     banner: {

@@ -30,7 +30,7 @@ const flattenObject = (obj, _objects=[]) => {
 };
 
 const getCategoryID = (categories, slugs, id=1, lvl=0) => {
-    if(!slugs) return -1;
+    if(!slugs) return 0;
     for(let category of categories)
         if(category.slug === slugs[lvl] && category.parent_id === id){
             if(lvl + 1 === slugs.length)
@@ -54,7 +54,7 @@ class Store extends Component {
         _isLoading: true,
         products: [],
         filterPanels: null,
-        id: 1, // Category id, 1 is a needed initial value: first parent id.
+        id: 0,
     }
 
     componentDidMount(){
@@ -65,23 +65,19 @@ class Store extends Component {
         .then(res => {
             const categories = flattenObject(res.data[0]);
             const slugToID = getCategoryID(categories, slug);
-            const idx = slugToID > -1? categories.findIndex(category => category.id === slugToID) : -1;
+            const idx = slugToID? categories.findIndex(category => category.id === slugToID) : 0;
 
-            if(isArray(slug)){
+            if(isArray(slug))
                 this.setState({
-                    id: idx > -1? categories[idx].id : 0,
+                    id: idx? categories[idx].id : 1,
                     categories: categories,
                 });
-                if(!this.state.id > -1) {
-                    this.setState({_isLoading: false})
-                };
-            }
             else
-                this.setState({ id: -1, categories: categories }); // ALL
+                this.setState({ id: 1, categories: categories }); // ALL
             
             // Products from a *Category* : *All Products*
-            const api = this.state.id > -1? categoryAPI : productsAPI;
-            const route = this.state.id > -1? this.state.id + '/products' : '';
+            const api = this.state.id > 1? categoryAPI : productsAPI;
+            const route = this.state.id > 1? this.state.id + '/products' : '';
 
             api.get(`/${route}`)
             .then(res => {

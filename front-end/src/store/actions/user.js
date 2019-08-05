@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actionTypes from '../actionTypes';
 import Cookies from 'universal-cookie';
 import {userAPI} from '../../api/api'
@@ -13,6 +12,11 @@ const initUserOperation = (userData) => {
         userData: userData,
     }
 }
+const completeOperation = () => {
+    return{
+        type: actionTypes.USER_COMPLETE_OPERATION,
+    }
+}
 
 
 
@@ -22,9 +26,13 @@ export const initUser = () => {
         userAPI.get('')
         .then(res=>{
             dispatch(initUserOperation(res.data))
+            const color = res.data.user.gender==='M'?'lightslategrey':'lightcoral';
+            cookies.set(globalVariables.AVATAR_COLOR_COOKIE,color)
+            dispatch(completeOperation())
         })
         .catch(err=>{
-            dispatch(initUserOperation({}))
+            dispatch(initUserOperation({user:{},program:{}}))
+            dispatch(completeOperation())
         })
     }
 

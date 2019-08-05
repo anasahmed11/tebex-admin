@@ -23,8 +23,8 @@ const styles = theme => ({
   navLink: {
     fontFamily: "'Droid Arabic Kufi', 'Roboto'",
     fontSize: '14px',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     color: 'white',
     '&:hover': {
         cursor: 'pointer',
@@ -39,7 +39,7 @@ class TopNav extends React.Component {
 
   };
   handleLanguageToggle = () => {
-    globalVariables.LANG = globalVariables.LANG == 'en'?'ar':'en';
+    globalVariables.LANG = globalVariables.LANG === 'en'?'ar':'en';
     cookies.set(globalVariables.LANGUGAE,globalVariables.LANG);
     window.location.reload();
   }

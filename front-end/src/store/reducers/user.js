@@ -1,8 +1,9 @@
 import * as actionTypes from "../actionTypes";
-import globalVariables from '../../global-variables';
 
 const initialState = {
     user:{},
+    program:{},
+    isLoading:true,
 };
 
 
@@ -14,7 +15,13 @@ export default function auth(state = initialState, action){
             return{
                 ...state,
                 user: action.userData.user,
-                program: action.userData.program
+                program: action.userData.program,
+                isLoading: true,
+            }
+        case actionTypes.USER_COMPLETE_OPERATION:
+            return{
+                ...state,
+                isLoading: false
             }
         default: 
             console.log('_DEFAULT_USER');

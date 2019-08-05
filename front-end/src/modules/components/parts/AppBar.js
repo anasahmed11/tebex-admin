@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 
+import { Route, withRouter, Link } from 'react-router-dom';
 import { Grid, withStyles, Menu, IconButton, AppBar, MenuItem } from '@material-ui/core';
 import {Menu as MenuIcon, AccountCircle} from '@material-ui/icons';
 
@@ -23,8 +24,8 @@ const styles = theme => ({
   root: {
     backgroundColor: 'darkgreen',
     alignItems: 'center',
-    paddingTop: theme.spacing.unit * 1.5,
-    paddingBottom: theme.spacing.unit * 1.5,
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
   },
   logo: {
     display: 'flex',
@@ -37,8 +38,8 @@ const styles = theme => ({
   appBarLink: {
     fontFamily: "'Droid Arabic Kufi', 'Roboto'",
     fontSize: '24px',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     color: 'white',
     transition: theme.transitions.create(['margin'], {duration: '0.3s'}),
     '&:hover': {
@@ -185,7 +186,7 @@ class PrimarySearchAppBar extends React.Component {
                 onClick={this.handleProfileMenuOpen}
                 color="inherit"
               >
-                {authenticated?<ProfileAvatar style={{margin:0,width:'30px',height:'30px'}} />:<AccountCircle />}
+                {authenticated?<ProfileAvatar img={this.props.user.img} name={this.props.user.first_name} style={{margin:0, width:'30px', height:'30px'}} />:<AccountCircle />}
               </IconButton>
               </div>
             </div>
@@ -207,4 +208,14 @@ PrimarySearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PrimarySearchAppBar);
+
+const mapStateToProps = state => {
+  return {
+      user: state.user.user,
+      
+  }
+}
+
+
+export default  withRouter(connect(mapStateToProps)(withStyles(styles)(PrimarySearchAppBar)));
+

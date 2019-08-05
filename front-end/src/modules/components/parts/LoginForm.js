@@ -4,13 +4,14 @@ import globalVariables from '../../../global-variables';
 
 import { Grid, Button, Checkbox, TextField, Typography, InputAdornment, FormControlLabel, IconButton, withStyles } from '@material-ui/core';
 import { AccountCircle, Visibility, VisibilityOff} from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 import { loginUser } from '../../../store/actions/auth';
 
 
 const styles = theme => ({
     margin: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
     },
     paddingTop:{
         padding:'10px 0px'
@@ -31,7 +32,7 @@ class Login extends React.Component{
     }
 
     handleChange = prop => event => {
-        if(prop === "rememberme"){
+        if(event.target.value === "checkbox"){
             this.setState({ [prop]: event.target.checked });
             return
         }
@@ -55,14 +56,15 @@ class Login extends React.Component{
         let passwordError = "";
         let valid = true;
         if(!this.validateEmail(this.state.email)){
-            emailError = globalVariables.FORM_LOGIN_ERR_EMAIL;
+            emailError = globalVariables.FORM_LOGIN_ERR_EMAIL[globalVariables.LANG];
             valid = false;
         }
         if(!this.validatePassword(this.state.password)){
-            passwordError = globalVariables.FORM_LOGIN_ERR_PASS;
+            passwordError = globalVariables.FORM_LOGIN_ERR_PASS[globalVariables.LANG];
             valid = false;
         }
         this.setState({emailError: emailError, passError: passwordError})
+        console.log(this.state.rememberme)
         if(valid)
             this.props.onLogin(this.state.email, this.state.password, this.state.rememberme)
     }
@@ -127,23 +129,25 @@ class Login extends React.Component{
                 </Grid>
                 
                 <Grid item xs={12} className={classes.paddingTop}>
-                    <Button variant="contained" color="primary" className={classes.button} onClick={this.handleLogin}>
-                        {globalVariables.FORM_LOGIN_LABEL_LOGIN[globalVariables.LANG]}
-                    </Button>
                     <FormControlLabel
                         control={
                             <Checkbox
                                 checked={this.state.rememberme}
                                 onChange={this.handleChange('rememberme')}
-                                value={this.state.rememberme}
+                                value='checkbox'
                             />
                         }
                         label={globalVariables.FORM_LOGIN_LABEL_REMEMBER[globalVariables.LANG]}
                     />
+
+                    <Button variant="contained" color="primary" className={classes.button} onClick={this.handleLogin}>
+                        {globalVariables.FORM_LOGIN_LABEL_LOGIN[globalVariables.LANG]}
+                    </Button>
+                   
                     
                 </Grid>
                 <Grid item xs={12} className={classes.paddingTop}>
-                    {globalVariables.FORM_LOGIN_LABEL_FORGOT[globalVariables.LANG]}
+                    <Link to='/'>{globalVariables.FORM_LOGIN_LABEL_FORGOT[globalVariables.LANG]}</Link>
                 </Grid>   
             </Grid>
         );

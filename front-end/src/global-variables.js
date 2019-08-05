@@ -12,6 +12,7 @@ const globalVariables = {
     LANGUGAE: 'lang',
     AFFILIATE_PARAM: 'ref',
     AFFILIATE_COOKIE: 'ref',
+    AVATAR_COLOR_COOKIE: 'avatar_color',
 // MESSAGES
     MSG_LOGIN_FAIL:{
             en: 'Login failed.',
@@ -93,6 +94,18 @@ const globalVariables = {
             en:'Seller Program',
             ar:'برنامج التجار',
         },
+    SETTINGS_SECTION_MY_PRODUCTS:{
+            en:'My Products',
+            ar:'منتجاتي',
+        },
+    SETTINGS_SECTION_SELLING_ORDERS:{
+            en:'Selling Orders',
+            ar:'اوردرات البيع',
+        },
+    SETTINGS_SECTION_ADD_PRODUCTS:{
+            en:'Add Products',
+            ar:'اضافة منتجات',
+        },
 
 //Afiliate
     AFFILIATE_PAGE1:{
@@ -102,6 +115,11 @@ const globalVariables = {
     AFFILIATE_PAGE2:{
             en:'Your are already in affiliate program.',
             ar:'انت مسجل في البرنامج بالفعل.',
+        },
+    AFFILIATE_REFUSED:{
+            en:'Your request have been refused, contact with support or send new application',
+            ar:'لقد تم رفض طلبك, تواصل مع الدعم او قم بارسال طلب جديد',
+
         },
     FORM_AFFILIATE_LABEL_VODAFONE:{
             en:'Vodafone Cash',
@@ -190,7 +208,73 @@ const globalVariables = {
             en:'Store Phone',
             ar:'رقم المتجر',
         },
-        
+// User Dashboard
+    DASHBOARD_CLICKS: {
+        en: 'Clikcs',
+        ar: 'الكليكات',
+    },
+    DASHBOARD_CLICKS_DESC: {
+        en: 'Number of affiliate...',
+        ar: 'عدد ضغطات رابط الافيليت ؟',
+    },
+    DASHBOARD_TOTAL_ORDERS: {
+        en: 'Total Orders',
+        ar: 'اجمالي الطلبات',
+    },
+    DASHBOARD_TOTAL_ORDERS_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_CONFIRMED_ORDERS: {
+        en: 'Confirmed Orders',
+        ar: 'الطلبات المكتملة',
+    },
+    DASHBOARD_CONFIRMED_ORDERS_DESC: {
+        en: '',
+        ar: '',
+    },        
+    DASHBOARD_ORDERS_EARNING: {
+        en: 'Orders Earning',
+        ar: 'ارباح الطلبات',
+    },
+    DASHBOARD_ORDERS_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_TEAM_MEMBERS: {
+        en: 'My Team',
+        ar: 'فريقي',
+    },
+    DASHBOARD_TEAM_MEMBERS_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_TEAM_EARNING: {
+        en: 'Team Earning',
+        ar: 'ارباح الفريق',
+    },
+    DASHBOARD_TEAM_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_REFERRAL_EARNING: {
+        en: 'Refferal Earning',
+        ar: 'ارباح المحول',
+    },
+    DASHBOARD_REFERRAL_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+    DASHBOARD_CONFIRMED_EARNING: {
+        en: 'Confirmed Earning',
+        ar: 'الارباح',
+    },
+    DASHBOARD_CONFIRMED_EARNING_DESC: {
+        en: '',
+        ar: '',
+    },
+
+
 //Upperbar
     UPPERBAR_LANGUAGE: {
             en: 'العربية',
@@ -385,6 +469,20 @@ const globalVariables = {
             en: 'URL',
             ar: 'رابط'
         },
+    LABEL_MY_ORDERS: {
+            en: 'My Orders',
+            ar: 'مشترياتي'
+        },
+    LABEL_DASHBOARD: {
+            en: 'Dashbaord',
+            ar: 'الاحصائيات'
+        },
+
+    LABEL_AFFILIATE: {
+            en: 'Affiliate',
+            ar: 'مسوق',
+        },
+    
 // Link Genrator Page
     LINK_GENERATOR_TITLE: {
             en: 'Affiliate Link Generator',
@@ -398,7 +496,20 @@ const globalVariables = {
             en: 'Affiliate Link',
             ar: 'رابط الافيليت'
         },
-    
+
+
+        
+// My Orders 
+    MY_ORDERS_EMPTY: {
+        en: 'You haven\'t make any order',
+        ar: 'لم تقم بشراء اي منتج',
+    },
+    MY_ORDERS_VISIT_STORE: {
+        en: 'Please visit our shop and buy items from',
+        ar: 'يمكنك زيارة متجرنا وشراء بعض المنتجات من'
+    },  
+
+
 // LOGIN FORM
     FORM_LOGIN_LABEL_TITLE:{
             en: 'Login',
@@ -426,11 +537,11 @@ const globalVariables = {
         },
     FORM_LOGIN_ERR_EMAIL:{
             en: 'Invalid email.',
-            ar: '',
+            ar: 'البريد غير صحيح',
         },
     FORM_LOGIN_ERR_PASS:{
             en: 'Invalid password.',
-            ar: '',
+            ar: 'كلمة المرور غير صحيح',
         },
 // Register
     FORM_REGISTER_LABEL_TITLE:{

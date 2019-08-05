@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
@@ -8,10 +7,10 @@ import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@mate
 
 
 const styles = theme => ({
-    margin: {margin: theme.spacing.unit * 2,},
+    margin: {margin: theme.spacing(2),},
     paddingTop:{padding: '10px 0px'},
     textField: {
-        margin: theme.spacing.unit * 2,
+        margin: theme.spacing(2),
         width: '200',
       },
 });
@@ -78,7 +77,7 @@ class AffiliateForm extends React.Component{
                                 required
                             />
                         </Grid>    
-            case 2:
+            default:
                 return <React.Fragment>
                         <Grid item xs = {12} className = {classes.paddingTop}>
                             <TextField
@@ -153,7 +152,7 @@ class AffiliateForm extends React.Component{
                 return {
                     etisalat_cash:this.state.etisalat
                 }
-            case 2:
+            default:
                 return {
                     swift_code: this.state.swiftCode,
                     bemeficiary_name: this.state.bemeficiaryName,
@@ -176,7 +175,6 @@ class AffiliateForm extends React.Component{
             if(paymentData[key]==="") valid=false;
         })
 
-        console.log(valid)
         if(valid)
             this.props.handleFormSubmition(data)
         else this.setState({error:true})

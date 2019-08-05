@@ -1,7 +1,7 @@
 import React from 'react';
 import 'typeface-roboto';
 import { withStyles, Grid, Paper, Typography,  } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
+
 import {connect} from 'react-redux';
 
 import { Route, withRouter } from 'react-router-dom';
@@ -12,7 +12,7 @@ import SettingsSection from '../parts/SettingsSection';
 const styles = theme => ({
     root: {
         backgroundColor: 'white ',
-        // padding: `${theme.spacing.unit * 4}px 0px`,
+        // padding: `${theme.spacing(4)}px 0px`,
     },
     menuItem: {
         textAlign:'inherit',
@@ -30,7 +30,7 @@ const styles = theme => ({
     },
     settingsMenu: {
         width: '100%',
-        marginBottom: theme.spacing.unit * 4,
+        marginBottom: theme.spacing(4),
     },
     avatar: {
         margin: 10,
@@ -58,15 +58,15 @@ function UserPanelSettings (props){
     const {classes, } = props;
 
     return(
-        <Grid container justify='center' xs={11} className={classes.root}>
+        <Grid container item justify='center' xs={11} className={classes.root}>
             <Grid item xs={12} className={classes.avatarDiv}>
-                <ProfileAvatar img={props.user.img} style={{ margin: 10,width: 60,height: 60,}}/>
+                <ProfileAvatar img={props.user.img} name={props.user.first_name} style={{ margin: 10, width: 60, height: 60,}}/>
                 <div>
-                    <Typography variant='title' className={classes.textHead}>{props.user.first_name} {props.user.last_name}</Typography>
-                    <Typography variant='subheading' className={classes.textMail}>{props.user.email}</Typography>
+                    <Typography variant='h6' className={classes.textHead}>{props.user.first_name} {props.user.last_name}</Typography>
+                    <Typography variant='subtitle1' className={classes.textMail}>{props.user.email}</Typography>
                 </div>
             </Grid>
-            <Grid container xs={12}>
+            <Grid container item xs={12}>
                 <Paper className={classes.settingsMenu}>
                     <Route component={SettingsSection} />
                 </Paper>

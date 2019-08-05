@@ -1,7 +1,7 @@
 // Add before a div to provide a background image for it.
 import React from 'react';
 import { withStyles } from '@material-ui/core';
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const styles = theme => ({
     backStyle: {

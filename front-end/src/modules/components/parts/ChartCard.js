@@ -6,10 +6,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
   card: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
     flexBasis: 'calc(50% - 15px)',
     [theme.breakpoints.down('md')]: {
         flexBasis: '100%'
@@ -41,7 +42,7 @@ function SimpleCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">تفاصيل</Button>
+        <Button size="small">{globalVariables.LABEL_DETAILS[globalVariables.LANG]}</Button>
       </CardActions>
     </Card>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, withStyles, Grid, Divider, TextField, MenuItem, Button } from '@material-ui/core';
+import { withStyles, Grid, TextField, MenuItem, Button } from '@material-ui/core';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,6 +12,7 @@ import uuid from 'uuid';
 import { locationAPI as axios } from '../../../api/api';
 
 import globalVariables from '../../../global-variables';
+import cancelablePromise from '../../../Providers/CancelablePromise';
 const styles = theme => ({
     root: {
         margin:'auto'
@@ -22,7 +23,6 @@ const styles = theme => ({
   
    
 });
-
 
 class CheckoutForm extends React.Component{
     state={
@@ -43,14 +43,28 @@ class CheckoutForm extends React.Component{
         area:'',
     }
 
+    pendingPromises = [];
+
+    componentWillUnmount = () => 
+        this.pendingPromises.map(p => p.cancel());
+
+    appendPendingPromise = promise =>
+        this.pendingPromises = [...this.pendingPromises, promise];
+
+    removePendingPromise = promise =>
+        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
+
+
     componentDidMount(){
-        axios.get('countries/')
-        .then(res=>{
-            this.setState({COUNTRIES:res.data,country:'',CITIES:[],city:'',AREAS:[],area:''})  
-        })
-        .catch(res=>{
-            console.log(res)
-        })
+        const wrappedPromise = cancelablePromise(axios.get('countries/'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
+        .then(res=>{this.setState({COUNTRIES:res.data,country:'',CITIES:[],city:'',AREAS:[],area:''})  })
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(res=>{})
         
     }
 
@@ -62,13 +76,14 @@ class CheckoutForm extends React.Component{
         delete data.COUNTRIES
         if (data.area==='') delete data.area
         
-        axios.post('create/', data)
-        .then(res=>{
-            callbackFn(res.data)
-        })
-        .catch(res=>{
-            console.log(res)
-        })
+        const wrappedPromise = cancelablePromise(axios.post('create/', data));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
+        .then(res=>{callbackFn(res.data)})
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(res=>{})
     }
 
     verifyData = () => {
@@ -88,24 +103,28 @@ class CheckoutForm extends React.Component{
 
     handleCountryChange = prop => event =>{
         this.setState({ [prop]: event.target.value });
-        axios.get('cities/' + event.target.value)
-        .then(res=>{
-            this.setState({CITIES:res.data,city:'',AREAS:[],area:'0'})  
-        })
-        .catch(res=>{
-            console.log(res)
-        })
+
+        const wrappedPromise = cancelablePromise(axios.get('cities/' + event.target.value));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
+        .then(res=>{this.setState({CITIES:res.data,city:'',AREAS:[],area:'0'})  })
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(res=>{})
     }
 
     handleCityChange = prop => event =>{
         this.setState({ [prop]: event.target.value });
-        axios.get('areas/' + event.target.value)
-        .then(res=>{
-            this.setState({AREAS:res.data,area:''})  
-        })
-        .catch(res=>{
-            console.log(res)
-        })
+
+        const wrappedPromise = cancelablePromise(axios.get('areas/' + event.target.value));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
+        .then(res=>{this.setState({AREAS:res.data,area:''})})
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(res=>{})
     }
     render(){
         const { classes,  } = this.props
@@ -123,7 +142,7 @@ class CheckoutForm extends React.Component{
               {this.props.desc}
             </DialogContentText> : null
           }
-          <Grid container justify="center" className={classes.root} xs={11} spacing={16}>
+          <Grid container item justify="center" className={classes.root} xs={11} spacing={2}>
              
              <Grid item sm={6} xs={12}>
                  <TextField

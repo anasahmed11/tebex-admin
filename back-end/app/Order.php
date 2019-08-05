@@ -19,6 +19,9 @@ class Order extends Model
     public function Shipper(){
        return  $this->belongsTo(Shipper::class);
     }
+    public function Referral(){
+        return $this->belongsTo(User::class,'referral_id');
+    }
     public function Products(){
         return $this->hasMany(OrderProduct::class);
     }

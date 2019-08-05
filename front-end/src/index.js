@@ -12,6 +12,7 @@ import userReducer from './store/reducers/user';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
+import RTL from './Providers/RTL';
 
 // For debugging
 const logger = store => {

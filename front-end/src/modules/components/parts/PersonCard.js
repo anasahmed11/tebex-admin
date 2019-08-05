@@ -18,6 +18,7 @@ const styles = {
         color:'white'
     }
 };
+const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 
 function MediaCard(props) {
 
@@ -27,7 +28,7 @@ function MediaCard(props) {
                 <CardActionArea>
                 <CardMedia
                     className = {classes.media}
-                    image = {person.image}
+                    image = {person.image?person.image:noImage}
                     title = {person.name}
                     style = {{backgroundPosition:'top center',}}
                 />

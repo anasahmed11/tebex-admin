@@ -18,13 +18,14 @@ import { clearCart, cartStart, cartSuccess, cartFail, cartFinish } from '../../s
 
 import CartEmpty from '../components/parts/CartEmpty'
 import globalVariables from '../../global-variables';
+import cancelablePromise from '../../Providers/CancelablePromise';
 
 
 const cookies = new Cookies();
 
 const styles = theme => ({
     root: {
-        padding: `${theme.spacing.unit * 4}px 0px`,
+        padding: `${theme.spacing(4)}px 0px`,
         minHeight:'500px',   
         position:'relative',
         margin:'auto',
@@ -59,7 +60,7 @@ function ThanXPage(props){
     
     return(
         
-        <Grid container justify="center" alignItems="center" spacing={16} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
+        <Grid container item justify="center" alignItems="center" spacing={2} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
             <Grid item xs={11}>
                 <Typography variant="h4" gutterBottom>{globalVariables.CHECKOUT_THANKS_STATUS[globalVariables.LANG]}</Typography>
                 <Typography variant="h6">
@@ -75,7 +76,6 @@ function ThanXPage(props){
 }
 
 
-
 class Checkout extends React.Component{
     state = {
         items: [],
@@ -86,6 +86,17 @@ class Checkout extends React.Component{
         trackOrder: '/orders',
         isLoading: true
     }
+
+    pendingPromises = [];
+    componentWillUnmount = () => 
+        this.pendingPromises.map(p => p.cancel());
+    appendPendingPromise = promise =>
+        this.pendingPromises = [...this.pendingPromises, promise];
+    removePendingPromise = promise =>
+        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
+
+
 
     getStepContent = () => {
         switch (this.state.stepIndex) {
@@ -121,14 +132,18 @@ class Checkout extends React.Component{
             alert('please create a new address or select one')
             return
         }
-        axios.get(`${address.id}/shipping`)
+
+        const wrappedPromise = cancelablePromise(axios.get(`${address.id}/shipping`));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
         .then(res=>{    
             this.setState({address:address, shipment:res.data })
             this.stepAdvance()
         })
-        .catch(res=>{
-            alert("عنوانك غير مدعوم في الشحن")
-        })
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(res=>{alert("عنوانك غير مدعوم في الشحن")})
 
         
     }
@@ -136,34 +151,43 @@ class Checkout extends React.Component{
         if(this.state.address === undefined) return //handle error
         
         this.setState({isLoading:true})
-        if(cookies.get('access_token')){
-            this.props.handleCartStart()
-            const products=[]
-            this.props.items.forEach(item=>{
-                let data={id:item.id,quantity:item.cart.quantity}
-                products.push(data)
-            })
+        
+       
+        this.props.handleCartStart()
+        const products=[]
+        this.props.items.forEach(item=>{
+            let data={id:item.id,quantity:item.cart.quantity}
+            products.push(data)
+        })
 
-            const data = {
-                    address: this.state.address.id,
-                    products: products,
-                    token: this.state.address._token    
-                }
-            
-            checkoutAPI.post('',data)
-            .then(res=>{
-                
-                this.props.handleClearCart()
-                const trackOrder = "orders/"+res.data.url.split("/").pop()
-                this.setState({trackOrder:trackOrder,isLoading:false})
-                this.stepAdvance()
-                this.props.handleCartSuccess("العملية تمت بنجاح")
-            })
-            .catch(res=>{
-                this.props.handleCartFail("فشل في تنفيذ العملية")
-                this.setState({isLoading:false})
-            })
+        const data = {
+                address: this.state.address.id,
+                products: products,
+                token: this.state.address._token,
+                referral: cookies.get(globalVariables.AFFILIATE_COOKIE) !== undefined? cookies.get(globalVariables.AFFILIATE_COOKIE):0
         }
+        
+        const wrappedPromise = cancelablePromise(checkoutAPI.post('',data));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+        .promise
+        .then(res=>{
+            this.props.handleClearCart()
+            const trackOrder = "orders/"+res.data.url.split("/").pop()
+            this.setState({trackOrder: trackOrder, isLoading: false})
+            this.stepAdvance()
+            this.props.handleCartSuccess("العملية تمت بنجاح")
+        })
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(err=>{
+            if (!err.isCanceled) {
+                this.setState({isLoading: false})
+            }
+            this.props.handleCartFail("فشل في تنفيذ العملية")
+        })
+        
+        
         
     }
 
@@ -195,7 +219,7 @@ class Checkout extends React.Component{
                 { cartIsLoading || isLoading || numItems || this.state.stepIndex===2?
                     <React.Fragment>
                         <Stepper steps={this.state.steps} stepIndex={this.state.stepIndex} color="#dfdfda" />
-                        <Grid container justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={16}>
+                        <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={2}>
                             {isLoading && this.state.stepIndex === 1?
                                 <Grid container alignItems="center" justify="center" >
                                     <ClipLoader
@@ -206,11 +230,11 @@ class Checkout extends React.Component{
                                     />
                                 </Grid>:null
                             }
-                            {isLoading && this.state.stepIndex==1?null:this.getStepContent()}
+                            {isLoading && this.state.stepIndex===1?null:this.getStepContent()}
                         </Grid>
                     </React.Fragment>
                     :
-                    <Grid container justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={16}>
+                    <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={2}>
                         <CartEmpty />
                     </Grid>
                 }

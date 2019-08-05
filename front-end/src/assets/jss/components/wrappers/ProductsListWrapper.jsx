@@ -3,7 +3,7 @@ export const styles = theme => ({
         backgroundColor: '#fff',
     },
     productsSection: {
-        // marginTop: theme.spacing.unit * 5,
+        // marginTop: theme.spacing(5),
         // justifyContent: 'center',
         display: 'flex',
         flexWrap: 'wrap',
@@ -11,6 +11,6 @@ export const styles = theme => ({
     shopComponent: {
         border: '1px solid black',
         boxShadow: '5px 5px 5px 5px black',
-        marginTop: -4 * theme.spacing.unit ,
+        marginTop: -4 * theme.spacing() ,
     }
 })

@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             //$table->uuid('order_id');
             $table->bigInteger('address_id')->unsigned();
+            $table->bigInteger('referral_id')->unsigned()->nullable();
             $table->integer('shipper_id')->unsigned();
             $table->string('_token',20);
             $table->enum('status',['Pending','Active','Shipped','Delivered','Canceled','Returned']);
@@ -25,6 +26,7 @@ class CreateOrdersTable extends Migration
         });
         Schema::table('orders',function (Blueprint $table){
             $table->foreign('address_id')->references('id')->on('addresses');
+            $table->foreign('referral_id')->references('id')->on('users');
             $table->foreign('shipper_id')->references('id')->on('shippers');
 
         });

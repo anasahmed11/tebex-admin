@@ -26,7 +26,7 @@ const styles = theme => ({
         },    
     },
     item:{
-        padding: `${theme.spacing.unit*4}px`,
+        padding: `${theme.spacing(4)}px`,
     }
 });
 
@@ -57,7 +57,6 @@ class CompanyInfo extends React.Component {
     _handleWaypointEnter = () =>{
         
         const display=this.state.display;
-        console.log(display);
         this.setState({display:display+1});
     }
 
@@ -72,7 +71,7 @@ class CompanyInfo extends React.Component {
                     heightSM='850px'
                     blur='5px'
                 />
-                <Grid justify="center" alignItems='center' container spacing={16} className={classes.sndroot}>
+                <Grid justify="center" alignItems='center' container spacing={2} className={classes.sndroot}>
                     <LinedTitle>
                         بلاب بلاب
                     </LinedTitle>

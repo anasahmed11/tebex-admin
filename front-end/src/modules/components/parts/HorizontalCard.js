@@ -26,6 +26,7 @@ const styles = theme => ({
     width: '100%',
   },
 });
+const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 
 function MediaControlCard(props) {
   const { classes, person } = props;
@@ -37,14 +38,14 @@ function MediaControlCard(props) {
           <Typography gutterBottom component="h2" variant="h5" color="inherit">
             {person.name}
           </Typography>
-          <Typography variant="p" color="inherit">
+          <Typography variant="body2" color="inherit">
             {person.description}
           </Typography>
         </CardContent>
       </div>
       <CardMedia
         className={classes.cover}
-        image = {person.image}
+        image = {person.image?person.image:noImage}
         title = {person.name}
         style = {{backgroundPosition:'top center',}}
       />

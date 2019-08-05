@@ -1,19 +1,20 @@
 import React from 'react';
 import 'typeface-roboto';
-import { withStyles, Grid, Typography, Button, TextField, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, MenuItem } from '@material-ui/core';
-import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons';
+import { withStyles, Grid, Typography, Button, TextField, MenuItem } from '@material-ui/core';
 import uuid from 'uuid';
+import Cookies from 'universal-cookie';
+import { ClipLoader } from 'react-spinners';
+import ExapndPanel from './ExapndPanel';
 
 const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        // padding: `${theme.spacing.unit * 4}px 0px`,
-      },
-    expanDetails:{
-        display:'inherit'
+    
+    
+    textHead:{
+        fontWeight:'500',
+        marginBottom: theme.spacing(4),
     },
     padding:{
-        padding: `${theme.spacing.unit * 2}px 0px`,
+        padding: `${theme.spacing(2)}px 0px`,
     }
     
 });
@@ -26,22 +27,323 @@ const REGIONS = [
 ,'الوادي الجديد','أسوان','أسيوط','بني سويف','بورسعيد','جنوب سيناء','دمياط','سوهاج','شمال سيناء','قنا','كفر الشيخ','مطروح']
 
 
+const cookies = new Cookies();
+
+
+class MainSettingsFrom extends React.Component{
+    state ={
+        firstname:'',
+        firstnameErr:'',
+        
+        lastname:'',
+        lastnameErr:'',
+
+        isLoading: true,
+    }
+
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value });
+    };
+
+    handleMainSettings = () => {
+        const data = {
+            first_name: this.state.firstname,
+            last_name: this.state.lastname,
+        }
+        if(this.state.language==="English") cookies.set('lang','en');
+        else cookies.set('lang','ar');
+        
+        let valid = true;
+
+        if(this.state.firstname==="") {this.setState({firstnameErr: 'Cann\'t be empty'});valid=false;}
+        if(this.state.lastname==="") {this.setState({lastnameErr: 'Cann\'t be empty'});valid=false;}
+
+        console.log(data)
+        //if(valid)
+        
+
+    }
+    render(){
+        const {classes, } = this.props;
+        const {isLoading, } = this.state;
+        return(
+            <React.Fragment>
+                <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
+                    
+                    <Grid item sm={4} xs={11} className={classes.padding}>
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            label="الاسم الاول"
+                            helperText={this.state.firstnameErr}
+                            value={this.state.fitstname}
+                            onChange={this.handleChange('firstname')}
+                            fullWidth
+                            error={this.state.firstnameErr!==""}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            required
+                        />
+                    </Grid>
+                    <Grid item sm={4} xs={11} className={classes.padding}>
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            label="الاسم الاخير"
+                            type="text"
+                        
+                            helperText={this.state.lastnameErr}
+                            value={this.state.lastname}
+                            onChange={this.handleChange('lastname')}
+                            fullWidth
+                            error={this.state.lastnameErr!==""}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            required
+                        />
+                    </Grid>
+                
+                    <Grid item sm={3} xs={5} className={classes.padding}>
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            select
+                            label="اللغة"
+                            type="text"
+                            /*error={this.state.emailError?true:false}
+                            helperText={this.state.emailError}*/
+                            value={this.state.language}
+                            onChange={this.handleChange('language')}
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            required
+                        >
+                            {LANGUAGES.map(option => (
+                                <MenuItem key={uuid()} value={option}>
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </Grid>                
+                </Grid>
+                <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
+                    <Button color='primary' variant='contained' onClick={this.handleMainSettings} >
+                        حفظ التغيرات
+                    </Button>
+                </Grid>
+            </React.Fragment>
+        )
+    }
+}
+const MainSettings = withStyles(styles)(MainSettingsFrom);
+
+
+
+
+class AddressSettingsForm extends React.Component{
+    state ={
+        mobile:'',
+        birthday:'',
+        
+        language:'العربية',
+        street:'',
+        appartment:'',
+        region:'الإسكندرية',
+        expanded:1,
+
+        isLoading: true,
+    }
+
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value });
+    };
+
+    render(){
+        const {classes, } = this.props;
+        const {isLoading, } = this.state;
+        return(
+            <React.Fragment>
+                <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
+                    
+
+                    <Grid item  xs={10}>
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            select
+                            label="المدينة"
+                            type="text"
+                            /*error={this.state.emailError?true:false}
+                            helperText={this.state.emailError}*/
+                            value={this.state.region}
+                            onChange={this.handleChange('region')}
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            required
+                        >
+                            {REGIONS.map(option => (
+                                <MenuItem key={uuid()} value={option}>
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </Grid>
+                    
+                    <Grid item xs={10}>
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            label="رقم الشقة, رقم العمارة, اسم العمارة"
+                            type="text"
+                            /*error={this.state.emailError?true:false}
+                            helperText={this.state.emailError}*/
+                            value={this.state.appartment}
+                            onChange={this.handleChange('appartment')}
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            required
+                        />
+                    </Grid>
+                    <Grid item  xs={10}>
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            label="اسم الشارع"
+                            type="text"
+                            /*error={this.state.emailError?true:false}
+                            helperText={this.state.emailError}*/
+                            value={this.state.street}
+                            onChange={this.handleChange('street')}
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            required
+                        />
+                    </Grid>
+                    <Grid item  xs={10}>
+                        <TextField
+                                
+                            id={uuid()}
+                            label="رقم الهاتف"
+                            type="text"
+                            /*error={this.state.emailError?true:false}
+                            helperText={this.state.emailError}*/
+                            value={this.state.mobile}
+                            onChange={this.handleChange('mobile')}
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            required
+                        />
+                           
+                    </Grid>        
+                
+                </Grid>
+                <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
+                    <Button color='primary' variant='contained' onClick={this.handleAddressSettings}>
+                        حفظ التغيرات
+                    </Button>
+                </Grid>
+            </React.Fragment>
+        )
+    }
+}
+const AddressSettings = withStyles(styles)(AddressSettingsForm);
+
+
+
+
+
+class SecuritySettingsForm extends React.Component{
+    state ={
+        email:'',
+        password:'',
+
+        isLoading: true,
+    }
+
+    handleChange = prop => event => {
+        this.setState({ [prop]: event.target.value });
+    };
+
+    render(){
+        const {classes, } = this.props;
+        const {isLoading, } = this.state;
+        return(
+            <React.Fragment>
+                <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
+                    
+                    <Grid item xs={10} >
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            label="البريد الالكتروني"
+                            type="email"
+                            autoComplete="email"
+                            error={this.state.emailError?true:false}
+                            helperText={this.state.emailError}
+                            value={this.state.email}
+                            onChange={this.handleChange('email')}
+                            required
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item xs={10} >
+                        <TextField
+                            className={classes.margin}
+                            id={uuid()}
+                            value={this.state.password}
+                            required
+                            label="كلمة السر"
+                            type="password"
+                            autoComplete="current-password"
+                            error={this.state.passError?true:false}
+                            helperText={this.state.passError}
+                            onChange={this.handleChange('password')}
+                            fullWidth
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                            
+                
+                </Grid>
+                <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
+                    <Button color='primary' variant='contained'  >
+                        حفظ التغيرات
+                    </Button>
+                </Grid>
+            </React.Fragment>
+        )
+    }
+}
+const SecuritySettings = withStyles(styles)(SecuritySettingsForm);
 
 
 
 class Profile extends React.Component{
     state ={
-        firstname:'',
-        lastname:'',
-        mobile:'',
-        birthday:'',
-        email:'',
-        password:'',
-        language:'العربية',
-        street:'',
-        appartment:'',
-        region:'الإسكندرية',
-        expanded:1
+        expanded:1,
+
+        isLoading: true,
+    }
+
+    componentDidMount(){
+        this.setState({isLoading: false})
     }
 
     handleChange = prop => event => {
@@ -52,273 +354,53 @@ class Profile extends React.Component{
         this.setState({
           expanded: panel,
         });
-      };
+    };
+
+
+    
+
     render(){
         const {classes, } = this.props;
-        
-       
+        const {isLoading, } = this.state;
+        const components = 
+        [
+            {
+                title:'الاعدادات الرئيسية',
+                component: <MainSettings  />
+            },
+            {
+                title:'العنوان',
+                component: <AddressSettings />
+            },
+            {
+                title:'معلومات الامان',
+                component: <SecuritySettings  />
+            },
+
+        ]
 
         return(
-            <Grid container alignItems='center' justify="center" className={classes.root} xs={11}>
-              
+            
+            <Grid container item alignItems='center' justify="center" xs={11}>
+                
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='display1' className={classes.textHead}>الملف الشخصي</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>الملف الشخصي</Typography>
                 </Grid>
 
-
+                {isLoading?
+                <Grid container alignItems="center" justify="center" >
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={75}
+                        color={'#123abc'}
+                        loading={isLoading}
+                    />
+                </Grid> :
                 <Grid item xs={12}>
-                    
-                    <ExpansionPanel 
-                        expanded={this.state.expanded===1}
-                        onChange={this.handlePanelChange(1)} 
-                        >
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>الاعدادات الرئيسية</Typography>
-                        </ExpansionPanelSummary>
-                        
-                        <ExpansionPanelDetails className={classes.expanDetails}>
-                            <Grid container justify="center" xs={12} spacing={16} className={classes.padding}>
-                    
-                                        <Grid item sm={4} xs={11} className={classes.padding}>
-                                            <TextField
-                                                className={classes.margin}
-                                                id="outlined-appartment-input"
-                                                label="الاسم الاول"
-                                                type="text"
-                                                /*error={this.state.emailError?true:false}
-                                                helperText={this.state.emailError}*/
-                                                value={this.state.number}
-                                                onChange={this.handleChange('fitstname')}
-                                                fullWidth
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                required
-                                            />
-                                        </Grid>
-                                        <Grid item sm={4} xs={11} className={classes.padding}>
-                                            <TextField
-                                                className={classes.margin}
-                                                id="outlined-email-input"
-                                                label="الاسم الاخير"
-                                                type="text"
-                                                /*error={this.state.emailError?true:false}
-                                                helperText={this.state.emailError}*/
-                                                value={this.state.email}
-                                                onChange={this.handleChange('lastname')}
-                                                fullWidth
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                required
-                                            />
-                                        </Grid>
-                                    
-                                        <Grid item sm={3} xs={5} className={classes.padding}>
-                                            <TextField
-                                                className={classes.margin}
-                                                id="outlined-email-input"
-                                                select
-                                                label="اللغة"
-                                                type="text"
-                                                /*error={this.state.emailError?true:false}
-                                                helperText={this.state.emailError}*/
-                                                value={this.state.language}
-                                                onChange={this.handleChange('language')}
-                                                fullWidth
-                                                InputLabelProps={{
-                                                    shrink: true,
-                                                }}
-                                                required
-                                            >
-                                                {LANGUAGES.map(option => (
-                                                    <MenuItem key={uuid()} value={option}>
-                                                        {option}
-                                                    </MenuItem>
-                                                ))}
-                                            </TextField>
-                                        </Grid>
-
-
-                           
-                                       
-                                        
-                            
-                            </Grid>
-                            <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
-                                <Button color='primary' variant='contained'  >
-                                    حفظ التغيرات
-                                </Button>
-                            </Grid>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                    
-                    <ExpansionPanel 
-                        expanded={this.state.expanded===2}
-                        onChange={this.handlePanelChange(2)} 
-                    >
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>العنوان</Typography>
-                        </ExpansionPanelSummary>
-                        
-                        <ExpansionPanelDetails className={classes.expanDetails}>
-                            <Grid container justify="center" xs={12} spacing={16} className={classes.padding}>
-                    
-
-                                <Grid item  xs={10}>
-                                    <TextField
-                                        className={classes.margin}
-                                        id="outlined-email-input"
-                                        select
-                                        label="المدينة"
-                                        type="text"
-                                        /*error={this.state.emailError?true:false}
-                                        helperText={this.state.emailError}*/
-                                        value={this.state.region}
-                                        onChange={this.handleChange('region')}
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        required
-                                    >
-                                        {REGIONS.map(option => (
-                                            <MenuItem key={uuid()} value={option}>
-                                                {option}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </Grid>
-                                
-                                <Grid item xs={10}>
-                                    <TextField
-                                        className={classes.margin}
-                                        id="outlined-appartment-input"
-                                        label="رقم الشقة, رقم العمارة, اسم العمارة"
-                                        type="text"
-                                        /*error={this.state.emailError?true:false}
-                                        helperText={this.state.emailError}*/
-                                        value={this.state.appartment}
-                                        onChange={this.handleChange('appartment')}
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item  xs={10}>
-                                    <TextField
-                                        className={classes.margin}
-                                        id="outlined-street-input"
-                                        label="اسم الشارع"
-                                        type="text"
-                                        /*error={this.state.emailError?true:false}
-                                        helperText={this.state.emailError}*/
-                                        value={this.state.street}
-                                        onChange={this.handleChange('street')}
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item  xs={10}>
-                                    <TextField
-                                            
-                                        id="outlined-appartment-input"
-                                        label="رقم الهاتف"
-                                        type="text"
-                                        /*error={this.state.emailError?true:false}
-                                        helperText={this.state.emailError}*/
-                                        value={this.state.mobile}
-                                        onChange={this.handleChange('mobile')}
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        required
-                                    />
-                                       
-                                </Grid>        
-                            
-                            </Grid>
-                            <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
-                                <Button color='primary' variant='contained'  >
-                                    حفظ التغيرات
-                                </Button>
-                            </Grid>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                   
-                    
-
-
-                    <ExpansionPanel
-                        expanded={this.state.expanded===3}
-                        onChange={this.handlePanelChange(3)} 
-                    >
-                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography className={classes.heading}>معلومات الامان</Typography>
-                        </ExpansionPanelSummary>
-                        
-                        <ExpansionPanelDetails className={classes.expanDetails}>
-                            <Grid container justify="center" xs={12} spacing={16} className={classes.padding}>
-                    
-                                <Grid item xs={10} >
-                                    <TextField
-                                        className={classes.margin}
-                                        id="register-email"
-                                        label="البريد الالكتروني"
-                                        type="email"
-                                        autoComplete="email"
-                                        error={this.state.emailError?true:false}
-                                        helperText={this.state.emailError}
-                                        value={this.state.email}
-                                        onChange={this.handleChange('email')}
-                                        required
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
-                                </Grid>
-                                <Grid item xs={10} >
-                                    <TextField
-                                        className={classes.margin}
-                                        id="register-password"
-                                        value={this.state.password}
-                                        required
-                                        label="كلمة السر"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        error={this.state.passError?true:false}
-                                        helperText={this.state.passError}
-                                        onChange={this.handleChange('password')}
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                    />
-                                </Grid>
-                                        
-                            
-                            </Grid>
-                            <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
-                                <Button color='primary' variant='contained'  >
-                                    حفظ التغيرات
-                                </Button>
-                            </Grid>
-                        </ExpansionPanelDetails>
-                    </ExpansionPanel>
-
-
-
-
-                </Grid>     
-            </Grid>
-               
+                    <ExapndPanel components={components} />
+                </Grid>
+                }     
+            </Grid>      
         );
     }
 }
