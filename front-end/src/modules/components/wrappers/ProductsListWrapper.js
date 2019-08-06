@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import globalVariables from '../../../global-variables';
-
-import { isArray } from "util";
 import uuid from 'uuid';
 
 import { ClipLoader } from "react-spinners";
 import { withStyles } from '@material-ui/core/styles';
 import { Snackbar, Grid } from '@material-ui/core';
 
-import { productsAPI, categoryAPI } from '../../../api/api';
+import { categoryAPI } from '../../../api/api';
 
 import MySnackbar from '../parts/MySnackbar';
 import FiltersPanel from "../parts/FiltersPanel";
@@ -73,7 +71,7 @@ class Store extends Component {
                 return;
             }
             this.setState({ id: categoryID, categories: categories });
-
+            
             categoryAPI.get(`/${categoryID}/products`)
             .then(res => {
                 const products = [];
@@ -92,7 +90,7 @@ class Store extends Component {
                     products: products,
                 })
             })
-            .catch(res => console.log('ERROR FETCHING PRODUCTS', res));
+            .catch(res => console.log(`ERROR FETCHING PRODUCTS /${categoryID}/products`, res));
 
             if(this.state.categoryID > -1)
                 categoryAPI.get(`/${this.state.categoryID}/specs`)
@@ -145,7 +143,6 @@ class Store extends Component {
         </Grid>
     )
 
-    console.log('ID IN STATE:', this.state.categoryID)
     return this.state._isLoading? <Loading />
             : this.state.categoryID > -1?  
             <Grid container className={classes.root}>
