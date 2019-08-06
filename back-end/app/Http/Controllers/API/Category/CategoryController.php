@@ -18,7 +18,7 @@ class CategoryController extends Controller
         Category::fixTree();
         return response()->json(Category::get()->toTree(),200);
     }
-    public function specs($category){
+    public function specs(Category $category){
         return response()->json($category->Specs()->get());
     }
     public function products(Category $category){
