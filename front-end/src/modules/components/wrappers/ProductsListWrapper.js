@@ -30,13 +30,15 @@ const flattenObject = (obj, _objects=[]) => {
 };
 
 const getCategoryID = (categories, slugs, id=1, lvl=0) => {
-    if(!slugs) return 0;
+    
+    if(!slugs) return 1; // Root category
     for(let category of categories)
         if(category.slug === slugs[lvl] && category.parent_id === id){
             if(lvl + 1 === slugs.length)
                 return category.id;
             return getCategoryID(categories, slugs, category.id, lvl+1);
         }
+    return -1; // 404
 }
 
 const Loading = () => <Grid container justify="center" >
@@ -54,41 +56,34 @@ class Store extends Component {
         _isLoading: true,
         products: [],
         filterPanels: null,
-        id: 0,
+        categoryID: 1,
     }
 
     componentDidMount(){
         
         const slug = this.props.match.params.slug? this.props.match.params.slug.split('/') : null;
-       
+        
         categoryAPI.get('/')
         .then(res => {
             const categories = flattenObject(res.data[0]);
-            const slugToID = getCategoryID(categories, slug);
-            const idx = slugToID? categories.findIndex(category => category.id === slugToID) : 0;
+            const categoryID = getCategoryID(categories, slug);
 
-            if(isArray(slug))
-                this.setState({
-                    id: idx? categories[idx].id : 1,
-                    categories: categories,
-                });
-            else
-                this.setState({ id: 1, categories: categories }); // ALL
-            
-            // Products from a *Category* : *All Products*
-            const api = this.state.id > 1? categoryAPI : productsAPI;
-            const route = this.state.id > 1? this.state.id + '/products' : '';
+            if(categoryID === -1){
+                this.setState({ _isLoading: false, categoryID: -1 });
+                return;
+            }
+            this.setState({ id: categoryID, categories: categories });
 
-            api.get(`/${route}`)
+            categoryAPI.get(`/${categoryID}/products`)
             .then(res => {
                 const products = [];
-                for (let item of res.data){
+                for (let item of res.data.data){
                     let link = item.images[0];
                     products.push({
                         id: item.id,
                         img: link,
                         slug: item.slug,
-                        title: item.name,
+                        title: {ar: item.name, en: item.name_en},
                         price: item.price,
                         salePrice: item.sale_price,
                     });
@@ -98,9 +93,9 @@ class Store extends Component {
                 })
             })
             .catch(res => console.log('ERROR FETCHING PRODUCTS', res));
-            console.log('here where end is near', this.state.id)
-            if(this.state.id > -1)
-                categoryAPI.get(`/${this.state.id}/specs`)
+
+            if(this.state.categoryID > -1)
+                categoryAPI.get(`/${this.state.categoryID}/specs`)
                 .then(res => {
                     this.setState({
                         filterPanels: res.data
@@ -140,7 +135,7 @@ class Store extends Component {
             <ProductCard
                 product={product}
                 id={product.id}
-                title={product.title}
+                title={product.title[globalVariables.LANG]}
                 price={product.salePrice? product.salePrice : product.price}
                 oldPrice={product.salePrice? product.price : false}
                 currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
@@ -150,9 +145,9 @@ class Store extends Component {
         </Grid>
     )
 
-    console.log('ID IN STATE:', this.state.id)
+    console.log('ID IN STATE:', this.state.categoryID)
     return this.state._isLoading? <Loading />
-            : this.state.id?  
+            : this.state.categoryID > -1?  
             <Grid container className={classes.root}>
                 <Grid md={3} sm={12}>
                     <FiltersPanel filterPanels={this.state.filterPanels} />
