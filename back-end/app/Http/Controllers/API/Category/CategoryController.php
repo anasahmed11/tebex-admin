@@ -18,11 +18,11 @@ class CategoryController extends Controller
         Category::fixTree();
         return response()->json(Category::get()->toTree(),200);
     }
-    public function specs(Category $category){
+    public function specs($category){
         return response()->json($category->Specs()->get());
     }
     public function products(Category $category){
-        $cats=$category::get()->toFlatTree();
+        $cats=Category::descendantsAndSelf($category)->toFlatTree();
         $func = function($value) {
             return $value['id'];
         };

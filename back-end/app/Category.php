@@ -23,7 +23,7 @@ class Category extends Model
         return $this->belongsToMany(Spec::class,'category_specs');
     }
     public function Product(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class,'category_products');
     }
 
 }
