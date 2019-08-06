@@ -26,11 +26,13 @@ class CreateProductsTable extends Migration
             $table->double("sale_price")->nullable();
             $table->integer("quantity");
             $table->bigInteger('store_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
             $table->softDeletes();
             $table->timestamps();
         });
         Schema::table('products',function(Blueprint $table){
-           $table->foreign('store_id')->references('id')->on('stores');
+            $table->foreign('store_id')->references('id')->on('stores');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
 
     }

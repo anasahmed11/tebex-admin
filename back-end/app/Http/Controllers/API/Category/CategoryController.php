@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Category;
 
 use App\Category;
 use App\Http\Resources\ProductCollection;
+use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -17,12 +18,18 @@ class CategoryController extends Controller
         Category::fixTree();
         return response()->json(Category::get()->toTree(),200);
     }
-    public function specs(Category $category){
+    public function specs($category){
         return response()->json($category->Specs()->get());
     }
     public function products(Category $category){
-        $cats=$category::get()->toFlatTree();
-        $products=$cats[0]->Product()->get();
+        $cats=Category::descendantsAndSelf($category)->toFlatTree();
+        $func = function($value) {
+            return $value['id'];
+        };
+        $cats=array_map($func,$cats->toArray());
+        $products=Product::whereIn('category_id',$cats);
+        $products->paginate(30);
+        /*$products=$cats[0]->Product()->get();
         for ($i=1;$i < $cats->count();$i++){
            $products=$products->merge($cats[$i]->Product()->get());
         }
@@ -31,8 +38,8 @@ class CategoryController extends Controller
         $response['data']=$pages->all();
         $response['paging']['current']=$pages->currentPage();
         $response['paging']['last']=$pages->lastPage();
-        $response['paging']['items']=$pages->total();
-        return response()->json($response);
+        $response['paging']['items']=$pages->total();*/
+        return response()->json($products->paginate(Input::get("perpage")??30));
     }
     public function filter(Category $category){
         return response()->json($category->Product()->get());
