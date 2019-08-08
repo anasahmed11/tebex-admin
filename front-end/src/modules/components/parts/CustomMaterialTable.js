@@ -17,6 +17,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import { withStyles } from '@material-ui/core';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -39,17 +40,18 @@ const tableIcons = {
   };
 
 
-export default function MaterialTableDemo(props) {
+function MaterialTableDemo(props) {
 
  
   return (
     <MaterialTable
+      
       title={props.title}
       icons={tableIcons}
       columns={props.columns}
       data={props.data}
       parentChildData={props.tree?(row, rows) => rows.find(a => a.id === row.parentId):undefined}
-      style={{width:'100%'}}
+      style={{width:'100%',marginBottom:'20px'}}
       editable={{
         onRowUpdate: props.onRowUpdatePromise?(newData, oldData) => props.onRowUpdatePromise(newData, oldData):undefined,
           
@@ -66,3 +68,5 @@ export default function MaterialTableDemo(props) {
     />
   );
 }
+
+export default withStyles()(MaterialTableDemo)

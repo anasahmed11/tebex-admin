@@ -18,16 +18,16 @@ const styles = theme => ({
 
 
 const data = [
-    { name: 'Abdo Hamdy', id: 1 , earning: <IconButton><FontAwesomeIcon icon="edit" /></IconButton> },
-    { name: 'Abdo Tarek ', id: 2 , earning: 100 },
-    { name: 'Ahmed Bally', id: 3 , earning: 100 },
-    { name: 'Ahmed Mekkey', id: 4 , earning: 50 },
-    { name: 'Mahmoud', id: 5, parentId:1 , earning: 12 },
-    { name: 'Zakaria', id: 6, parentId:2 , earning: 5 },
+    { id:1 ,name: 'Abdo Hamdy', id: 1 , earning: <IconButton><FontAwesomeIcon icon="edit" /></IconButton> },
+    { id:2 ,name: 'Abdo Tarek ', id: 2 , earning: 100 },
+    { id:3 ,name: 'Ahmed Bally', id: 3 , earning: 100 },
+    { id:4 ,name: 'Ahmed Mekkey', id: 4 , earning: 50 },
+    { id:5 ,name: 'Mahmoud', id: 5, parentId:1 , earning: 12 },
+    { id:6 ,name: 'Zakaria', id: 6, parentId:2 , earning: 5 },
   ]
 const columns = [
     { title: 'Name', field: 'name' },
-    { title: 'Earning', field: 'earning' },
+    { title: 'Action', field: 'action' },
 
   ]
 class MyProdcuts extends React.Component{
@@ -35,7 +35,12 @@ class MyProdcuts extends React.Component{
         isLoading: true,
     }
 
+    handleEditAction = (id) => {
+        this.props.history.push(`/seller/add_product/${id}`)
+    }   
+
     componentDidMount(){
+        data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )
         this.setState({isLoading:false})
     }
 
@@ -60,7 +65,7 @@ class MyProdcuts extends React.Component{
                                 loading={isLoading}
                             />
                         </Grid>: 
-                        <CustomMaterialTabl title={'الاوردرات المعلفة'} onRowUpdatePromise={this.handleEdit} data={data} columns={columns} />
+                        <CustomMaterialTabl title={'الاوردرات المعلفة'} /*onRowUpdatePromise={this.handleEdit}*/ data={data} columns={columns} />
                     }
                 </Grid>
             </Grid>

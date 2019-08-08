@@ -11,7 +11,7 @@ import { withRouter } from 'react-router-dom';
 
 import Profile from '../components/wrappers/Profile';
 import UserPanelSettings from '../components/wrappers/UserPanelSettings';
-import UserDashBoard from '../components/wrappers/UserDashBoard';
+import UserDashBoard from '../components/wrappers/AffiliateDashBoard';
 import LinkGenerator from '../components/wrappers/LinkGenerator';
 import Tree from '../components/wrappers/Tree';
 import Orders from '../components/wrappers/UserOrders';
@@ -22,6 +22,7 @@ import MyProducts from '../components/wrappers/MyProducts';
 import SellingOrders from '../components/wrappers/SellingOrders';
 
 import NotFound from '../views/NotFound';
+import SellerDashBoard from '../components/wrappers/SellerDashBoard';
 
 const styles = theme => ({
     root: {
@@ -60,15 +61,17 @@ class UserpanelLayout extends React.Component{
                     <Grid container item justify="center" alignItems='flex-start' lg={9} md={8} xs={12}>
                         <Switch>
                             <Route exact path='/profile' component={Profile} />
-                            <Route exact path='/dashboard' component={UserDashBoard} />
-                            <Route exact path='/linkgenerator' component={LinkGenerator} />
-                            <Route exact path='/tree' component={Tree} /> 
+                            <Route exact path='/affiliate/dashboard' component={UserDashBoard} />
+                            <Route exact path='/affiliate/linkgenerator' component={LinkGenerator} />
+                            <Route exact path='/affiliate/tree' component={Tree} /> 
                             <Route exact path='/orders' component={Orders} />
                             <Route exact path='/affiliate' component={Affiliate} />
                             <Route exact path='/seller' component={Seller} />
                             <Route exact path='/seller/add_product' component={AddProduct} />
+                            <Route exact path='/seller/add_product/:id' component={AddProduct} />
                             <Route exact path='/seller/my_products' component={MyProducts} />
                             <Route exact path='/seller/waiting_orders' component={SellingOrders} />
+                            <Route exact path='/seller/dashboard' component={SellerDashBoard} />
                             <Route component = {NotFound}/>
                         </Switch>
                     </Grid>

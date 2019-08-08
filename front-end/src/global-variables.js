@@ -102,6 +102,10 @@ const globalVariables = {
             en:'Selling Orders',
             ar:'اوردرات البيع',
         },
+    SETTINGS_SECTION_SELLING_DASHBOARD:{
+            en:'Dashboard',
+            ar:'لوحة التحكم',
+        },
     SETTINGS_SECTION_ADD_PRODUCTS:{
             en:'Add Products',
             ar:'اضافة منتجات',

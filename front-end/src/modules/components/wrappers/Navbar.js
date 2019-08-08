@@ -7,6 +7,7 @@ import BelowAppBar from '../parts/BelowAppBar';
 
 import { categoryAPI } from '../../../api/api';
 import globalVariables from '../../../global-variables';
+import { withRouter } from 'react-router-dom';
 
 const logo = 'logo-ar.png';
 
@@ -99,4 +100,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
