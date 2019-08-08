@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {   use softDeletes;
-    protected $with=['Store'];
+    protected $with=['Store','Specs:product_id,spec_id,id,value,name,name_en'];
     protected $fillable = [
         'name','name_en', 'slug', 'sku','images','description','description_en','price','sale_price','quantity'
     ];
@@ -21,8 +21,8 @@ class Product extends Model
     ];
     public function Specs(){
         return $this->hasMany(ProductSpec::class)
-            ->join("specs","specs.id","=","product_specs.spec_id")
-            ->select("name","name_en","value");
+            ->join("specs","specs.id","=","product_specs.spec_id");
+            #->select("id","name","name_en","value");
     }
     public function Store(){
         return $this->belongsTo(Store::class);

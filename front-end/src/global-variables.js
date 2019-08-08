@@ -410,7 +410,7 @@ const globalVariables = {
             ar: 'الكمية'
         },
     LABEL_CURRENCY: {
-            en: 'Pound',
+            en: 'EGP',
             ar: 'جنيه'
         },
     LABEL_PRICE: {
