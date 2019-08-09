@@ -26,4 +26,8 @@ class ProductController extends Controller
            return ['id'=>$e->id,'specs'=>$e->Specs()->get()];
        }));
     }
+    public function search(Request $request){
+        $products = Product::search($request->input('q'))->get();
+        return response()->json($products);
+    }
 }

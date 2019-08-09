@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import 'typeface-roboto';
 import { withStyles, Grid, Typography,  } from '@material-ui/core';
 import ExapndPanel from './ExapndPanel';
@@ -6,6 +6,7 @@ import useForm from "react-hook-form"
 
 import MainProductInfoForm from '../parts/MainProductInfoFrom';
 import GeneralDescrptionForm from '../parts/GeneralDescrptionForm';
+import { ClipLoader } from 'react-spinners';
 
 const styles = theme => ({
     root: {
@@ -17,32 +18,17 @@ const styles = theme => ({
         marginBottom: theme.spacing(4),
     },
 });
-class Comp1 extends React.Component{
-    state ={
-        x:0
-    }
-    handleClick = () => {
-        this.setState({x:this.state.x+1})
-    }
-    render(){
-        return(
-            <div>
-                
-                <button onClick={this.handleClick}>{this.state.x}</button>
-            </div>
-        )
-    }
 
-
-}
+//this.props.match.params.id
 
 
 
-function AddProduct(props){
+function AddProduct1(props){
+
+    
     const { register, handleSubmit } = useForm({
-        defaultValues: {
-          
-        }
+        defaultValues: props.defaultValues
+        
       });
     const {classes, } = props;
     
@@ -50,6 +36,10 @@ function AddProduct(props){
     const onSubmit = data => {
         console.log("SUBMITTED",data)
     };
+    const onEdit = data => {
+        console.log("onEdit",data)
+    };
+    
 
     const component = [
         {
@@ -73,7 +63,10 @@ function AddProduct(props){
                     <ExapndPanel components={component} />
                 </Grid>
                 <Grid item xs={12}>
-                    <button onClick={handleSubmit(onSubmit)}>click me please</button>
+                    
+                    <button onClick={handleSubmit(onSubmit)}>add</button>:
+                    <button onClick={handleSubmit(onEdit)}>edit</button>
+                    
                 </Grid>
             </Grid>
         </Grid>
@@ -82,4 +75,33 @@ function AddProduct(props){
 }
 
 
-export default withStyles(styles)(AddProduct);
+
+const AddProduct = withStyles(styles)(AddProduct1)
+class Wrapper extends React.Component {
+    state = {
+        isLoading: true,
+        data:{},
+    }
+
+    componentDidMount(){
+        this.setState({isLoading:false, data:{name_en:"abdo"}})
+    }
+    render(){
+        const {isLoading} = this.state;
+        return(
+           isLoading?
+                <Grid container alignItems="center" justify="center" >
+                    <ClipLoader
+                        sizeUnit={"px"}
+                        size={75}
+                        color={'#123abc'}
+                        loading={isLoading}
+                    />
+                </Grid>:
+                <AddProduct defaultValues={this.state.data}/>
+            
+        )
+    }
+
+}
+export default (Wrapper);

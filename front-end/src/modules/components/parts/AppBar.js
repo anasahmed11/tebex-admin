@@ -30,7 +30,7 @@ const styles = theme => ({
   logo: {
     display: 'flex',
     justifyContent: 'center',
-    flex: '1 0 10%',
+    flex: '1 0 15%',
     //[theme.breakpoints.down('sm')]: {
       //flex: '1 0 15%',
     //}
@@ -54,7 +54,7 @@ const styles = theme => ({
     alignItems: 'inherit',
   },
   searchBar: {
-    flex: '1 0 40%',
+    flex: '1 0 65%',
     alignItems: 'center',
     justifyContent: 'center',
     [theme.breakpoints.down('sm')]: {
@@ -74,7 +74,7 @@ const styles = theme => ({
     display: 'none',
     [theme.breakpoints.down('sm')]: {
       display: 'flex',
-      flex: '1 0 10%',
+      flex: '1 0 1%',
       justifyContent: 'flex-end',
     },
   },
@@ -94,11 +94,13 @@ const styles = theme => ({
     },
   },
 });
-
+let wasItOpen = false;
 class PrimarySearchAppBar extends React.Component {
   state = {
-    anchorEl: null,
+    anchorEl: false,
+    
     mobileMoreAnchorEl: null,
+    
   };
 
   handleCategoriesList = (event, type) => {
@@ -129,12 +131,13 @@ class PrimarySearchAppBar extends React.Component {
     const { classes } = this.props;
     const isMenuOpen = Boolean(anchorEl);
 
+    const shouldOpen =isMenuOpen&&!wasItOpen
     const renderLogedInMenu = () => (
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMenuOpen}
+        open={shouldOpen}
         onClose={this.handleMenuClose}
       >
         <Route component={SettingsSection} />
@@ -146,7 +149,7 @@ class PrimarySearchAppBar extends React.Component {
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMenuOpen}
+        open={shouldOpen}
         onClose={this.handleMenuClose}
       >
         <Link to="/auth" className={classes.link}> 
@@ -156,6 +159,9 @@ class PrimarySearchAppBar extends React.Component {
         </Link>
       </Menu>
     );
+
+    console.log(isMenuOpen&&!wasItOpen, wasItOpen)
+    wasItOpen = wasItOpen?false:isMenuOpen;
 
     return (
         <AppBar position="static" className={classes.root}>
