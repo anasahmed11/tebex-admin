@@ -117,23 +117,26 @@ class App extends React.Component {
             <Route exact path = '/auth' render = {props =>authenticated?<Redirect to = '/profile'/>:<Auth {...props} />} /> 
 						<Route exact path = '/verify/:id' component = {Verify}/>
             <Route exact path = '/cart' component = {Cart}/>
-
             <Route exact path = "/(profile|orders)/"  render = {props =>authenticated?<UserPanel {...props} />:<Redirect to = '/auth'/> } />
-
-            <Route exact path = "/affiliate" render = {props =>!affiliate?<UserPanel {...props} />:<Redirect to = '/404'/> } />
-            {this.props.program.affiliate!==undefined?
-            <Route exact path = "/(dashboard|tree|linkgenerator)/" render = {props =>affiliate?<UserPanel {...props} />:<Redirect to = '/404'/> } />
-            :null
-            }
-            
-            <Route exact path="/seller" render={props =>!seller?<UserPanel {...props} />:<Redirect to='/404'/> } />}
-            {this.props.program.seller!==undefined?
-            <Route exact path="/(seller/my_products|seller/add_product|seller/waiting_orders)/" render={props =>seller?<UserPanel {...props} />:<Redirect to='/404'/> } />
-            :null
-            }
-            <Route exact path='/orders/:id/:token' component={TrackOrder} />
-            
             <Route exact path='/' component={Home}/>
+            <Route exact path='/orders/:id/:token' component={TrackOrder} />
+
+            {this.props.program.affiliate===undefined || this.props.program.seller===undefined?
+              <Route component={Blank}/>:null
+            }
+
+  
+            
+            <Route exact path="/affiliate" render={props =>!affiliate?<UserPanel {...props} />:<Redirect to='/404'/> } />
+           
+            
+            <Route exact path="/seller" render={props =>!seller?<UserPanel {...props} />:<Redirect to='/404'/> } />
+            <Route path="/(seller|affiliate)/" render={props =>authenticated?<UserPanel {...props} />:<Redirect to='/404'/> } />
+            
+            
+            
+            
+            
 
             <Route exact path='/404' component={NotFound}/>
             
