@@ -61,6 +61,7 @@ Route::prefix('address')->group(function () {
 
 Route::prefix('product')->group(function () {
     Route::get('/', 'API\Product\ProductController@index');
+    Route::post('/search', 'API\Product\ProductController@search');
     Route::get('{product}', 'API\Product\ProductController@product');
     Route::get('{product}/specs', 'API\Product\ProductController@specs');
     Route::get('{product}/{sku}/sku', 'API\Product\ProductController@sku');

@@ -11,3 +11,5 @@ npm-debug.log
 yarn-error.log
 run-after-reset.txt
 .rnd
+
+back-end/storage/*.index
