@@ -19,7 +19,15 @@ class CategoryController extends Controller
         return response()->json(Category::get()->toTree(),200);
     }
     public function specs(Category $category){
-        return response()->json($category->Specs()->get());
+        $cats=Category::descendantsAndSelf($category)->toFlatTree();
+        $specs=[];
+        foreach ($cats as $cat){
+            $spec=$cat->Specs()->get();
+            if (count($spec)) {
+                $specs[$cat->id] = $spec;
+            }
+        }
+        return response()->json($specs);
     }
     public function products(Category $category){
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
