@@ -53,8 +53,16 @@ class Store extends Component {
     state = {
         _isLoading: true,
         products: [],
-        filterPanels: null,
+        filterPanels: [
+            {name: 'تجربة', values: {'ar': ['اخضر', 'ازرق']}}
+        ],
         categoryID: 1,
+        filter: {
+            sortBy: 'recent',
+            priceL: 0,
+            priceH: 0,
+        },
+        testValue: 'ترتيب',
     }
 
     componentDidMount(){
@@ -95,9 +103,9 @@ class Store extends Component {
             if(this.state.categoryID > -1)
                 categoryAPI.get(`/${this.state.categoryID}/specs`)
                 .then(res => {
-                    this.setState({
+                    /*this.setState({
                         filterPanels: res.data
-                    })
+                    })*/
                     this.setState({ _isLoading: false });
                 })
                 .catch(res => console.log('ERROR FETCHING A CATEGORY SPECS', res));
@@ -105,58 +113,69 @@ class Store extends Component {
         .catch(res => console.log('ERROR FETCHING CATEGORIES', res))
     }
 
+    selectHandler = (a, b) => {
+        alert(a + ' ' + b)
+        this.setState({
+            testValue: b,
+        })
+    }
 
     render(){
-    
-    const { classes, isPopup, serverMessage, handlePopupClose, handleDeleteFromCart, messageType } = this.props
+        const { classes, isPopup, serverMessage, handlePopupClose, handleDeleteFromCart, messageType } = this.props
 
-    let products = this.state.products.map(product => 
-        <Grid key={uuid()} md={4} sm={6} xs={12}>
-                <Snackbar
-                    style={{direction:'ltr', bottom:'50px'}}   
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-                    open={isPopup && serverMessage !== ""}
-                    autoHideDuration={6000}
-                    onClose={handlePopupClose}
-                >
-                    <MySnackbar 
-                        className={classes.margin}
+        let products = this.state.products.map(product => 
+            <Grid key={uuid()} md={4} sm={6} xs={12}>
+                    <Snackbar
+                        style={{direction:'ltr', bottom:'50px'}}   
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        open={isPopup && serverMessage !== ""}
+                        autoHideDuration={6000}
                         onClose={handlePopupClose}
-                        variant={messageType}
-                        message={serverMessage}
-                    />
-                
-                </Snackbar>
-            <ProductCard
-                product={product}
-                id={product.id}
-                title={product.title[globalVariables.LANG]}
-                price={product.salePrice? product.salePrice : product.price}
-                oldPrice={product.salePrice? product.price : false}
-                currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
-                img={product.img}
-                flex
-            />
-        </Grid>
-    )
-
-    return this.state._isLoading? <Loading />
-            : this.state.categoryID > -1?  
-            <Grid container className={classes.root}>
-                <Grid md={3} sm={12}>
-                    <FiltersPanel filterPanels={this.state.filterPanels} />
-                </Grid>
-                <Grid md={9} sm={12}>
-                    <SelectMenu />
-                    <div className={classes.productsSection}>
-                        {products.length? products : globalVariables.LABEL_NO_PRODUCTS[globalVariables.LANG]}
-                    </div>
-                </Grid>
+                    >
+                        <MySnackbar 
+                            className={classes.margin}
+                            onClose={handlePopupClose}
+                            variant={messageType}
+                            message={serverMessage}
+                        />
+                    
+                    </Snackbar>
+                <ProductCard
+                    product={product}
+                    id={product.id}
+                    title={product.title[globalVariables.LANG]}
+                    price={product.salePrice? product.salePrice : product.price}
+                    oldPrice={product.salePrice? product.price : false}
+                    currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
+                    img={product.img}
+                    flex
+                />
             </Grid>
-            : <Redirect to = '/404' /> 
+        )
+
+        return this.state._isLoading? <Loading />
+                : this.state.categoryID > -1?  
+                <Grid container className={classes.root}>
+                    <Grid lg={3} xs={12}>
+                        <FiltersPanel filterPanels={this.state.filterPanels} />
+                    </Grid>
+                    <Grid lg={9} xs={12}>
+                        <div className={classes.optionMenusSection}>
+                            <SelectMenu 
+                                name="test" 
+                                values={['One', 'Two']} 
+                                handleChange={this.selectHandler} 
+                                selectedValue={this.state.testValue} />
+                        </div>
+                        <div className={classes.productsSection}>
+                            {products.length? products : globalVariables.LABEL_NO_PRODUCTS[globalVariables.LANG]}
+                        </div>
+                    </Grid>
+                </Grid>
+                : <Redirect to = '/404' /> 
     }
 }
 
@@ -170,7 +189,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return{
+    return {
         handleDeleteFromCart: (id,shopping_cart) => dispatch(deleteFromCart(id,shopping_cart)),
         handlePopupClose: () => dispatch(cartFinish()),
     }

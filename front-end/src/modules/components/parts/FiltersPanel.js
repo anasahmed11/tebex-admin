@@ -4,6 +4,7 @@ import uuid from 'uuid';
 
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Typography } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
 
 import { styles } from '../../../assets/jss/components/parts/FiltersPanel';
 
@@ -36,16 +37,12 @@ class InteractiveList extends React.Component {
 
     return (
       <div className={classes.root}>
-        {/*<div className={classes.listHeader}>
-            <Typography variant="h6" className={classes.title} align="center">
-                انواع
-            </Typography>
-        </div>*/}
-        {filterPanels? <div className={classes.demo}>
+        {filterPanels? 
+        <div className={classes.demo}>
             <List dense={dense}>
               {filterPanels.map((filter) =>
                 <React.Fragment>
-                  <Typography className={classes.filterTitle} variant="subheading">{filter.name}</Typography>
+                  <Typography className={classes.filterTitle}>{filter.name}</Typography>
                   {filter.values['ar'].map((value, idx) =>
                     <ListItem button key={uuid()}>
                       <ListItemText
@@ -63,6 +60,7 @@ class InteractiveList extends React.Component {
                 </React.Fragment>
                 )}
             </List>
+            <Divider />
         </div>
         : null}
       </div>

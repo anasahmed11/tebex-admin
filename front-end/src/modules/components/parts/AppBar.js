@@ -22,7 +22,7 @@ const cookies = new Cookies();
 
 const styles = theme => ({
   root: {
-    backgroundColor: 'darkgreen',
+    backgroundColor: '#17a2ce',
     alignItems: 'center',
     paddingTop: theme.spacing(1.5),
     paddingBottom: theme.spacing(1.5),

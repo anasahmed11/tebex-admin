@@ -7,7 +7,7 @@ import uuid from 'uuid';
 
 const styles = theme => ({
     root: {
-        backgroundColor: 'purple',
+        backgroundColor: '#ef5347',
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         },

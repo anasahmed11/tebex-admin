@@ -11,6 +11,7 @@ import { addToCart } from '../../../store/actions/shoppingCart';
 
 const styles = theme => ({
   card: {
+    height: '100%',
     transform: 'scale(0.95)',
     border: '1px solid #eee',
     transition: '0.3s',
