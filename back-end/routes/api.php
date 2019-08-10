@@ -65,6 +65,7 @@ Route::prefix('product')->group(function () {
     Route::get('{product}', 'API\Product\ProductController@product');
     Route::get('{product}/specs', 'API\Product\ProductController@specs');
     Route::get('{product}/{sku}/sku', 'API\Product\ProductController@sku');
+    Route::post('/add', 'API\Product\ProductController@add');
 });
 Route::prefix('cart')->middleware('auth:api')->group(function () {
     Route::get('/','API\Cart\CartController@show');

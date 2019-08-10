@@ -30,4 +30,7 @@ class ProductController extends Controller
         $products = Product::search($request->input('q'))->get();
         return response()->json($products);
     }
+    public function add(){
+
+    }
 }
