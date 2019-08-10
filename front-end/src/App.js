@@ -1,12 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import LoadingScreen from 'react-loading-screen';
 import Cookies from 'universal-cookie';
 import globalVariables from './global-variables';
 
 
-import {  createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -38,22 +38,22 @@ import RTL from './Providers/RTL';
 
 const cookies = new Cookies();
 
-function fetchAffiliate(){
+function fetchAffiliate() {
   const url = new URL(window.location.href);
   let affiliate = url.searchParams.get(globalVariables.AFFILIATE_PARAM)
 
   const expirationDate = new Date()
-  expirationDate.setDate(expirationDate.getDate()+7)
-  
-  if(affiliate !== null) cookies.set(globalVariables.AFFILIATE_COOKIE, affiliate, { path: '/', expires: expirationDate, sameSite : true })
-  
+  expirationDate.setDate(expirationDate.getDate() + 7)
+
+  if (affiliate !== null) cookies.set(globalVariables.AFFILIATE_COOKIE, affiliate, { path: '/', expires: expirationDate, sameSite: true })
+
 }
 
 class App extends React.Component {
 
   state = {
     language: 'ar',
-    direction: globalVariables.LANG==='ar'?'rtl':'ltr',
+    direction: globalVariables.LANG === 'ar' ? 'rtl' : 'ltr',
     isLoading: true,
   }
 
@@ -64,112 +64,112 @@ class App extends React.Component {
 
 
   componentDidMount = () => {
-    this.setState({isLoading:false})
+    this.setState({ isLoading: false })
     this.props.handleInitCart()
     this.props.handleInitUser()
 
     fetchAffiliate()
-    
+
   }
   componentWillUnmount = () => {
     document.body.dir = null;
   }
 
   theme = createMuiTheme({
-    typography: { 
+    typography: {
       useNextVariants: true,
       fontFamily: "'Droid Arabic Kufi', 'Roboto', 'Helvetica', 'Arial', sans-serif",
     },
-    direction: globalVariables.LANG==='ar'?'rtl':'ltr',
+    direction: globalVariables.LANG === 'ar' ? 'rtl' : 'ltr',
   });
 
   _handleWaypointEnter = () => {
     alert("entered");
   }
-  
+
   render() {
-    
+
     const { isLoading, } = this.state;
-    
+
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
-    const affiliate = this.props.program.affiliate==="Approved"
-    const seller = this.props.program.seller==="Approved"
-    
+    const affiliate = this.props.program.affiliate === "Approved"
+    const seller = this.props.program.seller === "Approved"
+
     return (
       <LoadingScreen
-        loading = {isLoading}
-        bgColor = '#f1f1f1'
-        spinnerColor = '#9ee5f8'
-        textColor = '#676767'
-      > 
-      <RTL>
-        <ThemeProvider theme = {this.theme}>
-          
-          <Navbar />
-          
-          <Switch>
-            <Route exact path = '/checkout' component = {Checkout} />
+        loading={isLoading}
+        bgColor='#f1f1f1'
+        spinnerColor='#9ee5f8'
+        textColor='#676767'
+      >
+        <RTL>
+          <ThemeProvider theme={this.theme}>
 
-            <Route exact path = '/home' component = {Home}/>
-            <Route exact path = '/product/:id' component = {Product}/>
-            <Route exact path = '/shop' component = {Shop}/>
-            <Route exact path = '/shop/:slug+' component = {Shop}/>
-            <Route exact path = '/auth' render = {props =>authenticated?<Redirect to = '/profile'/>:<Auth {...props} />} /> 
-						<Route exact path = '/verify/:id' component = {Verify}/>
-            <Route exact path = '/cart' component = {Cart}/>
-            <Route exact path = "/(profile|orders)/"  render = {props =>authenticated?<UserPanel {...props} />:<Redirect to = '/auth'/> } />
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/orders/:id/:token' component={TrackOrder} />
+            <Navbar />
 
-            {this.props.program.affiliate===undefined || this.props.program.seller===undefined?
-              <Route component={Blank}/>:null
-            }
+            <Switch>
+              <Route exact path='/checkout' component={withRouter(Checkout)} />
 
-  
-            
-            <Route exact path="/affiliate" render={props =>!affiliate?<UserPanel {...props} />:<Redirect to='/404'/> } />
-           
-            
-            <Route exact path="/seller" render={props =>!seller?<UserPanel {...props} />:<Redirect to='/404'/> } />
-            <Route path="/(seller|affiliate)/" render={props =>authenticated?<UserPanel {...props} />:<Redirect to='/404'/> } />
-            
-            
-            
-            
-            
+              <Route exact path='/home' component={withRouter(Home)} />
+              <Route exact path='/product/:id' component={withRouter(Product)} />
+              <Route exact path='/shop' component={withRouter(Shop)} />
+              <Route exact path='/shop/:slug+' component={withRouter(Shop)} />
+              <Route exact path='/auth' render={props => authenticated ? <Redirect to='/profile' /> : <Auth {...props} />} />
+              <Route exact path='/verify/:id' component={withRouter(Verify)} />
+              <Route exact path='/cart' component={withRouter(Cart)} />
+              <Route exact path="/(profile|orders)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/auth' />} />
+              <Route exact path='/' component={withRouter(Home)} />
+              <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
 
-            <Route exact path='/404' component={NotFound}/>
-            
-            {this.props.program.affiliate===undefined || this.props.program.seller===undefined?
-            <Route component={Blank}/>:null
-            }
-            
-            <Route component={NotFound}/>
-          </Switch>
-          <Footer />
-          
-        </ThemeProvider>
-      </RTL>
+              {this.props.program.affiliate === undefined || this.props.program.seller === undefined ?
+                <Route component={Blank} /> : null
+              }
+
+
+
+              <Route exact path="/affiliate" render={props => !affiliate ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+
+
+              <Route exact path="/seller" render={props => !seller ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+              <Route path="/(seller|affiliate)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+
+
+
+
+
+
+              <Route exact path='/404' component={NotFound} />
+
+              {this.props.program.affiliate === undefined || this.props.program.seller === undefined ?
+                <Route component={Blank} /> : null
+              }
+
+              <Route component={NotFound} />
+            </Switch>
+            <Footer />
+
+          </ThemeProvider>
+        </RTL>
       </LoadingScreen>
     );
   }
 }
 
-library.add(fab,fas);
+library.add(fab, fas);
 
 
 
 const mapStateToProps = state => {
   return {
-      program: state.user.program,
+    program: state.user.program,
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  return{
-      handleInitCart: () => dispatch(initCart()),
-      handleInitUser: () => dispatch(initUser()),
+  return {
+    handleInitCart: () => dispatch(initCart()),
+    handleInitUser: () => dispatch(initUser()),
   }
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
