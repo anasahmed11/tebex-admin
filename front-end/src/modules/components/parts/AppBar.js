@@ -54,7 +54,7 @@ const styles = theme => ({
     alignItems: 'inherit',
   },
   searchBar: {
-    flex: '1 0 65%',
+    flex: '1 0 calc(100% - 200px - 15%)',
     alignItems: 'center',
     justifyContent: 'center',
     [theme.breakpoints.down('sm')]: {
@@ -62,7 +62,7 @@ const styles = theme => ({
     },
   },
   sectionDesktop: {
-    flex: '1 0 20%',
+    flex: '1 0 200px',
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',
@@ -176,7 +176,7 @@ class PrimarySearchAppBar extends React.Component {
             </div>
             <div className={classes.sectionDesktop}>
               <div style={{
-                  width: '80%',
+                  width: '90%',
                   margin: 'auto',
                   display: 'flex',
                   justifyContent: 'flex-end',
