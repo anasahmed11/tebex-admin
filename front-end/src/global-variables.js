@@ -218,16 +218,16 @@ const globalVariables = {
         ar: 'الكليكات',
     },
     DASHBOARD_CLICKS_DESC: {
-        en: 'Number of affiliate...',
-        ar: 'عدد ضغطات رابط الافيليت ؟',
+        en: 'Cliks on affiliate link',
+        ar: 'الضغطات على رابط الافيليت',
     },
     DASHBOARD_TOTAL_ORDERS: {
         en: 'Total Orders',
         ar: 'اجمالي الطلبات',
     },
     DASHBOARD_TOTAL_ORDERS_DESC: {
-        en: '',
-        ar: '',
+        en: 'My orders and affiliate link orders',
+        ar: 'طلباتي والطلبات عن طريق رابط الافيليت',
     },
     DASHBOARD_CONFIRMED_ORDERS: {
         en: 'Confirmed Orders',

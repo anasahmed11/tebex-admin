@@ -50,7 +50,7 @@ function SimpleCard(props) {
                     {props.title}
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    {props.highlight ? props.highlight : Loader} <Typography color="textSecondary" inline="true" className={classes.currency}>{props.currency}</Typography>
+                    {props.highlight || props.highlight===0 ? props.highlight : Loader} <Typography color="textSecondary" inline="true" className={classes.currency}>{props.currency}</Typography>
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
                     {props.desc}

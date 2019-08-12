@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { Typography, withStyles, Grid, Button, Snackbar } from '@material-ui/core';
+import {Helmet} from "react-helmet";
 
 import 'typeface-roboto';
 
@@ -34,6 +35,10 @@ class Cart extends React.Component{
         const totalItems = this.props.numItems
         return(
             <Grid container justify="center" className={classes.root}>
+                <Helmet>
+                    <title>My Title</title>
+                    <meta name="description" content="Helmet application" />
+                </Helmet>
                 <Snackbar
                     style={{direction:'ltr', bottom:'50px'}}   
                     anchorOrigin={{

@@ -11,7 +11,7 @@ import {
 import StatsCard from '../parts/StatsCard';
 import ChartCard from '../parts/ChartCard';
 import globalVariables from '../../../global-variables';
-import { userAPI } from '../../../api/api';
+import { userAPI, orderAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
 const styles = theme => ({
@@ -41,6 +41,10 @@ class UserDashBoard extends React.Component {
     state = {
         isLoading: true,
         numTeamMembers: null,
+        numClicks: null,
+        affTotalOrders: null,
+        affDeliveredOrders: null
+
     }
 
     pendingPromises = [];
@@ -51,19 +55,38 @@ class UserDashBoard extends React.Component {
     removePendingPromise = promise =>
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
-
-    componentDidMount() {
+    getTeamCount = () => {
         const wrappedPromise = cancelablePromise(userAPI.get('/team'));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise.promise
-            .then(res => { this.setState({ numTeamMembers: res.data.length, isLoading: false }) })
+            .then(res => { this.setState({ numTeamMembers: res.data.length,}) })
             .then(() => this.removePendingPromise(wrappedPromise))
-            .catch(err => {
-                if (!err.isCanceled) {
-                    this.setState({ isLoading: false })
-                }
-            })
+            
+    }
+    getAffiliateClicks = () => {
+        const wrappedPromise = cancelablePromise(userAPI.get('affiliate/click/'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise.promise
+            .then(res => { this.setState({ numClicks: res.data.clicks,}) })
+            .then(() => this.removePendingPromise(wrappedPromise))
+    }
+
+    getAffiliateOrders = () => {
+        const wrappedPromise = cancelablePromise(orderAPI.get('affiliate/'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise.promise
+            .then(res => { this.setState({ affTotalOrders: res.data.totalOrders, affDeliveredOrders: res.data.totalDeiveredOrders}) })
+            .then(() => this.removePendingPromise(wrappedPromise))
+    }
+    componentDidMount() {
+        this.getTeamCount();
+        this.getAffiliateClicks();
+        this.getAffiliateOrders();
+
+        this.setState({isLoading:false});
     }
 
     render() {
@@ -75,9 +98,9 @@ class UserDashBoard extends React.Component {
                     <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.LABEL_DASHBOARD[globalVariables.LANG]}</Typography>
                 </Grid>
                 <Grid container item xs={12} className={classes.statsCardsRoot}>
-                    <StatsCard title={globalVariables.DASHBOARD_CLICKS[globalVariables.LANG]} highlight={300} desc={globalVariables.DASHBOARD_CLICKS_DESC[globalVariables.LANG]} />
-                    <StatsCard title={globalVariables.DASHBOARD_TOTAL_ORDERS[globalVariables.LANG]} highlight={59} desc={globalVariables.DASHBOARD_TOTAL_ORDERS_DESC[globalVariables.LANG]} />
-                    <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_ORDERS[globalVariables.LANG]} highlight={51} desc={globalVariables.DASHBOARD_CONFIRMED_ORDERS_DESC[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_CLICKS[globalVariables.LANG]} highlight={this.state.numClicks} desc={globalVariables.DASHBOARD_CLICKS_DESC[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_TOTAL_ORDERS[globalVariables.LANG]} highlight={this.state.affTotalOrders} desc={globalVariables.DASHBOARD_TOTAL_ORDERS_DESC[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_ORDERS[globalVariables.LANG]} highlight={this.state.affDeliveredOrders} desc={globalVariables.DASHBOARD_CONFIRMED_ORDERS_DESC[globalVariables.LANG]} />
                     <StatsCard title={globalVariables.DASHBOARD_ORDERS_EARNING[globalVariables.LANG]} highlight={300} desc={globalVariables.DASHBOARD_ORDERS_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
                 </Grid>
                 <Grid container item xs={12} className={classes.statsCardsRoot}>

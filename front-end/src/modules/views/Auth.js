@@ -16,6 +16,7 @@ import Register from '../components/parts/RegisterForm';
 import MySnackbar from '../components/parts/MySnackbar';
 
 import { styles } from '../../assets/jss/views/Auth';
+import {Helmet} from "react-helmet";
 
 class Auth extends React.Component {
     state = {
@@ -40,6 +41,11 @@ class Auth extends React.Component {
         
         return (
             <Grid container justify='center' className={classes.root}>
+                <Helmet>
+                    <title>My Title</title>
+                    <meta name="description" content="Helmet application" />
+                </Helmet>
+
                 {isLoading?
                     <div className={classes.sweetLoading}>
                         <div className={classes.spinner}>

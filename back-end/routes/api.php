@@ -44,6 +44,9 @@ Route::prefix('category')->group(function () {
 Route::prefix('user')->group(function () {
     Route::get('/', 'API\User\UserController@user');
     Route::post('/settings/main', 'API\User\UserController@editUserMainSettings');
+    Route::post('/affiliate/click', 'API\User\UserController@saveAffiliateClick');
+    Route::get('/affiliate/click', 'API\User\UserController@getAffiliateClick');
+
     Route::get('/team', 'API\User\UserController@team');
     Route::post('/program/seller', 'API\User\ProgramController@Stores');
     Route::post('/program/affiliate', 'API\User\ProgramController@Affiliates');
@@ -76,6 +79,7 @@ Route::prefix('cart')->middleware('auth:api')->group(function () {
 });
 Route::prefix('orders')->group(function () {
     Route::get('/','API\Order\OrderController@index');
+    Route::get('/affiliate','API\Order\OrderController@numAffiliateOrders');
     Route::get('/{id}/{token}','API\Order\OrderController@show')->name('order.mail');
 
 });

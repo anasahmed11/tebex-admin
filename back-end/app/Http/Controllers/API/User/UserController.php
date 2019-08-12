@@ -9,12 +9,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\MainSettings;
+use App\Http\Requests\affiliateLinkClick;
+use App\Affiliate;
 
 class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except('saveAffiliateClick');
     }
 
     public function user()
@@ -53,8 +55,31 @@ class UserController extends Controller
     }
     public function team()
     {
-
         $team = User::whereDescendantOf(Auth::User())->get(['id', 'image', 'parent_id', 'first_name', 'last_name', 'gender', 'active_points', 'inactive_points', 'suspended_points']);
         return response()->json($team, 200);
+    }
+
+    public function saveAffiliateClick(AffiliateLinkClick $request)
+    {
+        $affiliateUser = User::find($request->input('ref'));
+        if ((count((array) $affiliateUser))) {
+            $isAffiliate = Affiliate
+                ::where([
+                    ['user_id', '=', $affiliateUser->id],
+                    ['status', '=', 'approved']
+                ])
+                ->first();
+            if ((count((array) $isAffiliate))) {
+                $affiliateUser->clicks = $affiliateUser->clicks + 1;
+                $affiliateUser->save();
+                return response()->json(['message' => 'ref click updated successfully'], 200);
+            }
+            return response()->json(['message' => 'referral is not registered as an affiliate'], 400);
+        }
+        return response()->json(['message' => 'referral is not registered as a user'], 200);
+    }
+    public function getAffiliateClick()
+    {
+       return response()->json(['clicks'=>Auth::User()->clicks],200);
     }
 }
