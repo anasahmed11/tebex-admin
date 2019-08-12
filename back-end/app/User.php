@@ -17,7 +17,9 @@ use Kalnoy\Nestedset\NodeTrait;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens,Notifiable,SoftDeletes,NodeTrait;
+    use HasApiTokens, Notifiable, SoftDeletes, NodeTrait;
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     //protected $with =['Addresses','Points'];
     protected $fillable = [
-        'first_name','last_name', 'email', 'password','phone','gender','birth_date','level','image','store_id'
+        'first_name', 'last_name', 'email', 'password', 'phone', 'gender', 'birth_date', 'level', 'image', 'store_id'
     ];
 
     /**
@@ -35,7 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
 
     protected $hidden = [
-        'password', 'remember_token','email_verified_at','deleted_at','created_at','updated_at','_lft','_rgt'
+        'password', 'remember_token', 'email_verified_at', 'deleted_at', 'created_at', 'updated_at', '_lft', '_rgt'
     ];
 
     /**
@@ -45,20 +47,25 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'birth_date'=>'date',
-        'deleted_at'=>'datetime',
-        'created_at'=>'datetime',
-        'updated_at'=>'datetime',
+        'birth_date' => 'date',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
-    public function Addresses(){
+    public function Addresses()
+    {
         return $this->hasMany(Address::class);
     }
-    public function Points(){
+    public function Points()
+    {
         return $this->hasMany(Point::class);
     }
-    public function Cart(){
-        return $this->belongsToMany(Product::class,Cart::class)->with('Store')->as('cart')->withPivot('quantity');
+    public function Cart()
+    {
+        return $this->belongsToMany(Product::class, 'carts')->with('Store')->as('cart')->withPivot('quantity');
+
+        // return $this->hasOne(Cart::class);
         /*return $this->hasMany(Cart::class)
             ->leftJoin("products","products.id","=","carts.product_id")
             ->leftJoin("stores","stores.id","=","products.store_id")
@@ -68,10 +75,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new VerifyEmail);
     }
-    public function Store(){
+    public function Store()
+    {
         return $this->hasMany(Store::class);
     }
-    public function Affiliate(){
+    public function Affiliate()
+    {
         return $this->hasMany(Affiliate::class);
     }
 }

@@ -43,6 +43,8 @@ Route::prefix('category')->group(function () {
 
 Route::prefix('user')->group(function () {
     Route::get('/', 'API\User\UserController@user');
+    Route::post('/settings/main', 'API\User\UserController@editUserMainSettings');
+    Route::get('/team', 'API\User\UserController@team');
     Route::post('/program/seller', 'API\User\ProgramController@Stores');
     Route::post('/program/affiliate', 'API\User\ProgramController@Affiliates');
 
@@ -60,7 +62,7 @@ Route::prefix('address')->group(function () {
 });
 
 Route::prefix('product')->group(function () {
-    Route::get('/', 'API\Product\ProductController@index');
+    Route::get('/', 'API\Product\ProductController@show');
     Route::post('/search', 'API\Product\ProductController@search');
     Route::get('{product}', 'API\Product\ProductController@product');
     Route::get('{product}/specs', 'API\Product\ProductController@specs');

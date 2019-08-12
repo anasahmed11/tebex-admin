@@ -76,12 +76,10 @@ class SettingsSection extends React.Component{
         affiliateOpen: false,
         sellerOpen: false,
     }
-    handleRedirect = (props) =>{
+    handleRedirect = () =>{
         setTimeout(()=>{this.props.history.push('./');},1500)
     }
-    componentDidMount(){
-        console.log("Mounted")
-    }
+
     handleAffiliateOpen = () => {
         this.setState({affiliateOpen:!this.state.affiliateOpen})   
     }
@@ -182,7 +180,7 @@ class SettingsSection extends React.Component{
                         }
                         {isSeller?
                             <Collapse in={this.state.sellerOpen} timeout="auto" unmountOnExit>
-                                <Link to="/seller/add_product" className={classes.link}>
+                                <Link to="/seller/add-product" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
                                             <FontAwesomeIcon className={classes.fontawesomeIcon} icon="plus" />
@@ -190,7 +188,7 @@ class SettingsSection extends React.Component{
                                     <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_ADD_PRODUCTS[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
-                                <Link to="/seller/my_products" className={classes.link}>
+                                <Link to="/seller/my-products" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
                                             <NotesIcon />
@@ -198,7 +196,7 @@ class SettingsSection extends React.Component{
                                     <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_MY_PRODUCTS[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
-                                <Link to="/seller/waiting_orders" className={classes.link}>
+                                <Link to="/seller/waiting-orders" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
                                             <FontAwesomeIcon className={classes.fontawesomeIcon} icon="clipboard-check" />

@@ -35,7 +35,7 @@ class Product extends Model
         'name','name_en', 'slug', 'sku','images','description','description_en','price','sale_price','quantity'
     ];
     protected $hidden = [
-        'created_at','updated_at'
+        'updated_at'
     ];
     protected $casts = [
         'created_at'=>'datetime',

@@ -164,7 +164,7 @@ const renderSuggestion = (suggestion) => {
 
 
 function renderSectionTitle(section) {
-    if (section.title === 'See All Results')
+    if (section.title.slice(0,15) === 'See All Results')
         return (
             <Grid container justify="center" component={Button}>{section.title}</Grid>
         );
@@ -204,7 +204,7 @@ class CustomizedInputBase extends React.Component {
                     productsAPI.post('search/', { q: value })
                     .then(res=>{
 
-                        const products = res.data
+                        const products = res.data.data
                             .map(product =>({
                                         id: product.id,
                                         type: 1,
@@ -214,9 +214,9 @@ class CustomizedInputBase extends React.Component {
                                         image: "",
                                     })
                             );
+                        const productSuggestions = {data: products, title: "products"};
                         
-                        const suggestions = {data: products, title: "products"};
-                        this.setState({ suggestions: [suggestions] });
+                        this.setState({ suggestions: [productSuggestions, {data: [], title: `See All Results(${res.data.total})`}] });
                     })
                     .catch(error=>{this.setState({ suggestions: [] });})
         },1000)
@@ -237,7 +237,6 @@ class CustomizedInputBase extends React.Component {
             value,
             onChange: this.onChange
         };
-        console.log(suggestions)
         const searchIconButton = this.props.searchIcon ?
             (<IconButton className={classes.iconButton} aria-label="Search">
                 <SearchIcon />

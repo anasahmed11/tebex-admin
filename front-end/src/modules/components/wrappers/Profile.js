@@ -146,13 +146,11 @@ const MainSettings = withStyles(styles)(MainSettingsFrom);
 
 class AddressSettingsForm extends React.Component{
     state ={
-        mobile:'',
-        birthday:'',
-        
-        language:'العربية',
+        mobile:'',        
         street:'',
         appartment:'',
         region:'الإسكندرية',
+        
         expanded:1,
 
         isLoading: true,
@@ -161,6 +159,13 @@ class AddressSettingsForm extends React.Component{
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
     };
+
+    handleSave = () => {
+        const data = {
+            mobile: this.state.mobile,
+            
+        }
+    }
 
     render(){
         const {classes, } = this.props;

@@ -4,6 +4,8 @@ import { withStyles, Grid, Typography, IconButton,  } from '@material-ui/core';
 import CustomMaterialTabl from '../parts/CustomMaterialTable';
 import { ClipLoader } from 'react-spinners';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import cancelablePromise from '../../../Providers/CancelablePromise';
+import { productsAPI } from '../../../api/api';
 
 const styles = theme => ({
     root: {
@@ -17,36 +19,62 @@ const styles = theme => ({
 });
 
 
-const data = [
-    { id:1 ,name: 'Abdo Hamdy', id: 1 , earning: <IconButton><FontAwesomeIcon icon="edit" /></IconButton> },
-    { id:2 ,name: 'Abdo Tarek ', id: 2 , earning: 100 },
-    { id:3 ,name: 'Ahmed Bally', id: 3 , earning: 100 },
-    { id:4 ,name: 'Ahmed Mekkey', id: 4 , earning: 50 },
-    { id:5 ,name: 'Mahmoud', id: 5, parentId:1 , earning: 12 },
-    { id:6 ,name: 'Zakaria', id: 6, parentId:2 , earning: 5 },
-  ]
+
 const columns = [
     { title: 'Name', field: 'name' },
+    { title: 'SKU', field: 'sku' },
+    { title: 'Price', field: 'price', type: "numeric" },
+    { title: 'Sale Price', field: 'sale_price', type: "numeric" },
+    { title: 'Qunatity', field: 'quantity', type: "numeric" },
+    { title: 'Created at', field: 'created_at' },
     { title: 'Action', field: 'action' },
+]
 
-  ]
 class MyProdcuts extends React.Component{
     state ={
+        products: [],
         isLoading: true,
     }
 
+    pendingPromises = [];
+    componentWillUnmount = () => 
+        this.pendingPromises.map(p => p.cancel());
+    appendPendingPromise = promise =>
+        this.pendingPromises = [...this.pendingPromises, promise];
+    removePendingPromise = promise =>
+        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
     handleEditAction = (id) => {
-        this.props.history.push(`/seller/add_product/${id}`)
+        this.props.history.push(`/seller/add-product/${id}`)
     }   
 
     componentDidMount(){
-        data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )
-        this.setState({isLoading:false})
+        //data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )
+        
+        const wrappedPromise = cancelablePromise(productsAPI.get('/'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise.promise
+        .then(res=>{
+        res.data.map(item=>{
+            item.created_at = new Date(item.created_at).toDateString("yyyy-MM-dd");
+            item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton>
+        } )
+            this.setState({products: res.data, isLoading: false})
+        })
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(err=>{
+            if (!err.isCanceled) {
+                this.setState({isLoading: false})
+            }
+        })
+        //this.setState({isLoading:false})
     }
 
-    handleEdit = (newData, oldData) => {
-        console.log(oldData)
-    }
+    // handleEdit = (newData, oldData) => {
+    //     console.log(oldData)
+    // }
+
     render(){
         const {classes, } = this.props;
         const {isLoading } = this.state;
@@ -65,7 +93,7 @@ class MyProdcuts extends React.Component{
                                 loading={isLoading}
                             />
                         </Grid>: 
-                        <CustomMaterialTabl title={'الاوردرات المعلفة'} /*onRowUpdatePromise={this.handleEdit}*/ data={data} columns={columns} />
+                        <CustomMaterialTabl title={'منتجاتي'} /*onRowUpdatePromise={this.handleEdit}*/ data={this.state.products} columns={columns} />
                     }
                 </Grid>
             </Grid>

@@ -10,19 +10,24 @@ const color = cookies.get(globalVariables.AVATAR_COLOR_COOKIE);
 
 const styles = theme => ({
     avatar: {
-      backgroundColor: color?color:'',
-      
+        backgroundColor: color ? color : '',
+
     },
 })
 
-function ProfileAvatar (props){
+function ProfileAvatar(props) {
     const { classes, } = props;
-    return <Avatar 
-        alt="Remy Sharp" 
-        className={classes.avatar} 
-        src={props.img} 
-        style={props.style} >
-        {props.name?props.name[0].toUpperCase():''}</Avatar>
+    const style = props.style===undefined?{}:props.style;
+    if (props.gender !== undefined) {
+        style.backgroundColor = props.gender==='M'?'lightslategrey':'lightcoral';
+    }
+
+    return <Avatar
+        alt="Remy Sharp"
+        className={classes.avatar}
+        src={props.img}
+        style={style} >
+        {props.name ? props.name[0].toUpperCase() : ''}</Avatar>
 }
 
 
