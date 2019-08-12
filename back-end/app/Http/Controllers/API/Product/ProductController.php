@@ -42,4 +42,7 @@ class ProductController extends Controller
         $products = Product::search($request->input('q'))->paginate(10);
         return response()->json($products);
     }
+    public function add(){
+
+    }
 }
