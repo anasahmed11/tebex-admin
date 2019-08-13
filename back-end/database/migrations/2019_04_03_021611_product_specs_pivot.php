@@ -16,7 +16,7 @@ class ProductSpecsPivot extends Migration
         Schema::create('product_specs', function (Blueprint $table) {
             $table->bigInteger('product_id')->unsigned();
             $table->bigInteger('spec_id')->unsigned();
-            $table->string("value");
+            $table->json("value");
         });
         Schema::table('product_specs', function (Blueprint $table) {
 

@@ -4,20 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
     use Searchable;
-
+    public $searchable = ['name','name_en', 'slug', 'sku','description','description_en','price','sale_price',];
     public $asYouType = true;
     public function toSearchableArray()
     {
         $array = $this->toArray();
 
         // Customize array...
-
-        return $array; //return array('name' => $array['name'], 'name_en' => $array['name_en']);
+        return Arr::only($array, ['id','name','name_en', 'slug', 'sku','description','description_en','price','sale_price',
+        ]);
+        #return $array; //return array('name' => $array['name'], 'name_en' => $array['name_en']);
     }
     public function searchableAs()
     {
@@ -47,8 +49,8 @@ class Product extends Model
 
 
     public function Specs(){
-        return $this->hasMany(ProductSpec::class)
-            ->join("specs","specs.id","=","product_specs.spec_id");
+        return $this->belongsToMany(Spec::class,'product_specs');
+            #->join("specs","specs.id","=","product_specs.spec_id");
             #->select("id","name","name_en","value");
     }
     public function Store(){

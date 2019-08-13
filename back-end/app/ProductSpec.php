@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductSpec extends Model
 {
+    public $primaryKey=null;
+    public $incrementing=false;
+    public $timestamps=false;
     protected $table ='product_specs';
-    protected $fillable=["value"];
-    protected $hidden=[
-        "created_at",
-        "updated_at"
-    ];
-    protected $casts = [
-        'created_at'=>'datetime',
-        'updated_at'=>'datetime',
-    ];
+    protected $fillable=["value","product_id","spec_id"];
 
+    protected $casts = [
+        'value' => 'json',
+
+    ];
+    public function Spec(){
+        return $this->belongsTo(Spec::class);
+    }
 }
