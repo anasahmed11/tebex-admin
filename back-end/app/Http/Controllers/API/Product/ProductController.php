@@ -55,15 +55,15 @@ class ProductController extends Controller
         try {
             $p = new Product($product->except(['category', 'image']));
             $p->images=[];
-            if (Auth::user()->store_id ==0) throw new  \Exception('user have no  store');
-            $p->Store()->associate(Store::find(Auth::user()->store_id));
+            $store=Auth::User()->Store()->where('status','approved')->first();
+            if ($store==null) throw new  \Exception('user have no  store');
+            $p->Store()->associate($store);
             $p->Category()->associate(Category::find($product->category));
             $p->save();
             $i=[];
             foreach ($product->file('image') as $image)
                 $i[]=Storage::url($image->store('public/product/'.$p->id));
             $p->images=$i;
-
             foreach($product->only('specs')['specs'] as $spec){
                 $s=Spec::find($spec['id']);
                 $ar=$s->values['ar']; $en=$s->values['en'];
@@ -81,6 +81,7 @@ class ProductController extends Controller
             }
             $p->save();
             DB::commit();
+
             #$p->Specs()->sync([]);
         }catch (\Exception $exception){
             DB::rollback();
