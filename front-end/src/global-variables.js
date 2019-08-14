@@ -48,7 +48,11 @@ const globalVariables = {
             en: 'Please verifiy your account, check your mail!',
             ar: 'رجاء قم بتفعيل حسابك, قم بتفقد بريدك الالكتروني!'
         },
-
+// TABLE
+    TABLE_NO_RECORDS: {
+            en: 'No Records to Display',
+            ar: 'لا يوجد عناصر لعرضها'
+        },
 //Appbar
     APPBAR_SHOP:{
             en: 'Shop',
@@ -278,6 +282,21 @@ const globalVariables = {
         ar: '',
     },
 
+//User Profile
+
+    PROFILE_TITLE:{
+        en: 'Profile',
+        ar: 'الملف الشخصي'
+    },
+    PROFILE_MAIN_SETTINGS:{
+        en: 'Main Settings',
+        ar: 'الاعدادات الرئيسية'
+    },
+    PROFILE_SECURITY_SETTINGS:{
+        en: 'Security Settings',
+        ar: 'معلومات الامان'
+    },
+    
 
 //Upperbar
     UPPERBAR_LANGUAGE: {
@@ -373,6 +392,10 @@ const globalVariables = {
         },
 
 //Labels
+    LABEL_SAVE_CHANGES: {
+        en: 'Save Changes',
+        ar: 'حفظ التغييرات'
+    },
     LABEL_NO_PRODUCTS: {
         en: 'No products.',
         ar: 'لا يوجد منتجات.'
@@ -485,6 +508,46 @@ const globalVariables = {
     LABEL_AFFILIATE: {
             en: 'Affiliate',
             ar: 'مسوق',
+        },
+    LABEL_LANGUAGE: {
+            en: 'Langugage',
+            ar: 'اللغة'
+        },
+    LABEL_AVATAR: {
+            en: 'Avatar',
+            ar: 'الافتار'
+        },
+    LABEL_REGISTERED_AT: {
+            en: 'Registerd at',
+            ar: 'سجل في'
+        },
+    LABEL_LEVEL: {
+            en: 'Level',
+            ar: 'المستوى'
+        },
+    LABEL_EARNINGS: {
+            en: 'Earnings',
+            ar: 'الارباح'
+        },
+    LABEL_OF: {
+            en: 'Of',
+            ar: 'من'
+        },
+    LABEL_FIRST_PAGE: {
+            en: 'First Page',
+            ar: 'الصفحة الاولى'
+        },
+    LABEL_LAST_PAGE: {
+            en: 'Last Page',
+            ar: 'الصفحة الاخير'
+        },
+    LABEL_OF: {
+            en: 'of',
+            ar: 'من'
+        },
+    LABEL_ROWS: {
+            en: 'rows',
+            ar: 'صفوف'
         },
     
 // Link Genrator Page

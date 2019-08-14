@@ -18,6 +18,7 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { withStyles } from '@material-ui/core';
+import globalVariables from '../../../global-variables';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -37,36 +38,41 @@ const tableIcons = {
     SortArrow: forwardRef((props, ref) => <ArrowUpward {...props} ref={ref} />),
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
-  };
+};
 
 
 function MaterialTableDemo(props) {
 
- 
-  return (
-    <MaterialTable
-      
-      title={props.title}
-      icons={tableIcons}
-      columns={props.columns}
-      data={props.data}
-      parentChildData={props.tree?(row, rows) => rows.find(a => a.id === row.parentId):undefined}
-      style={{width:'100%',marginBottom:'20px'}}
-      editable={{
-        onRowUpdate: props.onRowUpdatePromise?(newData, oldData) => props.onRowUpdatePromise(newData, oldData):undefined,
-          
-        /*onRowDelete: oldData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data.splice(data.indexOf(oldData), 1);
-              setState({ ...state, data });
-            }, 600);
-          }),*/
-      }}
-    />
-  );
+
+    return (
+        <MaterialTable
+
+            title={props.title}
+            icons={tableIcons}
+            columns={props.columns}
+            data={props.data}
+            parentChildData={props.tree ? (row, rows) => rows.find(a => a.id === row.parentId) : undefined}
+            style={{ width: '100%', marginBottom: '20px' }}
+            localization={{
+                pagination: {
+                    labelDisplayedRows: `{from}-{to} ${globalVariables.LABEL_OF[globalVariables.LANG]} {count}`,
+                    firstTooltip: globalVariables.LABEL_FIRST_PAGE[globalVariables.LANG],
+                    previousTooltip: globalVariables.LABEL_PREVIOUS[globalVariables.LANG],
+                    nextTooltip: globalVariables.LABEL_NEXT[globalVariables.LANG],
+                    lastTooltip: globalVariables.LABEL_LAST_PAGE[globalVariables.LANG],
+                    labelRowsSelect: globalVariables.LABEL_ROWS[globalVariables.LANG]
+                },
+                toolbar: {
+                    searchTooltip: globalVariables.APPBAR_SEARCH[globalVariables.LANG],
+                    searchPlaceholder: globalVariables.APPBAR_SEARCH[globalVariables.LANG]
+                },
+               
+                body: {
+                    emptyDataSourceMessage: globalVariables.TABLE_NO_RECORDS[globalVariables.LANG],
+                }
+            }}
+        />
+    );
 }
 
 export default withStyles()(MaterialTableDemo)

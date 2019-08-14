@@ -6,6 +6,7 @@ import CustomMaterialTable from '../parts/CustomMaterialTable';
 import { userAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 import ProfileAvatar from '../parts/ProfileAvatar';
+import globalVariables from '../../../global-variables';
 
 
 const styles = theme => ({
@@ -19,18 +20,13 @@ const styles = theme => ({
     },
 });
 
-// const data = [
-//     { name: 'Abdo Hamdy', id: 1 , earning: 25 },
-//     { name: 'Abdo Tarek ', id: 2 , earning: 100 },
-//     { name: 'Ahmed Bally', id: 3 , earning: 100 },
-//     { name: 'Ahmed Mekkey', id: 4 , earning: 50 },
-//     { name: 'Mahmoud', id: 5, parentId:1 , earning: 12 },
-//     { name: 'Zakaria', id: 6, parentId:2 , earning: 5 },
-//   ]
 const columns = [
-    { title: 'Avatar', field: 'image', render: rowData => <ProfileAvatar gender={rowData.gender} img={rowData.image} name={rowData.name} /> },
-    { title: 'Name', field: 'name' },
-    { title: 'Earning', field: 'active_points' },
+    { title: globalVariables.LABEL_AVATAR[globalVariables.LANG], field: 'image', render: rowData => <ProfileAvatar gender={rowData.gender} img={rowData.image} name={rowData.name} /> },
+    { title: globalVariables.LABEL_NAME[globalVariables.LANG], field: 'name' },
+    { title: globalVariables.LABEL_REGISTERED_AT[globalVariables.LANG], field: 'created_at', type:'date' },
+    { title: globalVariables.LABEL_LEVEL[globalVariables.LANG], field: 'level', type: 'numeric' },
+    
+    { title: globalVariables.LABEL_EARNINGS[globalVariables.LANG], field: 'active_points', type:'currency', currencySetting:{} },
 
 ]
 class UserDashBoard extends React.Component {
@@ -56,6 +52,7 @@ class UserDashBoard extends React.Component {
                 res.data.map(user => {
                     user.name = user.first_name + ' ' + user.last_name;
                     user.parentId = user.parent_id;
+                    user.created_at = new Date(user.created_at).toDateString("yyyy-MM-dd");
                 });
                 this.setState({ team: res.data, isLoading: false })
             })
@@ -73,10 +70,10 @@ class UserDashBoard extends React.Component {
         return (
             <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>فريقي</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.DASHBOARD_TEAM_MEMBERS[globalVariables.LANG]}</Typography>
                 </Grid>
                 <Grid container item xs={12}>
-                    <CustomMaterialTable title="My Team" data={this.state.team} columns={columns} tree={true} />
+                    <CustomMaterialTable title={globalVariables.DASHBOARD_TEAM_MEMBERS[globalVariables.LANG]} data={this.state.team} columns={columns} tree={true} />
                 </Grid>
             </Grid>
         );

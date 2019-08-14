@@ -5,6 +5,7 @@ import uuid from 'uuid';
 import Cookies from 'universal-cookie';
 import { ClipLoader } from 'react-spinners';
 import ExapndPanel from './ExapndPanel';
+import globalVariables from '../../../global-variables';
 
 const styles = theme => ({
     
@@ -74,7 +75,7 @@ class MainSettingsFrom extends React.Component{
                         <TextField
                             className={classes.margin}
                             id={uuid()}
-                            label="الاسم الاول"
+                            label={globalVariables.FORM_REGISTER_LABEL_FIRST_NAME[globalVariables.LANG]}
                             helperText={this.state.firstnameErr}
                             value={this.state.fitstname}
                             onChange={this.handleChange('firstname')}
@@ -90,7 +91,7 @@ class MainSettingsFrom extends React.Component{
                         <TextField
                             className={classes.margin}
                             id={uuid()}
-                            label="الاسم الاخير"
+                            label={globalVariables.FORM_REGISTER_LABEL_LAST_NAME[globalVariables.LANG]}
                             type="text"
                         
                             helperText={this.state.lastnameErr}
@@ -110,7 +111,7 @@ class MainSettingsFrom extends React.Component{
                             className={classes.margin}
                             id={uuid()}
                             select
-                            label="اللغة"
+                            label={globalVariables.LABEL_LANGUAGE[globalVariables.LANG]}
                             type="text"
                             /*error={this.state.emailError?true:false}
                             helperText={this.state.emailError}*/
@@ -132,7 +133,7 @@ class MainSettingsFrom extends React.Component{
                 </Grid>
                 <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
                     <Button color='primary' variant='contained' onClick={this.handleMainSettings} >
-                        حفظ التغيرات
+                            {globalVariables.LABEL_SAVE_CHANGES[globalVariables.LANG]}
                     </Button>
                 </Grid>
             </React.Fragment>
@@ -256,7 +257,7 @@ class AddressSettingsForm extends React.Component{
                 </Grid>
                 <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
                     <Button color='primary' variant='contained' onClick={this.handleAddressSettings}>
-                        حفظ التغيرات
+                        {globalVariables.LABEL_SAVE_CHANGES[globalVariables.LANG]}
                     </Button>
                 </Grid>
             </React.Fragment>
@@ -292,7 +293,7 @@ class SecuritySettingsForm extends React.Component{
                         <TextField
                             className={classes.margin}
                             id={uuid()}
-                            label="البريد الالكتروني"
+                            label={globalVariables.FORM_LOGIN_LABEL_EMAIL[globalVariables.LANG]}
                             type="email"
                             autoComplete="email"
                             error={this.state.emailError?true:false}
@@ -312,7 +313,7 @@ class SecuritySettingsForm extends React.Component{
                             id={uuid()}
                             value={this.state.password}
                             required
-                            label="كلمة السر"
+                            label={globalVariables.FORM_REGISTER_LABEL_PASSWORD[globalVariables.LANG]}
                             type="password"
                             autoComplete="current-password"
                             error={this.state.passError?true:false}
@@ -329,7 +330,7 @@ class SecuritySettingsForm extends React.Component{
                 </Grid>
                 <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
                     <Button color='primary' variant='contained'  >
-                        حفظ التغيرات
+                        {globalVariables.LABEL_SAVE_CHANGES[globalVariables.LANG]}
                     </Button>
                 </Grid>
             </React.Fragment>
@@ -370,7 +371,7 @@ class Profile extends React.Component{
         const components = 
         [
             {
-                title:'الاعدادات الرئيسية',
+                title: globalVariables.PROFILE_MAIN_SETTINGS[globalVariables.LANG],
                 component: <MainSettings  />
             },
             {
@@ -378,7 +379,7 @@ class Profile extends React.Component{
                 component: <AddressSettings />
             },
             {
-                title:'معلومات الامان',
+                title: globalVariables.PROFILE_SECURITY_SETTINGS[globalVariables.LANG],
                 component: <SecuritySettings  />
             },
 
@@ -389,7 +390,7 @@ class Profile extends React.Component{
             <Grid container item alignItems='center' justify="center" xs={11}>
                 
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>الملف الشخصي</Typography>
+                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_PROFILE[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 {isLoading?
