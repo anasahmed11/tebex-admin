@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
@@ -9,7 +10,7 @@ use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use Searchable;
+    use Searchable,Sluggable,softDeletes;
     public $searchable = ['name','name_en', 'slug', 'sku','description','description_en','price','sale_price',];
     public $asYouType = true;
     public function toSearchableArray()
@@ -26,8 +27,14 @@ class Product extends Model
         return 'proudct_index';
     }
 
-
-    use softDeletes;
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name_en'
+            ]
+        ];
+    }
 
 
 

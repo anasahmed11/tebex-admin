@@ -28,7 +28,6 @@ class ProductRequest extends FormRequest
         return [
             'name'=>'required|string|min:10',
             'name_en'=>'required|string|min:10',
-            'slug'=>'required|alpha_dash|unique:products,slug',
             'sku'=>'required|string',
             'image' => 'required',
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',

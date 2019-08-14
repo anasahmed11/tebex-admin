@@ -8,11 +8,13 @@ use App\Product;
 use App\ProductSpec;
 use App\Spec;
 use App\Store;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use mysql_xdevapi\Exception;
 
 class ProductController extends Controller
@@ -56,7 +58,7 @@ class ProductController extends Controller
             $p = new Product($product->except(['category', 'image']));
             $p->images=[];
             $store=Auth::User()->Store()->where('status','approved')->first();
-            if ($store==null) throw new  \Exception('user have no  store');
+            if (!(count((array)$store))) throw new  \Exception('user have no  store');
             $p->Store()->associate($store);
             $p->Category()->associate(Category::find($product->category));
             $p->save();
@@ -81,11 +83,10 @@ class ProductController extends Controller
             }
             $p->save();
             DB::commit();
-
-            #$p->Specs()->sync([]);
+            return response()->json(“ok”,200);
         }catch (\Exception $exception){
             DB::rollback();
-            dd($exception);
+            return response()->json("error",400);
         }
 
     }
