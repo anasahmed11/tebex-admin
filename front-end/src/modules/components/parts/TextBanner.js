@@ -12,7 +12,7 @@ function StoreBanner(props){
 
     return <Grid container className={classes.root} >
                 <Grid lg={12} sm={12} className={classes.banner}>
-                    <Typography variant="h1" align="center">
+                    <Typography className={classes.text} variant="h1" align="center">
                         {props.text}
                     </Typography>
                 </Grid> 

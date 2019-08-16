@@ -7,7 +7,7 @@ import uuid from 'uuid';
 
 const styles = theme => ({
     root: {
-        backgroundColor: 'purple',
+        backgroundColor: '#ef5347',
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
@@ -114,7 +114,7 @@ function PaperSheet(props) {
   
     return (
         <Paper className={classes.paper} elevation={1}>
-            {/*<Typography variant="h5" component="h3">
+           {/*<Typography variant="h5" component="h3">
                 {category.subtitle}
             </Typography>*/}
             <Grid container className={classes.footer}>

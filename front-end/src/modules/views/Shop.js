@@ -15,14 +15,12 @@ class Shop extends Component {
 
   render() {
     const {classes} = this.props;
-    const {products} = this.state;
+
     return (
-        <Grid container>
+        <Grid container justify='center'>
           <TextBanner text={globalVariables.LABEL_SHOP_BANNER[globalVariables.LANG]} />
-          <Grid container justify='center'>
-            <Grid lg={10} className={classes.shopComponentContainer}>
-              <ProductsListWrapper items = {products} />
-            </Grid>
+          <Grid container item sm={10} xs={12} className={classes.shopComponentContainer}>
+            <ProductsListWrapper />
           </Grid>
         </Grid>
     );

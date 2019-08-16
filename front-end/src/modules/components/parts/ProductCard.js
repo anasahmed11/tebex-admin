@@ -11,6 +11,7 @@ import { addToCart } from '../../../store/actions/shoppingCart';
 
 const styles = theme => ({
   card: {
+    height: '100%',
     transform: 'scale(0.95)',
     border: '1px solid #eee',
     transition: '0.3s',
@@ -80,7 +81,7 @@ function MediaCard(props) {
 
   return (
     <Card className={classes.card} style={props.flex? {width: '100%'}: props.slider? {maxWidth: 290} : {}}>
-      <Link style={{textDecorationLine: 'none'}} to={`product/${props.id}`}>
+      <Link style={{textDecorationLine: 'none'}} to={`/product/${props.id}`}>
       <CardActionArea>
         <CardMedia
           className={classes.media}

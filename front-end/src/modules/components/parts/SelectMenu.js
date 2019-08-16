@@ -4,64 +4,57 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import uuid from 'uuid';
+import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   container: {
     display: 'flex',
-    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginLeft: theme.spacing(2),
   },
   textField: {
-    fontSize:'12px',
     width: 150,
+    marginLeft: theme.spacing(1),
   },
   dense: {
-    marginTop: 19,
   },
-  menu: {
-    //width: 200,
-  },
-  font:{
-    fontSize:'12px'
+  input: {
+    padding: theme.spacing(1.5),
   }
 });
 
 
 class SelectMenu extends React.Component {
-	  
-
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-  };
-
   render() {
-    const { classes, values, name } = this.props;
-
+    const { classes, values, name, sideLabel, selectedValue } = this.props;
     return (
-      
-        <TextField
-          id={this.props.id}
-          select
-          label={this.props.label}
-          helperText={this.props.help}
-          className={classes.textField}
-          value={this.props.value}
-          onChange={(event) => this.props.handleChange(name,event.target.value)}
+        <div className={classes.container}>
+          {sideLabel? <Typography>{sideLabel}</Typography> : null}
+          <TextField
+            id={this.props.id}
+            select
+            label={this.props.label}
+            helperText={this.props.help}
+            className={classes.textField}
+            value={selectedValue}
+            onChange={(event) => this.props.handleChange(name, event.target.value)}
+            
+            InputProps={{
+              classes: {
+                input: classes.input,
+              },
+            }}
           
-          InputProps={{
-            classes: {
-              input: classes.font,
-            },
-          }}
-         
-          variant="outlined"
-        >
-          {values!==undefined?values.map(value => (
-            <MenuItem key={uuid()} value={value}>
-              {value}
-            </MenuItem>
-          )):null}
-        </TextField>
-     
+            variant="outlined"
+          >
+            {values !== undefined? values.map(value => (
+              <MenuItem key={uuid()} value={value}>
+                {value}
+              </MenuItem>
+            )):null}
+          </TextField>
+        </div>
     );
   }
 }
