@@ -197,7 +197,7 @@ class Checkout extends React.Component {
         return (
             <React.Fragment>
                 <Snackbar
-                    style={{ direction: 'ltr', bottom: '50px' }}
+                    style={{bottom: '50px' }}
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',

@@ -40,7 +40,7 @@ class Cart extends React.Component{
                     <meta name="description" content="Helmet application" />
                 </Helmet>
                 <Snackbar
-                    style={{direction:'ltr', bottom:'50px'}}   
+                    style={{bottom:'50px'}}   
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',
