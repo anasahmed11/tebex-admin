@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->double('inactive_points')->default(0);
             $table->double('suspended_points')->default(0);
             $table->boolean('honored')->default(false);
+            $table->integer('clicks')->default(0);
             $table->nestedSet();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();

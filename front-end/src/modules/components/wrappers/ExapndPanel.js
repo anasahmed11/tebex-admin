@@ -1,8 +1,7 @@
 import React from 'react';
 import 'typeface-roboto';
-import { withStyles, Grid, Typography, Button, TextField, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails, MenuItem } from '@material-ui/core';
+import { withStyles, Typography, ExpansionPanel, ExpansionPanelSummary, ExpansionPanelDetails } from '@material-ui/core';
 import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons';
-import uuid from 'uuid';
 
 
 const styles = theme => ({
@@ -40,7 +39,7 @@ class Profile extends React.Component{
                 {
                     components.map((comp,idx)=>(
                         <ExpansionPanel 
-                            key={uuid()}
+                            key={idx}
                             expanded={this.state.expanded===idx}
                             onChange={this.handlePanelChange(idx)} 
                             >

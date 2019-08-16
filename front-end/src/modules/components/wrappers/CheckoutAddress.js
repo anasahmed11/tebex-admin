@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, withStyles, Grid, Button,  } from '@material-ui/core';
+import { Typography, withStyles, Grid, Button, } from '@material-ui/core';
 
 import CheckoutForm from '../parts/CheckoutForm';
 import AddressCard from '../parts/MiniTable';
@@ -14,28 +14,28 @@ import globalVariables from '../../../global-variables';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
 const styles = theme => ({
-    
+
     addressCardsRoot: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'flex-start',
     },
-       
+
 });
 
 
 
-class CheckoutAddress extends React.Component{
+class CheckoutAddress extends React.Component {
     state = {
         addForm: false,
         selectedAddress: 0,
         addresses: [],
-        isLoading:true
+        isLoading: true
     }
 
     pendingPromises = [];
 
-    componentWillUnmount = () => 
+    componentWillUnmount = () =>
         this.pendingPromises.map(p => p.cancel());
 
     appendPendingPromise = promise =>
@@ -44,21 +44,21 @@ class CheckoutAddress extends React.Component{
     removePendingPromise = promise =>
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
-   
-    componentDidMount(){
+
+    componentDidMount() {
         const wrappedPromise = cancelablePromise(axios.get('/'));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
-        .promise
-        .then(res => {this.setState({addresses:res.data,isLoading:false})})
-        .then(() => this.removePendingPromise(wrappedPromise))
-        .catch(err => {
-            if (!err.isCanceled) {
-                this.setState({isLoading: false})
-            }
-        })
-        
+            .promise
+            .then(res => { this.setState({ addresses: res.data, isLoading: false }) })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(err => {
+                if (!err.isCanceled) {
+                    this.setState({ isLoading: false })
+                }
+            })
+
     }
 
     addressClickHandler = (idx) => {
@@ -76,11 +76,11 @@ class CheckoutAddress extends React.Component{
     }
 
     formActionHandler = (obj) => {
-        
+
         this.addAddressDialogToggle();
-        const {addresses }= this.state;
+        const { addresses } = this.state;
         addresses.push(obj)
-    
+
         this.setState({
             addresses: addresses,
         })
@@ -92,32 +92,32 @@ class CheckoutAddress extends React.Component{
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
-        .promise
-        .then(res => {
-            const idx = addresses.findIndex(item=>item.id===id)
-            addresses.splice(idx,1)
-            this.setState({addresses:addresses})
-        })
-        .then(() => this.removePendingPromise(wrappedPromise))
-        .catch(res => {
-            
-        })
-        
+            .promise
+            .then(res => {
+                const idx = addresses.findIndex(item => item.id === id)
+                addresses.splice(idx, 1)
+                this.setState({ addresses: addresses })
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(res => {
+
+            })
+
     }
 
-    handleNextButton = (callbackFunction) =>{
+    handleNextButton = (callbackFunction) => {
         callbackFunction(this.state.addresses[this.state.selectedAddress])
     }
-    render(){
-        const {classes} = this.props;
-        const {addresses, isLoading} = this.state;
-        return(
+    render() {
+        const { classes } = this.props;
+        const { addresses, isLoading } = this.state;
+        return (
             <React.Fragment>
                 <Grid item xs={12}>
                     <Typography inline gutterBottom component='h2' variant='h5'>{globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG]}</Typography>
                 </Grid>
 
-                {isLoading?
+                {isLoading ?
                     <Grid container alignItems="center" justify="center" >
                         <ClipLoader
                             sizeUnit={"px"}
@@ -125,46 +125,46 @@ class CheckoutAddress extends React.Component{
                             color={'#123abc'}
                             loading={isLoading}
                         />
-                    </Grid>:null
+                    </Grid> : null
                 }
-                {isLoading?null:
-                <Grid item xs={12} >
-                    <Grid container justify="center" className={classes.root}>
-                    
-                    <Grid container item xs={12} className={classes.addressCardsRoot}>
-                        {addresses.map((obj, index) => 
-                            <AddressCard 
-                                id={obj.id}
-                                key={obj.id}
-                                name={obj.first_name + ' ' + obj.last_name} 
-                                address={'Egypt, ' + (obj.location.city_name!==undefined? obj.location.city_name:obj.location.area_name) + ', ' + obj.address}
-                                phone={obj.phone}
-                                selected={this.state.selectedAddress === index? true : false}
-                                onClick={this.addressClickHandler.bind(this, index)}
-                                handleDelete={this.handleDelete}
+                {isLoading ? null :
+                    <Grid item xs={12} >
+                        <Grid container justify="center" className={classes.root}>
+
+                            <Grid container item xs={12} className={classes.addressCardsRoot}>
+                                {addresses.map((obj, index) =>
+                                    <AddressCard
+                                        id={obj.id}
+                                        key={obj.id}
+                                        name={obj.first_name + ' ' + obj.last_name}
+                                        address={'Egypt, ' + (obj.location.city_name !== undefined ? obj.location.city_name : obj.location.area_name) + ', ' + obj.address}
+                                        phone={obj.phone}
+                                        selected={this.state.selectedAddress === index ? true : false}
+                                        onClick={this.addressClickHandler.bind(this, index)}
+                                        handleDelete={this.handleDelete}
+                                    />
+                                )}
+                                <ButtonCard onClick={this.addAddressDialogToggle} text={"+ " + globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]} />
+                            </Grid>
+
+                            <CheckoutForm
+                                open={this.state.addForm}
+                                title={globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]}
+                                onClose={this.addAddressDialogToggle.bind(this)}
+                                formAction={this.formActionHandler.bind(this)}
                             />
-                        )}
-                        <ButtonCard onClick={this.addAddressDialogToggle} text={"+ "+ globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG ]} />
+
+
+                            <Button color='primary' variant='contained' style={{ margin: '10px' }} onClick={() => this.handleNextButton(this.props.handleNextButton)}>
+                                {globalVariables.LABEL_NEXT[globalVariables.LANG]}
+                            </Button>
+                            <Button color='secondary' disabled variant='contained' style={{ margin: '10px' }}>
+                                {globalVariables.LABEL_PREVIOUS[globalVariables.LANG]}
+                            </Button>
+
+                        </Grid>
+
                     </Grid>
-                    
-                        <CheckoutForm
-                            open={this.state.addForm}
-                            title={globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]}
-                            onClose={this.addAddressDialogToggle.bind(this)}
-                            formAction={this.formActionHandler.bind(this)}
-                        />
-                        
-                        
-                        <Button color='primary' variant='contained' style={{margin:'10px'}} onClick={() => this.handleNextButton(this.props.handleNextButton)}>
-                            {globalVariables.LABEL_NEXT[globalVariables.LANG]}
-                        </Button>     
-                        <Button color='secondary' disabled variant='contained' style={{margin:'10px'}}>
-                            {globalVariables.LABEL_PREVIOUS[globalVariables.LANG]}
-                        </Button>   
-                        
-                    </Grid>
-                    
-                </Grid>
                 }
             </React.Fragment>
         );

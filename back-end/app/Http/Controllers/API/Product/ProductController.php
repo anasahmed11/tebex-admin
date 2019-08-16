@@ -2,17 +2,39 @@
 
 namespace App\Http\Controllers\API\Product;
 
+use App\Category;
+use App\Http\Requests\ProductRequest;
 use App\Product;
+use App\ProductSpec;
+use App\Spec;
+use App\Store;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use mysql_xdevapi\Exception;
 
 class ProductController extends Controller
 {
-    public function index(){
-        return response()->json(Product::all());
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->only('show','delete','add');
     }
+
+    public function show(){
+        $store = Auth::User()->Store()->where('status','approved')->first();
+        if((count((array)$store))){
+            return response()->json($store->Products()->get(),200);
+        }
+        return response()->json(['message'=>'You Aren\'t Registerd to Seller Program'],401);
+    }
+
     public function product(Product $product){
-        if ($product== null)
+        if ($product == null)
             return response()->json(["error"=>"product not found"], 400);
         return response()->json($product, 200);
     }
@@ -27,10 +49,45 @@ class ProductController extends Controller
        }));
     }
     public function search(Request $request){
-        $products = Product::search($request->input('q'))->get();
+        $products = Product::search($request->input('q'))->paginate(10);
         return response()->json($products);
     }
-    public function add(){
+    public function add(ProductRequest $product){
+        DB::beginTransaction();
+        try {
+            $p = new Product($product->except(['category', 'image']));
+            $p->images=[];
+            $store=Auth::User()->Store()->where('status','approved')->first();
+            if (!(count((array)$store))) throw new  \Exception('user have no  store');
+            $p->Store()->associate($store);
+            $p->Category()->associate(Category::find($product->category));
+            $p->save();
+            $i=[];
+            foreach ($product->file('image') as $image)
+                $i[]=Storage::url($image->store('public/product/'.$p->id));
+            $p->images=$i;
+            foreach($product->only('specs')['specs'] as $spec){
+                $s=Spec::find($spec['id']);
+                $ar=$s->values['ar']; $en=$s->values['en'];
+                if (count($ar)== count($en) && count($ar) > $spec['value']){
+                    $ar=$ar[$spec['value']]; $en=$en[$spec['value']];
+                    $v['ar']=$ar; $v['en']=$en;
+                    /*$ps=$p->Specs()->firstOrNew(["spec_id"=>$s->id]);
+                    $ps->value=$v;
+                    $ps->save();*/
+                    $ps=ProductSpec::firstOrNew(["product_id"=>$p->id,"spec_id"=>$s->id]);
+                    $ps->value=$v;
+                    $ps->save();
+                }else
+                    throw new \Exception('spec value error');
+            }
+            $p->save();
+            DB::commit();
+            return response()->json(“ok”,200);
+        }catch (\Exception $exception){
+            DB::rollback();
+            return response()->json("error",400);
+        }
 
     }
 }

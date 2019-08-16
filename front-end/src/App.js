@@ -34,6 +34,7 @@ import TrackOrder from './modules/views/TrackOrder';
 import Navbar from './modules/components/wrappers/Navbar';
 import Footer from './modules/components/wrappers/Footer';
 import RTL from './Providers/RTL';
+import { userAPI } from './api/api';
 
 
 const cookies = new Cookies();
@@ -45,7 +46,10 @@ function fetchAffiliate() {
   const expirationDate = new Date()
   expirationDate.setDate(expirationDate.getDate() + 7)
 
-  if (affiliate !== null) cookies.set(globalVariables.AFFILIATE_COOKIE, affiliate, { path: '/', expires: expirationDate, sameSite: true })
+  if (affiliate !== null){
+    cookies.set(globalVariables.AFFILIATE_COOKIE, affiliate, { path: '/', expires: expirationDate, sameSite: true })
+    userAPI.post('affiliate/click/',{ref: affiliate})
+  }
 
 }
 

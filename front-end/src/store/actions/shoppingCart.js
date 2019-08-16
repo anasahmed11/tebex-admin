@@ -173,6 +173,7 @@ export const initCart = (message="") => {
         if(cookies.get(globalVariables.ACCESS_TOKEN)){
             cartAPI.get('')
             .then((res)=>{
+                console.log(res)
                 let modified=false
                 let cartItems = res.data
                 for(let i=0;i<cartItems.length;i++){

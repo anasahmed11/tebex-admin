@@ -26,24 +26,24 @@ const cookies = new Cookies();
 const styles = theme => ({
     root: {
         padding: `${theme.spacing(4)}px 0px`,
-        minHeight:'500px',   
-        position:'relative',
-        margin:'auto',
+        minHeight: '500px',
+        position: 'relative',
+        margin: 'auto',
     },
-    stepperContainer:{
+    stepperContainer: {
         backgroundColor: '#dadada',
     },
     stepper: {
         backgroundColor: '#dadada',
-        margin:'auto',
-        paddingRight:'0px',
-        paddingLeft:'0px',
+        margin: 'auto',
+        paddingRight: '0px',
+        paddingLeft: '0px',
         width: '80%',
     },
-    sweetLoading:{
-        textAlign:'center'
+    sweetLoading: {
+        textAlign: 'center'
     }
-    
+
 });
 
 
@@ -56,27 +56,27 @@ function getSteps() {
 }
 
 
-function ThanXPage(props){
-    
-    return(
-        
-        <Grid container item justify="center" alignItems="center" spacing={2} xs={10} style={{textAlign:'center', position:'relative', overflow:"hidden"}}>
+function ThanXPage(props) {
+
+    return (
+
+        <Grid container item justify="center" alignItems="center" spacing={2} xs={10} style={{ textAlign: 'center', position: 'relative', overflow: "hidden" }}>
             <Grid item xs={11}>
                 <Typography variant="h4" gutterBottom>{globalVariables.CHECKOUT_THANKS_STATUS[globalVariables.LANG]}</Typography>
                 <Typography variant="h6">
-                   {globalVariables.CHECKOUT_THANKS_REDIRECT[globalVariables.LANG]} <Link to={props.trackOrder}>{globalVariables.LABEL_HERE[globalVariables.LANG]}</Link>
+                    {globalVariables.CHECKOUT_THANKS_REDIRECT[globalVariables.LANG]} <Link to={props.trackOrder}>{globalVariables.LABEL_HERE[globalVariables.LANG]}</Link>
                 </Typography>
-            
-                <img className="slider-moving-animation" src="https://cnnh.org/wp-content/uploads/2017/02/moving2348563724.jpg" alt="order dlivery"/>
+
+                <img className="slider-moving-animation" src="https://cnnh.org/wp-content/uploads/2017/02/moving2348563724.jpg" alt="order dlivery" />
             </Grid>
-            
+
         </Grid>
-            
-        )
+
+    )
 }
 
 
-class Checkout extends React.Component{
+class Checkout extends React.Component {
     state = {
         items: [],
         steps: getSteps(),
@@ -88,7 +88,7 @@ class Checkout extends React.Component{
     }
 
     pendingPromises = [];
-    componentWillUnmount = () => 
+    componentWillUnmount = () =>
         this.pendingPromises.map(p => p.cancel());
     appendPendingPromise = promise =>
         this.pendingPromises = [...this.pendingPromises, promise];
@@ -101,34 +101,34 @@ class Checkout extends React.Component{
     getStepContent = () => {
         switch (this.state.stepIndex) {
             case 0:
-              return <CheckoutAddress handleNextButton={this.handleNextButtonAddress} />;
+                return <CheckoutAddress handleNextButton={this.handleNextButtonAddress} />;
             case 1:
-              return <Payment 
-                        address={this.state.address} 
-                        totalPrice = {this.props.items.reduce((total,item)=>total+item.sale_price*item.cart.quantity,0)}
-                        shipment= {this.state.shipment}
-                        handleNextButton={this.handleNextButtonPayment} 
-                        handleBackButton={this.stepBack} />;
+                return <Payment
+                    address={this.state.address}
+                    totalPrice={this.props.items.reduce((total, item) => total + item.sale_price * item.cart.quantity, 0)}
+                    shipment={this.state.shipment}
+                    handleNextButton={this.handleNextButtonPayment}
+                    handleBackButton={this.stepBack} />;
             case 2:
-              return <Route render={props=><ThanXPage {...props} trackOrder={this.state.trackOrder} />} /> 
+                return <Route render={props => <ThanXPage {...props} trackOrder={this.state.trackOrder} />} />
             default:
-              return 'Unknown step';
-          }
+                return 'Unknown step';
+        }
     }
 
-    componentDidMount(){
-        this.setState({isLoading:false})
+    componentDidMount() {
+        this.setState({ isLoading: false })
     }
     stepAdvance = () => {
-        this.setState({stepIndex:this.state.stepIndex+1})
+        this.setState({ stepIndex: this.state.stepIndex + 1 })
     }
 
     stepBack = () => {
-        this.setState({stepIndex:this.state.stepIndex-1})
+        this.setState({ stepIndex: this.state.stepIndex - 1 })
     }
 
-    handleNextButtonAddress = (address) =>{
-        if(address===undefined){
+    handleNextButtonAddress = (address) => {
+        if (address === undefined) {
             alert('please create a new address or select one')
             return
         }
@@ -137,67 +137,67 @@ class Checkout extends React.Component{
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
-        .promise
-        .then(res=>{    
-            this.setState({address:address, shipment:res.data })
-            this.stepAdvance()
-        })
-        .then(() => this.removePendingPromise(wrappedPromise))
-        .catch(res=>{alert("عنوانك غير مدعوم في الشحن")})
+            .promise
+            .then(res => {
+                this.setState({ address: address, shipment: res.data })
+                this.stepAdvance()
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(res => { alert("عنوانك غير مدعوم في الشحن") })
 
-        
+
     }
-    handleNextButtonPayment = () =>{
-        if(this.state.address === undefined) return //handle error
-        
-        this.setState({isLoading:true})
-        
-       
+    handleNextButtonPayment = () => {
+        if (this.state.address === undefined) return //handle error
+
+        this.setState({ isLoading: true })
+
+
         this.props.handleCartStart()
-        const products=[]
-        this.props.items.forEach(item=>{
-            let data={id:item.id,quantity:item.cart.quantity}
+        const products = []
+        this.props.items.forEach(item => {
+            let data = { id: item.id, quantity: item.cart.quantity }
             products.push(data)
         })
 
         const data = {
-                address: this.state.address.id,
-                products: products,
-                token: this.state.address._token,
-                referral: cookies.get(globalVariables.AFFILIATE_COOKIE) !== undefined? cookies.get(globalVariables.AFFILIATE_COOKIE):0
+            address: this.state.address.id,
+            products: products,
+            token: this.state.address._token,
+            referral: cookies.get(globalVariables.AFFILIATE_COOKIE) !== undefined ? cookies.get(globalVariables.AFFILIATE_COOKIE) : 0
         }
-        
-        const wrappedPromise = cancelablePromise(checkoutAPI.post('',data));
+
+        const wrappedPromise = cancelablePromise(checkoutAPI.post('', data));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
-        .promise
-        .then(res=>{
-            this.props.handleClearCart()
-            const trackOrder = "orders/"+res.data.url.split("/").pop()
-            this.setState({trackOrder: trackOrder, isLoading: false})
-            this.stepAdvance()
-            this.props.handleCartSuccess("العملية تمت بنجاح")
-        })
-        .then(() => this.removePendingPromise(wrappedPromise))
-        .catch(err=>{
-            if (!err.isCanceled) {
-                this.setState({isLoading: false})
-            }
-            this.props.handleCartFail("فشل في تنفيذ العملية")
-        })
-        
-        
-        
+            .promise
+            .then(res => {
+                this.props.handleClearCart()
+                const trackOrder = "orders/" + res.data.url.split("/").pop()
+                this.setState({ trackOrder: trackOrder, isLoading: false })
+                this.stepAdvance()
+                this.props.handleCartSuccess("العملية تمت بنجاح")
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(err => {
+                if (!err.isCanceled) {
+                    this.setState({ isLoading: false })
+                }
+                this.props.handleCartFail("فشل في تنفيذ العملية")
+            })
+
+
+
     }
 
-    render(){
-        const {classes, numItems, cartIsLoading, isPopup, serverMessage, messageType, handlePopupClose} = this.props;
-        const {isLoading} = this.state
-        return(
+    render() {
+        const { classes, numItems, cartIsLoading, isPopup, serverMessage, messageType, handlePopupClose } = this.props;
+        const { isLoading } = this.state
+        return (
             <React.Fragment>
                 <Snackbar
-                    style={{direction:'ltr', bottom:'50px'}}   
+                    style={{ direction: 'ltr', bottom: '50px' }}
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',
@@ -206,21 +206,21 @@ class Checkout extends React.Component{
                     autoHideDuration={6000}
                     onClose={handlePopupClose}
                 >
-                    <MySnackbar 
+                    <MySnackbar
                         className={classes.margin}
                         onClose={handlePopupClose}
                         variant={messageType}
                         message={serverMessage}
                     />
-                
-                </Snackbar>
-                
 
-                { cartIsLoading || isLoading || numItems || this.state.stepIndex===2?
+                </Snackbar>
+
+
+                {cartIsLoading || isLoading || numItems || this.state.stepIndex === 2 ?
                     <React.Fragment>
                         <Stepper steps={this.state.steps} stepIndex={this.state.stepIndex} color="#dfdfda" />
                         <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={2}>
-                            {isLoading && this.state.stepIndex === 1?
+                            {isLoading && this.state.stepIndex === 1 ?
                                 <Grid container alignItems="center" justify="center" >
                                     <ClipLoader
                                         sizeUnit={"px"}
@@ -228,9 +228,9 @@ class Checkout extends React.Component{
                                         color={'#123abc'}
                                         loading={isLoading}
                                     />
-                                </Grid>:null
+                                </Grid> : null
                             }
-                            {isLoading && this.state.stepIndex===1?null:this.getStepContent()}
+                            {isLoading && this.state.stepIndex === 1 ? null : this.getStepContent()}
                         </Grid>
                     </React.Fragment>
                     :
@@ -238,7 +238,7 @@ class Checkout extends React.Component{
                         <CartEmpty />
                     </Grid>
                 }
-                
+
             </React.Fragment>
         );
     }
@@ -258,13 +258,13 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return{
+    return {
         handleClearCart: () => dispatch(clearCart()),
         handleCartStart: () => dispatch(cartStart()),
-        handleCartSuccess: (message)=> dispatch(cartSuccess(message)),
+        handleCartSuccess: (message) => dispatch(cartSuccess(message)),
         handleCartFail: (message) => dispatch(cartFail(message)),
         handlePopupClose: () => dispatch(cartFinish()),
 
     }
 }
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Checkout)));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Checkout)));
