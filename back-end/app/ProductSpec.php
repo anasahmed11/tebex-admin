@@ -19,4 +19,7 @@ class ProductSpec extends Model
     public function Spec(){
         return $this->belongsTo(Spec::class);
     }
+    public function Product(){
+        return $this->belongsTo(Product::class);
+    }
 }
