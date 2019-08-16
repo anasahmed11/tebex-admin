@@ -53,9 +53,7 @@ class Store extends Component {
     state = {
         _isLoading: true,
         products: [],
-        filterPanels: [
-            {name: 'تجربة', values: {'ar': ['اخضر', 'ازرق']}}
-        ],
+        filterPanels: null,
         categoryID: 1,
         filter: {
             sortBy: 'recent',
@@ -67,8 +65,18 @@ class Store extends Component {
 
     componentDidMount(){
         
+        // Parse url after "shop/"
         const slug = this.props.match.params.slug? this.props.match.params.slug.split('/') : null;
         
+        // Find search query and parse it
+        let query = window.location.search.split('?q=')[1];
+        try {
+            query = JSON.parse(decodeURIComponent(escape(atob(query))));
+        } catch (error) {
+            query = null;
+            console.log('WARNING: Invalid filter query.')
+        }
+
         categoryAPI.get('/')
         .then(res => {
             const categories = flattenObject(res.data[0]);
@@ -100,13 +108,52 @@ class Store extends Component {
             })
             .catch(res => console.log(`ERROR FETCHING PRODUCTS /${categoryID}/products`, res));
 
-            if(this.state.categoryID > -1)
-                categoryAPI.get(`/${this.state.categoryID}/specs`)
+            if(categoryID > -1)
+                categoryAPI.get(`/${categoryID}/specs`)
                 .then(res => {
-                    /*this.setState({
-                        filterPanels: res.data
-                    })*/
-                    this.setState({ _isLoading: false });
+                    const filterPanels = [{
+                        id: uuid(),
+                        name: {ar: 'الفئة', en: 'Category'},
+                        values: [],
+                        type: 'link',
+                    }];
+                    for(let cat of categories)
+                        if(cat.parent_id === categoryID)
+                            filterPanels[0].values.push({
+                                slug: slug? slug.join('/') + '/' + cat.slug : cat.slug,
+                                name: {ar: cat.name, en: cat.name_en}
+                            });
+                    try{
+                        for(let key of Object.getOwnPropertyNames(res.data)){
+                            let specs = res.data[key];
+                            for(let spec of specs){
+                                const filter = {
+                                    id: spec.id,
+                                    name: {ar: spec.name, en: spec.name_en},
+                                    values: spec.values,
+                                    checked: Array(spec.values.en.length).fill(false),
+                                    type: 'menu',
+                                }
+                                if(query && query.findIndex(filter => filter.id === spec.id) > -1){
+                                    let qIdx = query.findIndex(filter => filter.id === spec.id);
+                                    filter.checked = query[qIdx].checked;
+                                }
+                                filterPanels.push(filter);
+                            }
+                        }
+                    } catch (err) {
+                        console.log(err);
+                    }
+                    filterPanels.push({
+                        id: uuid(),
+                        name: {ar: 'السعر', en: 'Price'},
+                        values: [0, 9999],
+                        type: 'text',
+                    })
+                    this.setState({ 
+                        filterPanels: filterPanels,
+                        _isLoading: false
+                     });
                 })
                 .catch(res => console.log('ERROR FETCHING A CATEGORY SPECS', res));
         })
@@ -118,6 +165,18 @@ class Store extends Component {
         this.setState({
             testValue: b,
         })
+    }
+
+    filterCheckHandler = (id, idx) => {
+        const filters = this.state.filterPanels;
+        const filterIndex = filters.findIndex(filter => filter.id === id);
+        if(filterIndex > -1){
+            filters[filterIndex].checked[idx] = !filters[filterIndex].checked[idx];
+            this.setState({
+                filterPanels: filters,
+            })
+        }
+        console.log('QUERY', btoa(unescape(encodeURIComponent(JSON.stringify(filters)))));
     }
 
     render(){
@@ -160,7 +219,7 @@ class Store extends Component {
                 : this.state.categoryID > -1?  
                 <Grid container className={classes.root}>
                     <Grid lg={3} xs={12}>
-                        <FiltersPanel filterPanels={this.state.filterPanels} />
+                        <FiltersPanel handleCheck={this.filterCheckHandler} filterPanels={this.state.filterPanels} />
                     </Grid>
                     <Grid lg={9} xs={12}>
                         <div className={classes.optionMenusSection}>

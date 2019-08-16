@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
+import { withRouter, Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Typography } from '@material-ui/core';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Typography, TextField, Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 
 import { styles } from '../../../assets/jss/components/parts/FiltersPanel';
@@ -11,23 +13,10 @@ import { styles } from '../../../assets/jss/components/parts/FiltersPanel';
 class InteractiveList extends React.Component {
   state = {
     dense: true,
-    checked: [1],
   };
 
-  handleToggle = value => () => {
-    const { checked } = this.state;
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    this.setState({
-      checked: newChecked,
-    });
+  handleToggle = (id, idx) => {
+    this.props.handleCheck(id, idx);
   };
 
   render() {
@@ -42,23 +31,39 @@ class InteractiveList extends React.Component {
             <List dense={dense}>
               {filterPanels.map((filter) =>
                 <React.Fragment>
-                  <Typography className={classes.filterTitle}>{filter.name}</Typography>
-                  {filter.values['ar'].map((value, idx) =>
-                    <ListItem button key={uuid()}>
-                      <ListItemText
-                          primary={value}
-                          style={{textAlign: 'right'}}
-                      />
-                      <ListItemSecondaryAction>
-                        <Checkbox
-                          onChange={this.handleToggle(idx)}
-                          checked={this.state.checked.indexOf(idx) !== -1}
-                        />
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  )}
+                  <Typography className={classes.filterTitle}>{filter.name[globalVariables.LANG]}</Typography>
+                  { filter.type === 'text'? <form className={classes.priceSection}>
+                      <TextField className={classes.priceSectionItem} margin="dense" variant="outlined">{filter.values[1]}</TextField>
+                      <Typography className={classes.priceSectionItem}> الى </Typography>
+                      <TextField className={classes.priceSectionItem} margin="dense" variant="outlined">{filter.values[0]}</TextField>
+                      <Button className={classes.priceSectionItem} variant="contained" color="primary">تطبيق</Button>
+                    </form>
+
+                    : filter.type === 'link'? filter.values.map((value) =>
+                      <Link className={classes.link} to={`/shop/${value.slug}`}>
+                        <ListItem button key={uuid()}>
+                          <ListItemText
+                                  primary={value.name[globalVariables.LANG]}
+                                  style={{textAlign: globalVariables.LANG === 'ar'? 'right' : 'left'}}
+                          />
+                        </ListItem>
+                      </Link>)
+
+                    : filter.type === 'menu'?
+                        filter.values[globalVariables.LANG].map((value, idx) => <ListItem key={uuid()}>
+                          <ListItemText
+                              primary={value}
+                              style={{textAlign: globalVariables.LANG === 'ar'? 'right' : 'left'}}
+                          />
+                          <ListItemSecondaryAction>
+                            <Checkbox
+                              onChange={this.handleToggle.bind(this, filter.id, idx)}
+                              checked={filter.checked[idx]}
+                            />
+                          </ListItemSecondaryAction>
+                        </ListItem>) : null }
                 </React.Fragment>
-                )}
+              )}
             </List>
             <Divider />
         </div>
@@ -72,4 +77,4 @@ InteractiveList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InteractiveList);
+export default withRouter(withStyles(styles)(InteractiveList));

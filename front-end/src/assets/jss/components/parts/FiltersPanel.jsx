@@ -20,6 +20,17 @@ export const styles = theme => ({
     },
     filterTitle: {
       padding: theme.spacing(1),
+    },
+    link: {
+      textDecorationLine: 'none',
+    },
+    priceSection: {
+      display: 'flex',
+      alignItems: 'center',
+      width: '90%',
+      margin: 'auto',
+    },
+    priceSectionItem: {
     }
   });
   

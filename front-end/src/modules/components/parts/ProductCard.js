@@ -81,7 +81,7 @@ function MediaCard(props) {
 
   return (
     <Card className={classes.card} style={props.flex? {width: '100%'}: props.slider? {maxWidth: 290} : {}}>
-      <Link style={{textDecorationLine: 'none'}} to={`product/${props.id}`}>
+      <Link style={{textDecorationLine: 'none'}} to={`/product/${props.id}`}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
