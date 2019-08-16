@@ -52,6 +52,7 @@ class CategoryController extends Controller
 
             foreach ($specss as $spec){
                 if (!isset($ids[$spec->id])) $ids[$spec->id]=false;
+
                 if(!$ids[$spec->id]) {
                     $specs[] = $spec;
                     $ids[$spec->id] = true;
