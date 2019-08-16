@@ -15,7 +15,7 @@ class Shipping extends Model
         'updated_at'=>'datetime',
     ];
     protected $hidden = [
-        'created_at','updated_ats'
+        'created_at','updated_at'
     ];
     public function Shipper(){
         $this->hasOne(Shipper::class);

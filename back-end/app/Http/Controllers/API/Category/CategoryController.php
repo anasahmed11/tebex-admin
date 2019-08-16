@@ -5,11 +5,15 @@ namespace App\Http\Controllers\API\Category;
 use App\Category;
 use App\Http\Resources\ProductCollection;
 use App\Product;
+use App\ProductSpec;
+use App\Spec;
+use function foo\func;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class CategoryController extends Controller
@@ -18,16 +22,35 @@ class CategoryController extends Controller
         Category::fixTree();
         return response()->json(Category::get()->toTree(),200);
     }
-    public function specs(Category $category){
+    public function specs($category){
+        $lang = ['ar','en'];
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
         $specs=[];
+        $catids=[];
+
         foreach ($cats as $cat){
-            $spec=$cat->Specs()->get();
-            if (count($spec)) {
-                $specs[$cat->id] = $spec;
+            $catids[]=$cat->id;
+            $specss=$cat->Specs()->get();
+            foreach ($specss as $spec){
+                $specs[$spec->id] = $spec;
             }
         }
-        return response()->json($specs);
+
+        $stat= ProductSpec::whereHas('Product',function ($q) use ($catids){
+            $q->whereIn('category_id',$catids);
+        })->get()->groupBy([
+            function ($item) use($lang){
+                $spec=Spec::find($item['spec_id']);
+                return $lang[INPUT::get('lang')] =='ar'? $spec->name: $spec->name_en;
+            },
+            function ($item) use ($lang){
+                return $item['value'][$lang[INPUT::get('lang')]];
+            }])->map(function($value){
+                return $value->map(function ($value){
+                    return $value->count();
+                });
+        });
+        return response()->json(["Specs"=>$specs,"Count"=>$stat]);
     }
     public function products(Category $category){
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
