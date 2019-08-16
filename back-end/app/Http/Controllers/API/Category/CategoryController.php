@@ -22,35 +22,46 @@ class CategoryController extends Controller
         Category::fixTree();
         return response()->json(Category::get()->toTree(),200);
     }
-    public function specs($category){
-        $lang = ['ar','en'];
+    public function specsCount($category){
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
-        $specs=[];
         $catids=[];
-
         foreach ($cats as $cat){
             $catids[]=$cat->id;
+        }
+        return response()->json(["data"=>ProductSpec::whereHas('Product',function ($q) use ($catids){
+            $q->whereIn('category_id',$catids);
+        })->get()->groupBy([
+            function ($item){
+                $spec=Spec::find($item['spec_id']);
+                return $spec->name_en;
+            },
+            function ($item){
+                return $item['value']['en'];
+            }])->map(function($value){
+            return $value->map(function ($value){
+                return $value->count();
+            });
+        })]);
+    }
+    public function specs($category){
+        $cats=Category::descendantsAndSelf($category)->toFlatTree();
+        $specs=[];
+        $ids=[];
+        foreach ($cats as $cat){
             $specss=$cat->Specs()->get();
+
             foreach ($specss as $spec){
-                $specs[$spec->id] = $spec;
+                if (!isset($ids[$spec->id])) $ids[$spec->id]=false;
+                if(!$ids[$spec->id]) {
+                    $specs[] = $spec;
+                    $ids[$spec->id] = true;
+                }
+
+
             }
         }
 
-        $stat= ProductSpec::whereHas('Product',function ($q) use ($catids){
-            $q->whereIn('category_id',$catids);
-        })->get()->groupBy([
-            function ($item) use($lang){
-                $spec=Spec::find($item['spec_id']);
-                return $lang[INPUT::get('lang')] =='ar'? $spec->name: $spec->name_en;
-            },
-            function ($item) use ($lang){
-                return $item['value'][$lang[INPUT::get('lang')]];
-            }])->map(function($value){
-                return $value->map(function ($value){
-                    return $value->count();
-                });
-        });
-        return response()->json(["Specs"=>$specs,"Count"=>$stat]);
+        return response()->json(["data"=>$specs]);
     }
     public function products(Category $category){
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
