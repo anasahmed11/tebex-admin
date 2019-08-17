@@ -2,14 +2,14 @@ import Cookies from 'universal-cookie';
 
 
 const cookies = new Cookies();
-
-if(cookies.get('lang')===undefined) cookies.set('lang','ar');
+const LANGUGAE = 'langlang'
+if(cookies.get(LANGUGAE)===undefined) cookies.set(LANGUGAE,'ar');
 
 const globalVariables = {
-    LANG: cookies.get('lang'),
+    LANG: cookies.get(LANGUGAE),
 // VARIABLES
     ACCESS_TOKEN: 'access_token',
-    LANGUGAE: 'lang',
+    LANGUGAE: LANGUGAE,
     AFFILIATE_PARAM: 'ref',
     AFFILIATE_COOKIE: 'ref',
     AVATAR_COLOR_COOKIE: 'avatar_color',

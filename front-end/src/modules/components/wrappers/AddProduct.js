@@ -35,7 +35,7 @@ function AddProduct1(props) {
         defaultValues: props.defaultValues
 
     });
-    const [isPopup, setPopup] = React.useState(0);
+    const [isPopup, setPopup] = React.useState(false);
     const [serverMessage, setServerMessage] = React.useState('');
     const [messageType, setMessageType] = React.useState('error');
 
@@ -67,7 +67,6 @@ function AddProduct1(props) {
         
         
         delete data.image
-        data.category = 1
         for (var key in data) formData.append(key, data[key]);
         
 
@@ -108,7 +107,7 @@ function AddProduct1(props) {
         },
         {
             title: 'Images',
-            component: <ImageUploadAndPreview setChildCallback={setImageChildCallback} />
+            component: <ImageUploadAndPreview images={props.defaultValues.images} setChildCallback={setImageChildCallback} />
         },
         {
             title: 'Category and Specs',
