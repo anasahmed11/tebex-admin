@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('referral_id')->unsigned()->nullable();
             $table->integer('shipper_id')->unsigned();
             $table->string('_token',20);
-            $table->enum('status',['Pending','Active','Shipped','Delivered','Canceled','Returned']);
+            $table->enum('status',['pending','active','shipped','delivered','canceled','returned'])->default('pending');
             $table->double('shipping_fees');
             $table->timestamps();
         });

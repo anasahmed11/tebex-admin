@@ -22,10 +22,6 @@ class Product extends Model
         ]);
         #return $array; //return array('name' => $array['name'], 'name_en' => $array['name_en']);
     }
-    public function searchableAs()
-    {
-        return 'proudct_index';
-    }
 
     public function sluggable()
     {
@@ -66,5 +62,10 @@ class Product extends Model
     public function Category(){
         return $this->belongsTo(Category::class);
     }
+    public function Orders(){
+        return $this->hasMany(OrderProduct::class);
+    }
+
+
 
 }

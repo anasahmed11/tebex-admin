@@ -18,6 +18,7 @@ class OrderProducts extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->double('price');
             $table->integer('quantity');
+            $table->enum('status',['pending','confirmed','refused'])->default('pending');
         });
         Schema::table('order_products', function (Blueprint $table) {
 

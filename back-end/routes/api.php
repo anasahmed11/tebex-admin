@@ -22,7 +22,7 @@ Route::prefix('auth')->group(function () {
     Route::post('reset/password/{token}', 'API\Auth\PasswordController@reset')->name('password.reset.api');
     Route::group([
         'middleware' => 'auth:api'
-    ], function() {
+    ], function () {
         Route::get('verify/email/{id}', 'API\Auth\VerificationController@verify')->name('verification.verify.api');;
         Route::get('verify/resend/email', 'API\Auth\VerificationController@resend');
         Route::get('logout', 'API\Auth\AuthController@logout');
@@ -40,7 +40,6 @@ Route::prefix('category')->group(function () {
     Route::get('/{category}/specs/count', 'API\Category\CategoryController@specsCount');
     Route::get('/{category}/specs', 'API\Category\CategoryController@specs');
     Route::get('/{category}/products/filters', 'API\Category\CategoryController@filter');
-
 });
 
 Route::prefix('user')->group(function () {
@@ -52,14 +51,13 @@ Route::prefix('user')->group(function () {
     Route::get('/team', 'API\User\UserController@team');
     Route::post('/program/seller', 'API\User\ProgramController@Stores');
     Route::post('/program/affiliate', 'API\User\ProgramController@Affiliates');
-
 });
 Route::prefix('address')->group(function () {
     Route::get('/', 'API\Address\AddressController@show');
     Route::post('create', 'API\Address\AddressController@create');
-    Route::get('{address}/delete','API\Address\AddressController@delete');
-    Route::get('{address}/shipping','API\Address\AddressController@shipping');
-    Route::get('{city}/shipping/city','API\Address\AddressController@city_shipping');
+    Route::get('{address}/delete', 'API\Address\AddressController@delete');
+    Route::get('{address}/shipping', 'API\Address\AddressController@shipping');
+    Route::get('{city}/shipping/city', 'API\Address\AddressController@city_shipping');
 
     Route::get('countries', 'API\Address\AddressController@countries');
     Route::get('cities/{country}', 'API\Address\AddressController@cities');
@@ -75,23 +73,22 @@ Route::prefix('product')->group(function () {
     Route::post('/search', 'API\Product\ProductController@search');
     Route::get('{product}/specs', 'API\Product\ProductController@specs');
     Route::get('{product}/{sku}/sku', 'API\Product\ProductController@sku');
-
 });
 Route::prefix('cart')->middleware('auth:api')->group(function () {
-    Route::get('/','API\Cart\CartController@show');
-    Route::post('/add','API\Cart\CartController@add');
-    Route::post('/remove','API\Cart\CartController@remove');
+    Route::get('/', 'API\Cart\CartController@show');
+    Route::post('/add', 'API\Cart\CartController@add');
+    Route::post('/remove', 'API\Cart\CartController@remove');
 });
 Route::prefix('orders')->group(function () {
-    Route::get('/','API\Order\OrderController@index');
-    Route::get('/affiliate','API\Order\OrderController@numAffiliateOrders');
-    Route::get('/{id}/{token}','API\Order\OrderController@show')->name('order.mail');
+    Route::get('/', 'API\Order\OrderController@index');
+    Route::get('/affiliate', 'API\Order\OrderController@numAffiliateOrders');
+    Route::get('/{id}/{token}', 'API\Order\OrderController@show')->name('order.mail');
 
+    Route::get('/seller-pending', 'API\Seller\SellerController@pendingOrders');
 });
 Route::prefix('store')->group(function () {
-    Route::get('/','API\Store\StoreController@show');
+    Route::get('/', 'API\Store\StoreController@show');
 });
 Route::prefix('checkout')->group(function () {
-    Route::post('/','API\Checkout\CheckOutController@index');
-
+    Route::post('/', 'API\Checkout\CheckOutController@index');
 });

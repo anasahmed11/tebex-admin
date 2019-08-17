@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use mysql_xdevapi\Exception;
+use TeamTNT\TNTSearch\Indexer\TNTIndexer;
 
 class ProductController extends Controller
 {
@@ -83,12 +84,15 @@ class ProductController extends Controller
             }
             $p->save();
             DB::commit();
+
             return response()->json("ok",200);
         }catch (\Exception $exception){
             DB::rollback();
             dd($exception);
             return response()->json("error",400);
         }
+
+
 
     }
     public function update(ProductRequest $product, Product $pid){

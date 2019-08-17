@@ -87,4 +87,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasManyThrough(Order::class, Address::class);
     }
+    public function Products()
+    {
+        return $this->hasManyThrough(Product::class, Store::class);
+    }
 }
