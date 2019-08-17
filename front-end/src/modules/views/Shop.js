@@ -9,12 +9,13 @@ import ProductsListWrapper from '../components/wrappers/ProductsListWrapper';
 import { styles } from '../../assets/jss/views/Shop';
 
 class Shop extends Component {
+  
   state = {
     
   }
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     return (
         <Grid container justify='center'>

@@ -2,37 +2,13 @@ import React from 'react';
 import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
 
 import { Link, Grid, withStyles } from '@material-ui/core';
 
-import globalVariables from '../../../global-variables';
+import styles from '../../../assets/jss/components/parts/AboveAppbar';
 
 const cookies = new Cookies();
-
-const styles = theme => ({
-  root: {
-    backgroundColor: 'black',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    }
-  },
-  linksBar: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  navLink: {
-    fontFamily: "'Droid Arabic Kufi', 'Roboto'",
-    fontSize: '14px',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    color: 'white',
-    '&:hover': {
-        cursor: 'pointer',
-        color: 'pink',
-        textDecoration: 'none',
-    }
-  }
-});
 
 class TopNav extends React.Component {
   state = {

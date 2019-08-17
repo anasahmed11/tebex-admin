@@ -1,32 +1,23 @@
 import React from 'react';
-import { withStyles, Grid, TextField, MenuItem, Button } from '@material-ui/core';
+import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
 
+import { withStyles, Grid, TextField, MenuItem, Button } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
-import uuid from 'uuid';
 import { locationAPI as axios } from '../../../api/api';
 
-import globalVariables from '../../../global-variables';
 import cancelablePromise from '../../../Providers/CancelablePromise';
-const styles = theme => ({
-    root: {
-        margin:'auto'
-    },
-    paddingTop:{
-        padding:'20px 0px'
-    }, 
-  
-   
-});
+
+import styles from '../../../assets/jss/components/parts/CheckoutForm';
 
 class CheckoutForm extends React.Component{
-    state={
-        
+
+    state = {        
         first_name:'',
         last_name:'',
         address:'',

@@ -9,7 +9,7 @@ import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typog
 
 import { addToCart } from '../../../store/actions/shoppingCart';
 
-import styles from '../../../assets/jss/components/parts/ProductCard'
+import styles from '../../../assets/jss/components/parts/ProductCard';
 
 function MediaCard(props) {
   

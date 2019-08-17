@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 import { ClipLoader } from 'react-spinners';
 import globalVariables from '../../global-variables';
 
@@ -16,9 +17,9 @@ import Register from '../components/parts/RegisterForm';
 import MySnackbar from '../components/parts/MySnackbar';
 
 import { styles } from '../../assets/jss/views/Auth';
-import {Helmet} from "react-helmet";
 
 class Auth extends React.Component {
+
     state = {
         loginView: true,        
     }
@@ -28,7 +29,6 @@ class Auth extends React.Component {
             loginView: !this.state.loginView
         });
     }
-
 
     render(){
         const {classes, isLoading, isPopup, serverMessage, messageType, handlePopupClose} = this.props;

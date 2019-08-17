@@ -1,23 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import { withStyles, Link } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {} from 'react-router-dom'
+import PropTypes from 'prop-types';
 
-const styles = theme => ({
-  icon: {
-    margin: theme.spacing(1),
-    fontSize: '30px',
-    color: 'white',
-    transition: theme.transitions.create('color'),
-    '&:hover':{
-        color: 'blue'
-    }
-  },
-  input: {
-    display: 'none',
-  },
-});
+import styles from '../../../assets/jss/components/parts/IconLink';
 
 function IconLink(props) {
   const { classes, href } = props;

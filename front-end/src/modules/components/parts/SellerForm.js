@@ -4,18 +4,7 @@ import globalVariables from '../../../global-variables';
 
 import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
 
-
-
-const styles = theme => ({
-    margin: {margin: theme.spacing(2),},
-    paddingTop:{padding: '10px 0px'},
-    textField: {
-        margin: theme.spacing(2),
-        width: '200',
-      },
-});
-
-
+import styles from '../../../assets/jss/components/parts/SellerForm';
 
 const PAYMENT = [
     {value: 0, label: globalVariables.FORM_AFFILIATE_LABEL_VODAFONE[globalVariables.LANG]},
@@ -23,9 +12,8 @@ const PAYMENT = [
     {value: 2, label: globalVariables.FORM_AFFILIATE_LABEL_Bank[globalVariables.LANG]}
 ]
 
-
 class SellerForm extends React.Component{
-    state={
+    state = {
         storeNameAr: '',
         storeNameEn: '',
         storeURL: '',
@@ -394,9 +382,6 @@ class SellerForm extends React.Component{
             </Grid>
         );
     }
-
-
 }
-
 
 export default withStyles(styles)(SellerForm);

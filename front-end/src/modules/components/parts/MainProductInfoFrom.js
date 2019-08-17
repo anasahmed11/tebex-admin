@@ -1,11 +1,10 @@
-
-
-
 import React from "react";
 import { withStyles } from "@material-ui/core";
-import styles from '../../../formStyling';
 
-function formm(props) {
+import styles from '../../../assets/jss/components/parts/GeneralDescriptionForm';
+
+const form = props => {
+
     const { classes, register, errors } = props;
 
     return (
@@ -71,4 +70,4 @@ function formm(props) {
 }
 
 
-export default withStyles(styles)(formm);
+export default withStyles(styles)(form);

@@ -1,23 +1,16 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import { ClipLoader } from 'react-spinners';
 
 import {orderAPI} from '../../api/api';
 
 import Order from '../components/parts/Order'
 
-const styles = theme => ({
- 
-})
-
-
 class TrackOrder extends React.Component {
 
     state = {
         order:{},
         isLoading:true,
-        
     }
 
     componentDidMount(){
@@ -42,13 +35,10 @@ class TrackOrder extends React.Component {
                         color={'#123abc'}
                         loading={isLoading}
                     />
-                </Grid>:null
-            }
-            {isLoading?null:<Order order={this.state.order} />}
-            
+                </Grid> : <Order order={this.state.order} />}
         </Grid>
     );
   }
 }
 
-export default withStyles(styles)(TrackOrder);
+export default TrackOrder;

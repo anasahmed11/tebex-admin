@@ -82,7 +82,7 @@ var slickSettings = {
     ]
 }
 
-function SlickSlider(props){
+const SlickSlider = props => {
     
     const { classes } = props;
 

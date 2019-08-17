@@ -1,24 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Cookies from 'universal-cookie';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
-import Cookies from 'universal-cookie';
 
 import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
 
 import { registerUser } from '../../../store/actions/auth';
 
+import styles from '../../../assets/jss/components/parts/RegisterForm';
+
 const cookies = new Cookies();
-
-const styles = theme => ({
-    margin: {margin: theme.spacing.unit * 2,},
-    paddingTop:{padding: '10px 0px'},
-    textField: {
-        margin: theme.spacing.unit * 2,
-        width: '200',
-      },
-});
-
 
 const GENDER = [
     {value: 'M', label: 'ذكر'},
@@ -27,7 +19,7 @@ const GENDER = [
 
 
 class Register extends React.Component{
-    state={
+    state = {
         email: '',
         emailError: '',
         password: '',

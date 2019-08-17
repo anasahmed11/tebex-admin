@@ -1,8 +1,6 @@
 import React from 'react';
-import { withStyles, Grid, Typography, Button, } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 import { ClipLoader } from 'react-spinners';
-
-
 
 const styles = theme => ({
     root: {
@@ -26,7 +24,6 @@ const styles = theme => ({
 function NotFound(props) {
     const { classes } = props;
     return (
-
         <Grid container justify='center' alignItems="center" className={classes.root}>
             <Grid container alignItems="center" justify="center" >
                 <ClipLoader

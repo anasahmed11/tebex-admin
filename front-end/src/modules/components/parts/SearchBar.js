@@ -1,35 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
+import Autosuggest from 'react-autosuggest';
+
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import Autosuggest from 'react-autosuggest';
-import './searchBar.css';
 import { Grid, Button } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-import { withRouter, Link } from 'react-router-dom';
 import { productsAPI } from '../../../api/api';
 
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        width: '100%',
-    },
-    input: {
-        flex: 1,
-        margin: theme.spacing(1),
-    },
-
-    iconButton: {
-    },
-    oneLineTextDisplay: {
-        whiteSpace: 'nowrap',
-        textOverflow: 'ellipsis',
-        overflow: 'hidden'
-    }
-});
-
+import './searchBar.css';
+import styles from '../../../assets/jss/components/parts/SearchBar';
 
 // const languages = [
 //     {
@@ -62,7 +45,7 @@ const styles = theme => ({
 
 // API CALL
 
-function getSuggestions(value) {
+const getSuggestions = value => {
     value = value.trim().toLowerCase();
 
     if (value === '') return [];
@@ -102,7 +85,7 @@ function getSuggestions(value) {
     //.filter(section => section.data.length > 0);
 }
 
-function getSuggestionValue(suggestion) { return suggestion.name; }
+const getSuggestionValue = suggestion => suggestion.name;
 
 
 const renderSuggestion = (suggestion) => {
@@ -163,7 +146,7 @@ const renderSuggestion = (suggestion) => {
 }
 
 
-function renderSectionTitle(section) {
+const renderSectionTitle = section => {
     if (section.title.slice(0,15) === 'See All Results')
         return (
             <Grid container justify="center" component={Button}>{section.title}</Grid>
@@ -173,13 +156,7 @@ function renderSectionTitle(section) {
     );
 }
 
-
-function getSectionSuggestions(section) { return section.data; }
-
-
-
-
-
+const getSectionSuggestions = section => section.data;
 
 class CustomizedInputBase extends React.Component {
     state = {
@@ -191,7 +168,6 @@ class CustomizedInputBase extends React.Component {
     onChange = (event, { newValue }) =>
         this.setState({ value: newValue });
 
-
     onSuggestionsFetchRequested = ({ value }) =>{
         value = value.trim().toLowerCase();
 
@@ -199,35 +175,31 @@ class CustomizedInputBase extends React.Component {
 
         const time = Date.now();
         this.state.lastRequestTime = time;
-            setTimeout(()=>{
-                if(this.state.lastRequestTime===time)
-                    productsAPI.post('search/', { q: value })
-                    .then(res=>{
+            
+        setTimeout(() => {
+            if(this.state.lastRequestTime === time)
+                productsAPI.post('search/', { q: value })
+                .then(res=>{
 
-                        const products = res.data.data
-                            .map(product =>({
-                                        id: product.id,
-                                        type: 1,
-                                        name: product.name,
-                                        price: product.price,
-                                        salePrice: product.sale_price,
-                                        image: "",
-                                    })
-                            );
-                        const productSuggestions = {data: products, title: "products"};
-                        
-                        this.setState({ suggestions: [productSuggestions, {data: [], title: `See All Results(${res.data.total})`}] });
-                    })
-                    .catch(error=>{this.setState({ suggestions: [] });})
-        },1000)
-        
-        
+                    const products = res.data.data
+                        .map(product =>({
+                                    id: product.id,
+                                    type: 1,
+                                    name: product.name,
+                                    price: product.price,
+                                    salePrice: product.sale_price,
+                                    image: "",
+                                })
+                        );
+                    const productSuggestions = {data: products, title: "products"};
+                    
+                    this.setState({ suggestions: [productSuggestions, {data: [], title: `See All Results(${res.data.total})`}] });
+                })
+                .catch(error=>{this.setState({ suggestions: [] });})
+        }, 1000);
     }
         
-
-    onSuggestionsClearRequested = () =>
-        this.setState({ suggestions: [] });
-
+    onSuggestionsClearRequested = () => this.setState({ suggestions: [] });
 
     render() {
         const { classes } = this.props;
@@ -238,9 +210,9 @@ class CustomizedInputBase extends React.Component {
             onChange: this.onChange
         };
         const searchIconButton = this.props.searchIcon ?
-            (<IconButton className={classes.iconButton} aria-label="Search">
+            <IconButton className={classes.iconButton} aria-label="Search">
                 <SearchIcon />
-            </IconButton>) : null;
+            </IconButton> : null;
 
         return (
             <Paper className={classes.root} elevation={1}>

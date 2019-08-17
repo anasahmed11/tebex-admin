@@ -9,12 +9,7 @@ import { initUser } from '../../../store/actions/user';
 
 import MySnackbar from './MySnackbar';
 
-
-
-const styles = theme => ({
-    
-});
-
+const styles = theme => ({});
 
 class LogoutButton extends React.Component{
 
@@ -65,7 +60,6 @@ const mapStateToProps = state => {
     }
 }
 
-
 const mapDispatchToProps = dispatch => {
     return{
         handleLogout: () => dispatch(logoutUser()),
@@ -75,6 +69,5 @@ const mapDispatchToProps = dispatch => {
 
     }
 }
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(LogoutButton))

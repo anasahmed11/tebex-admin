@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -6,27 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import styles from '../../../assets/jss/components/parts/HorizontalCard';
 
-const styles = theme => ({
-  card: {
-    display: 'flex',
-    height: 400,
-  },
-  details: {
-    display: 'flex',
-    flex: '1 0 60%',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
-    backgroundColor: '#f50057',
-    color:'white',
-  },
-  cover: {
-    width: '100%',
-  },
-});
-const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
+const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg";
 
 function MediaControlCard(props) {
   const { classes, person } = props;

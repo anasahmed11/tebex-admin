@@ -6,9 +6,9 @@ import useForm from "react-hook-form"
 
 import CategoryForm from '../parts/CategoryForm';
 import MainProductInfoForm from '../parts/MainProductInfoFrom';
-import ImageUploadAndPreview from '../parts/ImageUploadAndPreview';
+import ImageUploadAndPreview from '../parts/ImageUploader';
 
-import GeneralDescrptionForm from '../parts/GeneralDescrptionForm';
+import GeneralDescrptionForm from '../parts/GeneralDescriptionForm';
 import { ClipLoader } from 'react-spinners';
 import { productsAPI } from '../../../api/api';
 import MySnackbar from '../parts/MySnackbar';

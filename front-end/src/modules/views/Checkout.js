@@ -1,17 +1,16 @@
 import React from 'react';
-import { Typography, withStyles, Grid, Snackbar } from '@material-ui/core';
-
 import { connect } from 'react-redux';
 import { Link, Route, withRouter } from 'react-router-dom';
-import 'typeface-roboto';
 import { ClipLoader } from 'react-spinners';
+
 import Cookies from 'universal-cookie';
+import { Typography, withStyles, Grid, Snackbar } from '@material-ui/core';
+import 'typeface-roboto';
 
 import MySnackbar from '../components/parts/MySnackbar';
 import Stepper from '../components/parts/Stepper';
 import CheckoutAddress from '../components/wrappers/CheckoutAddress';
 import Payment from '../components/wrappers/Payment';
-import './styles/checkout.css'
 
 import { locationAPI as axios, checkoutAPI } from '../../api/api';
 import { clearCart, cartStart, cartSuccess, cartFail, cartFinish } from '../../store/actions/shoppingCart';
@@ -20,32 +19,10 @@ import CartEmpty from '../components/parts/CartEmpty'
 import globalVariables from '../../global-variables';
 import cancelablePromise from '../../Providers/CancelablePromise';
 
+import styles from '../../assets/jss/views/Checkout';
+import './styles/checkout.css';
 
 const cookies = new Cookies();
-
-const styles = theme => ({
-    root: {
-        padding: `${theme.spacing(4)}px 0px`,
-        minHeight: '500px',
-        position: 'relative',
-        margin: 'auto',
-    },
-    stepperContainer: {
-        backgroundColor: '#dadada',
-    },
-    stepper: {
-        backgroundColor: '#dadada',
-        margin: 'auto',
-        paddingRight: '0px',
-        paddingLeft: '0px',
-        width: '80%',
-    },
-    sweetLoading: {
-        textAlign: 'center'
-    }
-
-});
-
 
 function getSteps() {
     return [
@@ -54,7 +31,6 @@ function getSteps() {
         globalVariables.LABEL_THANKS[globalVariables.LANG]
     ];
 }
-
 
 function ThanXPage(props) {
 

@@ -1,37 +1,15 @@
 import React from 'react';
-import { Typography, withStyles, Grid, } from '@material-ui/core';
 import globalVariables from '../../../global-variables';
 
+import { Typography, withStyles, Grid, } from '@material-ui/core';
 
-const styles = theme => ({
-    checkoutSummary: {
-        padding: `${theme.spacing(2)}px 0px`,
-        border: '1px solid rgba(0,0,0,0.1)',
-        minHeight: '200px',
-    },
-    textHeader: {
-        fontWeight: '500'
-    },
-    textSection: {
-        fontWeight: '500',
-        fontSize: '13px',
-        color: 'rgb(120,120,120)',
-    },
-    textHead: {
-        fontWeight: 'bold',
-        fontSize: '15px',
-        color: 'rgb(120,120,120)',
-    },
+import styles from '../../../assets/jss/components/parts/AddressSummary';
 
-});
-
-
-function CheckoutSummary(props) {
+const CheckoutSummary = props => {
     const { classes, address } = props
     const addressName = address.location.city_name !== undefined ? address.location.city_name : address.location.area_name
     return (
         <React.Fragment>
-
             <Grid container justify="center" className={classes.checkoutSummary}>
 
                 <Grid item xs={11}>
@@ -76,12 +54,7 @@ function CheckoutSummary(props) {
                     </Grid>
                 </Grid>
 
-
-
             </Grid>
-
-
-
         </React.Fragment>
     );
 }

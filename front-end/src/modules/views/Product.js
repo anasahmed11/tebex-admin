@@ -1,9 +1,10 @@
 import React from 'react';
-import 'typeface-roboto';
-import {withStyles, Grid, Snackbar} from '@material-ui/core';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
+
+import {withStyles, Grid, Snackbar} from '@material-ui/core';
+import 'typeface-roboto';
 
 
 import ProductViewer from '../components/wrappers/ProductViewer';
@@ -12,18 +13,9 @@ import AddToCart from '../components/parts/AddToCart';
 import MySnackbar from '../components/parts/MySnackbar'
 
 import { addToCart, cartFinish } from '../../store/actions/shoppingCart';
-
 import {productsAPI, baseURL} from '../../api/api'
 
-const styles = theme => ({
-    root: {
-      backgroundColor: 'white ',
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
-      textAlign:'center'
-    },
-});
-
+import styles from '../../assets/jss/views/Product';
 
 class Product extends React.Component{
     state ={

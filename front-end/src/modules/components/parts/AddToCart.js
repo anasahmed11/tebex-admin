@@ -1,43 +1,14 @@
-import {withStyles, Grid, Typography, Divider, TextField, Button } from '@material-ui/core';
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import 'typeface-roboto';
-
 import { ClipLoader } from 'react-spinners';
+import globalVariables from '../../../global-variables';
+
+import { withStyles, Grid, Typography, Divider, TextField, Button } from '@material-ui/core';
+import 'typeface-roboto';
 
 import { locationAPI,  } from '../../../api/api';
 
-import globalVariables from '../../../global-variables';
-
-const styles= theme => ({
-    root:{
-        textAlign:'initial'
-    },
-    root2:{
-        textAlign:'initial',
-        border: '1px solid lightgray',
-        padding:'0px 4px'
-    },
-    ship:{
-        fontSize: '12px',
-        color: 'gray',
-    },
-    menu: {
-        margin: '0px 4px 10px 0px'
-    },
-    font:{
-        fontSize: '12px',
-        height:'100%',
-    },
-    padding:{
-        padding:'4px 0px'
-    },
-    cleanLink: {
-        textDecoration: 'none',
-        color: 'navy',
-    }
-   
-})
+import styles from '../../../assets/jss/components/parts/AddToCart';
 
 class AddToCart extends React.Component{
     state = {

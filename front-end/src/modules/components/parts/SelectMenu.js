@@ -6,39 +6,22 @@ import TextField from '@material-ui/core/TextField';
 import uuid from 'uuid';
 import { Typography } from '@material-ui/core';
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginLeft: theme.spacing(2),
-  },
-  textField: {
-    width: 150,
-    marginLeft: theme.spacing(1),
-  },
-  dense: {
-  },
-  input: {
-    padding: theme.spacing(1.5),
-  }
-});
+import styles from '../../../assets/jss/components/parts/SelectMenu';
 
-
-class SelectMenu extends React.Component {
-  render() {
-    const { classes, values, name, sideLabel, selectedValue } = this.props;
+const SelectMenu = props => {
+  
+    const { classes, values, name, sideLabel, selectedValue } = props;
     return (
         <div className={classes.container}>
           {sideLabel? <Typography>{sideLabel}</Typography> : null}
           <TextField
-            id={this.props.id}
+            id={props.id}
             select
-            label={this.props.label}
-            helperText={this.props.help}
+            label={props.label}
+            helperText={props.help}
             className={classes.textField}
             value={selectedValue}
-            onChange={(event) => this.props.handleChange(name, event.target.value)}
+            onChange={(event) => props.handleChange(name, event.target.value)}
             
             InputProps={{
               classes: {
@@ -57,7 +40,6 @@ class SelectMenu extends React.Component {
         </div>
     );
   }
-}
 
 SelectMenu.propTypes = {
   classes: PropTypes.object.isRequired,
