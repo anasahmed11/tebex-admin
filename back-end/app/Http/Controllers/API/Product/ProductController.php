@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->only('show','delete','add');
+        $this->middleware('auth:api')->only('show','delete','add','update');
     }
 
     public function show(){
@@ -66,6 +66,45 @@ class ProductController extends Controller
             foreach ($product->file('image') as $image)
                 $i[]=Storage::url($image->store('public/product/'.$p->id));
             $p->images=$i;
+            foreach($product->only('specs')['specs'] as $spec){
+                $s=Spec::find($spec['id']);
+                $ar=$s->values['ar']; $en=$s->values['en'];
+                if (count($ar)== count($en) && count($ar) > $spec['value']){
+                    $ar=$ar[$spec['value']]; $en=$en[$spec['value']];
+                    $v['ar']=$ar; $v['en']=$en;
+                    /*$ps=$p->Specs()->firstOrNew(["spec_id"=>$s->id]);
+                    $ps->value=$v;
+                    $ps->save();*/
+                    $ps=ProductSpec::firstOrNew(["product_id"=>$p->id,"spec_id"=>$s->id]);
+                    $ps->value=$v;
+                    $ps->save();
+                }else
+                    throw new \Exception('spec value error');
+            }
+            $p->save();
+            DB::commit();
+            return response()->json("ok",200);
+        }catch (\Exception $exception){
+            DB::rollback();
+            dd($exception);
+            return response()->json("error",400);
+        }
+
+    }
+    public function update(ProductRequest $product,Product $pid){
+        DB::beginTransaction();
+        try {
+            if ($pid->Store()->first()->User()->first()->id != 5) throw new \Exception('access error');
+            $pid->update($product->except(['category', 'image']));
+            $p=$pid;
+            $p->images=[];
+            $p->Category()->associate(Category::find($product->category));
+            $p->save();
+            $i=[];
+            foreach ($product->file('image') as $image)
+                $i[]=Storage::url($image->store('public/product/'.$p->id));
+            $p->images=$i;
+            ProductSpec::where(["product_id"=>$p->id])->delete();
             foreach($product->only('specs')['specs'] as $spec){
                 $s=Spec::find($spec['id']);
                 $ar=$s->values['ar']; $en=$s->values['en'];

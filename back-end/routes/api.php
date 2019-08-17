@@ -73,6 +73,7 @@ Route::prefix('product')->group(function () {
     Route::get('{product}/specs', 'API\Product\ProductController@specs');
     Route::get('{product}/{sku}/sku', 'API\Product\ProductController@sku');
     Route::post('/add', 'API\Product\ProductController@add');
+    Route::post('{pid}/update', 'API\Product\ProductController@update');
 });
 Route::prefix('cart')->middleware('auth:api')->group(function () {
     Route::get('/','API\Cart\CartController@show');
