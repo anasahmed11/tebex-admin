@@ -163,7 +163,7 @@ class Product extends React.Component{
                 <Grid container justify='center' className={classes.root} spacing={2} style={{width: '100%',margin: '0'}}>
 
                     <Snackbar
-                        style={{direction:'ltr', bottom:'50px'}}   
+                        style={{bottom:'50px'}}   
                         anchorOrigin={{
                             vertical: 'bottom',
                             horizontal: 'center',

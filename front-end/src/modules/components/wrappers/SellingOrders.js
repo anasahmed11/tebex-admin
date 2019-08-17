@@ -1,9 +1,11 @@
 import React from 'react';
 import 'typeface-roboto';
-import { withStyles, Grid, Typography, IconButton,  } from '@material-ui/core';
+import { withStyles, Grid, Typography, IconButton, Link,  } from '@material-ui/core';
 import CustomMaterialTable from '../parts/CustomMaterialTable';
 import { ClipLoader } from 'react-spinners';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { orderAPI } from '../../../api/api';
+import cancelablePromise from '../../../Providers/CancelablePromise';
 
 
 const styles = theme => ({
@@ -26,21 +28,57 @@ const data = [
     { id:5 ,name: 'Mahmoud', id: 5, parentId:1 , earning: 12 },
     { id:6 ,name: 'Zakaria', id: 6, parentId:2 , earning: 5 },
   ]
-const columns = [
-    { title: 'Name', field: 'name' },
-    { title: 'Action', field: 'action' },
 
-  ]
+  const columns = [
+    { title: 'Name', field: 'product.name' },
+    { title: 'Price', field: 'price', type: "numeric" },
+    { title: 'Qunatity', field: 'quantity', type: "numeric" },
+    { title: 'Buyer Name', field: 'buyerName' },
+    { title: 'Action', field: 'action' },
+]
 
 
 class SellingOrders extends React.Component{
     state ={
-        isLoading: true
+        isLoading: true,
+        pendingProducts: [],
     }
-    handleConfirmAction = () => {
+
+    pendingPromises = [];
+    componentWillUnmount = () =>
+        this.pendingPromises.map(p => p.cancel());
+    appendPendingPromise = promise =>
+        this.pendingPromises = [...this.pendingPromises, promise];
+    removePendingPromise = promise =>
+        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
+
+    handleConfirmAction = (data) => {
 
     }
+    
     componentDidMount(){
+
+        const wrappedPromise = cancelablePromise(orderAPI('/seller-pending'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise.promise
+        .then(res => {
+            res.data.map(item => {
+                item.buyerName = item.order.address.first_name + ' ' + item.order.address.last_name;
+                item.product.name = <Link to={`/product/${item.product_id}`}>{item.product.name}</Link>
+                item.action = <IconButton onClick={()=>this.handleConfirmAction({order_id:item.order_id, product_id:item.product_id})}><FontAwesomeIcon icon="check" /></IconButton>
+            })
+            this.setState({ pendingProducts: res.data, isLoading: false })
+        })
+        .then(() => this.removePendingPromise(wrappedPromise))
+        .catch(err => {
+            if (!err.isCanceled) {
+                this.setState({ isLoading: false })
+            }
+        })
+
+
         data.map(item=>item.action = <IconButton onClick={()=>this.handleConfirmAction(item.id)}><FontAwesomeIcon icon="check" /></IconButton> )
         this.setState({isLoading:false})
     }
@@ -62,7 +100,7 @@ class SellingOrders extends React.Component{
                                 loading={isLoading}
                             />
                         </Grid>: <React.Fragment>
-                            <CustomMaterialTable data={data} columns={columns} title={'الاوردرات المعلقة'} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
+                            <CustomMaterialTable data={this.state.pendingProducts} columns={columns} title={'الاوردرات المعلقة'} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
                             <CustomMaterialTable title={'الاودرات في الشحن'} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
                             <CustomMaterialTable title={'الاودرات المكتملة'} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
                         </React.Fragment>
