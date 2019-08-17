@@ -1,4 +1,6 @@
 import React from 'react';
+import uuid from 'uuid';
+
 import { withStyles, Grid } from '@material-ui/core';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
 
@@ -8,41 +10,21 @@ import XsGallery from '../parts/MiniGallery';
 
 import './styles/CompanyInfo.css';
 import './styles/topCustomer.css';
-import uuid from 'uuid';
 
-import { storesAPI as axios } from '../../../api/api';
+import { storesAPI } from '../../../api/api';
 
-const styles = theme => ({
-    root:{
-        display: 'flex',
-        // width: '100%',        
-        color: 'white',
-        fontWeight:'300',
-        fontSize:'x-large',
-        backgroundColor:"#1E3953",
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(6),
-        // [theme.breakpoints.down('sm')]: {},
-    },
-    
-    
-});
-
+import styles from '../../../assets/jss/components/wrappers/HonorBoard';
 
 class TopCustomer extends React.Component {
     state = {
         selectedImage:0,
-        persons:
-        [
-            
-        ]
-       
+        persons: []
     };
 
     componentDidMount(){
         setTimeout(this.handleImageSliding, 4000);
 
-        axios.get('/')
+        storesAPI.get('/')
         .then(res => {
             const { persons } = this.state;
             for (let item of res.data){
@@ -101,10 +83,7 @@ class TopCustomer extends React.Component {
             : null
             
         );
-
-
     }
 }
-
 
 export default withStyles(styles)(TopCustomer);

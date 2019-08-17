@@ -1,29 +1,18 @@
 import React from 'react';
+import { ClipLoader } from 'react-spinners';
+import globalVariables from '../../../global-variables';
+
 import { Typography, withStyles, Grid, Button, } from '@material-ui/core';
+import 'typeface-roboto';
 
 import CheckoutForm from '../parts/CheckoutForm';
 import AddressCard from '../parts/MiniTable';
 import ButtonCard from '../parts/TextButtonCard';
 
 import { locationAPI as axios } from '../../../api/api';
-import { ClipLoader } from 'react-spinners';
-
-
-import 'typeface-roboto';
-import globalVariables from '../../../global-variables';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
-const styles = theme => ({
-
-    addressCardsRoot: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'flex-start',
-    },
-
-});
-
-
+import styles from '../../../assets/jss/components/wrappers/CheckoutAddress';
 
 class CheckoutAddress extends React.Component {
     state = {
@@ -35,15 +24,11 @@ class CheckoutAddress extends React.Component {
 
     pendingPromises = [];
 
-    componentWillUnmount = () =>
-        this.pendingPromises.map(p => p.cancel());
+    componentWillUnmount = () => this.pendingPromises.map(p => p.cancel());
 
-    appendPendingPromise = promise =>
-        this.pendingPromises = [...this.pendingPromises, promise];
+    appendPendingPromise = promise => this.pendingPromises = [...this.pendingPromises, promise];
 
-    removePendingPromise = promise =>
-        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
-
+    removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
     componentDidMount() {
         const wrappedPromise = cancelablePromise(axios.get('/'));
@@ -57,33 +42,25 @@ class CheckoutAddress extends React.Component {
                 if (!err.isCanceled) {
                     this.setState({ isLoading: false })
                 }
-            })
-
+            });
     }
 
-    addressClickHandler = (idx) => {
-        this.setState({
-            selectedAddress: idx,
-        })
-    }
+    addressClickHandler = idx => this.setState({ selectedAddress: idx });
 
     addAddressDialogToggle = () => {
         const dialog = this.state.addForm;
         this.setState({
             addForm: !dialog,
-        })
-
+        });
     }
 
-    formActionHandler = (obj) => {
-
+    formActionHandler = obj => {
         this.addAddressDialogToggle();
         const { addresses } = this.state;
         addresses.push(obj)
-
         this.setState({
             addresses: addresses,
-        })
+        });
     }
 
     handleDelete = (id) => {
@@ -100,14 +77,11 @@ class CheckoutAddress extends React.Component {
             })
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(res => {
-
-            })
-
+            });
     }
 
-    handleNextButton = (callbackFunction) => {
-        callbackFunction(this.state.addresses[this.state.selectedAddress])
-    }
+    handleNextButton = callbackFunction => callbackFunction(this.state.addresses[this.state.selectedAddress]);
+
     render() {
         const { classes } = this.props;
         const { addresses, isLoading } = this.state;
@@ -169,10 +143,6 @@ class CheckoutAddress extends React.Component {
             </React.Fragment>
         );
     }
-
-
-
 }
-
 
 export default withStyles(styles)(CheckoutAddress);

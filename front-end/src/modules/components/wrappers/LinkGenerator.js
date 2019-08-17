@@ -1,69 +1,54 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography, Paper, TextField, Button, InputAdornment, IconButton, FormControl, Input } from '@material-ui/core';
+import {connect} from 'react-redux';
+import {  withRouter } from 'react-router-dom';
 import globalVariables from '../../../global-variables';
 
-import {connect} from 'react-redux';
+import { 
+    withStyles, Grid, Typography, Paper, TextField, Button, 
+    InputAdornment, IconButton, FormControl, Input 
+} from '@material-ui/core';
+import 'typeface-roboto';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import 'font-awesome/css/font-awesome.min.css';
 
-import {  withRouter } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-const styles = theme => ({
-    root: {
-        ...theme.mixins.gutters(),
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
-        height: 'fit-content',
-        flexGrow: 1,
-    },
-    textHead:{
-        fontWeight:'500',
-        marginBottom: theme.spacing(4),
-    },
-    button: {
-        margin: theme.spacing(1),
-    },
-    icon: {
-        margin: theme.spacing(1),
-    },
-});
+import styles from '../../../assets/jss/components/wrappers/LinkGenerator';
 
 class UserDashBoard extends React.Component{
-    state ={
-        url:'',
-        affiliateLink: '',
-        aff:{},
+    
+    state = {
+        url: '',
+        affiliateLink:  '',
+        aff: {},
     }
     
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
     };
-    handleLinkBuilder = () => {
-        try{
-            
-        const url = new URL(this.state.url)
-        url.searchParams.set(globalVariables.AFFILIATE_PARAM,this.props.user.id)
-        this.setState({affiliateLink: url.href})
 
+    handleLinkBuilder = () => {
+        try {
+            const url = new URL(this.state.url)
+            url.searchParams.set(globalVariables.AFFILIATE_PARAM,this.props.user.id)
+            this.setState({affiliateLink: url.href})
         }
-        catch{
+        catch(err) {
 
         }
     }
 
     copyToClipboard = () => {
-        var textField = document.createElement('textarea')
-        textField.innerText = this.state.affiliateLink
-        document.body.appendChild(textField)
-        textField.select()
-        document.execCommand('copy')
-        textField.remove()
+        let textField = document.createElement('textarea');
+        textField.innerText = this.state.affiliateLink;
+        document.body.appendChild(textField);
+        textField.select();
+        document.execCommand('copy');
+        textField.remove();
     }
+    
     render(){
         const {classes, } = this.props;
-        
+    
         return(
             <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
@@ -105,10 +90,7 @@ class UserDashBoard extends React.Component{
                                         {globalVariables.LINK_GENERATOR_AFFILIATE_LINK[globalVariables.LANG]}
                                     </Typography>
 
-
-
-                                    <FormControl fullWidth style={{direction:'ltr'}} >
-                                        
+                                    <FormControl fullWidth style={{direction:'ltr'}} >                                        
                                         <Input
                                             id="URL_textField"
                                             multiline
@@ -136,9 +118,7 @@ class UserDashBoard extends React.Component{
                                     </FormControl>
                             </Paper>
                             
-                            
-                        </Grid>:null
-                        
+                        </Grid> : null
                     }
                 </Grid>
             </Grid>
@@ -152,8 +132,4 @@ const mapStateToProps = state => {
     }
 }
 
-
-
-
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(UserDashBoard)));
-

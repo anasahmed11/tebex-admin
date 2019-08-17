@@ -2,26 +2,9 @@ import React from 'react';
 import { withStyles, Grid } from '@material-ui/core';
 import { ClipLoader } from 'react-spinners';
 
-const styles = theme => ({
-    root: {
-        padding: `${theme.spacing(12)}px 0px`,
-        minHeight: '500px',
-        alignItems: 'center',
-        position: 'relative',
-        textAlign: 'center',
-    },
+import styles from '../../assets/jss/views/Blank';
 
-    paddingTop: {
-        padding: '20px 0px'
-    },
-    button: {
-        '&:hover': {
-            textDecoration: 'underline'
-        }
-    }
-});
-
-function NotFound(props) {
+const NotFound = props => {
     const { classes } = props;
     return (
         <Grid container justify='center' alignItems="center" className={classes.root}>
@@ -35,8 +18,6 @@ function NotFound(props) {
             </Grid>
         </Grid>
     );
-
-
 }
 
 export default withStyles(styles)(NotFound);

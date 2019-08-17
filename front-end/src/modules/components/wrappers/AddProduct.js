@@ -1,35 +1,26 @@
 import React from 'react';
+import useForm from "react-hook-form"
+import { ClipLoader } from 'react-spinners';
+
 import 'typeface-roboto';
 import { withStyles, Grid, Typography, Snackbar, } from '@material-ui/core';
+
 import ExapndPanel from './ExapndPanel';
-import useForm from "react-hook-form"
 
 import CategoryForm from '../parts/CategoryForm';
 import MainProductInfoForm from '../parts/MainProductInfoFrom';
 import ImageUploadAndPreview from '../parts/ImageUploader';
-
 import GeneralDescrptionForm from '../parts/GeneralDescriptionForm';
-import { ClipLoader } from 'react-spinners';
-import { productsAPI } from '../../../api/api';
 import MySnackbar from '../parts/MySnackbar';
 
-const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        padding: `${theme.spacing(4)}px 0px`,
-    },
-    textHead: {
-        fontWeight: '500',
-        marginBottom: theme.spacing(4),
-    },
-});
+import { productsAPI } from '../../../api/api';
 
+import styles from '../../../assets/jss/components/wrappers/AddProduct';
 
 let getChildData;
 let getImageChildData;
 
-function AddProduct1(props) {
-
+const AddProduct1 = props => {
 
     const { register, handleSubmit, errors } = useForm({
         defaultValues: props.defaultValues

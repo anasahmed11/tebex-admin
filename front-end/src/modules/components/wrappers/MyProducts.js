@@ -1,24 +1,16 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography, IconButton, } from '@material-ui/core';
-import CustomMaterialTabl from '../parts/CustomMaterialTable';
 import { ClipLoader } from 'react-spinners';
+
+import { withStyles, Grid, Typography, IconButton, } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import 'typeface-roboto';
+
+import CustomMaterialTabl from '../parts/CustomMaterialTable';
+
 import cancelablePromise from '../../../Providers/CancelablePromise';
 import { productsAPI } from '../../../api/api';
 
-const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        padding: `${theme.spacing(4)}px 0px`,
-    },
-    textHead: {
-        fontWeight: '500',
-        marginBottom: theme.spacing(4),
-    },
-});
-
-
+import styles from '../../../assets/jss/components/wrappers/MyProducts';
 
 const columns = [
     { title: 'Name', field: 'name' },
@@ -37,20 +29,17 @@ class MyProdcuts extends React.Component {
     }
 
     pendingPromises = [];
-    componentWillUnmount = () =>
-        this.pendingPromises.map(p => p.cancel());
-    appendPendingPromise = promise =>
-        this.pendingPromises = [...this.pendingPromises, promise];
-    removePendingPromise = promise =>
-        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+    
+    componentWillUnmount = () => this.pendingPromises.map(p => p.cancel());
+    
+    appendPendingPromise = promise => this.pendingPromises = [...this.pendingPromises, promise];
+    
+    removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
-    handleEditAction = (id) => {
-        this.props.history.push(`/seller/add-product/${id}`)
-    }
+    handleEditAction = id => this.props.history.push(`/seller/add-product/${id}`);
 
-    componentDidMount() {
-        //data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )
-
+    componentDidMount = () => {
+        // data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )
         const wrappedPromise = cancelablePromise(productsAPI.get('/'));
         this.appendPendingPromise(wrappedPromise);
 
@@ -100,6 +89,5 @@ class MyProdcuts extends React.Component {
         );
     }
 }
-
 
 export default withStyles(styles)(MyProdcuts);

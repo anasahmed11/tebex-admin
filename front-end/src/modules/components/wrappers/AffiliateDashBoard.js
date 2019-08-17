@@ -1,8 +1,10 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography, } from '@material-ui/core';
-
 import ChartistGraph from "react-chartist";
+import globalVariables from '../../../global-variables';
+
+import { withStyles, Grid, Typography, } from '@material-ui/core';
+import 'typeface-roboto';
+
 import {
     emailsSubscriptionChart,
     completedTasksChart
@@ -10,32 +12,11 @@ import {
 
 import StatsCard from '../parts/StatsCard';
 import ChartCard from '../parts/ChartCard';
-import globalVariables from '../../../global-variables';
+
 import { userAPI, orderAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
-const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        padding: `${theme.spacing(4)}px 0px`,
-    },
-    textHead: {
-        fontWeight: '500'
-    },
-    statsCardsRoot: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-    },
-    shit: {
-        '& .ct-label': {
-            color: 'blue',
-        },
-        '& line.ct-bar': {
-            stroke: 'gray',
-        }
-    }
-});
+import styles from '../../../assets/jss/components/wrappers/AffiliateDashboard';
 
 class UserDashBoard extends React.Component {
     state = {
@@ -44,16 +25,15 @@ class UserDashBoard extends React.Component {
         numClicks: null,
         affTotalOrders: null,
         affDeliveredOrders: null
-
     }
 
     pendingPromises = [];
-    componentWillUnmount = () =>
-        this.pendingPromises.map(p => p.cancel());
-    appendPendingPromise = promise =>
-        this.pendingPromises = [...this.pendingPromises, promise];
-    removePendingPromise = promise =>
-        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
+    componentWillUnmount = () => this.pendingPromises.map(p => p.cancel());
+    
+    appendPendingPromise = promise => this.pendingPromises = [...this.pendingPromises, promise];
+    
+    removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
     getTeamCount = () => {
         const wrappedPromise = cancelablePromise(userAPI.get('/team'));
@@ -61,9 +41,9 @@ class UserDashBoard extends React.Component {
 
         wrappedPromise.promise
             .then(res => { this.setState({ numTeamMembers: res.data.length,}) })
-            .then(() => this.removePendingPromise(wrappedPromise))
-            
+            .then(() => this.removePendingPromise(wrappedPromise))        
     }
+
     getAffiliateClicks = () => {
         const wrappedPromise = cancelablePromise(userAPI.get('affiliate/click/'));
         this.appendPendingPromise(wrappedPromise);
@@ -81,12 +61,12 @@ class UserDashBoard extends React.Component {
             .then(res => { this.setState({ affTotalOrders: res.data.totalOrders, affDeliveredOrders: res.data.totalDeiveredOrders}) })
             .then(() => this.removePendingPromise(wrappedPromise))
     }
+    
     componentDidMount() {
         this.getTeamCount();
         this.getAffiliateClicks();
         this.getAffiliateOrders();
-
-        this.setState({isLoading:false});
+        this.setState({ isLoading: false });
     }
 
     render() {
@@ -134,6 +114,5 @@ class UserDashBoard extends React.Component {
         );
     }
 }
-
 
 export default withStyles(styles)(UserDashBoard);

@@ -1,38 +1,13 @@
 import React from 'react';
-import { withStyles, Grid, Typography } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ScrollAnimation from 'react-animate-on-scroll';
 import uuid from 'uuid';
 
+import { withStyles, Grid, Typography } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import LinedTitle from '../parts/TwoLinesSectionTitle';
 
-const styles = theme => ({
-    root: {
-        textAlign:'center',
-        background: 'purple'
-    },
-    icon: {
-        color: 'white',
-        fontSize: '15vh',
-        background: '#38c49d',
-        padding: theme.spacing(1),
-        marginRight: theme.spacing(2),
-    },
-    infoSection: {
-        display: 'flex',
-        marginBottom: theme.spacing(4),
-    },
-    infoText: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    title: {
-        color: 'yellow',
-    },
-    desc: {
-        color: 'white',
-    }
-});
+import styles from '../../../assets/jss/components/wrappers/CompanyInfo';
 
 const info = [
     {

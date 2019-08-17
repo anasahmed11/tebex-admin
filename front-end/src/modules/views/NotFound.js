@@ -4,9 +4,9 @@ import { withStyles, Grid, Typography, Button,  } from '@material-ui/core';
 import styles from '../../assets/jss/views/NotFound';
 
 function NotFound(props){
+    
     const {classes} = props;
     return(
-
         <Grid container justify='center' alignItems="center" className={classes.root}> 
             <Grid item md={8} xs={10}>
                 <Grid container justify='center' alignItems="center">
@@ -25,8 +25,6 @@ function NotFound(props){
             </Grid>
         </Grid>
     );
-
-
 }
 
 export default withStyles(styles)(NotFound);

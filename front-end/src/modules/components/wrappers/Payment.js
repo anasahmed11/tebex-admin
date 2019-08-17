@@ -1,29 +1,18 @@
 import React from 'react';
+import globalVariables from '../../../global-variables';
+
 import { Typography, withStyles, Grid, Button,  } from '@material-ui/core';
 import 'typeface-roboto';
 
 import AddressSummary from '../parts/AddressSummary';
 import CheckoutSummary from '../parts/CheckoutSummary';
 
-import globalVariables from '../../../global-variables';
-
-const styles = theme => ({
-    root:{
-        padding: `${theme.spacing(2)}px ${theme.spacing(1)}px`,
-    },    
-});
-
-
-
+import styles from '../../../assets/jss/components/wrappers/Payment';
 
 class Payment extends React.Component{
-    state = {
-        
-        
-    }
-
-   
-   
+    
+    state = {   
+    }   
 
     render(){
         const {classes, shipment, totalPrice, address} = this.props;
@@ -41,13 +30,9 @@ class Payment extends React.Component{
                            <AddressSummary address={address} />
                         </Grid>
 
-
-
                         <Grid item md={5} xs={11}>
                             <CheckoutSummary totalPrice={totalPrice} shipment={shipment}/>   
-                        </Grid>
-                                
-                            
+                        </Grid>                        
                         
                         <Button color='primary' variant='contained' style={{margin:'10px'}} onClick={this.props.handleNextButton}>
                             {globalVariables.LABEL_BUY[globalVariables.LANG]}
@@ -62,9 +47,6 @@ class Payment extends React.Component{
             </React.Fragment>
         );
     }
-
-
-
 }
 
 

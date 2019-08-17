@@ -17,7 +17,7 @@ import SelectMenu from "../parts/SelectMenu";
 
 import { deleteFromCart, cartFinish } from '../../../store/actions/shoppingCart';
 
-import { styles } from '../../../assets/jss/components/wrappers/ProductsListWrapper.jsx';
+import styles from '../../../assets/jss/components/wrappers/ProductsListWrapper.jsx';
 
 const flattenObject = (obj, _objects=[]) => {
     let {children, ...currentObject} = obj;
@@ -28,7 +28,6 @@ const flattenObject = (obj, _objects=[]) => {
 };
 
 const getCategoryID = (categories, slugs, id=1, lvl=0) => {
-    
     if(!slugs) return 1; // Root category
     for(let category of categories)
         if(category.slug === slugs[lvl] && category.parent_id === id){

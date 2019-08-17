@@ -1,62 +1,18 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Paper, Typography,  } from '@material-ui/core';
-
 import {connect} from 'react-redux';
-
 import { Route, withRouter } from 'react-router-dom';
+
+import { withStyles, Grid, Paper, Typography,  } from '@material-ui/core';
+import 'typeface-roboto';
 
 import ProfileAvatar from '../parts/ProfileAvatar';
 import SettingsSection from '../parts/SettingsSection';
 
-const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        // padding: `${theme.spacing(4)}px 0px`,
-    },
-    menuItem: {
-        textAlign:'inherit',
-        '&:focus': {
-            backgroundColor: theme.palette.primary.main,
-            '& $primary, & $icon': {
-                color: theme.palette.common.white,
-            },
-        },
-    },
-    primary: {},
-    icon: {},
-    link:{
-        textDecoration:'none'
-    },
-    settingsMenu: {
-        width: '100%',
-        marginBottom: theme.spacing(4),
-    },
-    avatar: {
-        margin: 10,
-        width: 60,
-        height: 60,
-    },
-    avatarDiv: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    textHead:{
-        fontWeight:'500',
-        [theme.breakpoints.down('xs')]: {
-            fontSize: 18,
-        }
-    },
-    textMail: {
-        [theme.breakpoints.down('xs')]: {
-            fontSize: 12,
-        }
-    }
-});
+import styles from '../../../assets/jss/components/wrappers/UserPanelSettings';
 
-function UserPanelSettings (props){
+const UserPanelSettings = props => {
+    
     const {classes, } = props;
-
     return(
         <Grid container item justify='center' xs={11} className={classes.root}>
             <Grid item xs={12} className={classes.avatarDiv}>
@@ -82,6 +38,5 @@ const mapStateToProps = state => {
         
     }
 }
-
 
 export default  withRouter(connect(mapStateToProps)(withStyles(styles)(UserPanelSettings)));

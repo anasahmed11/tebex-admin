@@ -1,17 +1,17 @@
 import React from 'react';
 import { ClipLoader } from 'react-spinners';
+import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Snackbar, } from '@material-ui/core';
 
+
 import MySnackbar from '../parts/MySnackbar';
-
-
-import { styles } from '../../../assets/jss/wrappers/AffiliateReg';
-import globalVariables from '../../../global-variables';
 import SellerForm from '../parts/SellerForm';
 import { userAPI } from '../../../api/api';
 
-class AffiliateRegisteration extends React.Component {
+import styles from '../../../assets/jss/components/wrappers/AffiliateRegisteration';
+
+class SellerRegisteration extends React.Component {
     state = {
         isLoading: false,
         isPopup: false,
@@ -84,4 +84,4 @@ class AffiliateRegisteration extends React.Component {
 }
 
 
-export default withStyles(styles)(AffiliateRegisteration);
+export default withStyles(styles)(SellerRegisteration);

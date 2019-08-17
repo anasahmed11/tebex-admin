@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import uuid from 'uuid';
+
 import { Grid } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
 
 import SlickSlider from '../parts/SlickSlider';
 import Product from '../parts/ProductCard';
@@ -10,31 +11,17 @@ import LinedTitle from '../parts/TwoLinesSectionTitle';
 
 import { categoryAPI } from '../../../api/api';
  
-const styles = theme => ({
-  root: {
-    backgroundColor: '#1E3953',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(4),
-  },
-  
-  sliderLayout: {
-    width: '80%',
-    margin: 'auto'
-  }
-});
+import styles from '../../../assets/jss/components/wrappers/ProductSlider';
 
 const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 
 class ProductSlider extends Component {
 
   state = {  
-    products: [
-      
-    ]
+    products: []
   }
 
-
-  componentDidMount(){
+  componentDidMount = () => {
     categoryAPI.get('1/products')
     .then(res => {
         const { products } = this.state;

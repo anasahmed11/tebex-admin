@@ -1,40 +1,38 @@
 import React from 'react';
-
 import { ClipLoader } from 'react-spinners';
+import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Snackbar, } from '@material-ui/core';
 
 import MySnackbar from '../parts/MySnackbar';
-
-
-import { styles } from '../../../assets/jss/wrappers/AffiliateReg';
-import globalVariables from '../../../global-variables';
 import PackageCard from '../parts/PackageCard';
 import AffiliateForm from '../parts/AffiliateForm';
+
 import { userAPI } from '../../../api/api';
+
+import styles from '../../../assets/jss/components/wrappers/AffiliateRegisteration';
 
 class AffiliateRegisteration extends React.Component {
     state = {
         isLoading: false,
         isPopup: false,
     }
+
     handleFormSubmition = (data) => {
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
         
-        userAPI.post('program/affiliate',data)
-        .then(res=>{
+        userAPI.post('program/affiliate', data)
+        .then(res => {
             this.props.handleNextStep()
-            this.setState({isLoading:false})
+            this.setState({ isLoading: false })
         })
-        .catch(err=>{
-            this.setState({isLoading:false, isPopup:true})
-        })
-        
-       
+        .catch(err => {
+            this.setState({ isLoading:false, isPopup: true })
+        })   
     }
-    handlePopupClose = () => {
-        this.setState({isPopup:false})
-    }
+
+    handlePopupClose = () => this.setState({ isPopup: false });
+
     render(){
         const {classes} = this.props;
         const {isLoading} = this.state;
@@ -88,21 +86,13 @@ class AffiliateRegisteration extends React.Component {
 
                         </Grid>
 
-
                        <AffiliateForm handleFormSubmition={this.handleFormSubmition} />
                         
-                    
-
                     </React.Fragment>
                 }
             </React.Fragment>
-
         );
     }
-
-
-
 }
-
 
 export default withStyles(styles)(AffiliateRegisteration);

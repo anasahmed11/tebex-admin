@@ -1,36 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
+import globalVariables from '../../../global-variables';
+
 import 'typeface-roboto';
 import { withStyles, Grid, Typography,  } from '@material-ui/core';
 
-import { ClipLoader } from 'react-spinners';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-
-import globalVariables from '../../../global-variables';
 
 import SellerRegisteration from './SellerRegisteration';
 import { initUser } from '../../../store/actions/user';
 
-const styles = theme => ({
-    root: {
-        padding:theme.spacing(2),
-        minHeight:'350px'
-      },
+import styles from '../../../assets/jss/components/wrappers/Seller';
 
-});
-function Page1(props){
-    return globalVariables.SELLER_PAGE1[globalVariables.LANG]
-}
-
-function Page2(props){
-    return globalVariables.SELLER_PAGE2[globalVariables.LANG]
-}
-
+const Page1 = props => globalVariables.SELLER_PAGE1[globalVariables.LANG];
+const Page2 = props => globalVariables.SELLER_PAGE2[globalVariables.LANG];
 
 const STATES = ['Not Applied','Pending','Approved','Refused']
 
-class Affiliate extends React.Component{
-    state ={
+class Seller extends React.Component{
+    state = {
         isLoading:false,
     }
     handleNextStep = () => {
@@ -57,13 +46,13 @@ class Affiliate extends React.Component{
                 return <Page2 />
             case 3:
                 return <React.Fragment>
-                        <Grid item xs={12}>
-                            <Typography gutterBottom component='h1' variant='h5' >{globalVariables.AFFILIATE_REFUSED[globalVariables.LANG]}</Typography>
-                        </Grid>
-                        <SellerRegisteration handleNextStep={this.handleNextStep} />
-                        </React.Fragment>
+                    <Grid item xs={12}>
+                        <Typography gutterBottom component='h1' variant='h5' >{globalVariables.AFFILIATE_REFUSED[globalVariables.LANG]}</Typography>
+                    </Grid>
+                    <SellerRegisteration handleNextStep={this.handleNextStep} />
+                </React.Fragment>
             default:
-                    return <React.Fragment></React.Fragment>
+                return <React.Fragment></React.Fragment>
 
         }
     }
@@ -107,6 +96,4 @@ const mapDispatchToProps = dispatch => {
     }
   }
   
-
-
-export default  withRouter(connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Affiliate)));
+export default  withRouter(connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Seller)));

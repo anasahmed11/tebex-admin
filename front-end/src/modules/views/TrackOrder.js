@@ -1,19 +1,19 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
 import { ClipLoader } from 'react-spinners';
+import { Grid } from '@material-ui/core';
 
-import {orderAPI} from '../../api/api';
+import { orderAPI } from '../../api/api';
 
 import Order from '../components/parts/Order'
 
 class TrackOrder extends React.Component {
 
     state = {
-        order:{},
-        isLoading:true,
+        order: {},
+        isLoading: true,
     }
 
-    componentDidMount(){
+    componentDidMount = () => {
         orderAPI.get(`${this.props.match.params.id}/${this.props.match.params.token}`)
         .then(res=>{
             this.setState({order:res.data, isLoading:false})

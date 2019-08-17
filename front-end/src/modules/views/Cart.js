@@ -2,30 +2,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import { Typography, withStyles, Grid, Button, Snackbar } from '@material-ui/core';
 import { Helmet } from "react-helmet";
+import globalVariables from '../../global-variables';
 
+import { Typography, withStyles, Grid, Button, Snackbar } from '@material-ui/core';
 import 'typeface-roboto';
 
 import { deleteFromCart, cartFinish } from '../../store/actions/shoppingCart';
-
-import globalVariables from '../../global-variables';
 
 import CartEmpty from '../components/parts/CartEmpty'
 import MySnackbar from '../components/parts/MySnackbar'
 import CheckoutSummary from '../components/parts/CheckoutSummary';
 import ShopCartItem from '../components/parts/ShopCartItem';
 
-import { styles } from '../../assets/jss/views/Cart';
+import styles from '../../assets/jss/views/Cart';
 
 class Cart extends React.Component{
     state = {
         items:[]
     }
    
-    handelDelete = (id) => {
-       this.props.handleDeleteFromCart(id,this.props.items)
-    }
+    handleDelete = id => this.props.handleDeleteFromCart(id,this.props.items);
+
     handleCheckout = () => {
     }
 
@@ -81,7 +79,7 @@ class Cart extends React.Component{
                                     {
                                         totalItems===0?<CartEmpty />:
                                         this.props.items.map((item=>
-                                            <ShopCartItem key={item.id} item={item} handelDelete={this.handelDelete}/>
+                                            <ShopCartItem key={item.id} item={item} handleDelete={this.handleDelete}/>
                                             ))
                                     }
                                 </Grid>
@@ -97,15 +95,12 @@ class Cart extends React.Component{
                         </Grid>
                     </Grid>
                 </Grid>
-                
             </Grid>
         
         );
     }
-
-
-
 }
+
 const mapStateToProps = state => {
     return {
         numItems: state.cart.numItems,
