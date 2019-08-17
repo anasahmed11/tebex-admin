@@ -30,7 +30,6 @@ class LinedTitle extends React.Component {
 
         const { classes } = this.props;
         return <Typography variant="h4" className={classes.typo}>
-                <span className={classes.span} />
                     {this.props.children}
                 <span className={classes.span} />
               </Typography>

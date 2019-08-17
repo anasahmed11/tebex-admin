@@ -98,10 +98,11 @@ class App extends React.Component {
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
     const affiliate = this.props.program.affiliate === "Approved"
     const seller = this.props.program.seller === "Approved"
-
+    console.log(isLoading)
     return (
+     
       <LoadingScreen
-        loading={isLoading}
+        loading={isLoading || this.props.userIsLoading}
         bgColor='#f1f1f1'
         spinnerColor='#9ee5f8'
         textColor='#676767'
@@ -166,6 +167,7 @@ library.add(fab, fas);
 const mapStateToProps = state => {
   return {
     program: state.user.program,
+    userIsLoading: state.user.isLoading,
   }
 }
 

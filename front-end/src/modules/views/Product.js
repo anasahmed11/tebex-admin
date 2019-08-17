@@ -13,7 +13,7 @@ import MySnackbar from '../components/parts/MySnackbar'
 
 import { addToCart, cartFinish } from '../../store/actions/shoppingCart';
 
-import {productsAPI} from '../../api/api'
+import {productsAPI, baseURL} from '../../api/api'
 
 const styles = theme => ({
     root: {
@@ -75,7 +75,7 @@ class Product extends React.Component{
     getProduct  = (id, withSimilars=false) => {
         productsAPI.get(`${id}`)
         .then(res=>{
-           
+            res.data.images = res.data.images.map(image=>(baseURL + image.slice(1)));
             this.setState({
                 product: res.data,
                 isLoading: false,

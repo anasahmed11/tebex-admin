@@ -98,12 +98,13 @@ class CategoryForm extends React.Component {
         categoryAPI.get('')
             .then(res => {
                 const leaves = getLeaves(res.data);
+                console.log(res.data)
                 if (this.props.edit) {
                     categoryAPI.get(`${this.props.defaultValues.category_id}/specs/`)
                         .then(res => {
                             let specsData = {};
                             for(let spec of this.props.defaultValues.specs) specsData = {...specsData, [spec.name_en]:spec.pivot.spec_id}
-                            
+                            console.log(res.data)
                             this.setState({
                                 categorySpecs: res.data[this.props.defaultValues.category_id],
                                 isLoading: false,
@@ -121,12 +122,13 @@ class CategoryForm extends React.Component {
                 }
             })
             .catch(err => {
-
+                
             })
     }
     render() {
         const { classes } = this.props;
-        // console.log(this.state.categorySpecs);
+        console.log("CAT", this.state.categorySpecs);
+        
         return (
             <React.Fragment>
                 {this.state.isLoading ? null :
@@ -137,7 +139,7 @@ class CategoryForm extends React.Component {
                         select
                         label="القسم"
                         type="text"
-                        error={this.state.categoryError}
+                        error={this.state.categoryError?true:false}
                         helperText={this.state.categoryError}
                         value={this.state.category}
                         onChange={this.handleChange('category')}
@@ -148,7 +150,7 @@ class CategoryForm extends React.Component {
                         required
                     >
                         {this.state.CATEGORIES.map(option => (
-                            <MenuItem value={option.id}>
+                            <MenuItem key={option.id} value={option.id}>
                                 {option.name_en}
                             </MenuItem>
                         ))}
@@ -162,7 +164,7 @@ class CategoryForm extends React.Component {
                         select
                         label={spec.name}
                         type="text"
-                        error={this.state.specsError[spec.name_en]}
+                        error={this.state.specsError[spec.name_en]?true:false}
                         helperText={this.state.specsError[spec.name_en] ? this.state.specsError[spec.name_en] : ''}
                         value={this.state[spec.name_en]}
                         onChange={this.handleChange(spec.name_en)}
@@ -173,7 +175,7 @@ class CategoryForm extends React.Component {
                         required
                     >
                         {spec.values.ar.map((value, idx) => (
-                            <MenuItem value={idx}>
+                            <MenuItem  value={idx}>
                                 {value}
                             </MenuItem>
                         ))}

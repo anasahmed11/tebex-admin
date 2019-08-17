@@ -6,7 +6,8 @@ import { initUser } from '../store/actions/user';
 
 const cookies = new Cookies();
 
-const baseURL = "http://127.0.0.1:8000/api/"
+export const baseURL = "http://127.0.0.1:8000/";
+export const apiURL = baseURL+"api/";
 
 export const webURL = "http://localhost:3000"
 
@@ -17,83 +18,83 @@ const headers = {
     'Accept': 'application/json',
 }
 export const authِAPI = axios.create({
-    baseURL: `${baseURL}auth/`,
+    baseURL: `${apiURL}auth/`,
     headers: headers
 });
 instances.push(authِAPI)
 
 
 export const verifyAPI = axios.create({
-    baseURL: `${baseURL}auth/verify/email/`,
+    baseURL: `${apiURL}auth/verify/email/`,
     headers: headers
 });
 instances.push(verifyAPI)
 
 
 export const locationAPI = axios.create({
-    baseURL: `${baseURL}address/`,
+    baseURL: `${apiURL}address/`,
     headers: headers
 })
 instances.push(locationAPI)
 
 
 export const storesAPI = axios.create({
-    baseURL: `${baseURL}store/`,
+    baseURL: `${apiURL}store/`,
     headers: headers
 })
 instances.push(storesAPI)
 
 
 export const productsAPI = axios.create({
-    baseURL: `${baseURL}product/`,
+    baseURL: `${apiURL}product/`,
     headers: headers
 })
 instances.push(productsAPI)
 
 
 export const honoredAPI = axios.create({
-    baseURL: `${baseURL}honored/`,
+    baseURL: `${apiURL}honored/`,
     headers: headers
 })
 instances.push(honoredAPI)
 
 
 export const categoryAPI = axios.create({
-    baseURL: `${baseURL}category/`,
+    baseURL: `${apiURL}category/`,
     headers: headers
 })
 instances.push(categoryAPI)
 
 
 export const checkoutAPI = axios.create({
-    baseURL: `${baseURL}checkout/`,
+    baseURL: `${apiURL}checkout/`,
     headers: headers
 })
 instances.push(checkoutAPI)
 
 
 export const cartAPI = axios.create({
-    baseURL: `${baseURL}cart/`,
+    baseURL: `${apiURL}cart/`,
     headers: headers
 })
 instances.push(cartAPI)
 
 
 export const orderAPI = axios.create({
-    baseURL: `${baseURL}orders/`,
+    baseURL: `${apiURL}orders/`,
     headers: headers
 })
 instances.push(orderAPI)
 
 
 export const resendAPI = axios.create({
-    baseURL: `${baseURL}auth/verify/resend/email/`,
+    baseURL: `${apiURL}auth/verify/resend/email/`,
     headers: headers
 });
 instances.push(resendAPI)
 
 export const userAPI = axios.create({
-    baseURL: `${baseURL}user/`,
+    baseURL: `${apiURL}user/`,
     headers: headers
 });
 instances.push(userAPI)

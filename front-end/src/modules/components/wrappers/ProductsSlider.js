@@ -8,7 +8,7 @@ import SlickSlider from '../parts/SlickSlider';
 import Product from '../parts/ProductCard';
 import LinedTitle from '../parts/TwoLinesSectionTitle';
 
-import { productsAPI as axios } from '../../../api/api';
+import { categoryAPI } from '../../../api/api';
  
 const styles = theme => ({
   root: {
@@ -22,6 +22,7 @@ const styles = theme => ({
     margin: 'auto'
   }
 });
+
 const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 
 class ProductSlider extends Component {
@@ -34,15 +35,14 @@ class ProductSlider extends Component {
 
 
   componentDidMount(){
-    axios.get('/')
+    categoryAPI.get('1/products')
     .then(res => {
         const { products } = this.state;
-        for (let item of res.data){
+        for (let item of res.data.data){
           // First image for this product
-          let link = item.images[0];
           products.push({
             id: item.id,
-            img: link,
+            img: item.images[0],
             link: item.slug,
             title: item.name,
             price: item.price,
@@ -68,10 +68,10 @@ class ProductSlider extends Component {
             product={item}
             id={item.id}
             title={item.title} 
-            subtitle={item.salePrice? item.salePrice : item.price}
-            subtitleOld={item.salePrice? item.price : false}
+            price={item.salePrice? item.salePrice : item.price}
+            oldPrice={item.salePrice? item.price : false}
             currency={'جنيه'}
-            img={item.img?item.img:noImage}
+            img={item.img? item.img : noImage}
             slider
           />
         </div>
@@ -83,7 +83,8 @@ class ProductSlider extends Component {
             عروضنا الجميلة 
           </LinedTitle>
           <SlickSlider>
-            {products}
+          {products}
+          {products}
           </SlickSlider>
         </Grid>
     );
