@@ -2,34 +2,12 @@ import React from 'react';
 
 import classNames from 'classnames';
 import { withStyles, SnackbarContent, IconButton  } from '@material-ui/core';
-import { green, amber } from '@material-ui/core/colors';
-import { CheckCircle as CheckCircleIcon, Error as ErrorIcon, Info as InfoIcon, Close as CloseIcon, Warning as WarningIcon } from '@material-ui/icons';
+import { 
+  CheckCircle as CheckCircleIcon, Error as ErrorIcon, 
+  Info as InfoIcon, Close as CloseIcon, Warning as WarningIcon,
+} from '@material-ui/icons';
 
-const styles = theme => ({
-    success: {
-      backgroundColor: green[600],
-    },
-    error: {
-      backgroundColor: theme.palette.error.dark,
-    },
-    info: {
-      backgroundColor: theme.palette.primary.dark,
-    },
-    warning: {
-      backgroundColor: amber[700],
-    },
-    icon: {
-      fontSize: 20,
-    },
-    iconVariant: {
-      opacity: 0.9,
-      marginRight: theme.spacing(1),
-    },
-    message: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-});
+import styles from '../../../assets/jss/components/parts/MySnackbar';
 
 const variantIcon = {
     success: CheckCircleIcon,
@@ -39,7 +17,7 @@ const variantIcon = {
   };
 
 
-function MySnackbarContent(props) {
+const MySnackbarContent = props => {
     const { classes, className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
   

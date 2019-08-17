@@ -1,24 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import globalVariables from '../../../global-variables';
 
-import { Grid, Button, Checkbox, TextField, Typography, InputAdornment, FormControlLabel, IconButton, withStyles } from '@material-ui/core';
+import { 
+    Grid, Button, Checkbox, TextField, Typography, 
+    InputAdornment, FormControlLabel, IconButton, withStyles
+} from '@material-ui/core';
+
 import { AccountCircle, Visibility, VisibilityOff} from '@material-ui/icons';
-import { Link } from 'react-router-dom';
 
 import { loginUser } from '../../../store/actions/auth';
 
-
-const styles = theme => ({
-    margin: {
-        margin: theme.spacing(2),
-    },
-    paddingTop:{
-        padding:'10px 0px'
-    }, 
-});
-
-
+import styles from '../../../assets/jss/components/parts/LoginForm';
 
 class Login extends React.Component{
 

@@ -1,51 +1,24 @@
 import React from 'react';
-import 'typeface-roboto';
+import { Link } from 'react-router-dom';
+import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
+
 import {
     withStyles,
     Grid,
     Typography,
     Paper,
 } from '@material-ui/core';
+import 'typeface-roboto';
 
-import { Link } from 'react-router-dom';
-import uuid from 'uuid';
 import ShopCartItem from "./ShopCartItem";
 import Stepper from "./Stepper";
-import globalVariables from '../../../global-variables';
 
+import styles from '../../../assets/jss/components/parts/Order';
 
-
-
-const styles = theme => ({
-    root: {
-        padding: theme.spacing(2),
-    },
-    textHead: {
-        fontWeight: '500'
-    },
-    textSection: {
-        fontWeight: '500',
-        fontSize: '13px',
-        color: 'rgb(100,100,100)',
-    },
-    orderInfoSection: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        marginBottom: theme.spacing(1),
-    },
-    orderInfoItem: {
-        flex: '1 0 50%',
-        [theme.breakpoints.down('sm')]: {
-            flex: '1 0 100%',
-        }
-    },
-});
-
-
-
-function Order(props) {
+const Order = props => {
+    
     const { order, classes } = props;
-
     return (
         <Grid component={Paper} item container className={classes.root} justify='center' xs={12}>
 

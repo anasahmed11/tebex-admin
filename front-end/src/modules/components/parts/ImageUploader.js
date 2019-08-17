@@ -1,52 +1,29 @@
 import React from 'react';
+
 import { withStyles } from '@material-ui/styles';
 import { Grid, Button } from '@material-ui/core';
 import { Cancel, CloudUpload } from '@material-ui/icons';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import './styles/componentAddDelete.css';
 import { baseURL } from '../../../api/api';
 
-const styles = theme => ({
-    padding: {
-        padding: `%{theme.spacing(2)}px 0px`,
-    },
-    margin: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
-    },
-    deleteIcon: {
-        position: 'absolute',
-        top: '-12px',
-        left: '-12px',
+import styles from '../../../assets/jss/components/parts/ImageUploader';
 
-        transitionProperty: 'transform, color',
-        '&:hover': {
-            color: 'darkred',
-            transform: 'scale(1.2,1.2)',
-        },
-    },
-    button: {
-        margin: theme.spacing(1),
-    },
-    rightIcon: {
-        marginLeft: theme.spacing(1),
-    },
-});
-
-const ImageBody = withStyles(styles)(function Image(props) {
+const ImageBody = withStyles(styles)(props => {
     const src = props.src;
     const { classes } = props;
-    if (src.slice(0, 9) === "\/storage") {
-
+    
+    if (src.slice(0, 9) === "\/storage")
         return "BBBB"
-    }
+    
     else return <Grid item lg={4} md={6} xs={12} style={{ position: 'relative' }}>
         <Cancel onClick={() => props.handleDelete(props.id)} color="secondary" className={classes.deleteIcon} />
-        <img style={{ width: '100%' }} src={src} />
+        <img style={{ width: '100%' }} src={src} alt="ImageUpload" />
     </Grid>
 });
 
-function getImageFormUrl(url, callback) {
+const getImageFormUrl = (url, callback) => {
     var img = new Image();
     img.setAttribute('crossOrigin', 'anonymous');
     img.onload = function (a) {

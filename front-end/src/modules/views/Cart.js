@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { Typography, withStyles, Grid, Button, Snackbar } from '@material-ui/core';
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 
 import 'typeface-roboto';
 

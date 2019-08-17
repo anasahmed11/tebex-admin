@@ -1,10 +1,12 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import withWidth from '@material-ui/core/withWidth';
+
 import CardH from './HorizontalCard';
 import CardV from './PersonCard';
 
-function WithWidth(props) {
+const WithWidth = props => {
     const { width } = props;
     return <React.Fragment>
       {width === 'sm' || width === 'xs'?

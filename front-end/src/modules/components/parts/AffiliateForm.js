@@ -4,17 +4,7 @@ import globalVariables from '../../../global-variables';
 
 import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
 
-
-
-const styles = theme => ({
-    margin: {margin: theme.spacing(2),},
-    paddingTop:{padding: '10px 0px'},
-    textField: {
-        margin: theme.spacing(2),
-        width: '200',
-      },
-});
-
+import styles from '../../../assets/jss/components/parts/AffiliateForm';
 
 const PACKAGE = [
     {value: 1, label: '1'},
@@ -29,10 +19,8 @@ const PAYMENT = [
 ]
 
 
-
-
 class AffiliateForm extends React.Component{
-    state={
+    state = {
         vodafone: '',
         etisalat: '',
         package: 1,
@@ -137,8 +125,7 @@ class AffiliateForm extends React.Component{
                             />
                         </Grid>    
 
-                </React.Fragment>
-                        
+                </React.Fragment>               
         }
     }
 
@@ -244,9 +231,6 @@ class AffiliateForm extends React.Component{
                    
                 </Grid>  
 
-                
-
-
 
                 <Grid item xs = {6} className = {classes.paddingTop}>
                     <Button 
@@ -263,9 +247,6 @@ class AffiliateForm extends React.Component{
             </Grid>
         );
     }
-
-
 }
-
 
 export default withStyles(styles)(AffiliateForm);

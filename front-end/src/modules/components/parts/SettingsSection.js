@@ -1,7 +1,15 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, MenuList, MenuItem, ListItemIcon, ListItemText, Divider, Grid, Collapse, ListItem, List } from '@material-ui/core';
 import {connect} from 'react-redux';
+import { Link,withRouter } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
+import globalVariables from '../../../global-variables';
+
+import 'typeface-roboto';
+import {
+    withStyles, MenuList, MenuItem, ListItemIcon,
+    ListItemText, Divider, Grid, Collapse, ListItem
+} from '@material-ui/core';
+
 import { 
     AccountCircle as AccountIcon, 
     Dashboard as DashboardIcon, 
@@ -13,63 +21,12 @@ import {
     ExpandMore,
 } from '@material-ui/icons';
 
-import { Link,withRouter } from 'react-router-dom';
 
 import LogoutButton from './LogoutButton';
-import globalVariables from '../../../global-variables';
-import { ClipLoader } from 'react-spinners';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuid from 'uuid';
 
-const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        padding: `${theme.spacing(4)}px 0px`,
-    },
-    menuItem: {
-        textAlign:'inherit',
-        '&:focus': {
-            backgroundColor: theme.palette.primary.main,
-            '& $primary, & $icon': {
-                color: theme.palette.common.white,
-            },
-        },
-    },
-    primary:{
-        padding:'0px',
-    },
-    nested: {
-        paddingLeft: theme.spacing(4),
-        '&:focus': {
-            backgroundColor: theme.palette.primary.main,
-            '& $primary, & $icon': {
-                color: theme.palette.common.white,
-            },
-        },
-    },
-    icon: {},
-    fontawesomeIcon: {
-        width:'24px !important',
-        height: '24px'
-    },
-    textHead:{
-        fontWeight:'500'
-    },
-    link:{
-        textDecoration:'none',
-        color: 'rgba(0, 0, 0, 0.87)',
-        padding: '0px'
-    },
-
-    settingsMenu: {
-        width: '100%',
-        marginBottom: theme.spacing(2),
-    },
-    iconImage: {
-        width: '1em',
-        fontSize: '24px',
-    }
-});
+import styles from '../../../assets/jss/components/parts/SettingsSection';
 
 class SettingsSection extends React.Component{
     state = {

@@ -1,33 +1,11 @@
 import React from "react";
+
 import { withStyles, Typography } from '@material-ui/core';
 
-
-const styles = theme => ({
-    span: {
-      height: 4,
-      width: 80,
-      display: 'block',
-      margin: `${theme.spacing(1)}px auto`,
-      backgroundColor: theme.palette.secondary.main,
-    },
-    typo: {
-      width: '100%',
-      textAlign: 'center',
-      marginTop: theme.spacing(3),
-      marginBottom: theme.spacing(3),
-      color: 'white',
-    },
-
-})
+import styles from '../../../assets/jss/components/parts/LinedSectionTitle';
 
 class LinedTitle extends React.Component {
-    
-  state = {
-
-    };
-
     render(){
-
         const { classes } = this.props;
         return <Typography variant="h4" className={classes.typo}>
                     {this.props.children}

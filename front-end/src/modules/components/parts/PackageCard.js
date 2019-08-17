@@ -1,11 +1,11 @@
 import React from 'react';
+import uuid from 'uuid'
+import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Paper, } from '@material-ui/core';
 
-import uuid from 'uuid'
-import globalVariables from '../../../global-variables';
-const styles = theme => ({});
 
+const styles = theme => ({});
 
 function PackageCard(props){
     return(

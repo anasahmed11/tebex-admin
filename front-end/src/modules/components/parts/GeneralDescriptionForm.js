@@ -1,12 +1,11 @@
-
-
-
 import React from "react";
 import { withStyles } from "@material-ui/core";
-import styles from '../../../formStyling';
 
-function formm(props) {
+import styles from '../../../assets/jss/components/parts/GeneralDescriptionForm';
+
+const form = props => {
   const { classes, register, errors } = props
+  
   return (
     <div className={classes.root}>
 
@@ -22,10 +21,9 @@ function formm(props) {
         {errors.description_en && <p>This field is required and length bigger than 50</p>}
       </div>
 
-
     </div>
   );
 }
 
 
-export default withStyles(styles)(formm);
+export default withStyles(styles)(form);

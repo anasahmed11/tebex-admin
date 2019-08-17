@@ -1,26 +1,7 @@
 import React from 'react';
 import { withStyles, Grid, Typography, Button,  } from '@material-ui/core';
 
-
-
-const styles = theme => ({
-    root: {
-        padding: `${theme.spacing(12)}px 0px`,
-        minHeight: '500px',
-        alignItems: 'center',
-        position:'relative',
-        textAlign:'center',
-    },
-
-    paddingTop:{
-        padding:'20px 0px'
-    },
-    button:{
-        '&:hover': {
-            textDecoration: 'underline'
-        }
-    }
-});
+import styles from '../../assets/jss/views/NotFound';
 
 function NotFound(props){
     const {classes} = props;

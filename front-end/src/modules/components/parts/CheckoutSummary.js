@@ -3,37 +3,17 @@ import { Typography, withStyles, Grid, Divider,   } from '@material-ui/core';
 
 import globalVariables from '../../../global-variables';
 
-const styles = theme => ({
-    checkoutSummary:{
-        padding: `${theme.spacing(2)}px 0px`,
-        border:'1px solid rgba(0,0,0,0.1)',
-        minHeight:'200px',
-    },
-    textHeader:{
-        fontWeight:'500'
-    },
-    textSection:{
-        fontWeight:'500',
-        fontSize:'13px',
-        color:'rgb(120,120,120)',
-    },
-    textHead:{
-        fontWeight:'bold',
-        fontSize:'15px',
-        color:'rgb(120,120,120)',
-    },
-    
-});
+import styles from '../../../assets/jss/components/parts/CheckoutSummary';
 
+const CheckoutSummary = props => {
 
-function CheckoutSummary(props){
     const { classes, totalPrice, shipment } = props
     const shipmentPrice = shipment !== undefined? shipment.fees:-1
-    return(
-    <React.Fragment>
+
+    return <React.Fragment>
 
         <Grid container justify="center" alignItems="center" className={classes.checkoutSummary}>    
-            
+    
             <Grid item xs={11}>
                 <Grid container>
                     <Grid item xs={12}>
@@ -86,11 +66,7 @@ function CheckoutSummary(props){
 
         </Grid>
         
-        
-        
     </React.Fragment>
-    );
 }
 
-
-export default withStyles(styles)(CheckoutSummary)
+export default withStyles(styles)(CheckoutSummary);

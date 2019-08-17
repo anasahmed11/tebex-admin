@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
-
+import { connect } from 'react-redux';
 
 import { withStyles, Grid, Typography, LinearProgress, Snackbar   } from '@material-ui/core';
 
@@ -8,21 +7,7 @@ import {verifyAPI as axios, resendAPI} from '../../api/api';
 
 import MySnackbar from '../components/parts/MySnackbar'
 
-
-const styles = theme => ({
-    root: {
-        padding: `${theme.spacing(4)}px 0px`,
-           
-        alignItems: 'center',
-        position: 'relative',
-    },
-    item: {
-        padding: theme.spacing(2),   
-    },
-    paddingTop: {
-        padding: '10px 0px'
-    },  
-});
+import styles from '../../assets/jss/views/Verify';
 
 
 class Verify extends React.Component{

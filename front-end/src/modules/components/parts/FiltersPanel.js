@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
-import { withRouter, Link } from 'react-router-dom';
 
-import { withStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemSecondaryAction, Checkbox, Typography, TextField, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
+import PropTypes from 'prop-types';
 
 import { styles } from '../../../assets/jss/components/parts/FiltersPanel';
 

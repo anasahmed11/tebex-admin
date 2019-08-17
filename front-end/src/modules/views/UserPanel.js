@@ -1,13 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-
+import { withRouter } from 'react-router-dom';
 import globalVariables from '../../global-variables';
 
 import { withStyles, Grid, SnackbarContent  } from '@material-ui/core';
 import 'typeface-roboto';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-
 
 import Profile from '../components/wrappers/Profile';
 import UserPanelSettings from '../components/wrappers/UserPanelSettings';
@@ -24,19 +22,12 @@ import SellingOrders from '../components/wrappers/SellingOrders';
 import NotFound from '../views/NotFound';
 import SellerDashBoard from '../components/wrappers/SellerDashBoard';
 
-const styles = theme => ({
-    root: {
-      backgroundColor: 'white ',
-      padding: `${theme.spacing(4)}px 0px`,
-    },
-    error: {
-        backgroundColor: theme.palette.error.dark,
-    },
-    
-});
+import styles from '../../assets/jss/views/UserPanel';
 
 class UserpanelLayout extends React.Component{
-    state ={
+
+    state = {
+
     }
     
     render(){

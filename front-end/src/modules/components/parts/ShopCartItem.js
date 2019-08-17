@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
 
 import { 
     Typography,
@@ -10,43 +12,11 @@ import {
     IconButton, 
     TextField
  } from '@material-ui/core';
+
 import { DeleteForever } from '@material-ui/icons';
-import uuid from 'uuid';
 import { addToCart } from '../../../store/actions/shoppingCart';
 
-import globalVariables from '../../../global-variables';
-
-const styles = theme => ({
-    root: {
-        border:'1px solid rgba(0,0,0,0.1)',
-        margin: `0px 0px ${theme.spacing(2)}px 0px`,
-        padding: theme.spacing(1),
-    },
-    upperSection:{
-        minHeight:'100px',
-        padding:`${theme.spacing(2)}px 0px`
-    },
-    imageRoot:{
-        textAlign:'center',
-    },
-    image:{
-        width: '50%',
-        maxHeight:'200px',
-    },
-    textSection:{
-        fontWeight:'500',
-        fontSize:'13px',
-        color:'rgb(100,100,100)',
-    },
-   menu: {
-       width: '60px',
-       margin: '0px 4px 10px 0px'
-   },
-   cleanLink: {
-       textDecoration: 'none',
-       color: 'navy',
-   }
-});
+import styles from '../../../assets/jss/components/parts/ShopCartItem';
 
 class ShopCartItem extends Component{
     state = {
@@ -142,7 +112,6 @@ class ShopCartItem extends Component{
                 }
             </Grid>
 
-
         );
     }
 }
@@ -152,9 +121,7 @@ class ShopCartItem extends Component{
 const mapDispatchToProps = dispatch => {
     return{
         handleQuantityChange: (product, quantity) => dispatch(addToCart(product, quantity,true,true)),
-       
     }
 }
-
 
 export default withRouter(connect(null, mapDispatchToProps)(withStyles(styles)(ShopCartItem)))

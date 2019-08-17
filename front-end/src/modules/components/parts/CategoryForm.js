@@ -1,46 +1,33 @@
-
-
-
 import React from "react";
-import { withStyles, TextField, MenuItem } from "@material-ui/core";
 import uuid from 'uuid';
+
+import { withStyles, TextField, MenuItem } from "@material-ui/core";
+
 import { categoryAPI } from "../../../api/api";
 
-const styles = theme => ({
-    padding: {
-        padding: `${theme.spacing(2)}px 0px`,
-    },
-    margin: {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
-    },
-
-});
+import styles from '../../../assets/jss/components/parts/CategoryForm';
 
 const getLeaves = (cats) => {
-    let leaves = []
-
+    let leaves = [];
     for (let cat of cats) {
         if (cat.children.length)
             leaves = [...leaves, ...getLeaves(cat.children)];
         else
             leaves = [...leaves, cat];
     }
-
-    return leaves
+    return leaves;
 }
 
 class CategoryForm extends React.Component {
+    
     state = {
         isLoading: true,
         specsError: {},
-
         CATEGORIES: [],
         category: '',
         categoryError: '',
         categorySpecs: []
     }
-
 
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
@@ -59,9 +46,12 @@ class CategoryForm extends React.Component {
                 })
         }
     };
+    
     getData = () => {
+
         let valid = true;
         let specsError = {};
+
         if (this.state.category) {
             this.setState({ categoryError: '' })
         }
@@ -70,11 +60,9 @@ class CategoryForm extends React.Component {
             return false
         }
 
-
-        let data = {
-            category: this.state.category
-        };
-        let idx = 0
+        let data = { category: this.state.category };
+        let idx = 0;
+        
         for (let spec of this.state.categorySpecs) {
             const id = spec.id;
             const name = spec.name_en;
@@ -126,6 +114,7 @@ class CategoryForm extends React.Component {
                 
             })
     }
+
     render() {
         const { classes } = this.props;
         //console.log("CAT", this.state.categorySpecs);
@@ -183,12 +172,8 @@ class CategoryForm extends React.Component {
                     </TextField>
                     )
                 }
-
             </React.Fragment>
-
         );
-
-
     }
 }
 

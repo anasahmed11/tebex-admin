@@ -1,8 +1,9 @@
 import React from 'react';
-import { Carousel } from 'react-responsive-carousel';
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
-import uuid from 'uuid';
 import { Link } from 'react-router-dom';
+import { Carousel } from 'react-responsive-carousel';
+import uuid from 'uuid';
+
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const carouselData = [
     {
@@ -27,7 +28,7 @@ export default (props) =>
                 transitionTime={1000}
             >
                 {carouselData.map(item =>
-                    <Link to={item.link}>
+                    <Link key={uuid()} to={item.link}>
                         <div>
                             <img src={item.img} alt={item.alt} />
                         </div>

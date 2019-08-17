@@ -1,26 +1,14 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import {withStyles, CardActionArea, CardContent, CardMedia, Typography, Grid } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 
+import styles from '../../../assets/jss/components/parts/PersonCard';
 
-const styles = {
-    root:{
-    },
-    card: {
-        maxWidth: 345,
-    },
-    media: {
-        height: '300px',
-    },
-    CardContent: {
-        backgroundColor: '#f50057',
-        color:'white'
-    }
-};
 const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 
-function MediaCard(props) {
+const MediaCard = props => {
 
     const { classes, person } = props;
     return <Grid justify="center" alignItems='center' container className={classes.root} >

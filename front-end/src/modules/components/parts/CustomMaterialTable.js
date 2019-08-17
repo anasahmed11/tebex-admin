@@ -1,7 +1,8 @@
 import React from 'react';
-import MaterialTable from 'material-table';
 import { forwardRef } from 'react';
+import globalVariables from '../../../global-variables';
 
+import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Check from '@material-ui/icons/Check';
@@ -18,7 +19,6 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { withStyles } from '@material-ui/core';
-import globalVariables from '../../../global-variables';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -41,12 +41,10 @@ const tableIcons = {
 };
 
 
-function MaterialTableDemo(props) {
-
-
+const MaterialTableDemo = props => {
+    
     return (
         <MaterialTable
-
             title={props.title}
             icons={tableIcons}
             columns={props.columns}
@@ -75,4 +73,4 @@ function MaterialTableDemo(props) {
     );
 }
 
-export default withStyles()(MaterialTableDemo)
+export default withStyles()(MaterialTableDemo);

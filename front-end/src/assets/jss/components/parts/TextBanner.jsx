@@ -1,4 +1,4 @@
-export const styles = theme => ({
+export default theme => ({
     root: {
         // backgroundImage: 'radial-gradient(25% 100%,#30b8ff 0,#0077b5 100%)',
         backgroundImage: 'radial-gradient(25% 100%,#7c6e9d 0,#594589 100%)',
