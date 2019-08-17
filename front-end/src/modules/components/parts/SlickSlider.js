@@ -1,14 +1,14 @@
 import React from "react";
 import Slider from "react-slick";
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
+//import 'slick-carousel/slick/slick-theme.css';
+//import 'slick-carousel/slick/slick.css';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
     sliderLayout: {
         width: '80%',
-        margin: 'auto'
+        margin: 'auto',
     }
 });
   
@@ -25,7 +25,7 @@ function Arrow(props) {
   
 
 var slickSettings = {
-    dots: true,
+    dots: false,
     infinite: false,
     autoplay: true,
     speed: 500,
@@ -36,6 +36,21 @@ var slickSettings = {
     prevArrow: <Arrow />,
     pauseOnHover: true,
     responsive: [
+        {
+        breakpoint: 1300,
+            settings: {
+                slidesToShow: 5,
+                slidesToScroll: 5,
+            }
+        },
+        {
+        breakpoint: 1200,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 4,
+                infinite: true,
+            }
+        },
         {
         breakpoint: 1024,
             settings: {
@@ -50,7 +65,8 @@ var slickSettings = {
             settings: {
                 slidesToShow: 2,
                 slidesToScroll: 2,
-                initialSlide: 2
+                initialSlide: 2,
+                dots: true
             }
         },
         {
@@ -60,6 +76,7 @@ var slickSettings = {
                 slidesToScroll: 1,
                 nextArrow: <Arrow display='none' />,
                 prevArrow: <Arrow display='none' />,
+                dots: true
             }
         }
     ]
