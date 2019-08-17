@@ -6,7 +6,7 @@ import globalVariables from '../../global-variables';
 import TextBanner from '../components/parts/TextBanner';
 import ProductsListWrapper from '../components/wrappers/ProductsListWrapper';
 
-import { styles } from '../../assets/jss/views/Shop';
+import styles from '../../assets/jss/views/Shop';
 
 class Shop extends Component {
   

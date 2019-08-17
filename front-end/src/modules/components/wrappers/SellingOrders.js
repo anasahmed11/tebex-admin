@@ -1,24 +1,15 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography, IconButton, Link,  } from '@material-ui/core';
-import CustomMaterialTable from '../parts/CustomMaterialTable';
 import { ClipLoader } from 'react-spinners';
+
+import { withStyles, Grid, Typography, IconButton, Link,  } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { orderAPI } from '../../../api/api';
+import 'typeface-roboto';
+
+import CustomMaterialTable from '../parts/CustomMaterialTable';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
-
-const styles = theme => ({
-    root: {
-      backgroundColor: 'white ',
-      padding: `${theme.spacing(4)}px 0px`,
-    },
-    textHead:{
-        fontWeight:'500',
-        marginBottom: theme.spacing(4),
-    },
-    
-});
+import styles from '../../../assets/jss/components/wrappers/SellingOrders';
+import { orderAPI } from '../../../api/api';
 
 const data = [
     { id:1 ,name: 'Abdo Hamdy', id: 1 , earning: <IconButton><FontAwesomeIcon icon="edit" /></IconButton> },
@@ -54,7 +45,9 @@ class SellingOrders extends React.Component{
 
 
     handleConfirmAction = (data) => {
+    }
 
+    handleConfirmAction = () => {
     }
     
     componentDidMount(){
@@ -82,9 +75,11 @@ class SellingOrders extends React.Component{
         data.map(item=>item.action = <IconButton onClick={()=>this.handleConfirmAction(item.id)}><FontAwesomeIcon icon="check" /></IconButton> )
         this.setState({isLoading:false})
     }
+
     render(){
-        const {classes, } = this.props;
-        const {isLoading, } = this.props;
+        
+        const { classes } = this.props;
+        const { isLoading } = this.props;
         return(
             <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
@@ -110,6 +105,5 @@ class SellingOrders extends React.Component{
         );
     }
 }
-
 
 export default withStyles(styles)(SellingOrders);

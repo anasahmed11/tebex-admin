@@ -1,8 +1,10 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography,  } from '@material-ui/core';
+import globalVariables from '../../../global-variables';
 
 import ChartistGraph from "react-chartist";
+import { withStyles, Grid, Typography,  } from '@material-ui/core';
+import 'typeface-roboto';
+
 import {
         emailsSubscriptionChart,
         completedTasksChart
@@ -10,42 +12,17 @@ import {
 
 import StatsCard from '../parts/StatsCard';
 import ChartCard from '../parts/ChartCard';
-import globalVariables from '../../../global-variables';
 
+import styles from '../../../assets/jss/components/wrappers/SellerDashboard';
 
-const styles = theme => ({
-    root: {
-      backgroundColor: 'white ',
-      padding: `${theme.spacing(4)}px 0px`,
-    },
-    textHead:{
-        fontWeight:'500'
-    },
-    statsCardsRoot: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-    },
-    shit: {
-        // backgroundColor: 'green',
-        // padding: theme.spacing(2),
-        '& .ct-label': { 
-            color: 'blue',
-        },
-        '& line.ct-bar': {
-            stroke: 'gray',
-        }
-    }
-});
-
-class UserDashBoard extends React.Component{
-    state ={
+class SellerDashboard extends React.Component {
+    
+    state = {
     }
 
     render(){
         const {classes, } = this.props;
-        
-        return(
+        return (
             <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
                     <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.LABEL_DASHBOARD[globalVariables.LANG]}</Typography>
@@ -93,5 +70,4 @@ class UserDashBoard extends React.Component{
     }
 }
 
-
-export default withStyles(styles)(UserDashBoard);
+export default withStyles(styles)(SellerDashboard);

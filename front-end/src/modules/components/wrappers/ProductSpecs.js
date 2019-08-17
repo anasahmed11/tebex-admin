@@ -1,47 +1,16 @@
 import React from 'react';
-import 'typeface-roboto';
-import {withStyles, Grid, Typography,Divider} from '@material-ui/core';
-import ProductSpec from '../parts/SelectMenu';
-
 import globalVariables from '../../../global-variables';
 
-const styles = theme => ({
-    root: {
-      textAlign: 'initial',
-    },
-    ndRoot:{
-       
-        width:'100%',
-        minHeight:'300px',
-    },
-    salePrice:{
-        color: 'darkblue',
-        fontSize: '25px',
-        fontWeight: 'bold',
-    },
-    price:{
-        textDecoration:'line-through',
-        fontSize: '12px',
-        color: 'gray',
-    },
-    priceSave:{
-        fontSize: '12px',
-    },
-    specFont:{
-        fontSize:'15px'
-    },
-    spec:{
-        margin:"10px 0px"
-    },
-    divider: {
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    }
-});
+import {withStyles, Grid, Typography,Divider} from '@material-ui/core';
+import 'typeface-roboto';
 
-function ProductSpecs(props){
+import ProductSpec from '../parts/SelectMenu';
+
+import styles from '../../../assets/jss/components/wrappers/ProductSpecs';
+
+const ProductSpecs = props => {
+    
     const {classes, specs, salePrice, price, productSpecs} = props;
-
     return (
         <Grid container className={classes.root}>
             <Grid item xs={12}>

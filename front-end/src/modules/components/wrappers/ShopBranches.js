@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
+
 import { withStyles } from '@material-ui/core';
 
 import LinedTitle from '../parts/TwoLinesSectionTitle';
 import ShopStoreCards from '../parts/LargeCards'
+import { storesAPI } from '../../../api/api';
 
-import { storesAPI as axios } from '../../../api/api';
-
-const styles = theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        width: '100%',
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(6),
-        justifyContent:'center',
-        backgroundColor: '#1E3953',
-    }, 
-});
-
+import styles from '../../../assets/jss/components/wrappers/ShopBranches';
 
 class ButtonBases extends Component {
     state = {
@@ -32,7 +21,7 @@ class ButtonBases extends Component {
     };
 
     componentDidMount(){
-      axios.get('/')
+      storesAPI.get('/')
       .then(res => {
           const { stores } = this.state;
           for (let item of res.data){
@@ -65,6 +54,5 @@ class ButtonBases extends Component {
         );
     }
 }
-
 
 export default withStyles(styles)(ButtonBases);

@@ -1,37 +1,19 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography, } from '@material-ui/core';
-
-import { orderAPI } from '../../../api/api'
-
-import { ClipLoader } from 'react-spinners';
 import { Link, } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 import uuid from 'uuid';
-import Order from '../parts/Order';
 import globalVariables from '../../../global-variables';
+
+import { withStyles, Grid, Typography, } from '@material-ui/core';
+import 'typeface-roboto';
+
+import Order from '../parts/Order';
+import { orderAPI } from '../../../api/api'
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
-const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        padding: `${theme.spacing(4)}px 0px`,
-    },
-    textHead: {
-        fontWeight: '500',
-        marginBottom: theme.spacing(4),
-    },
-    image: {
-        width: '50%',
-        maxHeight: '200px',
-    },
-    textSection: {
-        fontWeight: '500',
-        fontSize: '13px',
-        color: 'rgb(100,100,100)',
-    },
-});
+import styles from '../../../assets/jss/components/wrappers/UserOrders';
 
-class UserDashBoard extends React.Component {
+class UserOrders extends React.Component {
     state = {
         orders: [],
         isLoading: true
@@ -98,4 +80,4 @@ class UserDashBoard extends React.Component {
 }
 
 
-export default withStyles(styles)(UserDashBoard);
+export default withStyles(styles)(UserOrders);

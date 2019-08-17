@@ -1,4 +1,4 @@
-export const styles = theme => ({
+export default theme => ({
     root: {
         padding: `${theme.spacing(4)}px 0px`,
         textAlign: 'center',

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import AppBar from '../parts/AppBar';
 import Drawer from '../parts/MobileDrawer';
@@ -7,19 +8,16 @@ import BelowAppBar from '../parts/BelowAppBar';
 
 import { categoryAPI } from '../../../api/api';
 import globalVariables from '../../../global-variables';
-import { withRouter } from 'react-router-dom';
 
 const logo = 'logo-ar.png';
 
 const upperLinks = [
-  
   globalVariables.UPPERBAR_US[globalVariables.LANG],
   globalVariables.UPPERBAR_Q[globalVariables.LANG],
   globalVariables.UPPERBAR_MAGAZINE[globalVariables.LANG],
-  globalVariables.UPPERBAR_CALL_US[globalVariables.LANG],
-  
-  
-  ];
+  globalVariables.UPPERBAR_CALL_US[globalVariables.LANG],  
+];
+
 const bottomLinks = ['تسجيل دخول', 'اللغة', 'الهبد'];
 
 class Navbar extends Component {

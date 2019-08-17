@@ -1,24 +1,15 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography, Button, TextField, MenuItem } from '@material-ui/core';
-import uuid from 'uuid';
-import Cookies from 'universal-cookie';
 import { ClipLoader } from 'react-spinners';
-import ExapndPanel from './ExapndPanel';
+import Cookies from 'universal-cookie';
+import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
-const styles = theme => ({
-    
-    
-    textHead:{
-        fontWeight:'500',
-        marginBottom: theme.spacing(4),
-    },
-    padding:{
-        padding: `${theme.spacing(2)}px 0px`,
-    }
-    
-});
+import { withStyles, Grid, Typography, Button, TextField, MenuItem } from '@material-ui/core';
+import 'typeface-roboto';
+
+import ExapndPanel from './ExapndPanel';
+
+import styles from '../../../assets/jss/components/wrappers/Profile';
 
 const LANGUAGES = ['English','العربية']
 
@@ -30,14 +21,13 @@ const REGIONS = [
 
 const cookies = new Cookies();
 
-
 class MainSettingsFrom extends React.Component{
-    state ={
-        firstname:'',
-        firstnameErr:'',
+    state = {
+        firstname: '',
+        firstnameErr: '',
         
-        lastname:'',
-        lastnameErr:'',
+        lastname: '',
+        lastnameErr: '',
 
         isLoading: true,
     }
@@ -51,26 +41,23 @@ class MainSettingsFrom extends React.Component{
             first_name: this.state.firstname,
             last_name: this.state.lastname,
         }
-        if(this.state.language==="English") cookies.set('lang','en');
+        if(this.state.language === "English") cookies.set('lang','en');
         else cookies.set('lang','ar');
         
         let valid = true;
 
-        if(this.state.firstname==="") {this.setState({firstnameErr: 'Cann\'t be empty'});valid=false;}
-        if(this.state.lastname==="") {this.setState({lastnameErr: 'Cann\'t be empty'});valid=false;}
+        if(this.state.firstname === "") { this.setState({firstnameErr: 'Cann\'t be empty'}); valid=false; }
+        if(this.state.lastname === "") { this.setState({lastnameErr: 'Cann\'t be empty'}); valid=false; }
 
-        console.log(data)
-        //if(valid)
-        
-
+        // console.log(data);
     }
     render(){
-        const {classes, } = this.props;
-        const {isLoading, } = this.state;
+        const { classes } = this.props;
+        const { isLoading } = this.state;
         return(
             <React.Fragment>
                 <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
-                    
+    
                     <Grid item sm={4} xs={11} className={classes.padding}>
                         <TextField
                             className={classes.margin}
@@ -140,20 +127,16 @@ class MainSettingsFrom extends React.Component{
         )
     }
 }
+
 const MainSettings = withStyles(styles)(MainSettingsFrom);
-
-
-
 
 class AddressSettingsForm extends React.Component{
     state ={
-        mobile:'',        
-        street:'',
-        appartment:'',
-        region:'الإسكندرية',
-        
-        expanded:1,
-
+        mobile: '',
+        street: '',
+        appartment: '',
+        region: 'الإسكندرية',        
+        expanded: 1,
         isLoading: true,
     }
 
@@ -164,18 +147,16 @@ class AddressSettingsForm extends React.Component{
     handleSave = () => {
         const data = {
             mobile: this.state.mobile,
-            
         }
     }
 
     render(){
         const {classes, } = this.props;
-        const {isLoading, } = this.state;
+        const { isLoading } = this.state;
         return(
             <React.Fragment>
                 <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
                     
-
                     <Grid item  xs={10}>
                         <TextField
                             className={classes.margin}
@@ -266,15 +247,10 @@ class AddressSettingsForm extends React.Component{
 }
 const AddressSettings = withStyles(styles)(AddressSettingsForm);
 
-
-
-
-
 class SecuritySettingsForm extends React.Component{
     state ={
-        email:'',
-        password:'',
-
+        email: '',
+        password: '',
         isLoading: true,
     }
 
@@ -283,8 +259,8 @@ class SecuritySettingsForm extends React.Component{
     };
 
     render(){
-        const {classes, } = this.props;
-        const {isLoading, } = this.state;
+        const {classes } = this.props;
+        const { isLoading } = this.state;
         return(
             <React.Fragment>
                 <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
@@ -325,32 +301,27 @@ class SecuritySettingsForm extends React.Component{
                             }}
                         />
                     </Grid>
-                            
-                
                 </Grid>
+
                 <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
                     <Button color='primary' variant='contained'  >
                         {globalVariables.LABEL_SAVE_CHANGES[globalVariables.LANG]}
                     </Button>
                 </Grid>
+
             </React.Fragment>
-        )
+        );
     }
 }
 const SecuritySettings = withStyles(styles)(SecuritySettingsForm);
 
-
-
 class Profile extends React.Component{
-    state ={
-        expanded:1,
-
+    state = {
+        expanded: 1,
         isLoading: true,
     }
 
-    componentDidMount(){
-        this.setState({isLoading: false})
-    }
+    componentDidMount = () => this.setState({isLoading: false});
 
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
@@ -362,14 +333,10 @@ class Profile extends React.Component{
         });
     };
 
-
-    
-
     render(){
-        const {classes, } = this.props;
-        const {isLoading, } = this.state;
-        const components = 
-        [
+        const { classes } = this.props;
+        const { isLoading } = this.state;
+        const components = [
             {
                 title: globalVariables.PROFILE_MAIN_SETTINGS[globalVariables.LANG],
                 component: <MainSettings  />
@@ -382,11 +349,9 @@ class Profile extends React.Component{
                 title: globalVariables.PROFILE_SECURITY_SETTINGS[globalVariables.LANG],
                 component: <SecuritySettings  />
             },
+        ];
 
-        ]
-
-        return(
-            
+        return (  
             <Grid container item alignItems='center' justify="center" xs={11}>
                 
                 <Grid item xs={12}>
@@ -410,6 +375,5 @@ class Profile extends React.Component{
         );
     }
 }
-
 
 export default withStyles(styles)(Profile);

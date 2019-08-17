@@ -1,39 +1,30 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography,  } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-
 import { ClipLoader } from 'react-spinners';
+import globalVariables from '../../../global-variables';
+
+import { withStyles, Grid, Typography,  } from '@material-ui/core';
+import 'typeface-roboto';
 
 //import {affiliateAPI} from '../../../api/api'
-
-import globalVariables from '../../../global-variables';
 
 import AffiliateRegisteration from './AffiliateRegisteration';
 import { initUser } from '../../../store/actions/user';
 
-const styles = theme => ({
-    root: {
-        padding:theme.spacing(2),
-        minHeight:'350px'
-      },
+import styles from '../../../assets/jss/components/wrappers/Affiliate';
 
-});
-function Page1(props){
-    return globalVariables.AFFILIATE_PAGE1[globalVariables.LANG]
-}
-
-function Page2(props){
-    return globalVariables.AFFILIATE_PAGE2[globalVariables.LANG]
-}
+const Page1 = props => globalVariables.AFFILIATE_PAGE1[globalVariables.LANG];
+const Page2 = props => globalVariables.AFFILIATE_PAGE2[globalVariables.LANG];
 
 const STATES = ['Not Applied','Pending','Approved','Refused']
 
 class Affiliate extends React.Component{
+    
     state ={
-        isLoading:false,
+        isLoading: false,
     }
+
     handleNextStep = () => {
         this.props.handleInitUser()
     }
@@ -51,9 +42,8 @@ class Affiliate extends React.Component{
     }
 
     getPage = () => {
-        const page = STATES.findIndex(state=>state===this.props.program.affiliate)
         
-        
+        const page = STATES.findIndex(state=>state===this.props.program.affiliate);
 
         switch(page){
             case 0:
@@ -74,6 +64,7 @@ class Affiliate extends React.Component{
                     </React.Fragment>
         }
     }
+
     render(){
         const {classes } = this.props;
         const { isLoading } = this.state
@@ -96,8 +87,7 @@ class Affiliate extends React.Component{
                     
                     {this.getPage()}
                 </Grid>
-                }
-                
+                }    
 
             </Grid>
         );
@@ -116,7 +106,5 @@ const mapDispatchToProps = dispatch => {
         handleInitUser: () => dispatch(initUser()),
     }
   }
-  
-
 
 export default  withRouter(connect(mapStateToProps,mapDispatchToProps)(withStyles(styles)(Affiliate)));

@@ -1,4 +1,4 @@
-export default (theme) => ({
+export default theme => ({
     root: {
       backgroundColor: 'white ',
       paddingTop: theme.spacing(4),

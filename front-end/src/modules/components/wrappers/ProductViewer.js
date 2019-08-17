@@ -1,77 +1,46 @@
 import React from 'react';
-import 'typeface-roboto';
-import {withStyles, Grid, Typography } from '@material-ui/core';
 import Magnifier from 'react-magnifier'; 
 import uuid from 'uuid';
+
+import {withStyles, Grid, Typography } from '@material-ui/core';
 import {ArrowForwardIos, ArrowBackIos} from '@material-ui/icons';
+import 'typeface-roboto';
 
-const styles = theme => ({
-    root:{    
-        backgroundColor:'inherit'
-    },
-    productImage:{
-        border: "1px solid  #EEE",
-        position: "relative"
-    },
-    productImages:{
-        width:'50px',
-        border: "1px solid #EEE"
-    },
-    activeImage:{
-        border: "1px solid #999",
-        width:'50px'
-    },
-    slider:{
-        position:'absolute',
-        top:'50%',
-    },
-    imagesParent:{
-        maxWidth:'50px',
-        [theme.breakpoints.down('md')]: {
-            maxWidth:'100%'
-          },
-    }
-});
+import styles from '../../../assets/jss/components/wrappers/ProductViewer';
 
-class ProducViewer extends React.Component{
-    state = {
-        selectedImage:0,
-        
-    }
-
-    handleClickedImage = (idx) => {
-        this.setState({selectedImage:idx,
-                        resetTimeOut:true});
-    }
-
-    handleSliding = (value,len) => {
-        
-        var selectedImage = this.state.selectedImage;
-        selectedImage = (selectedImage+value+ len)%len ;
-        this.setState({selectedImage:selectedImage});
+class ProductViewer extends React.Component{
     
+    state = {
+        selectedImage: 0,        
     }
-    render() {
-        const {selectedImage  } = this.state;
-        const {classes, images, title } = this.props;
-        const len =images.length;
+
+    handleClickedImage = idx => this.setState({selectedImage: idx, resetTimeOut: true});
+    
+
+    handleSliding = (value, len) => {
+        let selectedImage = this.state.selectedImage;
+        selectedImage = (selectedImage+value+ len) % len;
+        this.setState({ selectedImage: selectedImage });
+    }
+
+    render(){
+        const { selectedImage } = this.state;
+        const { classes, images, title } = this.props;
+        const len = images.length;
         return (
-            <Grid container justify='center' className={classes.root}>
-                    
+            <Grid container justify='center' className={classes.root}>        
                 <Grid item xs={12}>
                     <Typography component="h6" variant="h6" gutterBottom>{title}</Typography>
                 </Grid>
                 <Grid item md={2} xs={12} className={classes.imagesParent}> 
-                    {
-                        images.map((img,idx) => 
+                    {images.map((img, idx) => 
                             <img src={img}
-                                className={idx===selectedImage? classes.activeImage:classes.productImages}
+                                className={idx === selectedImage? classes.activeImage : classes.productImages}
                                 onClick={() => this.handleClickedImage(idx)}
                                 key={uuid()}
                                 alt="product"
-                                />
-                        )
-                    }
+                            />
+                    )}
                 </Grid>
                 <Grid item md={10} xs={12} className={classes.productImage}>
                 <div className={classes.slider} style={{right:'2px'}} onClick={()=>this.handleSliding(1,len)}><ArrowForwardIos></ArrowForwardIos></div>
@@ -82,13 +51,10 @@ class ProducViewer extends React.Component{
                         zoomFactor={1.7}
                         mgWidth={150}
                         mgHeight={150} />
-                
-                </Grid>
-                        
+                </Grid>     
             </Grid>
-
         );
     }
 }
 
-export default withStyles(styles)(ProducViewer);
+export default withStyles(styles)(ProductViewer);

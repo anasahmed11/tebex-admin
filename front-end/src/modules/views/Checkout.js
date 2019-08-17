@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-
 import Cookies from 'universal-cookie';
+
 import { Typography, withStyles, Grid, Snackbar } from '@material-ui/core';
 import 'typeface-roboto';
 
@@ -32,10 +32,8 @@ function getSteps() {
     ];
 }
 
-function ThanXPage(props) {
-
+const ThanksView = props => {
     return (
-
         <Grid container item justify="center" alignItems="center" spacing={2} xs={10} style={{ textAlign: 'center', position: 'relative', overflow: "hidden" }}>
             <Grid item xs={11}>
                 <Typography variant="h4" gutterBottom>{globalVariables.CHECKOUT_THANKS_STATUS[globalVariables.LANG]}</Typography>
@@ -45,9 +43,7 @@ function ThanXPage(props) {
 
                 <img className="slider-moving-animation" src="https://cnnh.org/wp-content/uploads/2017/02/moving2348563724.jpg" alt="order dlivery" />
             </Grid>
-
         </Grid>
-
     )
 }
 
@@ -64,14 +60,9 @@ class Checkout extends React.Component {
     }
 
     pendingPromises = [];
-    componentWillUnmount = () =>
-        this.pendingPromises.map(p => p.cancel());
-    appendPendingPromise = promise =>
-        this.pendingPromises = [...this.pendingPromises, promise];
-    removePendingPromise = promise =>
-        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
-
-
+    componentWillUnmount = () => this.pendingPromises.map(p => p.cancel());
+    appendPendingPromise = promise => this.pendingPromises = [...this.pendingPromises, promise];
+    removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
 
     getStepContent = () => {
@@ -86,7 +77,7 @@ class Checkout extends React.Component {
                     handleNextButton={this.handleNextButtonPayment}
                     handleBackButton={this.stepBack} />;
             case 2:
-                return <Route render={props => <ThanXPage {...props} trackOrder={this.state.trackOrder} />} />
+                return <Route render={props => <ThanksView {...props} trackOrder={this.state.trackOrder} />} />
             default:
                 return 'Unknown step';
         }

@@ -1,49 +1,38 @@
 import React from 'react';
-import 'typeface-roboto';
-import { withStyles, Grid, Typography, } from '@material-ui/core';
-
-import CustomMaterialTable from '../parts/CustomMaterialTable';
-import { userAPI } from '../../../api/api';
-import cancelablePromise from '../../../Providers/CancelablePromise';
-import ProfileAvatar from '../parts/ProfileAvatar';
 import globalVariables from '../../../global-variables';
 
+import { withStyles, Grid, Typography, } from '@material-ui/core';
+import 'typeface-roboto';
 
-const styles = theme => ({
-    root: {
-        backgroundColor: 'white ',
-        padding: `${theme.spacing(4)}px 0px`,
-    },
-    textHead: {
-        fontWeight: '500',
-        marginBottom: theme.spacing(4),
-    },
-});
+import CustomMaterialTable from '../parts/CustomMaterialTable';
+import ProfileAvatar from '../parts/ProfileAvatar';
+
+import { userAPI } from '../../../api/api';
+import cancelablePromise from '../../../Providers/CancelablePromise';
+
+import styles from '../../../assets/jss/components/wrappers/Tree';
 
 const columns = [
     { title: globalVariables.LABEL_AVATAR[globalVariables.LANG], field: 'image', render: rowData => <ProfileAvatar gender={rowData.gender} img={rowData.image} name={rowData.name} /> },
     { title: globalVariables.LABEL_NAME[globalVariables.LANG], field: 'name' },
     { title: globalVariables.LABEL_REGISTERED_AT[globalVariables.LANG], field: 'created_at', type:'date' },
     { title: globalVariables.LABEL_LEVEL[globalVariables.LANG], field: 'level', type: 'numeric' },
-    
     { title: globalVariables.LABEL_EARNINGS[globalVariables.LANG], field: 'active_points', type:'currency', currencySetting:{} },
+];
 
-]
-class UserDashBoard extends React.Component {
+class Tree extends React.Component {
     state = {
         isLoading: true,
         team: [],
     }
 
     pendingPromises = [];
-    componentWillUnmount = () =>
-        this.pendingPromises.map(p => p.cancel());
-    appendPendingPromise = promise =>
-        this.pendingPromises = [...this.pendingPromises, promise];
-    removePendingPromise = promise =>
-        this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
-    componentDidMount() {
+    componentWillUnmount = () => this.pendingPromises.map(p => p.cancel());
+    appendPendingPromise = promise => this.pendingPromises = [...this.pendingPromises, promise];
+    removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
+
+    componentDidMount = () => {
         const wrappedPromise = cancelablePromise(userAPI.get('/team'));
         this.appendPendingPromise(wrappedPromise);
 
@@ -80,5 +69,4 @@ class UserDashBoard extends React.Component {
     }
 }
 
-
-export default withStyles(styles)(UserDashBoard);
+export default withStyles(styles)(Tree);
