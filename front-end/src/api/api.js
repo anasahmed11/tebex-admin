@@ -107,7 +107,7 @@ instances.forEach( intance =>{
         return Promise.reject(err);
     });
     intance.interceptors.response.use(function(response) {
-        console.log("response",response)
+        //console.log("response",response)
         
         return response
         

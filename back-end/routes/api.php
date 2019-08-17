@@ -68,12 +68,14 @@ Route::prefix('address')->group(function () {
 
 Route::prefix('product')->group(function () {
     Route::get('/', 'API\Product\ProductController@show');
-    Route::post('/search', 'API\Product\ProductController@search');
     Route::get('{product}', 'API\Product\ProductController@product');
+    Route::post('', 'API\Product\ProductController@add');
+    Route::post('update/{pid}', 'API\Product\ProductController@update');
+
+    Route::post('/search', 'API\Product\ProductController@search');
     Route::get('{product}/specs', 'API\Product\ProductController@specs');
     Route::get('{product}/{sku}/sku', 'API\Product\ProductController@sku');
-    Route::post('/add', 'API\Product\ProductController@add');
-    Route::post('{pid}/update', 'API\Product\ProductController@update');
+
 });
 Route::prefix('cart')->middleware('auth:api')->group(function () {
     Route::get('/','API\Cart\CartController@show');

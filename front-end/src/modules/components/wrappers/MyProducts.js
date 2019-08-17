@@ -45,7 +45,7 @@ class MyProdcuts extends React.Component {
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
     handleEditAction = (id) => {
-        this.props.history.push(`/seller/add-product/${id}`)
+        this.props.history.push(`/seller/edit-product/${id}`)
     }
 
     componentDidMount() {
