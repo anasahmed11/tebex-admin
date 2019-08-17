@@ -83,9 +83,10 @@ class ProductController extends Controller
             }
             $p->save();
             DB::commit();
-            return response()->json(“ok”,200);
+            return response()->json("ok",200);
         }catch (\Exception $exception){
             DB::rollback();
+            dd($exception);
             return response()->json("error",400);
         }
 

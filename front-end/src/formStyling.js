@@ -1,38 +1,56 @@
 
- const styles = theme => ({
-  root:{ 
-    '& input':{
-        display: 'block',
-        boxSizing: 'border-box',
-        width: '100%',
-        borderRadius: '4px',
-        border: '0',
-        borderRadius: '0%',
-        borderBottom: '1px solid gray',
-        padding: '10px 15px',
-        marginBottom: '10px',
-        fontSize: '14px',
-        '&:hover':{
-          borderBottom: '2px solid rgba(0, 0, 0, 0.87)',
-        },
-        '&:focus':{
-          outline: 'none',
-          borderBottom: '2px solid #303f9f',
-          borderBottomWidth: '2px'
-        },
-        '&:disabled':{
-          opacity: 0.4,
-        }
+const styles = theme => ({
+  root: {
+    '& input': {
+      display: 'block',
+      boxSizing: 'border-box',
+      width: '100%',
+      borderRadius: '4px',
+      border: '0',
+      borderRadius: '0%',
+      borderBottom: '1px solid gray',
+      padding: '10px 15px',
+      marginBottom: '10px',
+      fontSize: '14px',
+      '&:hover': {
+        borderBottom: '2px solid rgba(0, 0, 0, 0.87)',
+      },
+      '&:focus': {
+        outline: 'none',
+        borderBottom: '2px solid #303f9f',
+        borderBottomWidth: '2px'
+      },
+      '&:disabled': {
+        opacity: 0.4,
+      }
     },
-    '& label':{
+    '& label': {
       lineHeight: '1',
       textAlign: 'left',
       display: 'block',
-      color:'rgba(0, 0, 0, 0.54)',
+      color: 'rgba(0, 0, 0, 0.54)',
       fontSize: '1rem',
+
+    },
+    '& p': {
+      color: '#bf1650',
+      marginBottom: '10px',
+      fontSize: '12px',
+      marginTop: '-10px',
+      '& before': {
+        display: 'inline',
+        content: "⚠ ",
+      }
+    },
+
+    '& textarea': {
+      marginBottom: '10px',
       
+      width: '100%'
+  
     }
-  }
+  },
+  
 });
 
 
