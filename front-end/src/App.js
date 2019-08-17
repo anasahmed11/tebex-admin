@@ -98,7 +98,7 @@ class App extends React.Component {
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
     const affiliate = this.props.program.affiliate === "Approved"
     const seller = this.props.program.seller === "Approved"
-    console.log(isLoading)
+   
     return (
      
       <LoadingScreen
@@ -126,10 +126,7 @@ class App extends React.Component {
               <Route exact path='/' component={withRouter(Home)} />
               <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
 
-              {this.props.program.affiliate === undefined || this.props.program.seller === undefined ?
-                <Route component={Blank} /> : null
-              }
-
+             
 
 
               <Route exact path="/affiliate" render={props => !affiliate ? <UserPanel {...props} /> : <Redirect to='/404' />} />
@@ -145,9 +142,6 @@ class App extends React.Component {
 
               <Route exact path='/404' component={NotFound} />
 
-              {this.props.program.affiliate === undefined || this.props.program.seller === undefined ?
-                <Route component={Blank} /> : null
-              }
 
               <Route component={NotFound} />
             </Switch>

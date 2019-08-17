@@ -59,7 +59,7 @@ class UserpanelLayout extends React.Component{
                             <Route exact path='/affiliate' component={Affiliate} />
                             <Route exact path='/seller' component={Seller} />
                             <Route exact path='/seller/add-product' component={AddProduct} />
-                            <Route exact path='/seller/add-product/:id' component={AddProduct} />
+                            <Route exact path='/seller/edit-product/:id' component={AddProduct} />
                             <Route exact path='/seller/my-products' component={MyProducts} />
                             <Route exact path='/seller/waiting-orders' component={SellingOrders} />
                             <Route exact path='/seller/dashboard' component={SellerDashBoard} />

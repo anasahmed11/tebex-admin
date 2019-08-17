@@ -3,8 +3,7 @@ import useForm from "react-hook-form"
 import { ClipLoader } from 'react-spinners';
 
 import 'typeface-roboto';
-import { withStyles, Grid, Typography, Snackbar, } from '@material-ui/core';
-
+import { withStyles, Grid, Typography, Snackbar, Button, } from '@material-ui/core';
 import ExapndPanel from './ExapndPanel';
 
 import CategoryForm from '../parts/CategoryForm';
@@ -69,10 +68,23 @@ const AddProduct1 = props => {
             setServerMessage(message);
             setPopup(true);
             setMessageType('error')
-
+            return
+        }
+        if(props.edit){
+            productsAPI.post(`update/${props.edit}/`,formData)
+            .then(res=>{
+                setServerMessage('Data saved successfully');
+                setPopup(true);
+                setMessageType('success')
+            })
+            .catch(err => {
+                setServerMessage('A problem with serever occured, contact seller support');
+                setPopup(true);
+                setMessageType('error')
+            });
         }
         else
-            productsAPI.post('add/', formData)
+            productsAPI.post('', formData)
                 .then(res => {
                     setServerMessage('Data saved successfully');
                     setPopup(true);
@@ -86,9 +98,7 @@ const AddProduct1 = props => {
                 });
         
     };
-    const onEdit = data => {
-        console.log("onEdit", data)
-    };
+    
 
     
     const component = [
@@ -135,14 +145,14 @@ const AddProduct1 = props => {
             <Grid item xs={12}>
                 <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{!props.edit ? 'اضافة منتج' : 'تعديل منتج'}</Typography>
             </Grid>
-            <Grid container justify="center" item xs={12}>
+            <Grid container justify="center" item spacing={2} xs={12}>
                 <Grid item xs={12}>
                     <ExapndPanel components={component} />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={3}>
 
-                    <button onClick={handleSubmit(onSubmit)}>add</button>:
-                    <button onClick={handleSubmit(onEdit)}>edit</button>
+                    <Button fullWidth color="primary" variant="contained" onClick={handleSubmit(onSubmit)}>{props.edit?'Edit':'Add'}</Button>
+                  
 
                 </Grid>
             </Grid>

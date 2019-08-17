@@ -91,7 +91,7 @@ class ProductController extends Controller
         }
 
     }
-    public function update(ProductRequest $product,Product $pid){
+    public function update(ProductRequest $product, Product $pid){
         DB::beginTransaction();
         try {
             if ($pid->Store()->first()->User()->first()->id != 5) throw new \Exception('access error');

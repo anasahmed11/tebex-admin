@@ -35,8 +35,9 @@ class CategoryForm extends React.Component {
             this.setState({ isLoading: false })
             categoryAPI.get(`${event.target.value}/specs/`)
                 .then(res => {
+                    //console.log("RESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSss",res.data)
                     this.setState({
-                        categorySpecs: res.data[event.target.value],
+                        categorySpecs: res.data.data,
                         isLoading: false
                     })
                 })
@@ -86,15 +87,15 @@ class CategoryForm extends React.Component {
         categoryAPI.get('')
             .then(res => {
                 const leaves = getLeaves(res.data);
-                console.log(res.data)
+                //console.log(res.data)
                 if (this.props.edit) {
                     categoryAPI.get(`${this.props.defaultValues.category_id}/specs/`)
                         .then(res => {
                             let specsData = {};
                             for(let spec of this.props.defaultValues.specs) specsData = {...specsData, [spec.name_en]:spec.pivot.spec_id}
-                            console.log(res.data)
+                            //console.log("RESSSSSS",res.data)
                             this.setState({
-                                categorySpecs: res.data[this.props.defaultValues.category_id],
+                                categorySpecs: res.data.data,
                                 isLoading: false,
                                 CATEGORIES: leaves,
                                 category: this.props.defaultValues.category_id,
@@ -116,7 +117,7 @@ class CategoryForm extends React.Component {
 
     render() {
         const { classes } = this.props;
-        console.log("CAT", this.state.categorySpecs);
+        //console.log("CAT", this.state.categorySpecs);
         
         return (
             <React.Fragment>
