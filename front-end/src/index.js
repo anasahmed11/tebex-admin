@@ -10,9 +10,14 @@ import cartReducer from './store/reducers/shoppingCart';
 import userReducer from './store/reducers/user';
 
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-import './index.css';
 import RTL from './Providers/RTL';
+import * as serviceWorker from './serviceWorker';
+
+import './index.css';
+import "animate.css/animate.min.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 
 // For debugging
 const logger = store => {

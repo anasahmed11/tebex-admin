@@ -1,53 +1,56 @@
 import React from 'react';
-import { withStyles, Grid } from '@material-ui/core';
-import { Waypoint } from 'react-waypoint';
+import { withStyles, Grid, Typography } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ScrollAnimation from 'react-animate-on-scroll';
 import uuid from 'uuid';
 
-import InfoItem from '../parts/TextSection';
 import LinedTitle from '../parts/TwoLinesSectionTitle';
-import BackgroundImage from '../parts/BackgroundImage';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; 
-import './styles/CompanyInfo.css';
 
 const styles = theme => ({
-    root:{
-        textAlign:'center'
+    root: {
+        textAlign:'center',
+        background: 'purple'
     },
-    sndroot: {
-        display: 'flex',
-        width: '100%',
-        height: '0px',
-        transform: 'translate(0,-500px)',
+    icon: {
         color: 'white',
-        fontWeight:'300',
-        fontSize:'x-large',
-        [theme.breakpoints.down('sm')]: {    
-            transform: 'translate(0,-850px)',
-        },    
+        fontSize: '15vh',
+        background: '#38c49d',
+        padding: theme.spacing(1),
+        marginRight: theme.spacing(2),
     },
-    item:{
-        padding: `${theme.spacing(4)}px`,
+    infoSection: {
+        display: 'flex',
+        marginBottom: theme.spacing(4),
+    },
+    infoText: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    title: {
+        color: 'yellow',
+    },
+    desc: {
+        color: 'white',
     }
 });
 
-const info1 = {
-    title:'نبذة عن الشركة',
-    description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا
-    بافضل خدمة وافضل الاسعار
-    شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى 
-    حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب
-    ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
-    image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
-}
-const info2 = {
-    title:'نبذة عن الشركة',
-    description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا
-    بافضل خدمة وافضل الاسعار
-    شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى 
-    حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب
-    ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
-    image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
-}
+const info = [
+    {
+        title:'نبذة عن الشركة',
+        description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
+        image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
+    },
+    {
+        title:'نبذة عن الشركة طويلة',
+        description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
+        image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
+    },
+    {
+        title:'نبذة عن الشركة',
+        description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
+        image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
+    },
+]
 
 class CompanyInfo extends React.Component {
     state = {
@@ -55,8 +58,7 @@ class CompanyInfo extends React.Component {
     };
 
     _handleWaypointEnter = () =>{
-        
-        const display=this.state.display;
+        const display = this.state.display;
         this.setState({display:display+1});
     }
 
@@ -65,48 +67,21 @@ class CompanyInfo extends React.Component {
 
         return (
             <Grid container justify='center' alignItems='center' className={classes.root} >
-                <BackgroundImage 
-                    img='https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/0cbolvj/flat-animated-background_efhiwxm0l__F0000.png'
-                    heightL='500px'
-                    heightSM='850px'
-                    blur='5px'
-                />
-                <Grid justify="center" alignItems='center' container spacing={2} className={classes.sndroot}>
-                    <LinedTitle>
-                        بلاب بلاب
-                    </LinedTitle>
-                    <Waypoint onEnter={this._handleWaypointEnter} />
-                    <ReactCSSTransitionGroup 
-                        component={Grid} 
-                        item 
-                        xs={12} 
-                        md={6} 
-                        className={classes.item}
-                        transitionName="info"
-                        transitionEnterTimeout={2000}
-                        transitionLeaveTimeout={2000}
-                        transitionLeave={false}
-                        transitionEnter={this.state.display===1}
-                    >
-                        <InfoItem image={info1.image} title={info1.title} description={info1.description} key={uuid()} />
-                    </ReactCSSTransitionGroup>
-
-                    <ReactCSSTransitionGroup 
-                        component={Grid} 
-                        item 
-                        xs={12} 
-                        md={6} 
-                        className={classes.item}
-                        transitionName="info"
-                        transitionEnterTimeout={2000}
-                        transitionLeaveTimeout={2000}
-                        transitionLeave={false}
-                        transitionEnter={this.state.display===1}
-                    >
-                        <InfoItem image={info2.image} title={info2.title} description={info2.description} key={uuid()} />
-                    </ReactCSSTransitionGroup>
-                    
-                    
+                <LinedTitle>
+                    بلاب بلاب
+                </LinedTitle>
+                <Grid container item lg={8} md={10} sm={11}>
+                    {info.map(item =>
+                    <ScrollAnimation  key={uuid()} animateIn="slideInUp" animateOnce={true}>
+                        <section className={classes.infoSection}>
+                            <FontAwesomeIcon className={classes.icon} icon={['fab', 'facebook']} />
+                            <div className={classes.textSection}>
+                                <Typography align='left' className={classes.title} variant='h6'>{item.title}</Typography>
+                                <Typography align='left' className={classes.desc} variant='subtitle1'>{item.description}</Typography>
+                            </div>
+                        </section>
+                    </ScrollAnimation>
+                    )}
                 </Grid>
             </Grid>
         );
