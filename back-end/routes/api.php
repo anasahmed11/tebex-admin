@@ -85,6 +85,9 @@ Route::prefix('orders')->group(function () {
     Route::get('/{id}/{token}', 'API\Order\OrderController@show')->name('order.mail');
 
     Route::get('/seller-pending', 'API\Seller\SellerController@pendingOrders');
+    Route::post('/seller-pending', 'API\Seller\SellerController@pendingProductAction');
+    Route::get('/seller-processing', 'API\Seller\SellerController@processingOrders');
+    Route::get('/seller-completed', 'API\Seller\SellerController@completedOrders');
 });
 Route::prefix('store')->group(function () {
     Route::get('/', 'API\Store\StoreController@show');

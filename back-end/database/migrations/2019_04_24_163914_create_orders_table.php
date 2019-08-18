@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->integer('shipper_id')->unsigned();
             $table->string('_token',20);
             $table->enum('status',['pending','active','shipped','delivered','canceled','returned'])->default('pending');
+            $table->string('status_message',150)->nullable();
             $table->double('shipping_fees');
             $table->timestamps();
         });
