@@ -1,10 +1,11 @@
+import COLORS from '../../../site-colors';
+
 export default theme => ({
     root: {
-      backgroundColor: '#1E3953',
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(4),
+      backgroundColor: COLORS.HOME.ProductsSection.Background.primary,
+      paddingTop: theme.spacing(14),
+      paddingBottom: theme.spacing(10),
     },
-    
     sliderLayout: {
       width: '80%',
       margin: 'auto'

@@ -1,6 +1,8 @@
+import COLORS from '../../../site-colors';
+
 export default theme => ({
     root: {
-        backgroundColor: '#ef5347',
+        backgroundColor: COLORS.HOME.CategoriesBar.Background.primary,
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
@@ -24,11 +26,11 @@ export default theme => ({
         fontFamily: "'Droid Arabic Kufi', 'Roboto'",
         fontSize: '20px',
         transition: theme.transitions.create(),
-        color: 'white',
+        color: COLORS.HOME.CategoriesBar.Links.primary,
         '&:hover': {
             cursor: 'pointer',
             textDecoration: 'none',
-            color: 'pink',
+            color: COLORS.HOME.CategoriesBar.Links.hover,
         },
         '&:after': {
             content: '""',

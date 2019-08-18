@@ -1,6 +1,8 @@
+import COLORS from '../../../site-colors';
+
 export default theme => ({
     root: {
-        backgroundColor: 'gray',
+        backgroundColor: COLORS.HOME.Footer.Background.primary,
     },
     footer: {
         width: '80%',
@@ -24,7 +26,7 @@ export default theme => ({
         },
     },
     sectionTitle: {
-        color: 'white',
+        color: COLORS.HOME.Footer.Text.primary,
     },
     list: {
         margin: 0,
@@ -36,6 +38,6 @@ export default theme => ({
         paddingBottom: theme.spacing(0.5), // it was unit/2
     },
     footerLink: {
-        color: 'lightblue',
+        color: COLORS.HOME.Footer.Links.primary,
     }
 });

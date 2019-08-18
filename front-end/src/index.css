@@ -17,6 +17,11 @@ textarea {
   width: 100%;
 }
 
+/* Adjustments for carousel */
+.control-dots {
+  padding: 0 !important;
+}
+
 /* Adjustments for slick-slider */
 .slick-slide {
   height: auto !important;
@@ -26,6 +31,7 @@ textarea {
 }
 .slick-slide > div {
   height: 100%;
+  text-align: center;
 }
 .slick-slide > div > div {
   height: 100%;

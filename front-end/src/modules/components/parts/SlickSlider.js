@@ -2,15 +2,8 @@ import React from "react";
 import Slider from "react-slick";
 //import 'slick-carousel/slick/slick-theme.css';
 //import 'slick-carousel/slick/slick.css';
-import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-const styles = theme => ({
-    sliderLayout: {
-        width: '80%',
-        margin: 'auto',
-    }
-});
   
 function Arrow(props) {
     const { className, style, onClick } = props;
@@ -83,11 +76,8 @@ var slickSettings = {
 }
 
 const SlickSlider = props => {
-    
-    const { classes } = props;
-
     return(
-        <div className={classes.sliderLayout}>
+        <div className={props.className}>
             <Slider {...slickSettings}>
                 {props.children}
             </Slider>
@@ -98,4 +88,4 @@ SlickSlider.propTypes = {
 classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SlickSlider);
+export default SlickSlider;

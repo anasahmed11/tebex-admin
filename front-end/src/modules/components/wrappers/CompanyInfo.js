@@ -3,54 +3,28 @@ import ScrollAnimation from 'react-animate-on-scroll';
 import uuid from 'uuid';
 
 import { withStyles, Grid, Typography } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import LinedTitle from '../parts/TwoLinesSectionTitle';
 
 import styles from '../../../assets/jss/components/wrappers/CompanyInfo';
 
-const info = [
-    {
-        title:'نبذة عن الشركة',
-        description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
-        image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
-    },
-    {
-        title:'نبذة عن الشركة طويلة',
-        description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
-        image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
-    },
-    {
-        title:'نبذة عن الشركة',
-        description:`هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى  حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا`,
-        image:'https://cdn4.iconfinder.com/data/icons/product-management-flat-icons/270/Company-512.png',
-    },
-]
+const CompanyInfo = props => {
 
-class CompanyInfo extends React.Component {
-    state = {
-        display: 0,
-    };
+        const { classes, info } = props;
 
-    _handleWaypointEnter = () =>{
-        const display = this.state.display;
-        this.setState({display:display+1});
-    }
-
-    render(){
-        const {classes} = this.props;
-
-        return (
-            <Grid container justify='center' alignItems='center' className={classes.root} >
+        return <Grid container justify='center' alignItems='center' className={classes.root} >
                 <LinedTitle>
                     بلاب بلاب
                 </LinedTitle>
-                <Grid container item lg={8} md={10} sm={11}>
+                <Grid container item lg={8} md={10} xs={11}>
                     {info.map(item =>
                     <ScrollAnimation  key={uuid()} animateIn="slideInUp" animateOnce={true}>
                         <section className={classes.infoSection}>
-                            <FontAwesomeIcon className={classes.icon} icon={['fab', 'facebook']} />
-                            <div className={classes.textSection}>
+                            <div className={classes.iconContainer}>
+                                <FontAwesomeIcon className={classes.icon} icon={[item.icon.set, item.icon.name]} />
+                            </div>
+                            <div className={classes.infoText}>
                                 <Typography align='left' className={classes.title} variant='h6'>{item.title}</Typography>
                                 <Typography align='left' className={classes.desc} variant='subtitle1'>{item.description}</Typography>
                             </div>
@@ -59,10 +33,6 @@ class CompanyInfo extends React.Component {
                     )}
                 </Grid>
             </Grid>
-        );
-
-
-    }
 }
 
 

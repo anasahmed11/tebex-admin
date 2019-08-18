@@ -1,6 +1,8 @@
+import COLORS from '../../../site-colors';
+
 export default theme => ({
     root: {
-        backgroundColor: 'darkgreen',
+        backgroundColor: COLORS.HOME.Appbar.Background.primary,
         alignItems: 'center',
         paddingTop: theme.spacing(1.5),
         paddingBottom: theme.spacing(1.5),
@@ -18,11 +20,11 @@ export default theme => ({
         fontSize: '24px',
         marginLeft: theme.spacing(2),
         marginRight: theme.spacing(2),
-        color: 'white',
+        color: COLORS.HOME.Appbar.Links.primary,
         transition: theme.transitions.create(['margin'], { duration: '0.3s' }),
         '&:hover': {
             cursor: 'pointer',
-            color: 'pink',
+            color: COLORS.HOME.Appbar.Links.hover,
             textDecoration: 'none',
         }
     },

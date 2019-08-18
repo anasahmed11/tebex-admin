@@ -69,9 +69,9 @@ class ProductSlider extends Component {
           <LinedTitle>
             عروضنا الجميلة 
           </LinedTitle>
-          <SlickSlider>
-          {products}
-          {products}
+          <SlickSlider className={classes.sliderLayout}>
+            {products}
+            {products}
           </SlickSlider>
         </Grid>
     );

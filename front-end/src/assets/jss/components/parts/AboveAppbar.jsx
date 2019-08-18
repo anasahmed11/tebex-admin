@@ -1,6 +1,8 @@
-export default (theme) => ({
+import COLORS from '../../../site-colors';
+
+export default theme => ({
     root: {
-      backgroundColor: 'black',
+      backgroundColor: COLORS.HOME.LinksBar.background.primary,
       [theme.breakpoints.down('sm')]: {
         display: 'none',
       }
@@ -14,10 +16,10 @@ export default (theme) => ({
       fontSize: '14px',
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
-      color: 'white',
+      color: COLORS.HOME.LinksBar.links.primary,
       '&:hover': {
           cursor: 'pointer',
-          color: 'pink',
+          color: COLORS.HOME.LinksBar.links.hover,
           textDecoration: 'none',
       }
     }
