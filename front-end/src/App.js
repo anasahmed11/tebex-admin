@@ -46,9 +46,9 @@ function fetchAffiliate() {
   const expirationDate = new Date()
   expirationDate.setDate(expirationDate.getDate() + 7)
 
-  if (affiliate !== null){
+  if (affiliate !== null) {
     cookies.set(globalVariables.AFFILIATE_COOKIE, affiliate, { path: '/', expires: expirationDate, sameSite: true })
-    userAPI.post('affiliate/click/',{ref: affiliate})
+    userAPI.post('affiliate/click/', { ref: affiliate })
   }
 
 }
@@ -98,9 +98,9 @@ class App extends React.Component {
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
     const affiliate = this.props.program.affiliate === "Approved"
     const seller = this.props.program.seller === "Approved"
-   
+
     return (
-     
+
       <LoadingScreen
         loading={isLoading || this.props.userIsLoading}
         bgColor='#f1f1f1'
@@ -126,7 +126,7 @@ class App extends React.Component {
               <Route exact path='/' component={withRouter(Home)} />
               <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
 
-             
+
 
 
               <Route exact path="/affiliate" render={props => !affiliate ? <UserPanel {...props} /> : <Redirect to='/404' />} />
