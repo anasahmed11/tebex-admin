@@ -17,6 +17,7 @@ import { DeleteForever } from '@material-ui/icons';
 import { addToCart } from '../../../store/actions/shoppingCart';
 
 import styles from '../../../assets/jss/components/parts/ShopCartItem';
+import { baseURL } from '../../../api/api';
 
 class ShopCartItem extends Component{
     state = {
@@ -43,7 +44,7 @@ class ShopCartItem extends Component{
                     <Grid item sm={3} xs={12} component={Link} to={`/product/${product.id}`} className={classes.imageRoot}>
                         <img 
                             className={classes.image} 
-                            src={"https://ss7.vzw.com/is/image/VerizonWireless/iphone7-front-matblk?$device-lg$" } // product.images}
+                            src={product.images.length?baseURL+product.images[0].slice(1):"https://ss7.vzw.com/is/image/VerizonWireless/iphone7-front-matblk?$device-lg$" } // product.images}
                             alt="product"/>
                     </Grid>    
                     <Grid item sm={6} xs={12}>

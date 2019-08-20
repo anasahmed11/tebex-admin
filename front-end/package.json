@@ -19,6 +19,7 @@
     "font-awesome": "^4.7.0",
     "jss-rtl": "^0.2.3",
     "material-table": "^1.48.0",
+    "material-ui-flat-pagination": "^3.2.0",
     "material-ui-search-bar": "^1.0.0-beta.13",
     "react": "^16.9.0",
     "react-addons-css-transition-group": "^15.6.2",

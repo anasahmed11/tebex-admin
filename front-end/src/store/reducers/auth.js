@@ -27,7 +27,7 @@ export default function auth(state = initialState, action){
                 token: action.token,
                 messageType: globalVariables.TYPE_SUCCESS,
                 message: globalVariables.MSG_LOGIN_SUCCESS[globalVariables.LANG],
-                popup: true,
+                popup: false,
                 isAuthinticated:true
             };
         case actionTypes.AUTH_FAIL:

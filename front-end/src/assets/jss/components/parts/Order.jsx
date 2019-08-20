@@ -1,6 +1,7 @@
 export default theme => ({
     root: {
         padding: theme.spacing(2),
+        marginBottom: theme.spacing(4),
     },
     textHead: {
         fontWeight: '500'

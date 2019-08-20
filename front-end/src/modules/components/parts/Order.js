@@ -31,7 +31,7 @@ const Order = props => {
                     {globalVariables.TRACK_OREDER_TOTAL_PRICE[globalVariables.LANG]}: {order.products.reduce((total, product) => total + product.price * product.quantity, 0) + order.shipping_fees}
                 </Typography>
                 <Typography gutterBottom className={classes.orderInfoItem}>
-                    <Link to={`orders/${order.id}`}>{globalVariables.TRACK_OREDER_DETAIL[globalVariables.LANG]}</Link>
+                    <Link to={`orders/${order.id}/${order._token}`}>{globalVariables.TRACK_OREDER_DETAIL[globalVariables.LANG]}</Link>
                 </Typography>
             </Grid>
 

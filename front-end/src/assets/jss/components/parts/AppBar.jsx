@@ -22,6 +22,7 @@ export default theme => ({
         marginRight: theme.spacing(2),
         color: COLORS.HOME.Appbar.Links.primary,
         transition: theme.transitions.create(['margin'], { duration: '0.3s' }),
+        textDecoration: 'none',
         '&:hover': {
             cursor: 'pointer',
             color: COLORS.HOME.Appbar.Links.hover,

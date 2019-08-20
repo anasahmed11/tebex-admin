@@ -4,13 +4,15 @@ import globalVariables from '../../../global-variables';
 
 import { Typography, withStyles, Grid, Button, } from '@material-ui/core';
 import 'typeface-roboto';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CheckoutForm from '../parts/CheckoutForm';
 import AddressCard from '../parts/MiniTable';
 import ButtonCard from '../parts/TextButtonCard';
-
+import './styles/componentAddDelete.css';
 import { locationAPI as axios } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
+
 
 import styles from '../../../assets/jss/components/wrappers/CheckoutAddress';
 
@@ -88,7 +90,7 @@ class CheckoutAddress extends React.Component {
         return (
             <React.Fragment>
                 <Grid item xs={12}>
-                    <Typography inline gutterBottom component='h2' variant='h5'>{globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG]}</Typography>
+                    <Typography gutterBottom component='h2' variant='h5'>{globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 {isLoading ?
@@ -105,7 +107,16 @@ class CheckoutAddress extends React.Component {
                     <Grid item xs={12} >
                         <Grid container justify="center" className={classes.root}>
 
-                            <Grid container item xs={12} className={classes.addressCardsRoot}>
+                            <ReactCSSTransitionGroup
+                                component={Grid}
+                                item 
+                                xs={12} 
+                                className={classes.addressCardsRoot}
+                                container
+                                transitionEnterTimeout={500}
+                                transitionLeaveTimeout={500}
+                                transitionName="componentAddDelete"
+                            >
                                 {addresses.map((obj, index) =>
                                     <AddressCard
                                         id={obj.id}
@@ -118,8 +129,9 @@ class CheckoutAddress extends React.Component {
                                         handleDelete={this.handleDelete}
                                     />
                                 )}
+                            
                                 <ButtonCard onClick={this.addAddressDialogToggle} text={"+ " + globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]} />
-                            </Grid>
+                            </ReactCSSTransitionGroup>
 
                             <CheckoutForm
                                 open={this.state.addForm}

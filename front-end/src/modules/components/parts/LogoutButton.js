@@ -14,13 +14,9 @@ const styles = theme => ({});
 class LogoutButton extends React.Component{
 
     handleLogout = (handleRedirect) => {
-        this.props.handleLogout()
+        const callBacks = [() => this.props.handleInitCart(), () => this.props.handleInitUser(), handleRedirect]
+        this.props.handleLogout(callBacks)
         
-        handleRedirect()
-        setTimeout(()=>{
-            this.props.handleInitCart()
-            this.props.handleInitUser()
-        },4000)
         
     }
     render(){
@@ -62,7 +58,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        handleLogout: () => dispatch(logoutUser()),
+        handleLogout: (callBacks) => dispatch(logoutUser(callBacks)),
         handlePopupClose: () => dispatch(closePopup()),
         handleInitCart: () => dispatch(initCart()),
         handleInitUser: () => dispatch(initUser()),

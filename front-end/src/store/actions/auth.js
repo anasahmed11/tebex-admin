@@ -27,7 +27,7 @@ const authFailed = (error) =>{
     };
 };
 
-export const loginUser = (email, password, rememberme) => {
+export const loginUser = (email, password, rememberme, callBacks) => {
     return dispatch => {
         dispatch(authStart());
       
@@ -42,6 +42,7 @@ export const loginUser = (email, password, rememberme) => {
             const expirationDate = new Date(res.data.expires_at);
             cookies.set(globalVariables.ACCESS_TOKEN, res.data.access_token, { path: '/', expires: expirationDate, sameSite : true });
             dispatch(authSuccess(res.data.access_token));
+            callBacks.forEach(callBack => {callBack()});
         })
         .catch(err => {
             dispatch(authFailed(globalVariables.MSG_LOGIN_FAIL[globalVariables.LANG])); // Authentication failed
@@ -66,7 +67,7 @@ const registerFailed = (error,registerErrors=[]) =>{
     };
 };
 
-export const registerUser = (data) => {
+export const registerUser = (data, callBacks) => {
     return dispatch => {
         console.log(data)
         dispatch(authStart());
@@ -76,6 +77,7 @@ export const registerUser = (data) => {
             const expirationDate = new Date(res.data.expires_at);
             cookies.set(globalVariables.ACCESS_TOKEN, res.data.access_token, { path: '/', expires: expirationDate, sameSite : true });
             dispatch(registerSuccess(res.data.access_token));
+            callBacks.forEach(callBack => {callBack()});
         })
         .catch(error => {
             if (error.response) dispatch(registerFailed(error.response.data.message, error.response.data.errors));
@@ -99,7 +101,7 @@ const logoutFail = () => {
     }
 }
 
-export const logoutUser = () => {
+export const logoutUser = (callBacks) => {
     
     return dispatch => {
 
@@ -107,6 +109,7 @@ export const logoutUser = () => {
         .then(res => {
             dispatch(logoutSuccess(res.data.access_token));
             cookies.remove(globalVariables.ACCESS_TOKEN)
+            callBacks.forEach(callBack => {callBack()});
         })
         .catch(err => {
             dispatch(logoutFail("Error."));

@@ -180,27 +180,28 @@ class Store extends Component {
 
     render(){
         const { classes, isPopup, serverMessage, handlePopupClose, handleDeleteFromCart, messageType } = this.props
+        const snack = <Snackbar
+                            style={{bottom:'50px'}}   
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            open={isPopup && serverMessage !== ""}
+                            autoHideDuration={6000}
+                            onClose={handlePopupClose}
+                        >
+                            <MySnackbar 
+                                className={classes.margin}
+                                onClose={handlePopupClose}
+                                variant={messageType}
+                                message={serverMessage}
+                            />
+                        
+                        </Snackbar>
 
         let products = this.state.products.map(product => 
             <Grid key={uuid()} md={4} sm={6} xs={12}>
-                    <Snackbar
-                        style={{direction:'ltr', bottom:'50px'}}   
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        open={isPopup && serverMessage !== ""}
-                        autoHideDuration={6000}
-                        onClose={handlePopupClose}
-                    >
-                        <MySnackbar 
-                            className={classes.margin}
-                            onClose={handlePopupClose}
-                            variant={messageType}
-                            message={serverMessage}
-                        />
                     
-                    </Snackbar>
                 <ProductCard
                     product={product}
                     id={product.id}
@@ -217,6 +218,7 @@ class Store extends Component {
         return this.state._isLoading? <Loading />
                 : this.state.categoryID > -1?  
                 <Grid container className={classes.root}>
+                    {snack}
                     <Grid lg={3} xs={12}>
                         <FiltersPanel handleCheck={this.filterCheckHandler} filterPanels={this.state.filterPanels} />
                     </Grid>

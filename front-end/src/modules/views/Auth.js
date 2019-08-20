@@ -32,12 +32,7 @@ class Auth extends React.Component {
 
     render(){
         const {classes, isLoading, isPopup, serverMessage, messageType, handlePopupClose} = this.props;
-        if(messageType === globalVariables.TYPE_SUCCESS){
-            this.props.handleInitCart()
-            this.props.handleInitUser()
-            if(this.state.loginView) setTimeout(()=>{this.props.history.push(this.props.redirectPath)},3000)
-            else setTimeout(()=>{this.props.history.push(this.props.redirectPath)},5000)
-        }
+        
         
         return (
             <Grid container justify='center' className={classes.root}>
@@ -133,8 +128,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         handlePopupClose: () => dispatch(closePopup()),
-        handleInitCart: () => dispatch(initCart()),
-        handleInitUser: () => dispatch(initUser()),
+        
     }
 }
 
