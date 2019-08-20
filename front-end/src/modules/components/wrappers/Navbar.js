@@ -9,7 +9,7 @@ import BelowAppBar from '../parts/BelowAppBar';
 import { categoryAPI } from '../../../api/api';
 import globalVariables from '../../../global-variables';
 
-const logo = 'logo-ar.png';
+const logo = '/logo-ar.png';
 
 const upperLinks = [
   globalVariables.UPPERBAR_US[globalVariables.LANG],

@@ -34,8 +34,8 @@ class Cart extends React.Component{
         return(
             <Grid container justify="center" className={classes.root}>
                 <Helmet>
-                    <title>My Title</title>
-                    <meta name="description" content="Helmet application" />
+                    <title>{globalVariables.PAGE_TITLE_CART[globalVariables.LANG]}</title>
+                    
                 </Helmet>
                 <Snackbar
                     style={{bottom:'50px'}}   

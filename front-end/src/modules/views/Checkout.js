@@ -21,6 +21,7 @@ import cancelablePromise from '../../Providers/CancelablePromise';
 
 import styles from '../../assets/jss/views/Checkout';
 import './styles/checkout.css';
+import { Helmet } from "react-helmet";
 
 const cookies = new Cookies();
 
@@ -35,6 +36,7 @@ function getSteps() {
 const ThanksView = props => {
     return (
         <Grid container item justify="center" alignItems="center" spacing={2} xs={10} style={{ textAlign: 'center', position: 'relative', overflow: "hidden" }}>
+
             <Grid item xs={11}>
                 <Typography variant="h4" gutterBottom>{globalVariables.CHECKOUT_THANKS_STATUS[globalVariables.LANG]}</Typography>
                 <Typography variant="h6">
@@ -163,8 +165,12 @@ class Checkout extends React.Component {
         const { isLoading } = this.state
         return (
             <React.Fragment>
+                <Helmet>
+                    <title>{globalVariables.PAGE_TITLE_CHECKOUT[globalVariables.LANG]}</title>
+                    
+                </Helmet>
                 <Snackbar
-                    style={{bottom: '50px' }}
+                    style={{ bottom: '50px' }}
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',

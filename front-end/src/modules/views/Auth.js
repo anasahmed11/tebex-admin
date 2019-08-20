@@ -37,8 +37,8 @@ class Auth extends React.Component {
         return (
             <Grid container justify='center' className={classes.root}>
                 <Helmet>
-                    <title>My Title</title>
-                    <meta name="description" content="Helmet application" />
+                    <title>{globalVariables.PAGE_TITLE_AUTH[globalVariables.LANG]}</title>
+                    
                 </Helmet>
 
                 {isLoading?
