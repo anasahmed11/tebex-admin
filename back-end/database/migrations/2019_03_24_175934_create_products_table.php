@@ -19,14 +19,15 @@ class CreateProductsTable extends Migration
             $table->string("name_en");
             $table->string("slug")->unique();
             $table->string("sku");
-            $table->json('images');
+            $table->json("images");
             $table->longText("description");
             $table->longText("description_en");
             $table->double("price");
             $table->double("sale_price")->nullable();
             $table->integer("quantity");
-            $table->bigInteger('store_id')->unsigned();
-            $table->bigInteger('category_id')->unsigned();
+            $table->float("commission");
+            $table->bigInteger("store_id")->unsigned();
+            $table->bigInteger("category_id")->unsigned();
             $table->softDeletes();
             $table->timestamps();
         });

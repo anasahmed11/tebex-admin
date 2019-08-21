@@ -11,7 +11,7 @@ use Laravel\Scout\Searchable;
 class Product extends Model
 {
     use Searchable,Sluggable,softDeletes;
-    public $searchable = ['name','name_en', 'slug', 'sku','description','description_en','price','sale_price',];
+    public $searchable = ['name','name_en', 'slug', 'sku','description','description_en','price','sale_price','commission'];
     public $asYouType = true;
     public function toSearchableArray()
     {
@@ -49,7 +49,10 @@ class Product extends Model
     ];
 
 
-
+    public function getCommissionAttribute(){
+        $price=$this->sale_price?? $this->price;
+        return $price*($this->attributes['commission']-2.5)/100;
+    }
 
     public function Specs(){
         return $this->belongsToMany(Spec::class,'product_specs');
