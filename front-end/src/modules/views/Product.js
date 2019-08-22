@@ -29,42 +29,42 @@ class Product extends React.Component {
 
     }
 
-    getSimilarProductSpecs = (id, sku) => {
-        productsAPI.get(`${id}/${sku}/sku`)
-            .then(res => {
+    // getSimilarProductSpecs = (id, sku) => {
+    //     productsAPI.get(`${id}/${sku}/sku`)
+    //         .then(res => {
 
-                let specs = {}
-                res.data.forEach(product => {
-                    product.specs.forEach(spec => {
-                        if (specs[spec.name] === undefined) specs[spec.name] = []
-                        specs[spec.name].push(spec.value)
-                    })
-                })
-                console.log(specs)
-                this.setState({
-                    specs: specs,
-                    productsSpecs: res.data,
-                })
-            })
-            .catch(res => {
+    //             let specs = {}
+    //             res.data.forEach(product => {
+    //                 product.specs.forEach(spec => {
+    //                     if (specs[spec.name] === undefined) specs[spec.name] = []
+    //                     specs[spec.name].push(spec.value)
+    //                 })
+    //             })
+    //             console.log(specs)
+    //             this.setState({
+    //                 specs: specs,
+    //                 productsSpecs: res.data,
+    //             })
+    //         })
+    //         .catch(res => {
 
-            })
-    }
+    //         })
+    // }
 
-    getProductSpecs = (id) => {
-        productsAPI.get(`${id}/specs`)
-            .then(res => {
+    // getProductSpecs = (id) => {
+    //     productsAPI.get(`${id}/specs`)
+    //         .then(res => {
 
-                let productSpecs = {}
-                res.data.forEach(spec => {
-                    productSpecs[spec.name] = spec.value
-                })
-                this.setState({ productSpecs: productSpecs })
-            })
-            .catch(res => {
+    //             let productSpecs = {}
+    //             res.data.forEach(spec => {
+    //                 productSpecs[spec.name] = spec.value
+    //             })
+    //             this.setState({ productSpecs: productSpecs })
+    //         })
+    //         .catch(res => {
 
-            })
-    }
+    //         })
+    // }
 
     getProduct = (id, withSimilars = false) => {
         productsAPI.get(`${id}`)
@@ -73,9 +73,10 @@ class Product extends React.Component {
                 this.setState({
                     product: res.data,
                     isLoading: false,
+                    productSpecs: res.data.specs
                 })
 
-                if (withSimilars) this.getSimilarProductSpecs(id, res.data.sku)
+                //if (withSimilars) this.getSimilarProductSpecs(id, res.data.sku)
             })
             .catch(res => {
 
@@ -85,7 +86,7 @@ class Product extends React.Component {
     componentDidMount() {
         const id = this.props.match.params.id
         this.getProduct(id, true);
-        this.getProductSpecs(id);
+        //this.getProductSpecs(id);
 
     }
     handleAddToCart = (quantity) => {
@@ -139,7 +140,7 @@ class Product extends React.Component {
     render() {
         const { classes, isPopup, serverMessage, handlePopupClose, messageType } = this.props;
         const { specs, isLoading, product, productSpecs } = this.state;
-
+        //console.log(productSpecs);
         const tempImages = [
             "https://s3-us-west-1.amazonaws.com/react-package-assets/images/wristwatch_1033.jpg",
             "https://cf5.s3.souqcdn.com/item/2018/10/28/39/47/74/20/item_XL_39477420_157821992.jpg",

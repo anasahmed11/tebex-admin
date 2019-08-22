@@ -18,19 +18,21 @@ class ProgramController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function Stores(SellerRequest $request){
-        if (Store::with('User')->find(Auth::user())->whereIn('status',['pending','approved'])->count() ==0) {
+    public function Stores(SellerRequest $request)
+    {
+        if (Store::with('User')->find(Auth::user())->whereIn('status', ['pending', 'approved'])->count() == 0) {
             $store = new Store($request->all());
             $store->User()->associate(Auth::user());
             if ($store->save())
                 return response()->json(['message' => 'application send successfully']);
             else
                 return response()->json(['error' => 'error in application']);
-        }else
-            return response()->json(['error'=>'you have pending request or already approved']);
+        } else
+            return response()->json(['error' => 'you have pending request or already approved']);
     }
-    public function Affiliates(AffiliateRequest $request){
-        if (Affiliate::with('User')->find(Auth::user())->whereIn('status',['pending','approved'])->count()==0) {
+    public function Affiliates(AffiliateRequest $request)
+    {
+        if (Affiliate::with('User')->find(Auth::user())->whereIn('status', ['pending', 'approved'])->count() == 0) {
 
             $aff = new Affiliate($request->all());
             $aff->User()->associate(Auth::user());
@@ -38,7 +40,8 @@ class ProgramController extends Controller
                 return response()->json(['message' => 'application send successfully']);
             else
                 return response()->json(['error' => 'error in application']);
-        }else
-            return response()->json(['error'=>'you have pending request or already approved']);
+        } else
+            return response()->json(['error' => 'you have pending request or already approved']);
     }
+
 }
