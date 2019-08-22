@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
-    protected $fillable=['name','name_en','address','email','phone','image','slug','type','method','account','url'];
+    protected $fillable=['name','name_en','address','email','phone','image','slug','type','method','account','url','balance'];
     protected $casts = [
         'created_at'=>'datetime',
         'updated_at'=>'datetime',
@@ -16,6 +16,12 @@ class Store extends Model
     }
     public function User(){
         return $this->belongsTo(User::class);
+    }
+    public function toArray()
+    {
+        $attr=$this->attributesToArray();
+        unset($attr['balance']);
+        return array_merge($attr, $this->relationsToArray());
     }
 
 }

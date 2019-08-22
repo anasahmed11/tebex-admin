@@ -23,21 +23,12 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['M', 'F']);
             $table->string('image', 255);
             $table->date('birth_date');
-            $table->tinyInteger('level');
-            $table->bigInteger('store_id')->unsigned()->default(0);
-            $table->double('active_points')->default(0);
-            $table->double('inactive_points')->default(0);
-            $table->double('suspended_points')->default(0);
             $table->boolean('honored')->default(false);
             $table->integer('clicks')->default(0);
             $table->nestedSet();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
-        });
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('store_id')->references('id')->on('store');
-
         });
     }
 

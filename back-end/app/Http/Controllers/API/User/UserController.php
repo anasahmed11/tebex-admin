@@ -56,7 +56,7 @@ class UserController extends Controller
 
     public function team()
     {
-        $team = User::whereDescendantOf(Auth::User())->get(['id', 'image', 'parent_id', 'first_name', 'last_name', 'gender','level', 'created_at', 'active_points', 'inactive_points', 'suspended_points']);
+        $team = User::whereDescendantOf(Auth::User())->get(['id', 'image', 'parent_id', 'first_name', 'last_name', 'gender', 'created_at']);
         return response()->json($team, 200);
     }
 

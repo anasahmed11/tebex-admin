@@ -24,6 +24,7 @@ class CreateStoresTable extends Migration
                 $table->string('phone');
                 $table->string('email')->nullable();
                 $table->string('slug');
+                $table->double('balance')->default(0);
                 $table->enum('method',['cash','bank']);
                 $table->json('account');
                 $table->bigInteger('user_id')->unsigned();
