@@ -6,10 +6,13 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StatusRequest;
 use App\Affiliate;
+use App\Country;
 use App\Http\Requests\ShipperRequest;
+use App\Http\Requests\ShippingRequest;
 use App\Order;
 use App\Product;
 use App\Shipper;
+use App\Shipping;
 use App\Store;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -42,6 +45,8 @@ class AdminController extends Controller
 
 
 
+
+
     public function getAffiliatesApplications(Request $request)
     {
         if ($request->status == null) return response()->json(Affiliate::orderBy('status', 'desc')->get(), 200);
@@ -56,6 +61,8 @@ class AdminController extends Controller
         $affiliate->save();
         return response()->json(['message' => 'ok'], 200);
     }
+
+
 
 
     public function getOrders(Request $request)
@@ -73,6 +80,9 @@ class AdminController extends Controller
         $order->save();
         return response()->json(['message' => 'ok'], 200);
     }
+
+
+
 
 
 
@@ -121,5 +131,46 @@ class AdminController extends Controller
         if ($shipper == null) return response()->json(['message' => 'Shipper id not found'], 400);
         $shipper->delete();
         return response()->json(null, 204);
+    }
+
+
+
+
+    public function addShipping(ShippingRequest $request)
+    {
+        $shipping = new Shipping($request->all());
+        if ($shipping == null) return response()->json(['message' => 'Shipping id not found'], 400);
+        $shipping->save();
+        return response()->json(['message' => 'Data added successfully', 'data' => $shipping], 201);
+    }
+    public function getShipping()
+    {
+        return response()->json(Shipping::with('Shipper', 'City')->get(), 200);
+    }
+    public function editShipping(ShippingRequest $request, Shipping $shipping)
+    {
+        if ($shipping == null) return response()->json(['message' => 'Shipping id not found'], 400);
+        try {
+            $shipping->update($request->all());
+            $shipping->save();
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'Shipping id or Ciry id aren\'t exist'], 400);
+        }
+        return response()->json(['message' => 'Data updated successfully', 'data' => $shipping], 201);
+    }
+
+    public function deleteShipping(Shipping $shipping)
+    {
+        if ($shipping == null) return response()->json(['message' => 'Shipping id not found'], 400);
+        $shipping->delete();
+        return response()->json(null, 204);
+    }
+
+
+
+
+    public function getCities(Country $country){
+        return response()->json($country->cities()->get(),200);
     }
 }

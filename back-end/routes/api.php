@@ -112,6 +112,13 @@ Route::prefix('admin')->group(function () {
     Route::post('/shippers/{id}', 'API\Admin\AdminController@editShipper');
     Route::delete('/shippers/{id}', 'API\Admin\AdminController@deleteShipper');
 
+    Route::get('/shipping', 'API\Admin\AdminController@getShipping');
+    Route::post('/shippers', 'API\Admin\AdminController@addShipping');
+    Route::post('/shipping/{shipping}', 'API\Admin\AdminController@editShipping');
+    Route::delete('/shipping/{shipping}', 'API\Admin\AdminController@deleteShipping');
+
+    Route::get('/cities/{country}', 'API\Admin\AdminController@getCities');
+
 });
 
 Route::prefix('checkout')->group(function () {

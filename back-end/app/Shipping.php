@@ -6,33 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shipping extends Model
 {
-    protected $table='shipping';
-    protected $fillable=[
-        'min_days','max_days','fees'
+    protected $table = 'shipping';
+    protected $fillable = [
+        'min_days', 'max_days', 'fees', 'shipper_id', 'city_id'
     ];
     protected $casts = [
-        'created_at'=>'datetime',
-        'updated_at'=>'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
-    protected $hidden = [
-        'created_at','updated_at'
-    ];
-    public function Shipper(){
-        $this->hasOne(Shipper::class);
+    // protected $hidden = [
+    //     'created_at','updated_at'
+    // ];
+    public $timestamps = false;
+
+    public function Shipper()
+    {
+        return $this->belongsTo(Shipper::class);
     }
-    public function Location(){
+    public function Location()
+    {
         return $this->morphTo('location');
     }
-    public function City(){
-        return  $this->belongsTo(City::class, 'location_id')
-            ->where('location_type','=',City::class);
+    public function City()
+    {
+        return  $this->belongsTo(City::class);
     }
-    public function Area(){
-        return  $this->belongsTo(Area::class, 'location_id')
-            ->where('location_type','=',Area::class);
-    }
-
-
-
-
 }
