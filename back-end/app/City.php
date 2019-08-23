@@ -24,6 +24,6 @@ class City extends Model
         return $this->belongsTo(Country::class);
     }
     public function shipping(){
-        return $this->hasMany(Shipping::class, 'shipping');
+        return $this->hasMany(Shipping::class,'city_id');
     }
 }

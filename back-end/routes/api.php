@@ -51,6 +51,7 @@ Route::prefix('user')->group(function () {
     Route::get('/team', 'API\User\UserController@team');
 
     Route::post('/program/seller', 'API\User\ProgramController@Stores');
+    Route::post('/program/affiliate', 'API\User\ProgramController@Affiliates');
 
 
 

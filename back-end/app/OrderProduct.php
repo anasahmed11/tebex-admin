@@ -9,7 +9,7 @@ class OrderProduct extends Model
     public $timestamps = false;
     protected $with = ['Order','Product'];
     protected $table ='order_products';
-    protected $fillable=['order_id','product_id','price','quantity'];
+    protected $fillable=['order_id','product_id','price','quantity','commission'];
 
     public function Product(){
         return $this->belongsTo(Product::class);
