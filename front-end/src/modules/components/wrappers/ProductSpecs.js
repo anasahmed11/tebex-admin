@@ -7,6 +7,7 @@ import 'typeface-roboto';
 import ProductSpec from '../parts/SelectMenu';
 
 import styles from '../../../assets/jss/components/wrappers/ProductSpecs';
+import RichEditor from '../parts/RichText';
 
 const ProductSpecs = props => {
 
@@ -70,7 +71,10 @@ const ProductSpecs = props => {
                 <Typography gutterBottom variant="title" style={{ fontSize: 15 }} >{globalVariables.LABEL_DESCRIPTION[globalVariables.LANG]}</Typography>
             </Grid>
             <Grid item xs={12}>
-                <Typography gutterBottom variant="title" style={{ fontSize: 17 }} >{props.description}</Typography>
+                <RichEditor 
+                    intial={props.description}
+                    readOnly 
+                /> 
             </Grid>
 
         </Grid>

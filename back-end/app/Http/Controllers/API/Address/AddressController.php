@@ -69,10 +69,11 @@ class AddressController extends Controller
 
     }
     public function cities(Country $country){
-        return response()->json($country->cities()->get(),200);
+        return response()->json($country->cities()->whereHas('shipping',function($query){
+            $query->whereNotNull('id');
+        })->get(),200);
     }
     public function areas(City $city){
         return response()->json($city->areas()->get(),200);
-
     }
 }

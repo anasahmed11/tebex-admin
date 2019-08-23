@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
-    protected $with = ['shipping'];
+
     protected $fillable = [
         'iso_code','city_name', 'city_name_en',
     ];
@@ -24,6 +24,6 @@ class City extends Model
         return $this->belongsTo(Country::class);
     }
     public function shipping(){
-        return $this->hasMany(Shipping::class, 'shipping');
+        return $this->hasMany(Shipping::class);
     }
 }

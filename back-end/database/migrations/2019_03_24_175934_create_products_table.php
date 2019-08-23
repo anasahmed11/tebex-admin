@@ -20,12 +20,12 @@ class CreateProductsTable extends Migration
             $table->string("slug")->unique();
             $table->string("sku");
             $table->json("images");
-            $table->longText("description");
-            $table->longText("description_en");
+            $table->json("description");
+            $table->json("description_en");
             $table->double("price");
             $table->double("sale_price")->nullable();
             $table->integer("quantity");
-            $table->float("commission");
+            $table->float("commission")->default('20');
             $table->enum('status',['pending','confirmed','refused'])->default('pending');
             $table->bigInteger("store_id")->unsigned();
             $table->bigInteger("category_id")->unsigned();

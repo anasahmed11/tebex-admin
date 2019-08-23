@@ -57,7 +57,10 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $p = new Product($product->except(['category', 'image']));
+            $p = new Product($product->except(['category', 'image','description','description_en']));
+            $p->description = json_decode($product->input('description'));
+            $p->description_en = json_decode($product->input('description_en'));
+
             $p->images = [];
             $store = Auth::User()->Store()->where('status', 'approved')->first();
             if (!(count((array) $store))) throw new  \Exception('user have no  store');
@@ -92,7 +95,7 @@ class ProductController extends Controller
             return response()->json("ok", 200);
         } catch (\Exception $exception) {
             DB::rollback();
-            dd($exception);
+            //dd($exception);
             return response()->json("error", 400);
         }
     }
@@ -100,8 +103,11 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            if ($pid->Store()->first()->User()->first()->id != 5) throw new \Exception('access error');
-            $pid->update($product->except(['category', 'image']));
+            if ($pid->Store()->first()->User()->first()->id != Auth::user()->id) throw new \Exception('access error');
+            $pid->update($product->except(['category', 'image','description','description_en']));
+            $pid->description = json_decode($product->input('description'));
+            $pid->description_en = json_decode($product->input('description_en'));
+
             $p = $pid;
             $p->images = [];
             $p->Category()->associate(Category::find($product->category));
@@ -134,7 +140,7 @@ class ProductController extends Controller
             return response()->json("ok", 200);
         } catch (\Exception $exception) {
             DB::rollback();
-            dd($exception);
+            //dd($exception);
             return response()->json("error", 400);
         }
     }

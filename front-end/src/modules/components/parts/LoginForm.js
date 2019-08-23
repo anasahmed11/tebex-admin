@@ -71,7 +71,7 @@ class Login extends React.Component {
     render() {
         const { classes } = this.props
         return (
-            <Grid container justify='center'>
+            <Grid container component="form" onSubmit={(e)=>{e.preventDefault(); this.handleLogin();}} justify='center'>
 
                 <Grid item xs={12} className={classes.paddingTop}>
                     <Typography component="h6" variant="h6" gutterBottom>{globalVariables.FORM_LOGIN_LABEL_TITLE[globalVariables.LANG]}</Typography>
@@ -102,6 +102,7 @@ class Login extends React.Component {
                 </Grid>
                 <Grid item xs={12} className={classes.paddingTop}>
                     <TextField
+                        //onKeyPress={(ev) => { if (ev.key === 'Enter') {this.handleLogin()}}}
                         className={classes.margin}
                         id="outlined-adornment-password"
                         value={this.state.password}
@@ -127,7 +128,7 @@ class Login extends React.Component {
                     />
                 </Grid>
 
-                <Grid item xs={12} className={classes.paddingTop}>
+                <Grid item xs={12}  className={classes.paddingTop}>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -139,7 +140,7 @@ class Login extends React.Component {
                         label={globalVariables.FORM_LOGIN_LABEL_REMEMBER[globalVariables.LANG]}
                     />
 
-                    <Button variant="contained" color="primary" className={classes.button} onClick={this.handleLogin}>
+                    <Button variant="contained" color="primary" type='submit' className={classes.button}  onClick={this.handleLogin}>
                         {globalVariables.FORM_LOGIN_LABEL_LOGIN[globalVariables.LANG]}
                     </Button>
 
@@ -152,7 +153,7 @@ class Login extends React.Component {
         );
     }
 }
-
+//
 const mapDispatchToProps = dispatch => {
     return {
         onLogin: (email, password, rememberme, callBacks) => dispatch(loginUser(email, password, rememberme, callBacks)),
