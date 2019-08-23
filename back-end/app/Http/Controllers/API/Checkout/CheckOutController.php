@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\CheckOut;
 use App\Address;
 use App\Cart;
 use App\City;
+use App\Jobs\OrderJob;
 use App\Notifications\OrderPlaced;
 use App\Order;
 use App\OrderProduct;
@@ -51,7 +52,7 @@ class CheckOutController extends Controller
             foreach ($products as $product) {
                 $p = Product::find($product['id']);
                 if ($p && $p->quantity >= $product['quantity']) {
-                    $item = new OrderProduct(["order_id" => $order->id, "product_id" => $p->id, "price" => $p->sale_price ?? $p->price, "quantity" => $product['quantity']]);
+                    $item = new OrderProduct(["order_id" => $order->id, "product_id" => $p->id, "price" => $p->sale_price ?? $p->price, "quantity" => $product['quantity'], "commission"=>$p->commission]);
                     $item->save();
                     $p->quantity -= $product['quantity'];
                     $p->save();
@@ -70,9 +71,13 @@ class CheckOutController extends Controller
                     throw new \Exception('quantity of items less than exist');
                 }
             }
-
+            $order->commission=OrderProduct::where(["order_id" => $order->id])->get()->sum(function($t){
+                return $t->quantity * $t->commission;
+            });
+            $order->save();
+            OrderJob::dispatch($order,$order->Referral()->first()??User::find(1)->first())->delay(now()->addWeek(2));
             DB::commit();
-            //$address->notify(new OrderPlaced($order));
+            $address->notify(new OrderPlaced($order));
             return response()->json(["success" => "order placed successfully",
                 "url"=>url(config('app.url').route('order.mail', ['id' => $order->id,'token'=>$order->_token], false))
                                     ]);

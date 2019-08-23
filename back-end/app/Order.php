@@ -8,11 +8,12 @@ class Order extends Model
 {
     protected $with = ['Address'];
     protected $fillable=[
-        'status','shipping_fees','_token'
+        'status','shipping_fees','_token','commission','returnable'
     ];
     protected $casts = [
         'created_at'=>'datetime',
         'updated_at'=>'datetime',
+        'returnable'=>'boolean'
     ];
     public function Address(){
         return $this->belongsTo(Address::class);
