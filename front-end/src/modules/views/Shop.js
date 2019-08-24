@@ -11,10 +11,12 @@ import ProductsListWrapper from '../components/wrappers/ProductsListWrapper';
 import styles from '../../assets/jss/views/Shop';
 
 class Shop extends Component {
-
+componentDidMount(){
+  console.log('Shop Mount');
+}
   render() {
     const { classes } = this.props;
-
+    console.log('Shop Render');
     return (
       <Grid container justify='center'>
         <Helmet>

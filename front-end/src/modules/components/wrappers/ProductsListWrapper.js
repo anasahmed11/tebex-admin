@@ -18,7 +18,7 @@ import ProductCard from "../parts/ProductCard";
 import SelectMenu from "../parts/SelectMenu";
 import Pagination from "../parts/Pagination";
 
-import { deleteFromCart, cartFinish } from '../../../store/actions/shoppingCart';
+import { cartFinish } from '../../../store/actions/shoppingCart';
 
 import styles from '../../../assets/jss/components/wrappers/ProductsListWrapper.jsx';
 
@@ -358,7 +358,7 @@ class Store extends Component {
     }
 
     render(){
-        const { classes, isPopup, serverMessage, handlePopupClose, handleDeleteFromCart, messageType } = this.props;
+        const { classes, isPopup, serverMessage, handlePopupClose, messageType } = this.props;
         const { 
             _isLoading,
             _isLoadingProducts,
@@ -455,16 +455,16 @@ class Store extends Component {
                                 />
                             </Grid> 
                             <Grid container item lg={9} xs={12} className={classes.productsSection}>
-                            {_isLoadingProducts?
-                                <Loading height={keepHeight} /> :
-                                <React.Fragment>
-                                    {Products.length? Products : 
-                                        <Typography className={classes.noProducts} variant="h4">
-                                            {globalVariables.LABEL_NO_PRODUCTS[globalVariables.LANG]}
-                                        </Typography>
-                                    }
-                                </React.Fragment>
-                            }
+                                {_isLoadingProducts?
+                                    <Loading height={keepHeight} /> :
+                                    <React.Fragment>
+                                        {Products.length? Products : 
+                                            <Typography className={classes.noProducts} variant="h4">
+                                                {globalVariables.LABEL_NO_PRODUCTS[globalVariables.LANG]}
+                                            </Typography>
+                                        }
+                                    </React.Fragment>
+                                }
                                 <Pagination 
                                     current_page={query.page - 1}
                                     total={totalPages}
@@ -491,7 +491,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        handleDeleteFromCart: (id,shopping_cart) => dispatch(deleteFromCart(id,shopping_cart)),
         handlePopupClose: () => dispatch(cartFinish()),
     }
 }

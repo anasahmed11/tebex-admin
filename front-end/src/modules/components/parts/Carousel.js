@@ -26,6 +26,7 @@ export default (props) =>
                 autoPlay={true}
                 infiniteLoop={true}
                 transitionTime={1000}
+                emulateTouch
             >
                 {carouselData.map(item =>
                     <Link key={uuid()} to={item.link}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import Magnifier from 'react-magnifier'; 
 import uuid from 'uuid';
+import { Carousel } from 'react-responsive-carousel';
 
 import {withStyles, Grid, Typography } from '@material-ui/core';
 import {ArrowForwardIos, ArrowBackIos} from '@material-ui/icons';
@@ -32,7 +33,7 @@ class ProductViewer extends React.Component{
                 <Grid item xs={12}>
                     <Typography component="h6" variant="h6" gutterBottom>{title}</Typography>
                 </Grid>
-                <Grid item md={2} xs={12} className={classes.imagesParent}> 
+                {/*<Grid item md={2} xs={12} className={classes.imagesParent}> 
                     {images.map((img, idx) => 
                             <img src={img}
                                 className={idx === selectedImage? classes.activeImage : classes.productImages}
@@ -41,17 +42,39 @@ class ProductViewer extends React.Component{
                                 alt="product"
                             />
                     )}
-                </Grid>
+                </Grid>*/}
                 <Grid item md={10} xs={12} className={classes.productImage}>
-                <div className={classes.slider} style={{right:'2px'}} onClick={()=>this.handleSliding(1,len)}><ArrowForwardIos></ArrowForwardIos></div>
-                <div className={classes.slider} style={{left:'2px'}} onClick={()=>this.handleSliding(-1,len)}><ArrowBackIos></ArrowBackIos></div>
-                    <Magnifier 
-                        src={images[selectedImage]} 
-                        width={200}
-                        zoomFactor={1.7}
-                        mgWidth={150}
-                        mgHeight={150} />
-                </Grid>     
+                <div style={{direction: 'ltr'}}>
+                    <Carousel
+                        
+                        showStatus={false}
+                        autoPlay={true}
+                        infiniteLoop={true}
+                        transitionTime={1000}
+                        dynamicHeight
+                        emulateTouch
+                    >
+                        {images.map(img =>
+                            <div>
+                                <img src={img} key={uuid()} alt="product" />
+                            </div>
+                            
+                        )}
+                    </Carousel>
+                </div>
+                    {/*
+                    <div className={classes.slider} style={{right:'2px'}} onClick={()=>this.handleSliding(1,len)}><ArrowForwardIos></ArrowForwardIos></div>
+                    <div className={classes.slider} style={{left:'2px'}} onClick={()=>this.handleSliding(-1,len)}><ArrowBackIos></ArrowBackIos></div>
+                        <Magnifier 
+                            src={images[selectedImage]} 
+                            width={200}
+                            zoomFactor={1.7}
+                            mgWidth={150}
+                            mgHeight={150} />
+                    
+
+                    */}     
+                </Grid>
             </Grid>
         );
     }
