@@ -1,46 +1,38 @@
 import React from 'react';
+import Pagination from "material-ui-flat-pagination";
+import Paginate from 'react-paginate';
+// import globalVariables from '../../../global-variables';
 
-import { Link, } from 'react-router-dom';
-import { ClipLoader } from 'react-spinners';
-import uuid from 'uuid';
-import globalVariables from '../../../global-variables';
-
-import { withStyles, Grid, Typography, createMuiTheme, CssBaseline, makeStyles, } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import 'typeface-roboto';
 
-import Order from '../parts/Order';
-import { orderAPI } from '../../../api/api'
-import cancelablePromise from '../../../Providers/CancelablePromise';
+import styles from '../../../assets/jss/components/parts/Pagination';
+import  './styles/react-paginate.css';;
 
-import styles from './styles/Pagination';
-import Pagination from "material-ui-flat-pagination";
-
-
-import { ThemeProvider } from '@material-ui/styles';
-
-
+const disableStyle = {
+    pointerEvents: 'none',
+    opacity: '0.5',
+}
 
 function MyPagination(props){
-    const {classes} = props;
-    return <Pagination
-            style={{width:'100%', backgroundColor:'#247BA0' ,textAlign:'center', display:'flex'}}
-            limit={props.limit}
-            offset={(props.current_page - 1) * props.limit}
-            total={props.total}
-            onClick={(e, offset) => props.handleClick(offset/props.limit + 1)}
-            size='small'
-            currentPageColor='primary'
-            otherPageColor='primary'
-            reduced
-            classes={{
-                textPrimary: classes.textPrimary, 
-                label: classes.label,
-                rootStandard: classes.root,
-                rootCurrent: classes.rootCurrent,
-                rootEllipsis: classes.root,
-                rootEnd: classes.root
-            }}
+    const { current_page, limit, total, disabled, handleClick } = props; // classes not used
+    return <div id='react-paginate' style={disabled? disableStyle : {}}>
+        <Paginate
+            initialPage={current_page}
+            previousLabel={'<'}
+            nextLabel={'>'}
+            breakLabel={'...'}
+            breakClassName={'break-me'}
+            pageCount={total}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={limit}
+            onPageChange={handleClick}
+            containerClassName={'pagination'}
+            subContainerClassName={'pages pagination'}
+            activeClassName={'active'}
+            disableInitialCallback={true}
         />
+    </div>
 }
 
 export default withStyles(styles)(MyPagination);

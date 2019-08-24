@@ -1,3 +1,5 @@
+import COLORS from '../../../site-colors';
+
 export const styles = theme => ({
     root: {
       flexGrow: 1,
@@ -6,31 +8,62 @@ export const styles = theme => ({
     demo: {
       backgroundColor: '#fbfdff',
       border: '1px solid #ced8e2',
-      marginTop: '45.5px',
       [theme.breakpoints.down("md")]: {
         marginTop: 0,
       }
     },
-    title: {
-      // margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
-      color: 'white',
+    mobileToggle: {
+      backgroundColor: '#fbfdff',
+      border: '1px solid #ced8e2',
+      textAlign: 'center',
+      padding: theme.spacing(2),
+      display: 'none',
+      [theme.breakpoints.down("md")]: {
+        display: 'block',
+      }
+    },
+    collapsibleTab: {
+      cursor: 'pointer',
+    },
+    filterTitle: {
+      padding: theme.spacing(1),
+      cursor: 'pointer',
     },
     listHeader: {
         backgroundColor: 'navy',
     },
-    filterTitle: {
-      padding: theme.spacing(1),
-    },
     link: {
       textDecorationLine: 'none',
+      '&:focus': {
+        background: 'green !imporant'
+      }
     },
     priceSection: {
       display: 'flex',
       alignItems: 'center',
+    },
+    priceForm: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      alignItems: 'center',
       width: '90%',
       margin: 'auto',
+      justifyContent: 'space-between',
     },
-    priceSectionItem: {
+    priceSectionBox: {
+      flexBasis: '42%',
+      textAlign: 'center',
+    },
+    priceSectionText: {
+      flexBasis: '15%',
+      textAlign: 'center',
+    },
+    priceSectionButton: {
+      flexBasis: '100%',
+      textAlign: 'center',
+    },
+    checkbox: {
+      color: 'purple !important',
     }
   });
   

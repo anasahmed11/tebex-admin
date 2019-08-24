@@ -1,5 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import Collapsible from 'react-collapsible';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
@@ -20,25 +22,70 @@ class InteractiveList extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const filterPanels = this.props.filterPanels;
+
+    const { classes, filterPanels } = this.props;
     const { dense } = this.state;
+    
+    const disableStyle = {
+      pointerEvents: 'none',
+      opacity: '0.5',
+      background: '#EEE'
+    }
 
     return (
-      <div className={classes.root}>
-        {filterPanels? 
-        <div className={classes.demo}>
-            <List dense={dense}>
-              {filterPanels.map((filter) =>
-                <React.Fragment>
-                  <Typography className={classes.filterTitle}>{filter.name[globalVariables.LANG]}</Typography>
-                  { filter.type === 'text'? <form className={classes.priceSection}>
-                      <TextField className={classes.priceSectionItem} margin="dense" variant="outlined">{filter.values[1]}</TextField>
-                      <Typography className={classes.priceSectionItem}> الى </Typography>
-                      <TextField className={classes.priceSectionItem} margin="dense" variant="outlined">{filter.values[0]}</TextField>
-                      <Button className={classes.priceSectionItem} variant="contained" color="primary">تطبيق</Button>
-                    </form>
+      <div id={this.props.id} className={classes.root}>
 
+        {filterPanels?
+        <Collapsible open triggerTagName="div" trigger={
+          <Typography variant="h6" className={classes.mobileToggle}>
+           <FontAwesomeIcon icon={['fas', 'sliders-h']} /> Filters
+          </Typography>}>
+        <div className={classes.demo} style={this.props.disabled? disableStyle : {}}>
+            <List dense={dense}>
+              
+              {filterPanels.map((filter) => filter.values.length?
+                <React.Fragment>
+                  <Collapsible className={classes.collapsibleTab} open trigger={
+                    <Typography variant="subtitle1" className={classes.filterTitle}>
+                      {filter.name.charAt(0).toUpperCase() + filter.name.slice(1)} <Divider />
+                    </Typography>}
+                  >
+                  { filter.type === 'text'?
+                    <div className={classes.priceSection}>
+                      <form className={classes.priceForm}>
+                        <TextField
+                          className={classes.priceSectionBox}
+                          margin="dense"
+                          variant="outlined"
+                          type="number"
+                          defaultValue={this.props.defaultMin}
+                          id={this.props.minBoxId}
+                        >
+                          {filter.values[1]}
+                        </TextField>
+                        <Typography className={classes.priceSectionText}> 
+                          {globalVariables.LABEL_SHOP_TO[globalVariables.LANG]}
+                        </Typography>
+                        <TextField
+                          className={classes.priceSectionBox}
+                          margin="dense"
+                          variant="outlined"
+                          type="number"
+                          defaultValue={this.props.defaultMax}
+                          id={this.props.maxBoxId}
+                        >
+                          {filter.values[0]}
+                        </TextField>
+                        <Button
+                          className={classes.priceSectionButton}
+                          variant="contained"
+                          color="primary"
+                          onClick={this.props.handlePrice}
+                        >
+                            {globalVariables.LABEL_SHOP_APPLY[globalVariables.LANG]}
+                          </Button>
+                      </form>
+                    </div>
                     : filter.type === 'link'? filter.values.map((value) =>
                       <Link className={classes.link} to={`/shop/${value.slug}`}>
                         <ListItem button key={uuid()}>
@@ -50,24 +97,30 @@ class InteractiveList extends React.Component {
                       </Link>)
 
                     : filter.type === 'menu'?
-                        filter.values[globalVariables.LANG].map((value, idx) => <ListItem key={uuid()}>
+                        filter.values.map((value, idx) => 
+                        <ListItem key={uuid()}>
                           <ListItemText
-                              primary={value}
+                              primary={value[0]}
                               style={{textAlign: globalVariables.LANG === 'ar'? 'right' : 'left'}}
                           />
                           <ListItemSecondaryAction>
                             <Checkbox
-                              onChange={this.handleToggle.bind(this, filter.id, idx)}
-                              checked={filter.checked[idx]}
+                              className={classes.checkbox}
+                              onChange={this.handleToggle.bind(this, filter.name, value[0])}
+                              checked={value[1]}
                             />
                           </ListItemSecondaryAction>
                         </ListItem>) : null }
-                </React.Fragment>
+                        </Collapsible>
+                </React.Fragment> : null
               )}
+
             </List>
             <Divider />
         </div>
+        </Collapsible>
         : null}
+
       </div>
     );
   }

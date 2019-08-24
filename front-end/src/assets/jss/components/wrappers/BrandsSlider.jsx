@@ -13,8 +13,8 @@ export default theme => ({
       marginBottom: -theme.spacing(10),
     },
     brandDiv: {
-      background: COLORS.HOME.BrandsSection.Icons.primary,
-      border: `5px solid gray ${COLORS.HOME.BrandsSection.Icons.secondary}`,
+      background: COLORS.HOME.BrandsSection.Icons.secondary,
+      border: `5px solid gray ${COLORS.HOME.BrandsSection.Icons.primary}`,
       width: 'auto !important',
       height: 'auto !important',
       padding: theme.spacing(4)

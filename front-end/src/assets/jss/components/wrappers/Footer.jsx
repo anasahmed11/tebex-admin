@@ -3,6 +3,8 @@ import COLORS from '../../../site-colors';
 export default theme => ({
     root: {
         backgroundColor: COLORS.HOME.Footer.Background.primary,
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(1),
     },
     footer: {
         width: '80%',
@@ -11,7 +13,7 @@ export default theme => ({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(2),
+        paddingBottom: theme.spacing(3),
         [theme.breakpoints.down('sm')]: {
             flexWrap: 'wrap',
         }
@@ -34,10 +36,14 @@ export default theme => ({
         paddingLeft: 0,
       },
     listItem: {
-        paddingTop: theme.spacing(0.5), // it was unit/2
-        paddingBottom: theme.spacing(0.5), // it was unit/2
+        paddingTop: theme.spacing(0.5),
+        paddingBottom: theme.spacing(0.5),
     },
     footerLink: {
         color: COLORS.HOME.Footer.Links.primary,
+        textDecorationLine: 'none',
+        '&:hover': {
+            color: COLORS.HOME.Footer.Links.hover,
+        }
     }
 });

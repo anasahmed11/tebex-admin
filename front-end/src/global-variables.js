@@ -406,6 +406,22 @@ const globalVariables = {
         en: 'Shop Now!',
         ar: 'تسوق الان!',
     },
+    LABEL_SHOP_SORT: {
+        en: 'SORT BY',
+        ar: 'الترتيب',
+    },
+    LABEL_SHOP_PERPAGE: {
+        en: 'PER PAGE',
+        ar: 'لكل صفحة',
+    },
+    LABEL_SHOP_TO: {
+        en: 'TO',
+        ar: 'الى',
+    },
+    LABEL_SHOP_APPLY: {
+        en: 'APPLY',
+        ar: 'تطبيق',
+    },
     LABEL_PAYMENT: {
         en: 'Payment',
         ar: 'الدفع'

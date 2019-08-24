@@ -1,3 +1,5 @@
+import COLORS from '../../../site-colors';
+
 export default theme => ({
     icon: {
       margin: theme.spacing(1),
@@ -5,7 +7,7 @@ export default theme => ({
       color: 'white',
       transition: theme.transitions.create('color'),
       '&:hover':{
-          color: 'blue'
+          color: COLORS.HOME.Footer.Links.hover
       }
     },
     input: {

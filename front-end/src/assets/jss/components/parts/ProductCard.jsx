@@ -19,6 +19,7 @@ export default (theme) => ({
             top: 0,
           }
       },
+      textAlign: 'left',
       minHeight: 340,
       display: 'flex',
       flexDirection: 'column',

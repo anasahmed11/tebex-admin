@@ -20,10 +20,11 @@ import { initUser } from './store/actions/user'
 
 import Auth from './modules/views/Auth';
 import Home from './modules/views/Home';
-import Product from './modules/views/Product';
 import Shop from './modules/views/Shop';
+import Product from './modules/views/Product';
 import UserPanel from './modules/views/UserPanel';
 import Verify from './modules/views/Verify';
+import Info from './modules/views/Info';
 import NotFound from './modules/views/NotFound';
 import Blank from './modules/views/Blank';
 
@@ -125,8 +126,8 @@ class App extends React.Component {
               <Route exact path="/(profile|orders)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/auth' />} />
               <Route exact path='/' component={withRouter(Home)} />
               <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
-
-
+              
+              <Route exact path='/(about|privacy-policy|contact)' component={Info} />
 
 
               <Route exact path="/affiliate" render={props => !affiliate ? <UserPanel {...props} /> : <Redirect to='/404' />} />

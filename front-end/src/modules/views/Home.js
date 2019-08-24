@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import globalVariables from '../../global-variables';
 
 import Carousel from '../components/parts/Carousel';
 import BrandsSlider from '../components/wrappers/BrandsSlider';
@@ -12,7 +13,6 @@ import { Helmet } from "react-helmet";
 // import TopCustomer from '../components/wrappers/HonorBoard';
 
 import 'typeface-roboto';
-import globalVariables from '../../global-variables';
 
 const companyInfo = [
   {
@@ -42,15 +42,11 @@ class Home extends Component {
 
   }
 
-  _handleWaypointEnter = () => {
-    alert("entered");
-  }
   render() {
     return (
       <React.Fragment>
         <Helmet>
           <title>{globalVariables.PAGE_TITLE_HOME[globalVariables.LANG]}</title>
-         
         </Helmet>
         <Carousel />
         <BrandsSlider />

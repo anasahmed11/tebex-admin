@@ -1,59 +1,52 @@
 const palette = {
-    first: {
-        background: '#247BA0', // GREENBLUE
-        support: '#FF6B6B',
-        title: '#FFE66D',
-        text: '#F7FFF7',
-        link: '#68E0FF',
-        linkHover: '#6FD8F2',
-        button: '#FF1654',
-        buttonText: '#F3FFBD',
-        buttonHover: '#FF4073',
-    },
-    second: {
-        background: '#FF1654',  // PINK
-        support: '#FFA730',
-        title: '#FDFFFC',
-        text: '#F3FFBD',
-        link: '#F9A5FF',
-        linkHover: '#FFBAED',
-        button: '#70C1B3',
-        buttonText: '#1A535C',
-        buttonHover: '#B2DBBF',
-    },
-    third: {
-        background: '#EFE6DD',
-        support: '#FF1654',
-        title: '#247BA0',
-        text: '#011627',
-        link: '#231942',
-        linkHover: '#5E548E',
-        button: '#70C1B3',
-        buttonText: '#011627',
-        buttonHover: '#B2DBBF',
-    },
-    light: {
-        background: '#FDFFFC',
-        support: '#231942',
-        title: '#231942',
-        text: '#5E548E',
-        link: '#69306D',
-        linkHover: '#A5668B',
-        button: '#0E103D',
-        buttonText: '#F2D7EE',
-        buttonHover: '#23254E',
+    main: {
+        background: '#5D1F62', // DOLABY
+        title: '#FFB3E0',
+        text: '#FFF',
+        link: '#FFF',
+        linkHover: '#FFD9F9',
+        button: '#FFB3E0',
+        buttonText: '#5D1F62',
+        buttonHover: '#F2D7EE',
+        icon: '#69306D',
+        iconBackground: '#F2D7EE',
     },
     dark: {
-        background: '#011627',
-        support: '#FF9F1C',
-        title: '#2EC4B6',
-        text: '#F3FFBD',
-        link: '#E0B1CB',
-        linkHover: '#F2D7EE',
-        button: '#4ECDC4',
-        buttonText: '#1A535C',
-        buttonHover: '#6ED6CE',
-    }
+        background: '#0E103D', 
+        title: '#ff73f6',
+        text: '#FEF5FF',
+        link: '#FFF1FD',
+        linkHover: '#FFBAED',
+        button: '#ffc0fa',
+        buttonText: '#61175c',
+        buttonHover: '#ff73f6',
+        icon: '#ff90d1',
+        iconBackground: '#4c246a',
+    },
+    light: {
+        background: '#EFE6DD',
+        title: '#69306D',
+        text: '#000',
+        link: '#A5668B',
+        linkHover: '#B581A0',
+        button: '#845587',
+        buttonText: '#FFF',
+        buttonHover: '#B581A0',
+        icon: '#393B60',
+        iconBackground: '#F4DEF1',
+    },
+    white: {
+        background: '#FFF',
+        title: '#69306D',
+        text: '#000',
+        link: '#A5668B',
+        linkHover: '#B581A0',
+        button: '#845587',
+        buttonText: '#FFF',
+        buttonHover: '#B581A0',
+        icon: '#393B60',
+        iconBackground: '#F4DEF1',
+    },
 }
 
 const COLORS = {
@@ -72,83 +65,96 @@ const COLORS = {
 
         Appbar: {
             Background: {
-                primary: palette.first.background,
+                primary: palette.main.background,
             },
             Links: {
-                primary: palette.first.link,
-                hover: palette.first.linkHover,
+                primary: palette.main.link,
+                hover: palette.main.linkHover,
             },
             Icons: {
-                primary: palette.first.link,
-                hover: palette.first.linkHover,
+                primary: palette.main.link,
+                hover: palette.main.linkHover,
             },
         },
 
         CategoriesBar: {
             Background: {
-                primary: palette.first.support,
+                primary: palette.dark.background,
             },
             Links: {
-                primary: palette.first.text,
-                hover: palette.first.title,
+                primary: palette.dark.link,
+                hover: palette.dark.linkHover,
             },
         },
 
         BrandsSection: {
             Background: {
-                primary: palette.first.background,
+                primary: palette.main.background,
             },
             Icons: {
-                primary: palette.light.background,
-                secondary: palette.light.support,
+                primary: palette.main.icon,
+                secondary: palette.main.iconBackground,
             },
         },
 
         ProductsSection: {
             Background: {
-                primary: palette.third.background,
+                primary: palette.white.background,
+            },
+            Links: {
+                primary: palette.white.link,
+                hover: palette.white.linkHover,
+            },
+            Icons: {
+                primary: palette.white.icon,
+                secondary: palette.white.iconBackground,
             },
         },
 
         InfoSection: {
             Background: {
-                primary: palette.first.background,
+                primary: palette.main.background,
             },
             Icons: {
-                primary: palette.second.support,
-                secondary: palette.second.title,
+                primary: palette.main.icon,
+                secondary: palette.main.iconBackground,
             },
             Text: {
-                primary: palette.second.title,
-                secondary: palette.second.text,
+                primary: palette.main.title,
+                secondary: palette.main.text,
             }
         },
 
         AboveFooter: {
             Background: {
-                primary: palette.light.background,
+                primary: palette.white.background,
             },
             Icons: {
-                primary: palette.light.support,
-                secondary: palette.dark.background,
+                primary: palette.white.icon,
+                secondary: palette.white.iconBackground,
             },
             Text: {
-                primary: palette.light.title,
-                secondary: palette.light.text,
+                primary: palette.white.title,
+                secondary: palette.white.text,
             }
         },
 
         Footer: {
             Background: {
-                primary: palette.light.background,
+                primary: palette.dark.background,
             },
             Links: {
-                primary: palette.light.link,
-                hover: palette.light.linkHover,
+                primary: palette.dark.link,
+                hover: palette.dark.linkHover,
             },
             Text: {
-                primary: palette.light.text,
-            }
+                primary: palette.dark.title,
+                secondary: palette.dark.text,
+            },
+            Icons: {
+                primary: palette.dark.icon,
+                secondary: palette.dark.iconBackground,
+            },
         },
     }    
 }
