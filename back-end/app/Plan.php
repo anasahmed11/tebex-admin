@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plan extends Model
 {
-    use SoftDelete;
     protected $fillable = [
         'name','name_en','description','description_en','commission','price','rules'
     ];
