@@ -20,5 +20,4 @@ class Plan extends Model
     public function Users(){
         return $this->belongsTo(User::class,'level');
     }
-
 }

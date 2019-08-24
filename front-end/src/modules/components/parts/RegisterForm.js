@@ -105,7 +105,7 @@ class Register extends React.Component {
 
         const { email, phone, first_name, last_name, password } = this.props.registerErrors;
         return (
-            <Grid container justify='center'>
+            <Grid container component="form" onSubmit={(e)=>{e.preventDefault(); this.handleRegister();}} justify='center'>
                 <Grid item xs={12} className={classes.paddingTop}>
                     <Typography component="h6" variant="h6" gutterBottom>{globalVariables.FORM_REGISTER_LABEL_TITLE[globalVariables.LANG]}</Typography>
                 </Grid>

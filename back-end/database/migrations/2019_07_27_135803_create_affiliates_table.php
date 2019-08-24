@@ -15,7 +15,10 @@ class CreateAffiliatesTable extends Migration
     {
         Schema::create('affiliates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('level');
+            $table->integer('plan_id')->unsigned();
+            $table->double('active_balance')->default(0);
+            $table->double('inactive_balance')->default(0);
+            $table->double('suspended_balance')->default(0);
             $table->enum('method',['cash','bank']);
             $table->json('account');
             $table->bigInteger('user_id')->unsigned();
@@ -24,7 +27,8 @@ class CreateAffiliatesTable extends Migration
             $table->timestamps();
         });
         Schema::table('affiliates',function(Blueprint $table){
-           $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('plan_id')->references('id')->on('plans');
         });
     }
 

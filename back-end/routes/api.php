@@ -49,8 +49,12 @@ Route::prefix('user')->group(function () {
     Route::get('/affiliate/click', 'API\User\UserController@getAffiliateClick');
 
     Route::get('/team', 'API\User\UserController@team');
+
     Route::post('/program/seller', 'API\User\ProgramController@Stores');
     Route::post('/program/affiliate', 'API\User\ProgramController@Affiliates');
+
+
+
 });
 Route::prefix('address')->group(function () {
     Route::get('/', 'API\Address\AddressController@show');
@@ -89,9 +93,35 @@ Route::prefix('orders')->group(function () {
     Route::get('/seller-processing', 'API\Seller\SellerController@processingOrders');
     Route::get('/seller-completed', 'API\Seller\SellerController@completedOrders');
 });
-Route::prefix('store')->group(function () {
-    Route::get('/', 'API\Store\StoreController@show');
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/seller/applications', 'API\Admin\AdminController@getSellersApplications');
+    Route::post('/seller/applications/{id}', 'API\Admin\AdminController@setSellersStatus');
+
+    Route::get('/affiliate/applications', 'API\Admin\AdminController@getAffiliatesApplications');
+    Route::post('/affiliate/applications/{id}', 'API\Admin\AdminController@setAffiliatesStatus');
+
+    Route::get('/orders', 'API\Admin\AdminController@getOrders');
+    Route::post('/orders/{id}', 'API\Admin\AdminController@setOrdersStatus');
+
+    Route::get('/products', 'API\Admin\AdminController@getProducts');
+    Route::post('/products/{id}', 'API\Admin\AdminController@setProductsStatus');
+
+    Route::get('/shippers', 'API\Admin\AdminController@getShippers');
+    Route::post('/shippers', 'API\Admin\AdminController@addShipper');
+    Route::post('/shippers/{id}', 'API\Admin\AdminController@editShipper');
+    Route::delete('/shippers/{id}', 'API\Admin\AdminController@deleteShipper');
+
+    Route::get('/shipping', 'API\Admin\AdminController@getShipping');
+    Route::post('/shippers', 'API\Admin\AdminController@addShipping');
+    Route::post('/shipping/{shipping}', 'API\Admin\AdminController@editShipping');
+    Route::delete('/shipping/{shipping}', 'API\Admin\AdminController@deleteShipping');
+
+    Route::get('/cities/{country}', 'API\Admin\AdminController@getCities');
+
 });
+
 Route::prefix('checkout')->group(function () {
     Route::post('/', 'API\Checkout\CheckOutController@index');
 });

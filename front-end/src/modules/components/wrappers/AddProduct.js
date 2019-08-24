@@ -1,7 +1,7 @@
 import React from 'react';
 import useForm from "react-hook-form"
 import { ClipLoader } from 'react-spinners';
-
+import { convertToRaw, convertFromRaw } from 'draft-js';
 import 'typeface-roboto';
 import { withStyles, Grid, Typography, Snackbar, Button, } from '@material-ui/core';
 import ExapndPanel from './ExapndPanel';
@@ -15,9 +15,12 @@ import MySnackbar from '../parts/MySnackbar';
 import { productsAPI } from '../../../api/api';
 
 import styles from '../../../assets/jss/components/wrappers/AddProduct';
+import RichEditor from '../parts/RichText';
 
 let getChildData;
 let getImageChildData;
+let getDescription1;
+let getDescription2;
 
 const AddProduct1 = props => {
 
@@ -33,8 +36,11 @@ const AddProduct1 = props => {
 
     const setChildCallback = (callback) => { getChildData = callback; }
     const setImageChildCallback = (callback) => { getImageChildData = callback }
+    const setDescriptionChildCallback1 = (callback) => { getDescription1 = callback }
+    const setDescriptionChildCallback2 = (callback) => { getDescription2 = callback }
 
     const onSubmit = data => {
+        console.log(JSON.stringify(convertToRaw(getDescription1())).length);
         let message = '';
         let valid = true;
         let formData = new FormData();
@@ -53,13 +59,25 @@ const AddProduct1 = props => {
         }
         else for (let imageFile of imageFiles)  formData.append("image[]", imageFile);
 
-       
+        const description1 = getDescription1();
+        if(description1.getPlainText('').length<50){
+            message += 'description arabic should be more than 50 character.';
+            valid = false;
+        }
+        else formData.append('description',JSON.stringify(convertToRaw(description1)));
+        
+        const description2 = getDescription2();
+        if(description2.getPlainText('').length<50){
+            message += 'description english should be more than 50 character.';
+            valid = false;
+        }
+        else formData.append('description_en',JSON.stringify(convertToRaw(description2)));
         
         
         delete data.image
         for (var key in data) formData.append(key, data[key]);
         
-
+        formData.append('commission','20');
 
         console.log(...formData);
         
@@ -112,11 +130,22 @@ const AddProduct1 = props => {
         },
         {
             title: 'Category and Specs',
-            component: <CategoryForm edit={props.edit} defaultValues={props.defaultValues} setChildCallback={setChildCallback} />
+            component: <CategoryForm edit={props.edit}  defaultValues={props.defaultValues} setChildCallback={setChildCallback} />
         },
         {
             title: 'General Description',
-            component: <GeneralDescrptionForm errors={errors} register={register} />
+            //component: <GeneralDescrptionForm errors={errors} register={register} />
+            component:
+            [ 
+                <RichEditor 
+                    intial={props.defaultValues.description} 
+                    setChildCallback={setDescriptionChildCallback1} 
+                />,  
+                <RichEditor
+                    intial={props.defaultValues.description_en} 
+                    setChildCallback={setDescriptionChildCallback2} 
+                />
+            ]
         },
 
     ];
@@ -142,16 +171,17 @@ const AddProduct1 = props => {
                         
                     />
                 </Snackbar>
+                
             <Grid item xs={12}>
                 <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{!props.edit ? 'اضافة منتج' : 'تعديل منتج'}</Typography>
             </Grid>
-            <Grid container justify="center" item spacing={2} xs={12}>
+            <Grid container component="form" onSubmit={(e)=>{e.preventDefault(); console.log("hhhh");}} justify="center" item spacing={2} xs={12}>
                 <Grid item xs={12}>
                     <ExapndPanel components={component} />
                 </Grid>
                 <Grid item xs={3}>
 
-                    <Button fullWidth color="primary" variant="contained" onClick={handleSubmit(onSubmit)}>{props.edit?'Edit':'Add'}</Button>
+                    <Button fullWidth type='submit' color="primary" variant="contained" onClick={handleSubmit(onSubmit)}>{props.edit?'Edit':'Add'}</Button>
                   
 
                 </Grid>

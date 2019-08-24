@@ -31,4 +31,12 @@ class AffiliateRequest extends FormRequest
             'account'=>'required|json',
         ];
     }
+    public function attributes()
+    {
+        return[
+            'level' => 'plan_id', //This will replace any instance of 'username' in validation messages with 'email'
+            //'anyinput' => 'Nice Name',
+        ];
+
+    }
 }
