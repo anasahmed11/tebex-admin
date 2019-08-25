@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
 
 import { Grid } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
 import SlickSlider from '../parts/SlickSlider';
-import Product from '../parts/ProductCard';
+import ProductCard from '../parts/ProductCardX';
 import LinedTitle from '../parts/TwoLinesSectionTitle';
 
 import { categoryAPI } from '../../../api/api';
@@ -31,7 +32,7 @@ class ProductSlider extends Component {
             id: item.id,
             img: item.images[0],
             link: item.slug,
-            title: item.name,
+            title: {ar: item.name, en: item.name_en},
             price: item.price,
             salePrice: item.sale_price,
           });
@@ -51,13 +52,12 @@ class ProductSlider extends Component {
 
     const products = this.state.products.map(item =>
         <div key={uuid()}>
-          <Product 
-            product={item}
+          <ProductCard 
             id={item.id}
-            title={item.title} 
+            title={item.title[globalVariables.LANG]} 
             price={item.salePrice? item.salePrice : item.price}
             oldPrice={item.salePrice? item.price : false}
-            currency={'جنيه'}
+            currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
             img={item.img? item.img : noImage}
             slider
           />
@@ -69,8 +69,7 @@ class ProductSlider extends Component {
           <LinedTitle>
             عروضنا الجميلة 
           </LinedTitle>
-          <SlickSlider className={classes.sliderLayout}>
-            {products}
+          <SlickSlider variableWidth arrowColor="#5D1F62" className={classes.sliderLayout}>
             {products}
           </SlickSlider>
         </Grid>

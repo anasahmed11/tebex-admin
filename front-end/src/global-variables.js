@@ -422,6 +422,14 @@ const globalVariables = {
         en: 'APPLY',
         ar: 'تطبيق',
     },
+    LABEL_SHOP_ADD_TO_CART: {
+        en: 'ADD TO CART',
+        ar: 'اضف للسلة',
+    },
+    LABEL_SHOP_VIEW_DETAILS: {
+        en: 'VIEW DETAILS',
+        ar: 'التفاصيل',
+    },
     LABEL_PAYMENT: {
         en: 'Payment',
         ar: 'الدفع'

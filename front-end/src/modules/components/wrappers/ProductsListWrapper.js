@@ -14,7 +14,7 @@ import { categoryAPI } from '../../../api/api';
 
 import MySnackbar from '../parts/MySnackbar';
 import FiltersPanel from "../parts/FiltersPanel";
-import ProductCard from "../parts/ProductCard";
+import ProductCard from "../parts/ProductCardX";
 import SelectMenu from "../parts/SelectMenu";
 import Pagination from "../parts/Pagination";
 
@@ -71,8 +71,6 @@ class Store extends Component {
         parseBooleans: true,
         parseNumbers: true,
     }
-
-    lazyLoadStart = 10;
 
     sortValues = [
         'Newest',
@@ -389,18 +387,15 @@ class Store extends Component {
                         
                         </Snackbar>
 
-        let Products = products.map((product, idx) => 
+        let Products = products.map(product => 
             <Grid key={uuid()} md={4} sm={6} xs={12}>
                     <ProductCard
-                        product={product}
                         id={product.id}
                         title={product.title[globalVariables.LANG]}
                         price={product.salePrice? product.salePrice : product.price}
                         oldPrice={product.salePrice? product.price : false}
                         currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
                         img={product.img}
-                        lazy={idx < this.lazyLoadStart}
-                        flex
                     /> 
             </Grid>
         )

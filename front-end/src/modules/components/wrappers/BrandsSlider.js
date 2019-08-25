@@ -13,7 +13,7 @@ import styles from '../../../assets/jss/components/wrappers/BrandsSlider';
 const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 
 
-const bbrands = [
+const someBrands = [
     'https://www.mobilaty.com/wp-content/uploads/2018/11/download.png',
     'https://www.mobilaty.com/wp-content/uploads/2018/10/Xiaomi_logo.png',
     'https://www.mobilaty.com/wp-content/uploads/2018/11/download.png',
@@ -24,7 +24,7 @@ const BrandsSlider = props => {
     
     const { classes } = props
 
-    const brands = bbrands.map(item =>
+    const brands = someBrands.map(item =>
         <div className={classes.brandDiv} key={uuid()}>
           <img className={classes.brandImg} src={item} alt="img" />
         </div>
@@ -35,7 +35,7 @@ const BrandsSlider = props => {
           <LinedTitle>
             عبيلو واديلو
           </LinedTitle>
-          <SlickSlider className={classes.sliderLayout}>
+          <SlickSlider arrowColor="#FFF" className={classes.sliderLayout}>
             {brands}
             {brands}
             {brands}

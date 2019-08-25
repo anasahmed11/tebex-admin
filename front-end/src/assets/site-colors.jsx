@@ -11,6 +11,19 @@ const palette = {
         icon: '#69306D',
         iconBackground: '#F2D7EE',
     },
+    support: {
+        background: '#7c6e9d',
+        backgroundGradient: '#594589',
+        title: '#FFF',
+        text: '#FFF',
+        link: '#FFF',
+        linkHover: '#ff96f6',
+        button: '#FFF',
+        buttonText: '#8e7ac0',
+        buttonHover: '#8e7ac0',
+        icon: '#594589',
+        iconBackground: '#FFF',
+    },
     dark: {
         background: '#0E103D', 
         title: '#ff73f6',
@@ -156,7 +169,67 @@ const COLORS = {
                 secondary: palette.dark.iconBackground,
             },
         },
-    }    
+    },
+
+    SHOP: {
+        TextBanner: {
+            Background: {
+                primary: palette.support.background,
+                secondary: palette.support.backgroundGradient,
+            },
+            Text: {
+                primary: palette.support.title,
+            }
+        },
+        ProductsListWrapper: {
+            Background: {
+                primary: palette.white.background,
+            },
+            Title: {
+                primary: palette.white.title,
+            },
+            Text: {
+                primary: palette.white.text,
+            },
+        },
+        FiltersPanel: {
+            Background: {
+                primary: palette.light.background,
+            },
+            Title: {
+                primary: palette.light.title,
+            },
+            Text: {
+                primary: palette.light.text,
+            },
+            Button: {
+                primary: palette.light.button,
+                hover: palette.light.buttonHover,
+                text: palette.light.buttonText,
+            },
+            Icon: {
+                primary: palette.light.icon,
+            },
+            Link: {
+                primary: palette.light.link,
+                hover: palette.light.linkHover,
+            }
+        },
+        ProductCard: {
+            Background: {
+                primary: palette.white.background,
+            },
+            Title: {
+                primary: palette.white.title,
+            },
+            Text: {
+                primary: palette.white.text,
+            },
+            Icon: {
+                primary: palette.white.icon
+            }
+        }
+    }
 }
 
 export default COLORS;
