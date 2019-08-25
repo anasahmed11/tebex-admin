@@ -22,6 +22,14 @@ class CategoryController extends Controller
         Category::fixTree();
         return response()->json(Category::get()->toTree(),200);
     }
+    public function productsCount($category){
+        $cats=Category::descendantsAndSelf($category)->toFlatTree();
+        $count=0;
+        foreach ($cats as $cat){
+            $count+=$cat->Product()->count();
+        }
+        return response()->json(["data"=>["count"=>$count]]);
+    }
     public function specsCount($category){
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
         $catids=[];
