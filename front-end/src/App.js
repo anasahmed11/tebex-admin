@@ -74,7 +74,7 @@ class App extends React.Component {
     this.props.handleInitUser()
 
     fetchAffiliate()
-
+    console.log("APP MOUNT")
   }
   componentWillUnmount = () => {
     document.body.dir = null;
@@ -99,7 +99,7 @@ class App extends React.Component {
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
     const affiliate = this.props.program.affiliate === "Approved"
     const seller = this.props.program.seller === "Approved"
-
+    console.log("APP RENDER", isLoading || this.props.userIsLoading)
     return (
 
       <LoadingScreen
@@ -108,48 +108,51 @@ class App extends React.Component {
         spinnerColor='#9ee5f8'
         textColor='#676767'
       >
-        <RTL>
-          <ThemeProvider theme={this.theme}>
+        {isLoading || this.props.userIsLoading?null:
+          <RTL>
+          
+            <ThemeProvider theme={this.theme}>
 
-            <Navbar />
+              <Navbar />
 
-            <Switch>
-              <Route exact path='/checkout' component={withRouter(Checkout)} />
+              <Switch>
+                <Route exact path='/checkout' component={withRouter(Checkout)} />
 
-              <Route exact path='/home' component={withRouter(Home)} />
-              <Route exact path='/product/:id' component={withRouter(Product)} />
-              <Route exact path='/shop' component={withRouter(Shop)} />
-              <Route exact path='/shop/:slug+' component={withRouter(Shop)} />
-              <Route exact path='/auth' render={props => authenticated ? <Redirect to='/profile' /> : <Auth {...props} />} />
-              <Route exact path='/verify/:id' component={withRouter(Verify)} />
-              <Route exact path='/cart' component={withRouter(Cart)} />
-              <Route exact path="/(profile|orders)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/auth' />} />
-              <Route exact path='/' component={withRouter(Home)} />
-              <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
-              
-              <Route exact path='/(about|privacy-policy|contact)' component={Info} />
-
-
-              <Route exact path="/affiliate" render={props => !affiliate ? <UserPanel {...props} /> : <Redirect to='/404' />} />
-
-
-              <Route exact path="/seller" render={props => !seller ? <UserPanel {...props} /> : <Redirect to='/404' />} />
-              <Route path="/(seller|affiliate)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+                <Route exact path='/home' component={withRouter(Home)} />
+                <Route exact path='/product/:id' component={withRouter(Product)} />
+                <Route exact path='/shop' component={withRouter(Shop)} />
+                <Route exact path='/shop/:slug+' component={withRouter(Shop)} />
+                <Route exact path='/auth' render={props => authenticated ? <Redirect to='/profile' /> : <Auth {...props} />} />
+                <Route exact path='/verify/:id' component={withRouter(Verify)} />
+                <Route exact path='/cart' component={withRouter(Cart)} />
+                <Route exact path="/(profile|orders)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/auth' />} />
+                <Route exact path='/' component={withRouter(Home)} />
+                <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
+                
+                <Route exact path='/(about|privacy-policy|contact)' component={Info} />
 
 
+                <Route exact path="/affiliate" render={props => !affiliate ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+
+
+                <Route exact path="/seller" render={props => !seller ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+                <Route path="/(seller|affiliate)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/404' />} />
 
 
 
 
-              <Route exact path='/404' component={NotFound} />
 
 
-              <Route component={NotFound} />
-            </Switch>
-            <Footer />
+                <Route exact path='/404' component={NotFound} />
 
-          </ThemeProvider>
-        </RTL>
+
+                <Route component={NotFound} />
+              </Switch>
+              <Footer />
+
+            </ThemeProvider>
+          </RTL>
+        }
       </LoadingScreen>
     );
   }

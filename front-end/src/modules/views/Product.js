@@ -151,7 +151,6 @@ class Product extends React.Component {
             <React.Fragment>
                 <Helmet>
                     <title>{globalVariables.PAGE_TITLE_PRODUCT[globalVariables.LANG]}</title>
-                    
                 </Helmet>
                 {isLoading ?
 

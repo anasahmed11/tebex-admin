@@ -74,8 +74,9 @@ class CheckOutController extends Controller
             $order->commission=OrderProduct::where(["order_id" => $order->id])->get()->sum(function($t){
                 return $t->quantity * $t->commission;
             });
+            $order->Referral()->associate(User::find(5));
             $order->save();
-            OrderJob::dispatch($order,$order->Referral()->first()??User::find(1)->first())->delay(now()->addWeek(2));
+            OrderJob::dispatch($order)->delay(now()->addWeek(2));
             DB::commit();
             $address->notify(new OrderPlaced($order));
             return response()->json(["success" => "order placed successfully",

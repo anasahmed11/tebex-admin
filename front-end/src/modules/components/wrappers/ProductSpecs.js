@@ -14,13 +14,26 @@ const ProductSpecs = props => {
     const { classes, specs, salePrice, price, productSpecs } = props;
     return (
         <Grid container className={classes.root}>
-            <Grid item xs={12}>
-                <Typography component="h5" variant="h5" className={classes.salePrice}>{salePrice} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <Typography component="h5" variant="h5" inline gutterBottom className={classes.price}>{price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
-                <Typography component="h5" variant="h5" inline gutterBottom className={classes.priceSave}> - انت ستوفر {price - salePrice} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}</Typography>
-            </Grid>
+            
+            <div>
+                <div className={classes.priceDiv}>
+                    {price?
+                        <div className={classes.oldPriceDiv}>
+                        <Typography className={classes.oldPrice} variant="subtitle1">
+                            {price} {props.currency}
+                        </Typography> 
+                        <Typography className={classes.discount} variant="subtitle2">
+                            {Math.round((price - salePrice) * 100 / price)}% {globalVariables.LABEL_PRODUCT_DISCOUNT[globalVariables.LANG]}
+                        </Typography> 
+                        </div>
+                        : null
+                    }
+                    <Typography className={classes.price} variant="h5" gutterBottom>
+                        {salePrice} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
+                    </Typography>
+                </div>
+            </div>
+
             <Grid item xs={12} className={classes.divider}>
                 <Divider />
             </Grid>
@@ -53,12 +66,15 @@ const ProductSpecs = props => {
             */}
 
             <Grid item xs={12} className={classes.ndRoot}>
+                <Grid item xs={12}  style={{ fontSize: 20, marginBottom:'50px' }}>
+                    <Typography variant="title" >المواصفات</Typography>
+                </Grid>
                 {productSpecs.map(productSpec =>
                     <Grid container className={classes.spec}>
                         <Grid item xs={12}>
                             <Typography component="h6" variant="h6" className={classes.specFont}>{productSpec.name}</Typography>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid component='ul' item xs={12}>
                             {JSON.parse(productSpec.value)['ar']}
                         </Grid>
                     </Grid>
@@ -68,7 +84,7 @@ const ProductSpecs = props => {
                 <Divider />
             </Grid>
             <Grid item xs={12}>
-                <Typography gutterBottom variant="title" style={{ fontSize: 15 }} >{globalVariables.LABEL_DESCRIPTION[globalVariables.LANG]}</Typography>
+                <Typography variant="title" style={{ fontSize: 20 }} >{globalVariables.LABEL_DESCRIPTION[globalVariables.LANG]}</Typography>
             </Grid>
             <Grid item xs={12}>
                 <RichEditor 
