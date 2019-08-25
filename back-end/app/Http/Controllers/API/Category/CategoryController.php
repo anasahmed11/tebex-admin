@@ -33,10 +33,10 @@ class CategoryController extends Controller
         })->get()->groupBy([
             function ($item){
                 $spec=Spec::find($item['spec_id']);
-                return $spec->name_en;
+                return json_encode([$spec->name_en,$spec->name]);
             },
             function ($item){
-                return $item['value']['en'];
+                return json_encode($item['value']);
             }])->map(function($value){
             return $value->map(function ($value){
                 return $value->count();
@@ -82,7 +82,8 @@ class CategoryController extends Controller
         $response['paging']['current']=$pages->currentPage();
         $response['paging']['last']=$pages->lastPage();
         $response['paging']['items']=$pages->total();*/
-        return response()->json($products->paginate(Input::get("perpage")??30));
+        $prices=["max_price" => $products->max('price'),"min_price" => $products->min('price')];
+        return response()->json(array_merge($products->paginate(Input::get("perpage")??30)->toArray(),$prices));
     }
     public function filter(Category $category){
         return response()->json($category->Product()->get());
