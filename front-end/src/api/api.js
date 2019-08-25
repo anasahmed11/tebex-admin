@@ -7,7 +7,7 @@ import { initUser } from '../store/actions/user';
 const cookies = new Cookies();
 
 export const baseURL = "http://127.0.0.1:8000/";
-export const apiURL = baseURL+"api/";
+export const apiURL = baseURL + "api/";
 
 export const webURL = "http://localhost:3000"
 
@@ -99,24 +99,24 @@ export const userAPI = axios.create({
 });
 instances.push(userAPI)
 
-instances.forEach( intance =>{
-    intance.interceptors.request.use(function(config) {
-        config.headers.Authorization = cookies.get(globalVariables.ACCESS_TOKEN)? `Bearer ${cookies.get(globalVariables.ACCESS_TOKEN)}` : '';
-        
+instances.forEach(intance => {
+    intance.interceptors.request.use(function (config) {
+        config.headers.Authorization = cookies.get(globalVariables.ACCESS_TOKEN) ? `Bearer ${cookies.get(globalVariables.ACCESS_TOKEN)}` : '';
+
         return config;
-    }, function(err) {
+    }, function (err) {
         return Promise.reject(err);
     });
-    intance.interceptors.response.use(function(response) {
+    intance.interceptors.response.use(function (response) {
         //console.log("response",response)
-        
+
         return response
-        
-    }, function(err) {
+
+    }, function (err) {
         // if(err.response)
         //     console.log("response error",err.response.status)
 
-        if(err.response && err.response.status===401){
+        if (err.response && err.response.status === 401) {
             cookies.remove(globalVariables.ACCESS_TOKEN)
             initCart()
             initUser()

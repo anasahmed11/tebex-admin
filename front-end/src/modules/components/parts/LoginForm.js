@@ -140,7 +140,7 @@ class Login extends React.Component {
                         label={globalVariables.FORM_LOGIN_LABEL_REMEMBER[globalVariables.LANG]}
                     />
 
-                    <Button variant="contained" color="primary" type='submit' className={classes.button}  onClick={this.handleLogin}>
+                    <Button variant="contained" color="primary" type='submit' className={classes.button}>
                         {globalVariables.FORM_LOGIN_LABEL_LOGIN[globalVariables.LANG]}
                     </Button>
 

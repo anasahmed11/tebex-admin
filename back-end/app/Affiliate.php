@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Affiliate extends Model
 {
-    protected $fillable=['level','method','account','active_balance','inactive_balance','suspended_balance'];
+    protected $fillable=['level','method','account','active_balance','inactive_balance','suspended_balance', 'plan_id'];
     protected $casts = [
         'created_at'=>'datetime',
         'updated_at'=>'datetime',

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-import { ClipLoader } from 'react-spinners';
 import globalVariables from '../../global-variables';
 
 import { withStyles, Grid, Button, Hidden, Divider, Snackbar, } from '@material-ui/core';
@@ -14,13 +13,14 @@ import { closePopup } from '../../store/actions/auth'
 import Login from '../components/parts/LoginForm';
 import Register from '../components/parts/RegisterForm';
 import MySnackbar from '../components/parts/MySnackbar';
+import MyClipLoader from '../components/parts/MyClipLoader';
 
 import { styles } from '../../assets/jss/views/Auth';
 
 class Auth extends React.Component {
 
     state = {
-        loginView: true,        
+        loginView: false,        
     }
 
     handleSwitchAuth = () =>{
@@ -40,19 +40,8 @@ class Auth extends React.Component {
                     
                 </Helmet>
 
-                {isLoading?
-                    <div className={classes.sweetLoading}>
-                        <div className={classes.spinner}>
-                            <ClipLoader
-                                sizeUnit={"px"}
-                                size={75}
-                                color={'#123abc'}
-                                loading={isLoading}
-                            />
-                        </div>
-                    </div>
-                    : null
-                }
+                <MyClipLoader isLoading={isLoading} />
+                
                 <Snackbar
                     style={{bottom:'50px'}}   
                     anchorOrigin={{
@@ -78,7 +67,7 @@ class Auth extends React.Component {
                 
                 <Hidden smDown>
                     <Grid item  md={1} sm={false} className={classes.dividerWord}>
-                        أو
+                        {globalVariables.LABEL_OR[globalVariables.LANG]}
                     </Grid>
                     <Grid item  md={1} sm={false} className={classes.dividerLine}>
                     </Grid>

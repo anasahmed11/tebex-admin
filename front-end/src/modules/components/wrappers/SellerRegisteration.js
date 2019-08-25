@@ -6,6 +6,8 @@ import { withStyles, Grid, Snackbar, } from '@material-ui/core';
 
 
 import MySnackbar from '../parts/MySnackbar';
+import MyClipLoader from '../parts/MyClipLoader';
+
 import SellerForm from '../parts/SellerForm';
 import { userAPI } from '../../../api/api';
 
@@ -26,7 +28,6 @@ class SellerRegisteration extends React.Component {
         })
         .catch(err=>{
             this.setState({isLoading:false, isPopup:true})
-            console.log(err)
         })
     }
 
@@ -39,41 +40,29 @@ class SellerRegisteration extends React.Component {
         const {isLoading} = this.state;
         return(
             <React.Fragment>
-                {isLoading?
-                    <Grid container alignItems="center" justify="center" >
-                        <ClipLoader
-                            sizeUnit={"px"}
-                            size={75}
-                            color={'#123abc'}
-                            loading={isLoading}
-                        />
-                    </Grid> :
-                    <React.Fragment>
-                        <Snackbar
-                            style={{direction:'ltr', bottom:'50px'}}   
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            open={this.state.isPopup}
-                            autoHideDuration={6000}
-                            onClose={this.handlePopupClose}
-                        >
-                            <MySnackbar 
-                                className={classes.margin}
-                                onClose={this.handlePopupClose}
-                                variant={globalVariables.TYPE_ERROR}
-                                message={globalVariables.MSG_NETWORK_ERROR[globalVariables.LANG]}
-                            />
-                        </Snackbar>
-                       
+                <MyClipLoader isLoading={isLoading} />
+                
+                <Snackbar
+                    style={{direction:'ltr', bottom:'50px'}}   
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    open={this.state.isPopup}
+                    autoHideDuration={6000}
+                    onClose={this.handlePopupClose}
+                >
+                    <MySnackbar 
+                        className={classes.margin}
+                        onClose={this.handlePopupClose}
+                        variant={globalVariables.TYPE_ERROR}
+                        message={globalVariables.MSG_NETWORK_ERROR[globalVariables.LANG]}
+                    />
+                </Snackbar>
+                
+                <SellerForm handleFormSubmition={this.handleFormSubmition} />
 
-                       <SellerForm handleFormSubmition={this.handleFormSubmition} />
-                        
-                    
-
-                    </React.Fragment>
-                }
+                
             </React.Fragment>
 
         );

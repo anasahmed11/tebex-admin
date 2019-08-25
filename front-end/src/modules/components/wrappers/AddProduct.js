@@ -1,7 +1,7 @@
 import React from 'react';
 import useForm from "react-hook-form"
 import { ClipLoader } from 'react-spinners';
-import { convertToRaw, convertFromRaw } from 'draft-js';
+import { convertToRaw } from 'draft-js';
 import 'typeface-roboto';
 import { withStyles, Grid, Typography, Snackbar, Button, } from '@material-ui/core';
 import ExapndPanel from './ExapndPanel';
@@ -9,7 +9,6 @@ import ExapndPanel from './ExapndPanel';
 import CategoryForm from '../parts/CategoryForm';
 import MainProductInfoForm from '../parts/MainProductInfoFrom';
 import ImageUploadAndPreview from '../parts/ImageUploader';
-import GeneralDescrptionForm from '../parts/GeneralDescriptionForm';
 import MySnackbar from '../parts/MySnackbar';
 
 import { productsAPI } from '../../../api/api';
@@ -40,7 +39,7 @@ const AddProduct1 = props => {
     const setDescriptionChildCallback2 = (callback) => { getDescription2 = callback }
 
     const onSubmit = data => {
-        console.log(JSON.stringify(convertToRaw(getDescription1())).length);
+        
         let message = '';
         let valid = true;
         let formData = new FormData();
@@ -79,10 +78,8 @@ const AddProduct1 = props => {
         
         formData.append('commission','20');
 
-        console.log(...formData);
         
         if(valid===false){
-            console.log(message)
             setServerMessage(message);
             setPopup(true);
             setMessageType('error')
@@ -175,7 +172,7 @@ const AddProduct1 = props => {
             <Grid item xs={12}>
                 <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{!props.edit ? 'اضافة منتج' : 'تعديل منتج'}</Typography>
             </Grid>
-            <Grid container component="form" onSubmit={(e)=>{e.preventDefault(); console.log("hhhh");}} justify="center" item spacing={2} xs={12}>
+            <Grid container component="form" onSubmit={(e)=>{e.preventDefault();}} justify="center" item spacing={2} xs={12}>
                 <Grid item xs={12}>
                     <ExapndPanel components={component} />
                 </Grid>
@@ -202,14 +199,12 @@ class Wrapper extends React.Component {
 
     componentDidMount() {
         const productID = this.props.match.params.id;
-        console.log(productID);
         if (productID) {
             productsAPI.get(productID)
                 .then(res => {
                     this.setState({ data: res.data, isLoading: false })
                 })
                 .catch(err => {
-                    console.log(err);
                     this.setState({ isLoading: false })
                 })
         }

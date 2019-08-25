@@ -60,7 +60,7 @@ class AuthController extends Controller
 
         $referral = User::find($request->only('referral'))->first();
         if($referral != null) {
-            if($referral->Affiliate()->where('status','approved')->first() != null) $user = User::create($request->all(),$referral->id);
+            if($referral->Affiliate()->where('status','approved')->first() != null) $user = User::create($request->all(),$referral);
             else $user = User::create($request->all());
         }
         else $user = User::create($request->all());

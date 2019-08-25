@@ -18,19 +18,6 @@ export const styles = theme => ({
         height:'400px',
         borderLeft:'1px solid black'
     },  
-    sweetLoading:{
-        position: 'fixed',
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0,0,0,0.6)',
-        zIndex:' 1000',
-    },
-    spinner:{
-        display: 'block',
-        margin: '0 auto',
-        top: '50%',
-        position: 'relative',
-    },
     paper: {
         position: 'absolute',
         width: theme.spacing(50),

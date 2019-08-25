@@ -181,14 +181,10 @@ class SellerForm extends React.Component{
             if(paymentData[key]==="") valid=false;
         })
 
-        console.log(data)
         if(valid)
             this.props.handleFormSubmition(data)
         else this.setState({error:true})
-
-
-
-      
+        
     }
 
 
@@ -205,7 +201,7 @@ class SellerForm extends React.Component{
         const {classes} = this.props;
         return(
 
-            <Grid container justify='center' style={{textAlign:'center'}}>
+            <Grid container component="form" onSubmit={(e)=>{e.preventDefault(); this.handleRegister()}} justify='center' style={{textAlign:'center'}}>
                 
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <Typography component = "h6" variant = "h6" gutterBottom>{globalVariables.FORM_REGISTER_LABEL_TITLE[globalVariables.LANG]}</Typography>
@@ -230,7 +226,7 @@ class SellerForm extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
-                        id = "etisalat-cash1211"
+                        id = "etisalat-1211"
                         label = {globalVariables.FORM_SELLER_LABEL_NAME_EN[globalVariables.LANG]}
                         value = {this.state.storeNameEn}
                         onChange = {this.handleChange('storeNameEn')}
@@ -245,7 +241,7 @@ class SellerForm extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
-                        id = "etisalat-cash1211"
+                        id = "etisalat-cash1das11"
                         label = {globalVariables.FORM_SELLER_LABEL_STORE_URL[globalVariables.LANG]}
                         value = {this.state.storeURL}
                         onChange = {this.handleChange('storeURL')}
@@ -260,7 +256,7 @@ class SellerForm extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
-                        id = "etisalat-cash1211"
+                        id = "etisalat-cash12dd11"
                         label = {globalVariables.FORM_SELLER_LABEL_ITEMS[globalVariables.LANG]}
                         value = {this.state.itemType}
                         onChange = {this.handleChange('itemType')}
@@ -277,7 +273,7 @@ class SellerForm extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
-                        id = "etisalat-cash1211"
+                        id = "etisalsh1211"
                         label = {globalVariables.FORM_SELLER_LABEL_STORE_ADDRESS[globalVariables.LANG]}
                         value = {this.state.storeAddress}
                         onChange = {this.handleChange('storeAddress')}
@@ -295,7 +291,7 @@ class SellerForm extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
-                        id = "etisalat-cash1211"
+                        id = "easdalat-cash1211"
                         label = {globalVariables.FORM_SELLER_LABEL_PICKUP_PHONE[globalVariables.LANG]}
                         value = {this.state.storePhone}
                         onChange = {this.handleChange('storePhone')}
@@ -311,9 +307,11 @@ class SellerForm extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
-                        id = "etisalat-cash1211"
+                        id = "edas1dasa1"
                         label = {globalVariables.FORM_SELLER_LABEL_STORE_EMAIL[globalVariables.LANG]}
                         value = {this.state.storeEmail}
+                        type="email"
+                        autoComplete
                         onChange = {this.handleChange('storeEmail')}
                         InputLabelProps = {{
                             shrink: true,
@@ -327,7 +325,7 @@ class SellerForm extends React.Component{
                 <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         className = {classes.margin}
-                        id = "etisalat-cash1211"
+                        id = "xasdada"
                         label = {globalVariables.FORM_SELLER_LABEL_STORE_SLUG[globalVariables.LANG]}
                         value = {this.state.storeSlug}
                         onChange = {this.handleChange('storeSlug')}
@@ -370,9 +368,9 @@ class SellerForm extends React.Component{
                 <Grid item xs = {6} className = {classes.paddingTop}>
                     <Button 
                         variant = "contained"
+                        type="submit"
                         color = "primary"
                         className = {classes.button} 
-                        onClick = {this.handleRegister}
                         fullWidth
                     >
                         {globalVariables.FORM_REGISTER_LABEL_REGISTER[globalVariables.LANG]}

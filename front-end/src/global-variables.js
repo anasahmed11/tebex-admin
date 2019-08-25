@@ -579,6 +579,10 @@ const globalVariables = {
         en: 'Resend',
         ar: 'اعادة ارسال'
     },
+    LABEL_OR: {
+        en: 'or',
+        ar: 'أو'
+    },
 
 
     // Link Genrator Page

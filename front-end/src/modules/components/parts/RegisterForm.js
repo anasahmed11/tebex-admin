@@ -36,7 +36,7 @@ class Register extends React.Component {
     }
 
     handleRegister = () => {
-
+        console.log("REGISTERING");
         let emailError = "";
         let passwordError = "";
         let firstnameError = "";
@@ -230,7 +230,6 @@ class Register extends React.Component {
                         variant="contained"
                         color="primary"
                         className={classes.button}
-                        onClick={this.handleRegister}
                     >
                         {globalVariables.FORM_REGISTER_LABEL_REGISTER[globalVariables.LANG]}
                     </Button>

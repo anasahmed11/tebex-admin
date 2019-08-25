@@ -30,15 +30,6 @@ class Affiliate extends React.Component{
     }
 
     componentDidMount(){
-
-        
-        // affiliateAPI.get('/')
-        // .then(res=>{
-        //     this.setState({page:res.data,isLoading:false})
-        // })
-        // .catch(res=>{
-        //     this.setState({isLoading:false})
-        // })
     }
 
     getPage = () => {
