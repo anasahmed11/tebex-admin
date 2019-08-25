@@ -32,6 +32,7 @@ const SlickSlider = props => {
         infinite: false,
         autoplay: true,
         speed: 500,
+        autoplaySpeed: 6000,
         slidesToShow: 6,
         slidesToScroll: 2,
         initialSlide: 0,

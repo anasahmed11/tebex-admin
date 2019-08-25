@@ -368,6 +368,8 @@ class Store extends Component {
             totalPages
         } = this.state;
 
+        const qString = queryString.stringify(query, this.queryParseOptions);
+
         const snack = <Snackbar
                             style={{bottom:'50px'}}   
                             anchorOrigin={{
@@ -409,7 +411,10 @@ class Store extends Component {
                             {this.state.categoryTrace?
                                 this.state.categoryTrace.map(cat =>
                                 <Typography className={classes.categoryLinkElement} variant="subtitle1">
-                                    <Link className={classes.categoryLink} to={cat.link}>
+                                    <Link
+                                        className={classes.categoryLink}
+                                        to={qString? cat.link + '?q=' + qString : cat.link}
+                                    >
                                         {cat.name[globalVariables.LANG]}
                                     </Link>
                                 </Typography>)
@@ -439,6 +444,7 @@ class Store extends Component {
                             <Grid item lg={3} xs={12}>
                                 <FiltersPanel
                                     id='filters-panel'
+                                    query={qString}
                                     handleCheck={this.filterCheckHandler}
                                     handlePrice={this.priceHandler}
                                     minBoxId='price-min-input'

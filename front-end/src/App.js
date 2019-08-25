@@ -104,8 +104,8 @@ class App extends React.Component {
 
       <LoadingScreen
         loading={isLoading || this.props.userIsLoading}
-        bgColor='#f1f1f1'
-        spinnerColor='#9ee5f8'
+        bgColor='#5D1F62'
+        spinnerColor='#FFB3E0'
         textColor='#676767'
       >
         {isLoading || this.props.userIsLoading?null:

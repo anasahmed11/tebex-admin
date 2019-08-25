@@ -23,9 +23,13 @@ export default theme => ({
              "-o-transition": 'all 180ms ease-out',
                 transition: 'all 180ms ease-out',
     },
+    imageContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+    },
     productImage: {
         position: 'absolute',
-        width: '100%',
+        height: '342px',
         zIndex: '-100',
     },
     productCard: {
@@ -324,6 +328,11 @@ export default theme => ({
                  "-o-transition": 'all 300ms ease-out',
                     transition: 'all 300ms ease-out',
         },
+    },
+    productImageSlider: {
+        position: 'absolute',
+        height: '284px',
+        zIndex: '-100',
     },
     statsContainerSlider: {
         background: '#fff',
