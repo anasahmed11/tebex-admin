@@ -424,7 +424,7 @@ const globalVariables = {
     },
     LABEL_SHOP_ADD_TO_CART: {
         en: 'ADD TO CART',
-        ar: 'اضف لسلة التسوق',
+        ar: 'اضف للسلة',
     },
     LABEL_SHOP_VIEW_DETAILS: {
         en: 'VIEW DETAILS',

@@ -36,7 +36,7 @@ textarea {
 .slick-slide > div > div {
   height: 100%;
 }
-[dir='rtl'] .slick-next{ right: -25px !important; left: auto !important; }
-[dir='rtl'] .slick-prev{ left: -25px !important; right: auto !important; }
+[dir='rtl'] .slick-next{ right: -30px !important; left: auto !important; }
+[dir='rtl'] .slick-prev{ left: -42px !important; right: auto !important; }
 [dir='rtl'] .slick-next:before{ content: '→' !important; }
 [dir='rtl'] .slick-prev:before{ content: '←' !important; }

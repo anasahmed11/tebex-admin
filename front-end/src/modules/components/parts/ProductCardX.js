@@ -15,7 +15,7 @@ import styles from '../../../assets/jss/components/parts/ProductCardX';
 
 function ProductCard(props) {
   
-  const { classes, img } = props;
+  const { classes, slider } = props;
   const [loading, setLoading] = useState(true);
   
   const Loading = () => 
@@ -24,33 +24,35 @@ function ProductCard(props) {
     </Grid>
 
   return (
-    <div className={classes.make3Dspace}>
-        <div className={classes.productCard}>
-            <div className={classes.productFront}>
+    <div className={slider? classes.make3DspaceSlider : classes.make3Dspace}>
+        <div className={slider? classes.productCardSlider : classes.productCard}>
+            <div className={slider? classes.productFrontSlider : classes.productFront}>
                 <Loading loading={loading} />
-                <LazyLoad onContentVisible={() => setLoading(false)}>
+                <LazyLoad offsetTop={200} onContentVisible={() => setLoading(false)}>
                     <img className={classes.productImage} src={props.img} alt={props.title} />
                 </LazyLoad>
                 <div className={classes.shadow}></div>
                 <div className={classes.imageOverlay}></div>
                 <Link className={classes.link} to={`/product/${props.id}`}>
-                    <div className={classes.viewDetails}>View details</div>
+                    <Typography variant='h6' className={slider? classes.viewDetailsSlider : classes.viewDetails}>
+                        {globalVariables.LABEL_SHOP_VIEW_DETAILS[globalVariables.LANG]}
+                    </Typography>
                 </Link>
                 {props.oldPrice?
-                    <div className={classes.discount}>
+                    <Typography variant='h6' className={slider? classes.discountSlider : classes.discount}>
                         {Math.round((props.oldPrice - props.price) * 100 / props.oldPrice)}% {globalVariables.LABEL_PRODUCT_DISCOUNT[globalVariables.LANG]}
-                    </div>
+                    </Typography>
                 :null}
-                <div className={classes.statsContainer}>
-                    <Typography variant='h6' className={classes.productBrand}>Brand</Typography>    
-                    <Typography variant='h6' className={classes.productName}>{props.title}</Typography>    
-                    <Typography variant='h6' className={classes.productOldPrice}>
+                <div className={slider? classes.statsContainerSlider : classes.statsContainer}>
+                    <Typography variant='h6' className={slider? classes.productBrandSlider : classes.productBrand}>Brand</Typography>    
+                    <Typography variant='h6' className={slider? classes.productNameSlider : classes.productName}>{props.title}</Typography>    
+                    <Typography variant='h6' className={slider? classes.productOldPriceSlider : classes.productOldPrice}>
                         {props.oldPrice? props.oldPrice + ' ' + props.currency : ''}
                     </Typography>
-                    <Typography variant='h6' className={classes.productPrice}>{props.price} {props.currency}</Typography>
-                    <div className={classes.addToCart} onClick={() => props.addProductToCart(props.product)}>
+                    <Typography variant='h6' className={slider? classes.productPriceSlider : classes.productPrice}>{props.price} {props.currency}</Typography>
+                    <Typography variant='h6' className={slider? classes.addToCartSlider : classes.addToCart} onClick={() => props.addProductToCart(props.product)}>
                         {globalVariables.LABEL_SHOP_ADD_TO_CART[globalVariables.LANG]}
-                    </div>
+                    </Typography>
                 </div>
             </div>
         </div>	

@@ -2,6 +2,7 @@
 
 export default theme => ({
     make3Dspace: {
+        textAlign: 'left',
         // position: 'relative',
         // perspective: '800px',
         // width: '340px',
@@ -113,7 +114,7 @@ export default theme => ({
         fontSize: '22px',
         color: '#393c45',
         height: '64px',
-        lineHeight: 'normal',
+        lineHeight: '1.4',
         display: '-webkit-box',
         overflow: 'hidden',
         '-webkit-line-clamp': 2,
@@ -198,43 +199,6 @@ export default theme => ({
             transition: 'background 0s',
         }
     },
-    colors: {
-        '& div': {
-            marginTop: '3px',
-            width: '15px',
-            height: '15px ',
-            marginRight: '5px',
-            float: 'left',
-        },
-        '& div span': {
-            width: '15px',
-            height: '15px',
-            display: 'block',
-            borderRadius: '50%',
-        },
-        '& div span:hover': {
-            width: '17px',
-            height: '17px',
-            margin: '-1px 0 0 -1px'
-        },
-    },
-    cBlue: {
-        '& span': {background: '#6e8cd5',}
-    },
-    cRed: {
-        '& span': {background: '#f56060',}
-    },
-    cGreen: {
-        '& span': {background: '#44c28d',}
-    },
-    cWhite: {
-        '& span': {
-            background: '#fff',
-            width: '14px',
-            height: '14px',
-            border: '1px solid #e8e9eb',
-        }
-    },
     shadow: {
         width: '100%', // width: '335px',
         height: '100%', // height: '520px',
@@ -254,6 +218,7 @@ export default theme => ({
         textAlign: 'center',
         textTransform: 'uppercase',
         fontWeight: '700',
+        lineHeight: '1.2',
         padding: '14px 4px 7px 4px',
         // borderBottomLeftRadius: '35px',
         // borderBottomRightRadius: '35px',
@@ -272,5 +237,202 @@ export default theme => ({
     },
     link: {
         textDecorationLine: 'none'
-    }
-})
+    },
+
+
+    // STYLES FOR SLICK-SLIDER
+
+    make3DspaceSlider: {
+        textAlign: 'left',
+        width: '203px',
+        height: '380px',
+        // position: 'relative',
+        // perspective: '800px',
+        // width: '340px',
+        // height: '500px',
+        transformStyle: 'preserve-3d',
+        transition: 'transform 5s',
+        // marginLeft: '-167px',
+    },
+    productFrontSlider: {
+        // width: '335px',
+        height: '380px',
+        // background: '#fff',
+        // position: 'absolute',
+        // left: '-5px',
+        // top: '-5px',
+        "-webkit-transition": 'all 180ms ease-out',
+           "-moz-transition": 'all 180ms ease-out',
+             "-o-transition": 'all 180ms ease-out',
+                transition: 'all 180ms ease-out',
+    },
+    productCardSlider: {
+        // width: '325px',
+        height: '390px',
+        boxShadow: '0px 0px 2px 0px rgba(0, 0, 0, 0.3)',
+        // position: 'absolute',
+        // top: '10px',
+        // left: '10px',
+        overflow: 'hidden',
+        transform: 'scale(0.95)',
+        transformStyle: 'preserve-3d',
+        "-webkit-transition": ' 180ms ease-out',
+           "-moz-transition": ' 180ms ease-out',
+             "-o-transition": ' 180ms ease-out',
+                transition: ' 180ms ease-out',
+        '&:hover $productFrontSlider': {
+            top: '0px',
+            left: '0px',
+            "-webkit-transition": 'all 180ms ease-out',
+            "-moz-transition": 'all 180ms ease-out',
+                "-o-transition": 'all 180ms ease-out',
+                    transition: 'all 180ms ease-out',
+        },
+        '&:hover': {
+            // top: '5px',
+            // left: '5px',
+            // width: '335px',
+            // height: '500px',
+            boxShadow: '0px 13px 8px -9px rgba(0, 0, 0, 0.3)',
+            "-webkit-transition": ' 180ms ease-out',
+               "-moz-transition": ' 180ms ease-out',
+                 "-o-transition": ' 180ms ease-out',
+                    transition: ' 180ms ease-out',
+        },
+        '&:hover $statsContainerSlider': {
+            top: '230px',
+            "-webkit-transition": 'all 300ms ease-out',
+            "-moz-transition": 'all 300ms ease-out',
+                "-o-transition": 'all 300ms ease-out',
+                    transition: 'all 300ms ease-out',
+        },
+        '&:hover $imageOverlay': {
+            opacity: '0.7',
+            "-webkit-transition": 'all 300ms ease-out',
+            "-moz-transition": 'all 300ms ease-out',
+                "-o-transition": 'all 300ms ease-out',
+                    transition: 'all 300ms ease-out',
+        },
+        '&:hover $viewDetailsSlider': {
+            opacity: '1',
+            width: '152px',
+            fontSize: '15px',
+            marginLeft: '-75px',
+            top: '115px',
+            "-webkit-transition": 'all 300ms ease-out',
+               "-moz-transition": 'all 300ms ease-out',
+                 "-o-transition": 'all 300ms ease-out',
+                    transition: 'all 300ms ease-out',
+        },
+    },
+    statsContainerSlider: {
+        background: '#fff',
+        position: 'relative', // position: 'absolute',
+        top: '284px',
+        left: '0',
+        // width: '265px',
+        height: '300px',
+        padding: '7px 35px 35px', // padding: '27px 35px 35px',
+        "-webkit-transition": 'all 300ms ease-out',
+           "-moz-transition": 'all 300ms ease-out',
+             "-o-transition": 'all 300ms ease-out',
+                transition: 'all 300ms ease-out',
+        '& p': {
+            fontSize: '16px',
+            color: '#b1b1b3',
+            padding: '2px 0 20px 0',
+        },
+    },
+    productBrandSlider: {
+        fontSize: '12px',
+        color: '#b1b1b3',
+        height: '15px',
+    },
+    productNameSlider: {
+        fontSize: '14px',
+        color: '#393c45',
+        height: '40px',
+        lineHeight: '1.4',
+        display: '-webkit-box',
+        overflow: 'hidden',
+        '-webkit-line-clamp': 2,
+        '-webkit-box-orient': 'vertical',
+    },
+    productPriceSlider: {
+        // float: 'right',
+        color: '#594589', // color: '#48cfad',
+        fontSize: '16px',
+        fontWeight: '600',
+    },
+    viewDetailsSlider: {	
+        position: 'absolute',
+        top: '112px',
+        left: '50%',
+        marginLeft: '-85px',
+        border: '2px solid #fff',
+        color: '#fff',
+        fontSize: '15px',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        fontWeight: '700',
+        padding: '8px 0',
+        width: '172px',
+        opacity: '0',
+        "-webkit-transition": 'all 300ms ease-out',
+           "-moz-transition": 'all 300ms ease-out',
+             "-o-transition": 'all 300ms ease-out',
+                transition: 'all 300ms ease-out',
+        '&:hover': {
+            background: '#fff',
+            color: '#594589', // color: '#48cfad',
+            cursor: 'pointer',
+        }
+    },
+    discountSlider: {
+        position: 'absolute',
+        fontSize: '18px',
+        left: '12px',
+        color: '#fff',
+        background: '#5D1F62',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        fontWeight: '700',
+        lineHeight: '1.2',
+        padding: '10px 2px 6px 2px',
+        // borderBottomLeftRadius: '35px',
+        // borderBottomRightRadius: '35px',
+        width: '50px',
+    },
+    addToCartSlider: {
+        margin: 'auto',
+        border: '2px solid #594589',
+        color: '#594589',
+        fontSize: '16px',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        fontWeight: '700',
+        marginTop: '4px',
+        padding: '6px 0',
+        width: '100%',
+        "-webkit-transition": 'all 300ms ease-out',
+           "-moz-transition": 'all 300ms ease-out',
+             "-o-transition": 'all 300ms ease-out',
+                transition: 'all 300ms ease-out',
+        '&:hover': {
+            background: '#594589 radial-gradient(circle, transparent 1%, #594589 1%) center/15000%;',
+            color: '#fff',
+            cursor: 'pointer',
+        },
+        '&:active': {
+            backgroundColor: '#8e7ac0',
+            backgroundSize: '100%',
+            transition: 'background 0s',
+        }
+    },
+    productOldPriceSlider: {
+        fontSize: '13px',
+        height: '15px',
+        color: '#8b8b8b',
+        textDecorationLine: 'line-through',
+    },
+});
