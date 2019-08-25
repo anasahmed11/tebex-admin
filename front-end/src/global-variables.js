@@ -583,6 +583,10 @@ const globalVariables = {
         en: 'or',
         ar: 'أو'
     },
+    LABEL_CATEGORY: {
+        en: 'Category',
+        ar: 'القسم'
+    },
 
 
     // Link Genrator Page

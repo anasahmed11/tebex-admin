@@ -6,20 +6,29 @@ import { withStyles, TextField, MenuItem } from "@material-ui/core";
 import { categoryAPI } from "../../../api/api";
 
 import styles from '../../../assets/jss/components/parts/CategoryForm';
+import globalVariables from "../../../global-variables";
 
 const getLeaves = (cats) => {
     let leaves = [];
     for (let cat of cats) {
         if (cat.children.length)
-            leaves = [...leaves, ...getLeaves(cat.children)];
-        else
+            if (cat.name === "root")
+                getLeaves(cat.children).map(childrenLeave => { leaves.push(childrenLeave) })
+            else
+                getLeaves(cat.children).map(childrenLeave => {
+                    childrenLeave.name = childrenLeave.name + ' <- ' + ((globalVariables.LANG==='ar')?cat.name:cat.name_en)
+                    leaves.push(childrenLeave);
+                })
+        else{
+            cat.name = globalVariables.LANG==='ar'?cat.name:cat.name_en
             leaves = [...leaves, cat];
+        }
     }
     return leaves;
 }
 
 class CategoryForm extends React.Component {
-    
+
     state = {
         isLoading: true,
         specsError: {},
@@ -35,7 +44,7 @@ class CategoryForm extends React.Component {
             this.setState({ isLoading: false })
             categoryAPI.get(`${event.target.value}/specs/`)
                 .then(res => {
-                    //console.log("RESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSss",res.data)
+
                     this.setState({
                         categorySpecs: res.data.data,
                         isLoading: false
@@ -46,7 +55,7 @@ class CategoryForm extends React.Component {
                 })
         }
     };
-    
+
     getData = () => {
 
         let valid = true;
@@ -62,7 +71,7 @@ class CategoryForm extends React.Component {
 
         let data = { category: this.state.category };
         let idx = 0;
-        
+
         for (let spec of this.state.categorySpecs) {
             const id = spec.id;
             const name = spec.name_en;
@@ -87,13 +96,11 @@ class CategoryForm extends React.Component {
         categoryAPI.get('')
             .then(res => {
                 const leaves = getLeaves(res.data);
-                //console.log(res.data)
                 if (this.props.edit) {
-                    categoryAPI.get(`${this.props.defaultValues.category_id}/specs/`)
+                    /*categoryAPI.get(`${this.props.defaultValues.category_id}/specs/`)
                         .then(res => {
                             let specsData = {};
-                            for(let spec of this.props.defaultValues.specs) specsData = {...specsData, [spec.name_en]:spec.pivot.spec_id}
-                            //console.log("RESSSSSS",res.data)
+                            for (let spec of this.props.defaultValues.specs) specsData = { ...specsData, [spec.name_en]: spec.pivot.spec_id }
                             this.setState({
                                 categorySpecs: res.data.data,
                                 isLoading: false,
@@ -103,22 +110,20 @@ class CategoryForm extends React.Component {
                             })
                         })
                         .catch(err => {
-                            console.log(err)
-                        })
+                        })*/
                 }
                 else {
                     this.setState({ isLoading: false, CATEGORIES: leaves });
                 }
             })
             .catch(err => {
-                
+
             })
     }
 
     render() {
         const { classes } = this.props;
-        //console.log("CAT", this.state.categorySpecs);
-        
+
         return (
             <React.Fragment>
                 {this.state.isLoading ? null :
@@ -127,9 +132,9 @@ class CategoryForm extends React.Component {
                         className={classes.margin}
                         id={uuid()}
                         select
-                        label="القسم"
+                        label={globalVariables.LABEL_CATEGORY[globalVariables.LANG]}
                         type="text"
-                        error={this.state.categoryError?true:false}
+                        error={this.state.categoryError ? true : false}
                         helperText={this.state.categoryError}
                         value={this.state.category}
                         onChange={this.handleChange('category')}
@@ -141,7 +146,7 @@ class CategoryForm extends React.Component {
                     >
                         {this.state.CATEGORIES.map(option => (
                             <MenuItem key={option.id} value={option.id}>
-                                {option.name_en}
+                                {option.name}
                             </MenuItem>
                         ))}
                     </TextField>
@@ -154,7 +159,7 @@ class CategoryForm extends React.Component {
                         select
                         label={spec.name}
                         type="text"
-                        error={this.state.specsError[spec.name_en]?true:false}
+                        error={this.state.specsError[spec.name_en] ? true : false}
                         helperText={this.state.specsError[spec.name_en] ? this.state.specsError[spec.name_en] : ''}
                         value={this.state[spec.name_en]}
                         onChange={this.handleChange(spec.name_en)}
@@ -164,8 +169,8 @@ class CategoryForm extends React.Component {
                         }}
                         required
                     >
-                        {spec.values.ar.map((value, idx) => (
-                            <MenuItem  value={idx}>
+                        {spec.values[globalVariables.LANG].map((value, idx) => (
+                            <MenuItem value={idx}>
                                 {value}
                             </MenuItem>
                         ))}

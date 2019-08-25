@@ -1,0 +1,36 @@
+.productViewer-enter {
+    opacity: 0;
+}
+  
+.productViewer-enter.productViewer-enter-active {
+    opacity: 1;
+    animation: slide-in ease-out 600ms forwards; 
+}
+  
+.productViewer-leave {
+    opacity: 1;
+}
+  
+.productViewer-leave.productViewer-leave-active {
+    opacity: 0;
+    animation: slide-out ease-in-out 600ms forwards; 
+}
+
+@keyframes slide-in {
+    0%   {opacity: 0 ;}
+    100%   {opacity: 1;}
+}
+@-webkit-keyframes slide-in {
+    0%   {opacity: 0 ;}
+    100%   {opacity: 1;}
+  }
+  
+@keyframes slide-out {
+    0%   {opacity: 1;}
+    100%   {opacity: 0;}
+}
+
+@-webkit-keyframes slide-out {
+    0%   {opacity: 1;}
+    100%   {opacity: 0;}
+}

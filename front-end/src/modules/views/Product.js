@@ -189,10 +189,10 @@ class Product extends React.Component {
 
 
 
-                        <Grid item md={4} xs={8}>
+                        <Grid item md={4} xs={11}>
                             <ProductViewer images={product.images.length ? product.images : tempImages} title={product.name} />
                         </Grid>
-                        <Grid item md={4} xs={8}>
+                        <Grid item md={4} xs={11}>
                             <ProductSpecs
                                 specs={specs}
                                 productSpecs={productSpecs}
@@ -203,7 +203,7 @@ class Product extends React.Component {
                             />
 
                         </Grid>
-                        <Grid item md={3} xs={8}>
+                        <Grid item md={3} xs={11}>
                             <AddToCart addToCart={this.handleAddToCart} quantity={product.quantity} store={{ id: product.store.id, name: product.store.name }} />
                         </Grid>
 

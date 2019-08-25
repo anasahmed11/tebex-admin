@@ -17,7 +17,7 @@ const ProductSpecs = props => {
             
             <div>
                 <div className={classes.priceDiv}>
-                    {price?
+                    {price!==salePrice?
                         <div className={classes.oldPriceDiv}>
                         <Typography className={classes.oldPrice} variant="subtitle1">
                             {price} {props.currency}

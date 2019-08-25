@@ -40,3 +40,14 @@ textarea {
 [dir='rtl'] .slick-prev{ left: -42px !important; right: auto !important; }
 [dir='rtl'] .slick-next:before{ content: '→' !important; }
 [dir='rtl'] .slick-prev:before{ content: '←' !important; }
+
+
+.magnifier {
+  top: calc(50% - 350px / 2);
+  left: 0;
+  right: 0;
+  position: absolute
+}
+.magnifier-image {
+  object-fit: contain;
+}

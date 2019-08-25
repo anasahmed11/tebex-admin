@@ -8,15 +8,20 @@ export default theme => ({
     },
     productImages:{
         width:'50px',
-        border: "1px solid #EEE"
+        border: "1px solid #EEE",
+        height: '100px',
+        objectFit: 'contain'
+
     },
     activeImage:{
         border: "1px solid #999",
-        width:'50px'
+        width:'50px',
+        height: '100px',
+        objectFit: 'contain'
     },
     slider:{
         position:'absolute',
-        top:'50%',
+        top:'calc(50% - 28px / 2)',
     },
     imagesParent:{
         maxWidth:'50px',
