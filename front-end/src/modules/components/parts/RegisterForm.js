@@ -226,6 +226,7 @@ class Register extends React.Component {
 
                 <Grid item xs={12} className={classes.paddingTop}>
                     <Button
+                        type='submit'
                         variant="contained"
                         color="primary"
                         className={classes.button}

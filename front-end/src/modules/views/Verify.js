@@ -1,16 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { withStyles, Grid, Typography, LinearProgress, Snackbar } from '@material-ui/core';
 
-import { verifyAPI as axios, resendAPI } from '../../api/api';
+import { verifyAPI, resendAPI } from '../../api/api';
 
 import MySnackbar from '../components/parts/MySnackbar'
 import { Helmet } from "react-helmet";
 
 import styles from '../../assets/jss/views/Verify';
 import globalVariables from '../../global-variables';
+import Cookies from 'universal-cookie';
 
+
+const cookies = new Cookies();
 
 class Verify extends React.Component {
 
@@ -23,8 +25,9 @@ class Verify extends React.Component {
     }
 
     componentDidMount() {
-        console.log(`${this.props.match.params.id}${this.props.location.search}`)
-        axios.get(`${this.props.match.params.id}${this.props.location.search}`)
+        if(!cookies.get(globalVariables.ACCESS_TOKEN)) this.props.history.push('/auth');
+        
+        verifyAPI.get(`${this.props.match.params.id}${this.props.location.search}`)
             .then(res => {
                 this.setState({
                     isLoading: false,
@@ -33,7 +36,7 @@ class Verify extends React.Component {
                     isPopup: true,
                     serverMessage: "Email Verified Successfully",
                 })
-                setTimeout(() => { this.props.history.push(this.props.redirectPath, { pathname: 'http://localhost:3000' }); }, 3000)
+                setTimeout(() => { this.props.history.push('/'); }, 1000);
             })
             .catch(err => {
                 resendAPI.get('')
@@ -78,7 +81,7 @@ class Verify extends React.Component {
             <Grid container justify='center' className={classes.root}>
                 <Helmet>
                     <title>{globalVariables.PAGE_TITLE_VERIFY[globalVariables.LANG]}</title>
-                   
+
                 </Helmet>
                 {snack}
                 <Grid item md={8} xs={10}>
@@ -101,10 +104,6 @@ class Verify extends React.Component {
 }
 
 
-const mapStateToProps = state => {
-    return {
-        redirectPath: state.auth.path
-    }
-}
 
-export default connect(mapStateToProps)(withStyles(styles)(Verify));
+
+export default withStyles(styles)(Verify);

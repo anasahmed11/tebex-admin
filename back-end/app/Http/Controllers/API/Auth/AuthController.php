@@ -57,10 +57,15 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $request['password'] = Hash::make($request['password']);
-        $request['level']=0;
-        $request['image']='';
-        event(new Registered($user = User::create($request->except('referral'),User::find($request->only('referral'))->first())));
-        #event(new Registered($user = User::create($request)));
+
+        $referral = User::find($request->only('referral'))->first();
+        if($referral != null) {
+            if($referral->Affiliate()->where('status','approved')->first() != null) $user = User::create($request->all(),$referral->id);
+            else $user = User::create($request->all());
+        }
+        else $user = User::create($request->all());
+
+        event(new Registered($user));
         $tokenResult = $user->createToken(config('app.name'));
         return response([
             'access_token' => $tokenResult->accessToken,

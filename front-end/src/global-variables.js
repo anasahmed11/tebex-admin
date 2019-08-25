@@ -18,29 +18,29 @@ const globalVariables = {
     // MESSAGES
     MSG_LOGIN_FAIL: {
         en: 'Login failed.',
-        ar: '',
+        ar: 'فشل في تسجيل الدخول',
     },
     MSG_LOGIN_SUCCESS: {
         en: 'Logged in successfully.',
-        ar: '',
+        ar: 'تم تسجيل الدخول',
     },
 
     MSG_LOGOUT_FAIL: {
         en: 'Error.',
-        ar: '',
+        ar: 'فشل!',
     },
     MSG_LOGOUT_SUCCESS: {
         en: 'Logged out successfully.',
-        ar: '',
+        ar: '.تم تسجيل الخروج',
     },
 
     MSG_REGISTER_SUCCESS: {
         en: 'Registered successfully.\nCheck your mail for account activation.',
-        ar: '',
+        ar: '.تم انشاء حساب بنجاح, تفقد بريدك الالكتروني لتفعيله',
     },
     MSG_REGISTER_FAIL: {
         en: 'Registeration failed.',
-        ar: '',
+        ar: 'فشل تسجيل الحساب.',
     },
     MSG_NETWORK_ERROR: {
         en: 'No response from server.\ntry again later',
@@ -567,6 +567,11 @@ const globalVariables = {
         en: 'rows',
         ar: 'صفوف'
     },
+    LABEL_RESEND: {
+        en: 'Resend',
+        ar: 'اعادة ارسال'
+    },
+
 
     // Link Genrator Page
     LINK_GENERATOR_TITLE: {

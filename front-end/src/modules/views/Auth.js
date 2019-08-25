@@ -9,8 +9,7 @@ import { withStyles, Grid, Button, Hidden, Divider, Snackbar, } from '@material-
 import { OpenInNew } from '@material-ui/icons';
 
 import { closePopup } from '../../store/actions/auth'
-import { initCart } from '../../store/actions/shoppingCart';
-import { initUser } from '../../store/actions/user';
+
 
 import Login from '../components/parts/LoginForm';
 import Register from '../components/parts/RegisterForm';

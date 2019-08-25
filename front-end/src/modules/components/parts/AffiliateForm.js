@@ -154,9 +154,10 @@ class AffiliateForm extends React.Component{
         const paymentData = this.getPaymentData()
         const data = {
             account: JSON.stringify(paymentData),            
-            level: this.state.package,
+            plan_id: this.state.package,
             method: this.state.payment===2?'Bank':'Cash'
         };
+        console.log(data);
 
         Object.keys(paymentData).forEach(key=>{
             if(paymentData[key]==="") valid=false;

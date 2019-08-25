@@ -102,6 +102,7 @@ instances.push(userAPI)
 instances.forEach( intance =>{
     intance.interceptors.request.use(function(config) {
         config.headers.Authorization = cookies.get(globalVariables.ACCESS_TOKEN)? `Bearer ${cookies.get(globalVariables.ACCESS_TOKEN)}` : '';
+        
         return config;
     }, function(err) {
         return Promise.reject(err);
@@ -112,7 +113,8 @@ instances.forEach( intance =>{
         return response
         
     }, function(err) {
-        console.log("response error",err.response.status)
+        // if(err.response)
+        //     console.log("response error",err.response.status)
 
         if(err.response && err.response.status===401){
             cookies.remove(globalVariables.ACCESS_TOKEN)

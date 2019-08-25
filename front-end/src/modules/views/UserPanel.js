@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import globalVariables from '../../global-variables';
 
-import { withStyles, Grid, SnackbarContent } from '@material-ui/core';
+import { withStyles, Grid, SnackbarContent, Button } from '@material-ui/core';
 import 'typeface-roboto';
 
 import Profile from '../components/wrappers/Profile';
@@ -20,9 +19,10 @@ import MyProducts from '../components/wrappers/MyProducts';
 import SellingOrders from '../components/wrappers/SellingOrders';
 
 import NotFound from '../views/NotFound';
-import SellerDashBoard from '../components/wrappers/SellerDashBoard';
+
 import Helmet from 'react-helmet';
 import styles from '../../assets/jss/views/UserPanel';
+import { resendAPI } from '../../api/api';
 
 class UserpanelLayout extends React.Component {
 
@@ -42,7 +42,15 @@ class UserpanelLayout extends React.Component {
                 {
                     this.props.user.verified === false ?
                         <Grid container item sm={12} justify="center" alignItems="center">
-                            <SnackbarContent className={classes.error} style={{ maxWidth: '100%', width: '100%', justifyContent: "center" }} message={globalVariables.MSG_VERIFIY_ACCOUNT[globalVariables.LANG]} />
+                            <SnackbarContent 
+                                className={classes.error} 
+                                style={{ maxWidth: '100%', width: '100%', justifyContent: "center" }} 
+                                message={
+                                    <div>
+                                        {globalVariables.MSG_VERIFIY_ACCOUNT[globalVariables.LANG]} <Link style={{color:'white'}} onClick={()=>resendAPI.get('')}>{globalVariables.LABEL_RESEND[globalVariables.LANG]}</Link>
+                                    </div>
+                                } 
+                            />
                         </Grid> : null
                 }
 

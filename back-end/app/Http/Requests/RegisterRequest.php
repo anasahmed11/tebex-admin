@@ -30,12 +30,10 @@ class RegisterRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'phone' => 'required|string|max:20|unique:users',
-            'level' => 'integer|between:1,8',
             'image'=>'string',
             'honored'=>'int',
             'gender' => 'required|enum_key:' . Gender::class,
             'birth_date' => 'required|date',
-            'referral' => 'integer',
 
         ];
     }

@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone')->unique();
             $table->enum('gender', ['M', 'F']);
-            $table->string('image', 255);
+            $table->string('image', 255)->nullable();
             $table->date('birth_date');
             $table->boolean('honored')->default(false);
             $table->integer('clicks')->default(0);
