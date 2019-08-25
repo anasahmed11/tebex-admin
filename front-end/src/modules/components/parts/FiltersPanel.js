@@ -23,7 +23,7 @@ class InteractiveList extends React.Component {
 
   render() {
 
-    const { classes, filterPanels } = this.props;
+    const { classes, query, filterPanels } = this.props;
     const { dense } = this.state;
     
     const disableStyle = {
@@ -41,14 +41,18 @@ class InteractiveList extends React.Component {
            <FontAwesomeIcon icon={['fas', 'sliders-h']} /> Filters
           </Typography>}>
         <div className={classes.demo} style={this.props.disabled? disableStyle : {}}>
-            <List dense={dense}>
+            <List className={classes.listLayout} dense={dense}>
               
               {filterPanels.map((filter) => filter.values.length?
                 <React.Fragment>
-                  <Collapsible className={classes.collapsibleTab} open trigger={
-                    <Typography variant="subtitle1" className={classes.filterTitle}>
-                      {filter.name.charAt(0).toUpperCase() + filter.name.slice(1)} <Divider />
-                    </Typography>}
+                  <Collapsible open trigger={
+                    <div className={classes.collapsibleTab}>
+                      <Typography variant="subtitle1" className={classes.filterTitle}>
+                        {filter.name.charAt(0).toUpperCase() + filter.name.slice(1)} {/*<Divider />*/}
+                      </Typography>
+                      <FontAwesomeIcon icon={['fas', 'ellipsis-h']} />
+                    </div>
+                    }
                   >
                   { filter.type === 'text'?
                     <div className={classes.priceSection}>
@@ -87,14 +91,14 @@ class InteractiveList extends React.Component {
                       </form>
                     </div>
                     : filter.type === 'link'? filter.values.map((value) =>
-                      <Link className={classes.link} to={`/shop/${value.slug}`}>
-                        <ListItem button key={uuid()}>
+                      <ListItem className={classes.listItem} button key={uuid()}>
+                        <Link className={classes.link} to={query?  `/shop/${value.slug}?q=${query}` : `/shop/${value.slug}`}>
                           <ListItemText
                                   primary={value.name[globalVariables.LANG]}
-                                  style={{textAlign: globalVariables.LANG === 'ar'? 'right' : 'left'}}
+                                  className={classes.listItemText}
                           />
-                        </ListItem>
-                      </Link>)
+                        </Link>
+                      </ListItem>)
 
                     : filter.type === 'menu'?
                         filter.values.map((value, idx) => 

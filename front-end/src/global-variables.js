@@ -394,6 +394,18 @@ const globalVariables = {
     },
 
     //Labels
+    LABEL_HOME_BRANDS_SLIDER: {
+        en: 'Featured Brands',
+        ar: 'ماركات مميزة',
+    },
+    LABEL_HOME_PRODUCTS_SLIDER: {
+        en: 'Featured Products',
+        ar: 'منتجات مميزة',
+    },
+    LABEL_HOME_INFO: {
+        en: 'Our Vision',
+        ar: 'رؤيتنا',
+    },
     LABEL_SAVE_CHANGES: {
         en: 'Save Changes',
         ar: 'حفظ التغييرات'
@@ -566,10 +578,6 @@ const globalVariables = {
     LABEL_LAST_PAGE: {
         en: 'Last Page',
         ar: 'الصفحة الاخير'
-    },
-    LABEL_OF: {
-        en: 'of',
-        ar: 'من'
     },
     LABEL_ROWS: {
         en: 'rows',
