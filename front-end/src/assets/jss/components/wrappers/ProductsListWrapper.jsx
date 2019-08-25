@@ -1,3 +1,5 @@
+// import COLORS from '../../../site-colors';
+
 export default theme => ({
     root: {
         backgroundColor: '#fff',

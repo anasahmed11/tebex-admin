@@ -83,7 +83,7 @@ class App extends React.Component {
   theme = createMuiTheme({
     typography: {
       useNextVariants: true,
-      fontFamily: "'Droid Arabic Kufi', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+      fontFamily: "'Open Sans', 'Droid Arabic Kufi', 'Roboto', 'Helvetica', 'Arial', sans-serif",
     },
     direction: globalVariables.LANG === 'ar' ? 'rtl' : 'ltr',
   });

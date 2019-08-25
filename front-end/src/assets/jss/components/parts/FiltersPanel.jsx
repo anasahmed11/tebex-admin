@@ -1,4 +1,4 @@
-import COLORS from '../../../site-colors';
+// import COLORS from '../../../site-colors';
 
 export const styles = theme => ({
     root: {
@@ -7,7 +7,7 @@ export const styles = theme => ({
     },
     demo: {
       backgroundColor: '#fbfdff',
-      border: '1px solid #ced8e2',
+      border: `1px solid #ced8e2`,
       [theme.breakpoints.down("md")]: {
         marginTop: 0,
       }
@@ -28,13 +28,14 @@ export const styles = theme => ({
     filterTitle: {
       padding: theme.spacing(1),
       cursor: 'pointer',
+      textTransform: 'uppercase',
     },
     listHeader: {
         backgroundColor: 'navy',
     },
     link: {
       textDecorationLine: 'none',
-      '&:focus': {
+      '&:active': {
         background: 'green !imporant'
       }
     },
@@ -61,6 +62,7 @@ export const styles = theme => ({
     priceSectionButton: {
       flexBasis: '100%',
       textAlign: 'center',
+      fontWeight: '700',
     },
     checkbox: {
       color: 'purple !important',
