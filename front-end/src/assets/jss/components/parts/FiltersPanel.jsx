@@ -15,7 +15,7 @@ export const styles = theme => ({
     },
     listLayout: {
       padding: 0,
-      marginLeft: -1,
+      margin: -1,
       '& .Collapsible__contentInner': {
         marginBottom: theme.spacing(2),
         marginTop: theme.spacing(1),

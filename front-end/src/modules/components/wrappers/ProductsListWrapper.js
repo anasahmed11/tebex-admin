@@ -54,6 +54,20 @@ const Loading = (props) => <Grid container justify="center" style={{height: prop
 
 class Store extends Component {
 
+    
+    queryParseOptions = {
+        arrayFormat: 'bracket',
+        parseBooleans: true,
+        parseNumbers: true,
+    }
+
+    sortValues = {
+        en: ['Newest', 'Highest Price', 'Lowest Price', 'A - Z', 'Z - A'],
+        ar: ['الأحدث', 'السعر الأعلى', 'السعر الأقل', 'أ - ي', 'ي - أ']
+    };
+
+    perPageValues = [15, 30, 60, 90];
+
     state = {
         _isLoading: true,
         _isLoadingProducts: true,
@@ -63,37 +77,37 @@ class Store extends Component {
         categoryID: 1,
         totalPages: 1,
         query: {},
+        queryDefaults: {
+            page: 0,
+            sort: 0,
+            perPage: this.perPageValues[0],
+             // This will be set to min, max in componentDidMount
+            minPrice: 0,
+            maxPrice: 12999,    // Fake safe value
+        },
         keepHeight: '40vh',
     }
     
-    queryParseOptions = {
-        arrayFormat: 'bracket',
-        parseBooleans: true,
-        parseNumbers: true,
-    }
-
-    sortValues = [
-        'Newest',
-        'Highest Price',
-        'Lowest Price',
-        'A-Z',
-        'Z-A'
-    ];
-
-    perPageValues = ['30', '50', '75'];
-    
     componentDidMount = () => {
+
+        const { changingCategory } = this.props.location.state? this.props.location.state : false;
+
         // Parse url after "shop/"
-        const slug = this.props.match.params.slug? this.props.match.params.slug.split('/') : null;
+        let slug = this.props.match.params.slug?
+                     this.props.match.params.slug.indexOf('?') > -1?
+                        this.props.match.params.slug.slice(0, this.props.match.params.slug.indexOf('?')).replace(/^\/|\/$/g, '').split('/')
+                        : this.props.match.params.slug.replace(/^\/|\/$/g, '').split('/')
+                     : null;
+        if(Array.isArray(slug) && slug.length === 1 && slug[0] === '') slug = null;
+        
+        // console.log('shopdidSLUG OG', this.props.match.params.slug, slug)
         const query = queryString.parse(window.location.search, this.queryParseOptions);
         
-        // Inital values
-        if(!query.page) query.page = 1;
-        if(!query.sort) query.sort = 0;
-        if(!query.perPage) query.perPage = 30;
-        if(!query.minPrice) query.minPrice = 0;
-        if(!query.maxPrice) query.maxPrice = 9999;
-        
+        if(changingCategory){
+            delete query.page;
+            this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
+        }    
+
         console.log('ShopDidMount Query:', query);
         this.setState({ slug: slug, query: query }, () => this.fetchAllData());
     }
@@ -154,9 +168,9 @@ class Store extends Component {
                 categories: categories,
                 slug: slug
             }, () => {
-                this.traceCategory(categories, categoryID);
-                this.fetchProducts();
-                this.fetchFilters();
+                    this.traceCategory(categories, categoryID);
+                    this.fetchProducts();
+                    this.fetchFilters();
             });
         })
         .catch(res => console.log('ERROR: Fetching categories failed.', res))
@@ -164,13 +178,32 @@ class Store extends Component {
 
     fetchProducts = () => {
 
+        const { categoryID, query, queryDefaults, filterPanels } = this.state;
+        if(filterPanels){
+            let filtersObject = { specs: [], settings: [] }
+            for(let filter of filterPanels){
+                if(filter.type === 'menu') {
+                    let spec = { id: filter.id, values: []}
+                    for(let value of filter.values)
+                        if(value[1]) spec.values.push(value[2]);
+                    filtersObject.specs.push(spec);
+                }
+                else if(filter.type === 'text'){
+                    filtersObject.settings.push({ id: 'pr', values: filter.values});
+                }
+            }
+            filtersObject.settings.push({ id: 'pp', values: query.perPage});
+            filtersObject.settings.push({ id: 'sr', values: query.sort});
+            console.log('shit', filtersObject)
+            console.log('shit', filterPanels)
+        }
+
         // Get products of current category for current page
-        const { categoryID, query } = this.state;
 
         categoryAPI.get(`/${categoryID}/products?page=${query.page}`)
         .then(res => {
             const products = [];
-            for (let item of res.data.data)
+            for (let item of res.data.data){
                 products.push({
                     id: item.id,
                     img: item.images[0],
@@ -179,8 +212,18 @@ class Store extends Component {
                     price: item.price,
                     salePrice: item.sale_price,
                 });
-            this.setState({ 
+            }
+
+            // Set min and max price
+            if(res.data.min_price)
+                queryDefaults.minPrice = res.data.min_price;
+            if(res.data.max_price)
+                queryDefaults.maxPrice = res.data.max_price;
+            
+            this.setState({
                 products: products,
+                queryDefaults: queryDefaults,
+                totalProducts: res.data.total,
                 totalPages: Math.ceil(res.data.total/ res.data.per_page),
                 _isLoadingProducts: false,
             });
@@ -190,71 +233,84 @@ class Store extends Component {
 
     fetchFilters = () => {
         
-        const { categoryID, categories, slug, query } = this.state;
+        const { categoryID, categories, slug, queryDefaults } = this.state;
+
+        // Initiate filterPanels with categories
+        const filterPanels = [{
+            id: '__category',
+            name: {en: 'Category', ar: 'الفئة'},
+            values: [],
+            type: 'link',
+        }];
+         
+        try {
+            for(let cat of categories){
+                if(cat.parent_id === categoryID){
+                    categoryAPI.get(`/${cat.id}/products/count`).then(res => {
+                        if(res.data.data.count > 0)
+                            filterPanels[0].values.push({
+                                slug: slug? slug.join('/') + '/' + cat.slug : cat.slug,
+                                name: {ar: cat.name, en: cat.name_en},
+                                total: res.data.data.count,
+                            });
+                    });
+                }
+            }
+        } catch (err) { console.log('WARNING: Failed to fetch sub-categories.\n', err) }
 
         categoryAPI.get(`/${categoryID}/specs/count`)
             .then(res => {
-
-                // Initiate filterPanels with categories
-                const filterPanels = [{
-                    id: '__category',
-                    name: 'category',
-                    values: [],
-                    type: 'link',
-                }];
-                
-                try {
-                    for(let cat of categories)
-                        if(cat.parent_id === categoryID)
-                            filterPanels[0].values.push({
-                                slug: slug? slug.join('/') + '/' + cat.slug : cat.slug,
-                                name: {ar: cat.name, en: cat.name_en}
-                            });
-                } catch (err) { console.log('WARNING: Failed to fetch sub-categories.\n', err) }
-
                 // Add specs to filterPanels
                 try {
                     const specsObject = res.data.data;
-                    for(let specName of Object.getOwnPropertyNames(specsObject)){
-                        const specValues = Object.getOwnPropertyNames(specsObject[specName]);
-                        const name = specName.toLowerCase(); 
+
+                    for(let specKey of Object.getOwnPropertyNames(specsObject)){
+                        let specKeyJson = JSON.parse(specKey);
+                        //{id: 3, name_en: "Ram", name: "الرام", values: {…}}
+                            // values:  //  ar: (3) ["1GB", "2GB", "3GB"]
+                                        //  en: (3) ["1GB", "2GB", "3GB"]
+
+                        const specValues = Object.getOwnPropertyNames(specsObject[specKey]);
+                        // e.g. { {en: "2GB", ar: "2GB"} : 1 }
+                        
                         const filter = {
-                            id: `_${name}`,
-                            name: name,
+                            id: specKeyJson.id,
+                            name:  {en: specKeyJson.name_en, ar: specKeyJson.name},
                             values: [], // Can be done by map function
                             type: 'menu',
                         }
-                        for(let value of specValues)
-                            filter.values.push([value, false]);
-                        
+                        for(let valueKey of specValues){
+                            let valueKeyJson = JSON.parse(valueKey);
+                            let specIndex = specKeyJson.values.en.findIndex(v => v.toLowerCase() === valueKeyJson.en.toLowerCase());
+                            filter.values.push([{en: valueKeyJson.en, ar: valueKeyJson.ar}, false, specIndex]);
+                        }
+
                         filterPanels.push(filter);
                     }
                 } catch (err) { console.log('WARNING: Filters processing failed.\n', err); }
                 
                 filterPanels.push({
                     id: '__price',
-                    name: 'price',
-                    values: [0, 9999],
+                    name: {en: 'Price', ar: 'السعر'},
+                    values: [queryDefaults.minPrice, queryDefaults.maxPrice],
                     type: 'text',
                 });
-                
+
                 this.setState({
                     filterPanels: filterPanels,
-                }, () => this.updateFilters());
+                }, () => this.updateFilters(true));
             })
             .catch(res => console.log('ERROR: Fetching specs failed.', res));
     }
 
-    updateFilters = () => {
+    updateFilters = (init = false) => {
         try {
             const { filterPanels, query } = this.state;
-
-            // Section 1
             for(let filter of filterPanels){
                 if(filter.type !== 'menu')
                     continue;
                 for(let i=0; i<filter.values.length; i++){
-                    if(Array.isArray(query[filter.name]) && query[filter.name].findIndex(v => v === filter.values[i][0]) > -1)
+                    if(Array.isArray(query[filter.name.en]) && query[filter.name.en].findIndex(v => v === filter.values[i][0].en) > -1)
                         filter.values[i][1] = true;
                     else
                         filter.values[i][1] = false;
@@ -263,56 +319,52 @@ class Store extends Component {
             this.setState({
                 filterPanels: filterPanels,
                 _isLoading: false,
-                _isLoadingProducts: false,
             });
-            /*
-            // Section 2: If you use this section instead, u need to pass filterName and value
+            if(init) this.setState({ _isLoadingProducts: false })
 
-            let filterIndex = filterPanels.findIndex(f => f.name === filterName);
-            let valueIndex = filterIndex > -1? filterPanels[filterIndex].values.findIndex(v => v[0] === value) : -1;
-            if(valueIndex === -1){
-                this.setState({ _isLoadingProducts: false, });
-                return;
-            }
-            console.log('update', query);
-            if(Array.isArray(query[filterName]) && query[filterName].findIndex(v => v === value) > -1)
-                filterPanels[filterIndex].values[valueIndex][1] = true;
-            else
-                filterPanels[filterIndex].values[valueIndex][1] = false;
-            this.setState({
-                filterPanels: filterPanels,
-                _isLoadingProducts: false,
-            });*/
         } catch (err) { console.log('WARNING: Filters update failed.\n', err); }
     }
     
-    filterCheckHandler = (id, value) => {
+    filterCheckHandler = (specName, checkedValue) => {
         const query = this.state.query;
-        if(!query[id]){
-            query[id] = [];
-            query[id].push(value);
+        if(!query[specName]){
+            query[specName] = [];
+            query[specName].push(checkedValue);
         }
         else{
-            if(query[id].findIndex(v => v === value) > -1)
-                query[id].splice(query[id].findIndex(v => v === value), 1);
+            if(query[specName].findIndex(v => v === checkedValue) > -1)
+                query[specName].splice(query[specName].findIndex(v => v === checkedValue), 1);
             else
-                query[id].push(value);
+                query[specName].push(checkedValue);
         }
+        delete query.page;
+
         let keepHeight =  document.getElementById('filters-panel').children[0].offsetHeight;
-        this.setState({ keepHeight: keepHeight, query: query, _isLoadingProducts: true }, () => {
-            this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
-            this.updateFilters();
+
+        this.setState({
+            keepHeight: keepHeight,
+            query: query,
+            _isLoadingProducts: true
+        }, () => {
+                this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
+                this.updateFilters();
+                this.fetchProducts();
         });
-        // this.updateFilters(id, value);
     }
 
     paginationHandler = (page) => {
-        const query = this.state.query;
-        query.page = page.selected + 1;
+        
+        const { query } = this.state;
+
+        if(page.selected === 0) delete query.page;
+        else query.page = page.selected + 1;
+
+        // SCROLL ANIMATION
         let scrollHeight = document.getElementsByClassName(this.props.classes.productsSection)[0].offsetTop;
         let keepHeight =  document.getElementById('filters-panel').children[0].offsetHeight;
         let scroll = Scroll.animateScroll;
         scroll.scrollTo(scrollHeight, {smooth: true});
+
         this.setState({
             query: query,
             keepHeight: keepHeight,
@@ -324,11 +376,16 @@ class Store extends Component {
     }
 
     selectHandler = (menu, value) => {
-        const { query } = this.state;
-        if(menu === 'sort')
-            query.sort = this.sortValues.findIndex(v => v === value);
-        if(menu === 'perPage')
-            query.perPage = value;
+        const { query, queryDefaults } = this.state;
+        if(menu === 'sort'){
+            let sortIndex = this.sortValues[globalVariables.LANG].findIndex(v => v === value);
+            if(sortIndex === queryDefaults.sort) delete query.sort;
+            else query.sort = sortIndex;
+        }
+        if(menu === 'perPage'){
+            if(value === queryDefaults.perPage) delete query.perPage;
+            else query.perPage = value;
+        }
         this.setState({
             query: query,
             _isLoadingProducts: true,
@@ -339,15 +396,23 @@ class Store extends Component {
     }
 
     priceHandler = () => {
-        const { query } = this.state;
-        let minValue = document.getElementById('price-min-input').value;
-        let maxValue = document.getElementById('price-max-input').value;
-        query.minPrice = minValue;
-        query.maxPrice = maxValue;
+        const { query, queryDefaults } = this.state;
+        let minValue = parseInt(document.getElementById('price-min-input').value);
+        let maxValue = parseInt(document.getElementById('price-max-input').value);
+        if(minValue === queryDefaults.minPrice && maxValue === queryDefaults.maxPrice){
+            delete query.minPrice;
+            delete query.maxPrice;
+        }
+        else{
+            query.minPrice = minValue;
+            query.maxPrice = maxValue;
+        }
+        delete query.page;
+
         let keepHeight =  document.getElementById('filters-panel').children[0].offsetHeight;
         this.setState({
-            keepHeight: keepHeight,
             query: query,
+            keepHeight: keepHeight,
             _isLoadingProducts: true,
         }, () => {
             this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
@@ -361,6 +426,7 @@ class Store extends Component {
             _isLoading,
             _isLoadingProducts,
             query,
+            queryDefaults,
             products,
             categoryID,
             keepHeight,
@@ -413,20 +479,29 @@ class Store extends Component {
                                 <Typography className={classes.categoryLinkElement} variant="subtitle1">
                                     <Link
                                         className={classes.categoryLink}
-                                        to={qString? cat.link + '?q=' + qString : cat.link}
+                                        to={{
+                                            pathname: qString? cat.link + '?' + qString : cat.link,
+                                            state: { changingCategory: true }
+                                        }}
                                     >
                                         {cat.name[globalVariables.LANG]}
                                     </Link>
-                                </Typography>)
+                                </Typography>
+                                )
                             :null}
+                            <Typography className={classes.categoryLinkElement} variant="subtitle1">
+                                {globalVariables.LANG === 'en'?
+                                    `(Found ${this.state.totalProducts} products)` : `(متوفر ${this.state.totalProducts} منتج)`
+                                }
+                            </Typography>
                         </div>
                         <div className={classes.optionMenusSection}>
                             <SelectMenu 
                                 name="sort"
                                 sideLabel={globalVariables.LABEL_SHOP_SORT[globalVariables.LANG]}
-                                values={this.sortValues}
+                                values={this.sortValues[globalVariables.LANG]}
                                 handleChange={this.selectHandler} 
-                                selectedValue={this.sortValues[query.sort]}
+                                selectedValue={this.sortValues[globalVariables.LANG][query.sort? query.sort : queryDefaults.sort]}
                                 disabled={_isLoadingProducts}
                             />
                             <SelectMenu 
@@ -434,7 +509,7 @@ class Store extends Component {
                                 sideLabel={globalVariables.LABEL_SHOP_PERPAGE[globalVariables.LANG]}
                                 values={this.perPageValues}
                                 handleChange={this.selectHandler} 
-                                selectedValue={query.perPage}
+                                selectedValue={query.perPage? query.perPage : queryDefaults.perPage}
                                 disabled={_isLoadingProducts}
                             />
                         </div>
@@ -449,8 +524,8 @@ class Store extends Component {
                                     handlePrice={this.priceHandler}
                                     minBoxId='price-min-input'
                                     maxBoxId='price-max-input'
-                                    defaultMin={query.minPrice}
-                                    defaultMax={query.maxPrice}
+                                    defaultMin={query.minPrice? query.minPrice : queryDefaults.minPrice}
+                                    defaultMax={query.maxPrice? query.maxPrice : queryDefaults.maxPrice}
                                     filterPanels={filterPanels}
                                     disabled={_isLoadingProducts}
                                 />
@@ -467,7 +542,7 @@ class Store extends Component {
                                     </React.Fragment>
                                 }
                                 <Pagination 
-                                    current_page={query.page - 1}
+                                    current_page={query.page? query.page - 1 : queryDefaults.page}
                                     total={totalPages}
                                     limit={3}
                                     handleClick={this.paginationHandler}
