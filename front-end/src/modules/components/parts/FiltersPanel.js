@@ -96,6 +96,7 @@ class InteractiveList extends React.Component {
                           {filter.values[0]}
                         </TextField>
                         <Button
+                          fullWidth
                           className={classes.priceSectionButton}
                           variant="contained"
                           color="primary"

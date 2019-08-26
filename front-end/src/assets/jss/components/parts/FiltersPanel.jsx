@@ -93,14 +93,8 @@ export const styles = theme => ({
       textAlign: 'center',
     },
     priceSectionButton: {
-      flexBasis: '100%',
       marginTop: '2px',
-      textAlign: 'center',
       fontWeight: '700',
-      backgroundColor: '#412a55',
-      '&:hover': {
-        backgroundColor: '#65477e',
-      }
     },
     checkbox: {
       color: 'purple !important',

@@ -48,8 +48,8 @@ class ProductViewer extends React.Component {
                 <Grid item md={10} xs={12} className={classes.productImage}>
 
 
-                    <IconButton className={classes.slider} style={{ right: '2px' }} onClick={() => this.handleSliding(1, len)}><ArrowForwardIos></ArrowForwardIos></IconButton>
-                    <IconButton className={classes.slider} style={{ left: '2px' }} onClick={() => this.handleSliding(-1, len)}><ArrowBackIos></ArrowBackIos></IconButton>
+                    <IconButton size="small" className={classes.slider} style={{ right: '0px' }} onClick={() => this.handleSliding(1, len)}><ArrowForwardIos></ArrowForwardIos></IconButton>
+                    <IconButton size="small" className={classes.slider} style={{ left: '0px' }} onClick={() => this.handleSliding(-1, len)}><ArrowBackIos></ArrowBackIos></IconButton>
                     <ReactCSSTransitionGroup 
                         transitionEnterTimeout={600}
                         transitionLeaveTimeout={600}
