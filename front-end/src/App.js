@@ -36,6 +36,7 @@ import Navbar from './modules/components/wrappers/Navbar';
 import Footer from './modules/components/wrappers/Footer';
 import RTL from './Providers/RTL';
 import { userAPI } from './api/api';
+import { blue } from '@material-ui/core/colors';
 
 
 const cookies = new Cookies();
@@ -53,6 +54,8 @@ function fetchAffiliate() {
   }
 
 }
+
+
 
 class App extends React.Component {
 
@@ -81,6 +84,74 @@ class App extends React.Component {
   }
 
   theme = createMuiTheme({
+    overrides: {
+      MuiButton: {
+        textPrimary: {
+          color: 'white',
+        },
+        containedPrimary: {
+          backgroundColor: '#65477e',
+          '&:hover': {
+            backgroundColor: '#412a55'
+          }
+        },
+
+      },
+      MuiExpansionPanel: {
+        root: {
+          border: '1px solid #5f4378',
+        }
+      },
+      MuiExpansionPanelDetails: {
+        root: {
+          display: 'inherit'
+        }
+      },
+      MuiExpansionPanelSummary: {
+        root: {
+          backgroundColor: '#5f4378',
+          color: 'white'
+        },
+        expandIcon: {
+          color: 'white'
+        }
+      },
+
+      MuiIconButton: {
+        root: {
+          '&:hover':{
+            backgroundColor: '#FFBAED',
+          }
+        }
+      },
+      MuiInput: {
+        underline:{
+          '&:hover': {
+            '&:before': {
+              borderBottom: '2px solid #65477e',
+            },
+            '&:after': {
+              borderBottom: '2px solid #412a55',
+            },
+            '&:not(.Mui-disabled):before':{
+              borderBottom: '2px solid #65477e',
+            },
+            
+          },
+          '&:not(.Mui-disabled):before':{
+            borderBottom: '1px solid #65477e',
+          },
+          '&:before': {
+            borderBottom: '1px solid #65477e',
+          },
+          '&:after': {
+            borderBottom: '1px solid #412a55',
+          },
+        }
+      }
+
+    },
+
     typography: {
       useNextVariants: true,
       fontFamily: "'Open Sans', 'Droid Arabic Kufi', 'Roboto', 'Helvetica', 'Arial', sans-serif",
@@ -108,9 +179,9 @@ class App extends React.Component {
         spinnerColor='#FFB3E0'
         textColor='#676767'
       >
-        {isLoading || this.props.userIsLoading?null:
+        {isLoading || this.props.userIsLoading ? null :
           <RTL>
-          
+
             <ThemeProvider theme={this.theme}>
 
               <Navbar />
@@ -128,7 +199,7 @@ class App extends React.Component {
                 <Route exact path="/(profile|orders)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/auth' />} />
                 <Route exact path='/' component={withRouter(Home)} />
                 <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
-                
+
                 <Route exact path='/(about|privacy-policy|contact)' component={Info} />
 
 

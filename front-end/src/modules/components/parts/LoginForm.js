@@ -79,7 +79,6 @@ class Login extends React.Component {
                 <Grid item xs={12} className={classes.paddingTop}>
 
                     <TextField
-                        className={classes.margin}
                         id="outlined-email-input"
                         label={globalVariables.FORM_LOGIN_LABEL_EMAIL[globalVariables.LANG]}
                         type="email"
@@ -103,7 +102,6 @@ class Login extends React.Component {
                 <Grid item xs={12} className={classes.paddingTop}>
                     <TextField
                         //onKeyPress={(ev) => { if (ev.key === 'Enter') {this.handleLogin()}}}
-                        className={classes.margin}
                         id="outlined-adornment-password"
                         value={this.state.password}
                         required
