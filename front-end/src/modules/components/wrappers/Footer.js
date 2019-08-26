@@ -93,7 +93,7 @@ const Footer = props => {
             )}
             <div  className={classes.footerSection}>
                 <Typography variant='subtitle1' className={classes.sectionTitle}>
-                            <b>تابعنا</b>
+                            <b>{lang === 'en'? 'FOLLOW US' : 'تابعنا'}</b>
                 </Typography>
                 <IconLink icon='twitter'  href="https://twitter.com"/>
                 <IconLink icon='youtube'  href="https://youtube.com" />
@@ -103,7 +103,9 @@ const Footer = props => {
         </Grid>
             <div>
                 <Typography variant='subtitle1' className={classes.sectionTitle} align='center'>
-                    تم الهبد بواسطة الأشباح الهبيدة 2018 ©
+                    {lang === 'en'?
+                        '© 2019 UYC. All Rights Reserved.'
+                        :'© 2019 UYC. جميع الحقوق محفوظة'}
                 </Typography>
             </div>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
 
 import { Grid } from "@material-ui/core";
 import { withStyles } from '@material-ui/core/styles';
@@ -33,7 +34,7 @@ const BrandsSlider = props => {
     return (
         <Grid container className={classes.root}>
           <LinedTitle>
-            عبيلو واديلو
+            {globalVariables.LABEL_HOME_BRANDS_SLIDER[globalVariables.LANG]}
           </LinedTitle>
           <SlickSlider arrowColor="#FFF" className={classes.sliderLayout}>
             {brands}

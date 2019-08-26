@@ -1,6 +1,7 @@
 import React from 'react';
 import ScrollAnimation from 'react-animate-on-scroll';
 import uuid from 'uuid';
+import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Typography } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +16,7 @@ const CompanyInfo = props => {
 
         return <Grid container justify='center' alignItems='center' className={classes.root} >
                 <LinedTitle>
-                    بلاب بلاب
+                    {globalVariables.LABEL_HOME_INFO[globalVariables.LANG]}
                 </LinedTitle>
                 <Grid container item lg={8} md={10} xs={11}>
                     {info.map(item =>
