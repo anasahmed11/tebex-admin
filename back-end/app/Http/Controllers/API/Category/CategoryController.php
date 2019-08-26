@@ -41,7 +41,7 @@ class CategoryController extends Controller
         })->get()->groupBy([
             function ($item){
                 $spec=Spec::find($item['spec_id']);
-                return json_encode(["id"=>$spec->id,"name_en"=>$spec->name_en,"name"=>$spec->name]);
+                return json_encode(["id"=>$spec->id,"name_en"=>$spec->name_en,"name"=>$spec->name,"values"=>$spec->values]);
             },
             function ($item){
                 return json_encode($item['value']);
