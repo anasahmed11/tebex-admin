@@ -26,7 +26,6 @@ import UserPanel from './modules/views/UserPanel';
 import Verify from './modules/views/Verify';
 import Info from './modules/views/Info';
 import NotFound from './modules/views/NotFound';
-import Blank from './modules/views/Blank';
 
 import Cart from './modules/views/Cart';
 import Checkout from './modules/views/Checkout';
@@ -36,7 +35,7 @@ import Navbar from './modules/components/wrappers/Navbar';
 import Footer from './modules/components/wrappers/Footer';
 import RTL from './Providers/RTL';
 import { userAPI } from './api/api';
-import { blue } from '@material-ui/core/colors';
+import PopupMessage from './Providers/PopupMessage';
 
 
 const cookies = new Cookies();
@@ -220,7 +219,7 @@ class App extends React.Component {
                 <Route component={NotFound} />
               </Switch>
               <Footer />
-
+              <PopupMessage />
             </ThemeProvider>
           </RTL>
         }

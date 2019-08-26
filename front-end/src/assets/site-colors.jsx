@@ -78,25 +78,25 @@ const COLORS = {
 
         Appbar: {
             Background: {
-                primary: palette.main.background,
-            },
-            Links: {
-                primary: palette.main.link,
-                hover: palette.main.linkHover,
-            },
-            Icons: {
-                primary: palette.main.link,
-                hover: palette.main.linkHover,
-            },
-        },
-
-        CategoriesBar: {
-            Background: {
                 primary: palette.dark.background,
             },
             Links: {
                 primary: palette.dark.link,
                 hover: palette.dark.linkHover,
+            },
+            Icons: {
+                primary: palette.dark.link,
+                hover: palette.dark.linkHover,
+            },
+        },
+
+        CategoriesBar: {
+            Background: {
+                primary: palette.main.background,
+            },
+            Links: {
+                primary: palette.main.link,
+                hover: palette.main.linkHover,
             },
         },
 

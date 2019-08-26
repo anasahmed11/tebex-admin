@@ -3,6 +3,8 @@ import Cookies from 'universal-cookie';
 import globalVariables from '../global-variables';
 import { initCart } from '../store/actions/shoppingCart';
 import { initUser } from '../store/actions/user';
+import { openPopup } from '../store/actions/site';
+import store from '../store/store'; 
 
 const cookies = new Cookies();
 
@@ -115,6 +117,9 @@ instances.forEach(intance => {
     }, function (err) {
         // if(err.response)
         //     console.log("response error",err.response.status)
+        if(!err.status){
+            store.dispatch(openPopup("Server Connection is lost, try again later"))
+        }
 
         if (err.response && err.response.status === 401) {
             cookies.remove(globalVariables.ACCESS_TOKEN)

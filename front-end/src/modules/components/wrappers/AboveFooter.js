@@ -14,7 +14,7 @@ const AboveFooter = props => {
         const { classes, info } = props;
 
         return <Grid container justify='center' alignItems='center' className={classes.root} >
-                <Grid container justify="space-between" item md={10} xs={11}>
+                <Grid container justify="space-around" item md={10} xs={11}>
                     {info.map(item =>
                         <ScrollAnimation
                             className={classes.sectionContainer}
