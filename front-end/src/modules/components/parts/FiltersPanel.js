@@ -25,7 +25,6 @@ class InteractiveList extends React.Component {
     const { classes, query, filterPanels, defaultMin, defaultMax } = this.props;
     const { dense } = this.state;
     
-    console.log('shopDidFilters', filterPanels[0])
     const disableStyle = {
       pointerEvents: 'none',
       opacity: '0.5',

@@ -26,7 +26,6 @@ class Product extends React.Component {
         specs: {},
         productsSpecs: [],
         isLoading: true,
-
     }
 
     // getSimilarProductSpecs = (id, sku) => {
@@ -69,7 +68,7 @@ class Product extends React.Component {
     getProduct = (id, withSimilars = false) => {
         productsAPI.get(`${id}`)
             .then(res => {
-                res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
+                // res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
                 this.setState({
                     product: res.data,
                     isLoading: false,
@@ -152,21 +151,18 @@ class Product extends React.Component {
                 <Helmet>
                     <title>{globalVariables.PAGE_TITLE_PRODUCT[globalVariables.LANG]}</title>
                 </Helmet>
-                {isLoading ?
-
-                    <Grid container justify="center" alignItems="center" style={{ height: '250px' }} className={classes.root2}>
-
-                        <Grid container justify="center" >
-                            <ClipLoader
-                                sizeUnit={"px"}
-                                size={75}
-                                color={'#123abc'}
-                                loading={isLoading}
-                            />
-                        </Grid>
-                    </Grid> :
-
-                    <Grid container justify='center' className={classes.root} spacing={2} style={{ width: '100%', margin: '0' }}>
+                {isLoading?
+                    <Grid container justify="center"  alignItems="center" className={classes.loadingContainer} >
+                        <ClipLoader
+                            css={`margin: auto`}
+                            sizeUnit={"px"}
+                            size={75}
+                            color={'#594589'}
+                            loading={true}
+                        />
+                    </Grid>
+                    :
+                    <Grid container justify='center' className={classes.root} spacing={2}>
 
                         <Snackbar
                             style={{ bottom: '50px' }}
@@ -184,14 +180,12 @@ class Product extends React.Component {
                                 variant={messageType}
                                 message={serverMessage}
                             />
-
                         </Snackbar>
-
-
 
                         <Grid item md={4} xs={11}>
                             <ProductViewer images={product.images.length ? product.images : tempImages} title={product.name} />
                         </Grid>
+
                         <Grid item md={4} xs={11}>
                             <ProductSpecs
                                 specs={specs}
