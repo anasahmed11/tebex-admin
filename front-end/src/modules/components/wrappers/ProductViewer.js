@@ -35,7 +35,7 @@ class ProductViewer extends React.Component {
                 <Grid item xs={12}>
                     <Typography component="h6" variant="h6" gutterBottom>{title}</Typography>
                 </Grid>
-                <Grid item md={2} xs={12} className={classes.imagesParent}>
+                <Grid item md={3} xs={12} className={classes.imagesParent}>
                     {images.map((img, idx) =>
                         <img src={img}
                             className={idx === selectedImage ? classes.activeImage : classes.productImages}
@@ -45,9 +45,7 @@ class ProductViewer extends React.Component {
                         />
                     )}
                 </Grid>
-                <Grid item md={10} xs={12} className={classes.productImage}>
-
-
+                <Grid item md={9} xs={12} className={classes.productImage}>
                     <IconButton size="small" className={classes.slider} style={{ right: '0px' }} onClick={() => this.handleSliding(1, len)}><ArrowForwardIos></ArrowForwardIos></IconButton>
                     <IconButton size="small" className={classes.slider} style={{ left: '0px' }} onClick={() => this.handleSliding(-1, len)}><ArrowBackIos></ArrowBackIos></IconButton>
                     <ReactCSSTransitionGroup 
@@ -62,14 +60,14 @@ class ProductViewer extends React.Component {
                         >
                         {
                             images.map((img,idx)=>{
-                                if(idx===selectedImage)
+                                if(idx === selectedImage)
                                 return <Magnifier
                                             src={img}
                                             width='auto'
                                             height={350}
-                                            zoomFactor={1.7}
-                                            mgWidth={150}
-                                            mgHeight={150}
+                                            zoomFactor={1}
+                                            mgWidth={220}
+                                            mgHeight={220}
                                         />
                                         
                             })

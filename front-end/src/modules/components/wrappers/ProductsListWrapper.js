@@ -42,7 +42,8 @@ const getCategoryID = (categories, slugs, id=1, lvl=0) => {
 }
 
 
-const Loading = (props) => <Grid container justify="center" style={{height: props.height}} >
+const Loading = (props) => <Grid container justify="center" alignItems="center"
+                            style={props.height? {height: props.height} : null} >
                         <ClipLoader
                             css={`margin: auto`}
                             sizeUnit={"px"}
@@ -101,14 +102,19 @@ class Store extends Component {
         if(Array.isArray(slug) && slug.length === 1 && slug[0] === '') slug = null;
         
         // console.log('shopdidSLUG OG', this.props.match.params.slug, slug)
+        const { queryDefaults } = this.state;
         const query = queryString.parse(window.location.search, this.queryParseOptions);
-        
+        if(!(query.sort && query.sort > -1 && query.sort < this.sortValues.en.length && query.sort !== queryDefaults.sort))
+            delete query.sort;
+        if(!(query.perPage && query.perPage !== queryDefaults.perPage && this.perPageValues.findIndex(v => v === query.perPage) > -1))
+            delete query.perPage;
+
         if(changingCategory){
             delete query.page;
             this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
         }    
 
-        console.log('ShopDidMount Query:', query);
+        // console.log('ShopDidMount Query:', query);
         this.setState({ slug: slug, query: query }, () => this.fetchAllData());
     }
 
@@ -179,8 +185,8 @@ class Store extends Component {
     fetchProducts = () => {
 
         const { categoryID, query, queryDefaults, filterPanels } = this.state;
+        let filtersObject = { specs: [], settings: [] }
         if(filterPanels){
-            let filtersObject = { specs: [], settings: [] }
             for(let filter of filterPanels){
                 if(filter.type === 'menu') {
                     let spec = { id: filter.id, values: []}
@@ -194,13 +200,12 @@ class Store extends Component {
             }
             filtersObject.settings.push({ id: 'pp', values: query.perPage});
             filtersObject.settings.push({ id: 'sr', values: query.sort});
-            console.log('shit', filtersObject)
-            console.log('shit', filterPanels)
+            // console.log('shit', filtersObject)
         }
 
         // Get products of current category for current page
 
-        categoryAPI.get(`/${categoryID}/products?page=${query.page}`)
+        categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
         .then(res => {
             const products = [];
             for (let item of res.data.data){
@@ -468,7 +473,7 @@ class Store extends Component {
             </Grid>
         )
 
-        return _isLoading? <Loading height={keepHeight} />
+        return _isLoading? <Loading />
                 : categoryID > -1?  
                 <Grid container className={classes.root}>
                     {snack}
