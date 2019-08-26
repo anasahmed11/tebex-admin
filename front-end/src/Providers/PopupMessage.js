@@ -8,9 +8,8 @@ import {closePopup} from '../store/actions/site';
 
 function PopupMessage(props) {
     const {isPopup, message, messageType, handlePopupClose} = props;
-    console.log(isPopup, message, messageType)
     return <Snackbar
-                style={{bottom:'100px'}}   
+                style={{bottom:'50px'}}   
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'center',

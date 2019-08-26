@@ -595,6 +595,11 @@ const globalVariables = {
         en: 'Category',
         ar: 'القسم'
     },
+    LABEL_REFRESH: {
+        en: 'Refresh',
+        ar: 'اعادة التحميل'
+    },
+
 
 
     // Link Genrator Page
@@ -779,7 +784,10 @@ const globalVariables = {
 
 
 
-
+    PAGE_TITLE_SERVER_ERROR:{
+        en: 'Server Unavailable | UYC',
+        ar: 'الخادم غير متوفر | UYC' 
+    },
     PAGE_TITLE_CART: {
         en: 'Cart | UYC',
         ar: 'عربة التسوق | UYC'
@@ -819,7 +827,17 @@ const globalVariables = {
     PAGE_TITLE_USER_PANEL: {
         en: 'Profile | UYC',
         ar: 'الصفحة الشخصية | UYC'
-    }
+    },
+
+    // Network Error
+    NETWORK_ERROR_SERVER: {
+        en: 'Server Unavailable',
+        ar: 'الخادم غير متاح'
+    },
+    NETWORK_ERROR_SERVER_MESSAGE: {
+        en: 'We are trying to fix that error, you may need to try again later and refresh page',
+        ar: 'نحن نعمل على اصلاح المشكلة, اعد المحاولة لاحقا وقم بتحميل الصفحة من جديد'
+    },
 
 
 }

@@ -115,16 +115,22 @@ instances.forEach(intance => {
         return response
 
     }, function (err) {
-        // if(err.response)
-        //     console.log("response error",err.response.status)
-        if(!err.status){
-            store.dispatch(openPopup("Server Connection is lost, try again later"))
+        if (err.response ){
+            if(err.response.status === 401){
+                if(cookies.get(globalVariables.ACCESS_TOKEN)!==undefined){
+                    cookies.remove(globalVariables.ACCESS_TOKEN)
+                    setTimeout(()=>window.location.replace('/'),1000);
+                    store.dispatch(openPopup("Your session has been expired, login again")); 
+                }
+               
+                initCart()
+                initUser()
+               
+            }
         }
-
-        if (err.response && err.response.status === 401) {
-            cookies.remove(globalVariables.ACCESS_TOKEN)
-            initCart()
-            initUser()
+        
+        else if (err.request){
+            store.dispatch(openPopup("Server Connection is lost, try again later", true))
         }
         return Promise.reject(err);
     });

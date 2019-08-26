@@ -9,9 +9,10 @@ export const closePopup = () => {
      }
 }
 
-export function openPopup(message){
+export function openPopup(message, netwrokError=false){
     return{
         type: actionTypes.OPEN_POPUP_MESSAGE,
-        message: message 
+        message: message,
+        netwrokError:  netwrokError
     }
 }

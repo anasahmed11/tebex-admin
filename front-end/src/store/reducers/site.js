@@ -5,6 +5,7 @@ const initialState = {
     message: "",
     isPopup: false,
     messageType: globalVariables.TYPE_INFO,
+    netwrokError: false,
 };
 
 
@@ -16,7 +17,8 @@ export default function auth(state = initialState, action){
             return {
                 ...state,
                 message: action.message,
-                isPopup: true
+                isPopup: true,
+                netwrokError: action.netwrokError
             }
         case actionTypes.CLOSE_POPUP_MESSAGE:
             return {
