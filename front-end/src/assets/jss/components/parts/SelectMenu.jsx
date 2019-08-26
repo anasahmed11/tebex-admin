@@ -2,6 +2,7 @@ export default theme => ({
     container: {
       display: 'flex',
       alignItems: 'center',
+      flexWrap: 'wrap',
       justifyContent: 'flex-end',
       marginLeft: theme.spacing(2),
     },

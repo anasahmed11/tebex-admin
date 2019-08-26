@@ -66,7 +66,7 @@ export default theme => ({
                     transition: ' 180ms ease-out',
         },
         '&:hover $statsContainer': {
-            top: '288px',
+            top: '278px',
             "-webkit-transition": 'all 300ms ease-out',
             "-moz-transition": 'all 300ms ease-out',
                 "-o-transition": 'all 300ms ease-out',

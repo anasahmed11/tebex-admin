@@ -7,6 +7,8 @@ export default theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         height: '70vh',
+        minHeight: '375px',
+        maxHeight: '550px',
         [theme.breakpoints.down("xs")]: {
             height: '60vh',
         }

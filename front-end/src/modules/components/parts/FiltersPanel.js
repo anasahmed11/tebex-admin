@@ -20,17 +20,28 @@ class InteractiveList extends React.Component {
   handleToggle = (id, idx) => {
     this.props.handleCheck(id, idx);
   };
-
   render() {
-
-    const { classes, query, filterPanels } = this.props;
+    
+    const { classes, query, filterPanels, defaultMin, defaultMax } = this.props;
     const { dense } = this.state;
     
+    console.log('shopDidFilters', filterPanels[0])
     const disableStyle = {
       pointerEvents: 'none',
       opacity: '0.5',
       background: '#EEE'
     }
+
+    const priceValidation = event => {
+      let value = parseInt(event.target.value);
+      if(value > defaultMax)
+        event.target.value = defaultMax;
+      else if(value < defaultMin)
+        event.target.value = defaultMin;
+      return;
+    }
+
+    const inputProps = { min: defaultMin, max: defaultMax, step: 100 }
 
     return (
       <div id={this.props.id} className={classes.root}>
@@ -48,7 +59,7 @@ class InteractiveList extends React.Component {
                   <Collapsible open trigger={
                     <div className={classes.collapsibleTab}>
                       <Typography variant="subtitle1" className={classes.filterTitle}>
-                        {filter.name.charAt(0).toUpperCase() + filter.name.slice(1)} {/*<Divider />*/}
+                        {filter.name[globalVariables.LANG]} {/*<Divider />*/}
                       </Typography>
                       <FontAwesomeIcon icon={['fas', 'ellipsis-h']} />
                     </div>
@@ -62,7 +73,9 @@ class InteractiveList extends React.Component {
                           margin="dense"
                           variant="outlined"
                           type="number"
-                          defaultValue={this.props.defaultMin}
+                          inputProps={inputProps}
+                          onChange={priceValidation}
+                          defaultValue={defaultMin}
                           id={this.props.minBoxId}
                         >
                           {filter.values[1]}
@@ -75,7 +88,9 @@ class InteractiveList extends React.Component {
                           margin="dense"
                           variant="outlined"
                           type="number"
-                          defaultValue={this.props.defaultMax}
+                          inputProps={inputProps}
+                          onChange={priceValidation}
+                          defaultValue={defaultMax}
                           id={this.props.maxBoxId}
                         >
                           {filter.values[0]}
@@ -91,26 +106,31 @@ class InteractiveList extends React.Component {
                       </form>
                     </div>
                     : filter.type === 'link'? filter.values.map((value) =>
-                      <ListItem className={classes.listItem} button key={uuid()}>
-                        <Link className={classes.link} to={query?  `/shop/${value.slug}?q=${query}` : `/shop/${value.slug}`}>
+                      <Link
+                        className={classes.link}
+                        to={{
+                          pathname: query?  `/shop/${value.slug}?${query}` : `/shop/${value.slug}`,
+                          state: { changingCategory: true }
+                        }}>
+                        <ListItem className={classes.listItem} button key={uuid()}>
                           <ListItemText
-                                  primary={value.name[globalVariables.LANG]}
+                                  primary={`${value.name[globalVariables.LANG]} (${value.total})`}
                                   className={classes.listItemText}
                           />
-                        </Link>
-                      </ListItem>)
+                        </ListItem>
+                      </Link>)
 
                     : filter.type === 'menu'?
                         filter.values.map((value, idx) => 
                         <ListItem key={uuid()}>
                           <ListItemText
-                              primary={value[0]}
+                              primary={value[0][globalVariables.LANG]}
                               style={{textAlign: globalVariables.LANG === 'ar'? 'right' : 'left'}}
                           />
                           <ListItemSecondaryAction>
                             <Checkbox
                               className={classes.checkbox}
-                              onChange={this.handleToggle.bind(this, filter.name, value[0])}
+                              onChange={this.handleToggle.bind(this, filter.name.en, value[0].en)}
                               checked={value[1]}
                             />
                           </ListItemSecondaryAction>

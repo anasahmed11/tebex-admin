@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
+
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import uuid from 'uuid';
 import { Typography } from '@material-ui/core';
 
 import styles from '../../../assets/jss/components/parts/SelectMenu';

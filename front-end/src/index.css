@@ -6,7 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+/*
 body::-webkit-scrollbar{
 	width: 10px;
 	background-color: #F5F5F5;
@@ -18,7 +18,7 @@ body::-webkit-scrollbar-thumb{
 	                   color-stop(.5, rgba(255, 255, 255, .2)),
 					   color-stop(.5, transparent), to(transparent));
 }
-
+*/
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
