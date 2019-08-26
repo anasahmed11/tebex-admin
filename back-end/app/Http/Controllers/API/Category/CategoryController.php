@@ -22,6 +22,14 @@ class CategoryController extends Controller
         Category::fixTree();
         return response()->json(Category::get()->toTree(),200);
     }
+    public function productsCount($category){
+        $cats=Category::descendantsAndSelf($category)->toFlatTree();
+        $count=0;
+        foreach ($cats as $cat){
+            $count+=$cat->Product()->count();
+        }
+        return response()->json(["data"=>["count"=>$count]]);
+    }
     public function specsCount($category){
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
         $catids=[];
@@ -33,10 +41,10 @@ class CategoryController extends Controller
         })->get()->groupBy([
             function ($item){
                 $spec=Spec::find($item['spec_id']);
-                return $spec->name_en;
+                return json_encode(["id"=>$spec->id,"name_en"=>$spec->name_en,"name"=>$spec->name,"values"=>$spec->values]);
             },
             function ($item){
-                return $item['value']['en'];
+                return json_encode($item['value']);
             }])->map(function($value){
             return $value->map(function ($value){
                 return $value->count();
@@ -82,7 +90,8 @@ class CategoryController extends Controller
         $response['paging']['current']=$pages->currentPage();
         $response['paging']['last']=$pages->lastPage();
         $response['paging']['items']=$pages->total();*/
-        return response()->json($products->paginate(Input::get("perpage")??30));
+        $prices=["max_price" => $products->max('price'),"min_price" => $products->min('price')];
+        return response()->json(array_merge($products->paginate(Input::get("perpage")??30)->toArray(),$prices));
     }
     public function filter(Category $category){
         return response()->json($category->Product()->get());
