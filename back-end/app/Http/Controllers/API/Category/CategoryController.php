@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Category;
 
 use App\Category;
+use App\Http\Requests\FilterRequest;
 use App\Http\Resources\ProductCollection;
 use App\Product;
 use App\ProductSpec;
@@ -72,14 +73,13 @@ class CategoryController extends Controller
 
         return response()->json(["data"=>$specs]);
     }
-    public function products(Category $category){
+    public function products(Category $category,FilterRequest $filters){
         $cats=Category::descendantsAndSelf($category)->toFlatTree();
         $func = function($value) {
             return $value['id'];
         };
         $cats=array_map($func,$cats->toArray());
         $products=Product::whereIn('category_id',$cats);
-        $products->paginate(30);
         /*$products=$cats[0]->Product()->get();
         for ($i=1;$i < $cats->count();$i++){
            $products=$products->merge($cats[$i]->Product()->get());
