@@ -373,6 +373,18 @@ const globalVariables = {
         en: 'Shipping is not supported for this area',
         ar: 'هذه المنطقة غير مدعومة في الشحن'
     },
+    PRODUCT_NOT_FOUND: {
+        en: 'Product Not Found',
+        ar: 'لم يتم العثور على المنتج'
+    },
+    PRODUCT_NOT_FOUND_MESSAGE: {
+        en: '',
+        ar: ''
+    },
+    PRODUCT_OUT_OF_STOCK:{
+        en: 'Product out of stock',
+        ar: 'المنتج غير متوفر حاليا'
+    },
 
     // Checkout
     CHECKOUT_SHIPPING_ADDRESS: {
@@ -595,6 +607,11 @@ const globalVariables = {
         en: 'Category',
         ar: 'القسم'
     },
+    LABEL_REFRESH: {
+        en: 'Refresh',
+        ar: 'اعادة التحميل'
+    },
+
 
 
     // Link Genrator Page
@@ -779,7 +796,10 @@ const globalVariables = {
 
 
 
-
+    PAGE_TITLE_SERVER_ERROR:{
+        en: 'Server Unavailable | UYC',
+        ar: 'الخادم غير متوفر | UYC' 
+    },
     PAGE_TITLE_CART: {
         en: 'Cart | UYC',
         ar: 'عربة التسوق | UYC'
@@ -819,7 +839,17 @@ const globalVariables = {
     PAGE_TITLE_USER_PANEL: {
         en: 'Profile | UYC',
         ar: 'الصفحة الشخصية | UYC'
-    }
+    },
+
+    // Network Error
+    NETWORK_ERROR_SERVER: {
+        en: 'Server Unavailable',
+        ar: 'الخادم غير متاح'
+    },
+    NETWORK_ERROR_SERVER_MESSAGE: {
+        en: 'We are trying to fix that error, you may need to try again later and refresh page',
+        ar: 'نحن نعمل على اصلاح المشكلة, اعد المحاولة لاحقا وقم بتحميل الصفحة من جديد'
+    },
 
 
 }

@@ -3,14 +3,8 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import thunk from 'redux-thunk';
-import authReducer from './store/reducers/auth';
-import cartReducer from './store/reducers/shoppingCart';
-import userReducer from './store/reducers/user';
 
 import App from './App';
-import RTL from './Providers/RTL';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
@@ -19,25 +13,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 
+import store from './store/store';
+
 // For debugging
-const logger = store => {
-    return next => {
-        return action => {
-            //console.log("Middle-ware: ", action)
-            return next(action);
-        }
-    }
-}
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const rootReducer = combineReducers({
-    auth: authReducer,
-    cart: cartReducer,
-    user: userReducer,
-});
-
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
 
 ReactDOM.render(
     <Provider store={store}>

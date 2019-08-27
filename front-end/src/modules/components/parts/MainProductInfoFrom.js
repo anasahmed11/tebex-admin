@@ -34,6 +34,12 @@ const form = props => {
             </div>
 
             <div>
+                <label htmlFor="commission">Commission</label>
+                <input type="text" placeholder="" name="commission" ref={register({ required: true, pattern: /^\d+$/, max: 40, min: 20 })} />
+                {errors.commission && <p>This field is required and has to be a number between 20, 40 %</p>}
+            </div>
+
+            <div>
                 <label htmlFor="quantity">Quatnity</label>
                 <input type="text" placeholder="" name="quantity" ref={register({ required: true, pattern: /^\d+$/ })} />
                 {errors.quantity && <p>This field is required and has to be a number</p>}
