@@ -12,25 +12,25 @@ import styles from '../../../assets/jss/components/parts/AddToCart';
 
 class AddToCart extends React.Component{
     state = {
-        city:"القاهرة",
-        CITIES:[],
-        quantity:1,
-
-        shipping:{},
-        isLoading:true,
-
+        city: 0,
+        cities: [],
+        quantity: 1,
+        shipping: {},
+        isLoading: true,
     }
+    
     componentDidMount(){
         locationAPI.get('cities/1')
         .then(res=>{
-            const CITIES = res.data.map(item=>{return {id:item.id, name:item.city_name} })
+            const cities = res.data.map(item => ({id: item.id, name: item.city_name}));
             this.setState({
-                CITIES: CITIES,
+                cities: cities,
+                city: cities[0].id,
             })
             this.getShippingPrice(1)
         })
         .catch(res=>{
-
+            this.setState({isLoading:false})
         })
 
         
@@ -55,8 +55,11 @@ class AddToCart extends React.Component{
     }
 
     handleCityChange = event => {
-        console.log(event.target.value)
-        this.setState({ city: event.target.value, isLoading:true });
+        // console.log(event.target.value)
+        this.setState({ 
+            city: event.target.value, 
+            isLoading:true 
+        });
         this.getShippingPrice(event.target.value)
     };
 
@@ -67,92 +70,35 @@ class AddToCart extends React.Component{
         return(
             <React.Fragment>
             {isLoading?
-                <Grid container justify="center" alignItems="center" style={{height:'250px'}} className={classes.root2}>
-                
-                        <Grid container justify="center" >
-                                <ClipLoader
-                                    sizeUnit={"px"}
-                                    size={75}
-                                    color={'#123abc'}
-                                    loading={isLoading}
-                                />
-                        </Grid>
-                </Grid>:
-            <Grid container className={classes.root2} >
-            
-                
-                <Grid container alignItems="center" xs={12} className={classes.padding}>
-                    <Grid item>
-                        <Typography variant="h6" inline className={classes.ship} >{globalVariables.LABEL_SHIPPING_TO[globalVariables.LANG]}</Typography>
-                    </Grid>
-                    <Grid item>
-                        <b>
-                            <form style={{display:'inline'}}>
-                                <TextField
-                                    select
-                                    className={classes.menu}
-                                    value={this.state.city}
-                                    onChange={(event) => this.handleCityChange(event)}
-                                    SelectProps={{
-                                        native: true,
-                                        
-                                    }}
-                                    InputProps={{
-                                        classes: {
-                                        input: classes.font,
-                                        },
-                                    }}
-                                    >
-                                    {this.state.CITIES.map(n => <option value={n.id}> {n.name} </option>)}
-                                </TextField>
-                            </form>
-
-                        </b>
-                    </Grid>
-                
+            <Grid container justify="center" alignItems="center" style={{height:'250px'}} className={classes.orderContainer}>
+                <Grid container justify="center" >
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={75}
+                            color={'#123abc'}
+                            loading={isLoading}
+                        />
                 </Grid>
-                {this.state.shipping.message !== undefined?
-                 <Grid container xs={12} justify='center' alignItems='center' className={classes.padding} style={{textAlign:'center',minHeight:'50px'}}>
-                    <Grid item xs={12}>
-                        <Typography variant="h6" inline className={classes.ship} >{this.state.shipping.message}</Typography>
-                    </Grid>
-                    
-                </Grid>:
-                <React.Fragment>
-                <Grid container xs={12} className={classes.padding}>
-                    <Grid item xs={6}>
-                        <Typography variant="h6" inline className={classes.ship} > {globalVariables.LABEL_PRICE[globalVariables.LANG]}: {this.state.shipping.fees} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]} </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Typography variant="h6" inline className={classes.ship} > يصل في: {this.state.shipping.min_days} - {this.state.shipping.max_days} ايام </Typography>
-                    </Grid>
-                </Grid>
-                </React.Fragment>
-                }
+            </Grid>
+            :
+            <div className={classes.orderContainer} style={{borderCollapse: 'separate', borderSpacing: '4px'}}>
 
-                <Grid item xs={12} className={classes.padding}><Divider variant='middle' /></Grid>
-                <Grid container xs={12} className={classes.padding}>
-                    <Grid item xs={6}>
-                        <Typography variant="h6" inline className={classes.ship} >
-                            {globalVariables.LABEL_SELLER[globalVariables.LANG]}
-                            <Link to={`/store/${store.id}`} className={classes.cleanLink}>
-                                {' ' + store.name}
-                            </Link> 
-                         </Typography>
-                    </Grid>
-                    
-                </Grid>
-
-                <Grid container xs={12} alignItems="center" className={classes.padding}>
-                    <Grid item >
-                        <Typography variant="h6" inline className={classes.ship} > {globalVariables.LABEL_QUANTITY[globalVariables.LANG]} </Typography>
-                    </Grid>
-                    <Grid item >                    
-                        <form style={{display:'inline'}}>
+                <Typography className={classes.orderHeader} variant="h6">
+                    اطلب المنتج
+                </Typography>
+                
+                <Divider className={classes.divider} variant="middle" />
+                
+            {quantity?<React.Fragment>
+                <div className={classes.section}>
+                    <p>
+                    <Typography variant="caption" > {globalVariables.LABEL_QUANTITY[globalVariables.LANG]}: </Typography>
+                    <span item >                    
+                        <form>
                             <TextField
                                 select
-                                disabled={QUANTITIES.length===1 || QUANTITIES.length===0}
-                                className={classes.menu}
+                                variant='outlined'
+                                disabled={QUANTITIES.length === 1 || QUANTITIES.length === 0}
                                 value={this.state.quantity}
                                 onChange={(event) => this.setState({quantity:event.target.value})}
                                 SelectProps={{
@@ -161,34 +107,77 @@ class AddToCart extends React.Component{
                                 }}
                                 InputProps={{
                                     classes: {
-                                    input: classes.font,
+                                        input: classes.orderSelectMenu,
                                     },
                                 }}
                                 >
                                 {QUANTITIES.map(n => <option value={n}> {n} </option>)}
                             </TextField>
                         </form> 
-                    </Grid>
-                </Grid>
+                    </span>
+                    </p>
+
+                    <p>
+                    <Typography variant="caption" >{globalVariables.LABEL_SHIPPING_TO[globalVariables.LANG]}</Typography>
+                    <span>
+                        <form>
+                            <TextField
+                                select
+                                variant="outlined"
+                                value={this.state.city}
+                                onChange={(event) => this.handleCityChange(event)}
+                                SelectProps={{
+                                    native: true,
+                                }}
+                                InputProps={{
+                                    classes: {
+                                        input: classes.orderSelectMenu,
+                                    },
+                                }}>
+                                {this.state.cities.map(city => 
+                                    <option value={city.id}> {city.name} </option>
+                                )}
+                            </TextField>
+                        </form>
+                    </span>
+                    </p>
                 
-                <Grid item xs={12} className={classes.padding}><Divider variant='middle' /></Grid>
+                </div>
                 
-                <Grid item xs={12} className={classes.padding}>
+                <div className={classes.section}>
+                {this.state.shipping.message !== undefined?
+                    <Typography variant="caption" >{this.state.shipping.message}</Typography>
+                :
+                <React.Fragment>
+                <p>
+                    <Typography variant="caption" > {globalVariables.LABEL_PRICE[globalVariables.LANG]}:  </Typography>
+                    <Typography variant="caption" > {this.state.shipping.fees} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]} </Typography>
+                </p>
+                <p>
+                    <Typography variant="caption" style={{color: 'blue'}} > يصل في: </Typography>
+                    <Typography variant="caption" style={{color: 'blue'}} > {this.state.shipping.min_days} - {this.state.shipping.max_days} ايام </Typography>
+                </p>
+                </React.Fragment>
+                }
+                </div>
+                
+                <Grid item xs={12} >
                     <Button 
                         fullWidth 
                         variant="contained" 
-                        color="primary" 
+                        color="primary"
+                        className={classes.addButton}
                         disabled={QUANTITIES.length===0}
                         onClick={()=>this.props.addToCart(this.state.quantity)}
                     > 
                         {globalVariables.CART_ADD[globalVariables.LANG]}      
                     </Button>               
                 </Grid>
-                
-
-            </Grid>
-                    }
-
+            </React.Fragment>
+            :<Grid style={{textAlign:'center', padding:'20px 0px'}}>{globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}</Grid>
+            }
+            </div>
+            }
             </React.Fragment>
         );
     }

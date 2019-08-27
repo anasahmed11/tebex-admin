@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
             $table->double("sale_price")->nullable();
             $table->integer("quantity");
             $table->float("commission")->default('20');
-            $table->enum('status',['pending','confirmed','refused'])->default('pending');
+            $table->enum('status',['pending','approved','refused'])->default('pending');
             $table->bigInteger("store_id")->unsigned();
             $table->bigInteger("category_id")->unsigned();
             $table->softDeletes();

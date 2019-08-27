@@ -381,6 +381,10 @@ const globalVariables = {
         en: '',
         ar: ''
     },
+    PRODUCT_OUT_OF_STOCK:{
+        en: 'Product out of stock',
+        ar: 'المنتج غير متوفر حاليا'
+    },
 
     // Checkout
     CHECKOUT_SHIPPING_ADDRESS: {

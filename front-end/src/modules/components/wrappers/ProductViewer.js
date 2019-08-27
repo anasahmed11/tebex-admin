@@ -28,14 +28,12 @@ class ProductViewer extends React.Component {
     render() {
         console.log('asas')
         const { selectedImage } = this.state;
-        const { classes, images, title } = this.props;
+        const { classes, images } = this.props;
         const len = images.length;
         return (
             <Grid container justify='center' className={classes.root}>
-                <Grid item xs={12}>
-                    <Typography component="h6" variant="h6" gutterBottom>{title}</Typography>
-                </Grid>
-                <Grid item md={3} xs={12} className={classes.imagesParent}>
+                
+                <Grid item md={2} xs={12} className={classes.imagesParent}>
                     {images.map((img, idx) =>
                         <img src={img}
                             className={idx === selectedImage ? classes.activeImage : classes.productImages}
@@ -45,9 +43,16 @@ class ProductViewer extends React.Component {
                         />
                     )}
                 </Grid>
-                <Grid item md={9} xs={12} className={classes.productImage}>
-                    <IconButton size="small" className={classes.slider} style={{ right: '0px' }} onClick={() => this.handleSliding(1, len)}><ArrowForwardIos></ArrowForwardIos></IconButton>
-                    <IconButton size="small" className={classes.slider} style={{ left: '0px' }} onClick={() => this.handleSliding(-1, len)}><ArrowBackIos></ArrowBackIos></IconButton>
+
+                <Grid item md={10} xs={12} className={classes.productImage}>
+
+                    <IconButton size="small" className={classes.slider} style={{ right: '0px' }} onClick={() => this.handleSliding(1, len)}>
+                        <ArrowForwardIos />
+                    </IconButton>
+                    <IconButton size="small" className={classes.slider} style={{ left: '0px' }} onClick={() => this.handleSliding(-1, len)}>
+                        <ArrowBackIos />
+                    </IconButton>
+
                     <ReactCSSTransitionGroup 
                         transitionEnterTimeout={600}
                         transitionLeaveTimeout={600}

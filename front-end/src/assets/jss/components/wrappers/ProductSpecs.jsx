@@ -1,4 +1,91 @@
 export default theme => ({
+  root: {
+    textAlign: 'initial',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 22,
+    marginBottom: theme.spacing(0.5),
+  },
+  divider: {
+    marginBottom: theme.spacing(1),
+  },
+  section: {
+    marginBottom: theme.spacing(1),
+    display: 'table',
+    '& p': {
+      display: 'table-row',
+    },
+    '& p span': {
+      display: 'table-cell',
+      verticalAlign: 'middle',
+      textAlign: 'left',
+      paddingRight: theme.spacing(2),
+    },
+    '& p span:firstChild': {
+      fontSize: 14,
+      color: 'gray',
+    }
+  },
+  seller: {
+    fontSize: 16,
+    color: 'blue',
+  },
+  oldPrice: {
+    fontSize: 16,
+    color: 'gray',
+    textDecorationLine: 'line-through',
+  },
+  price: {
+    fontWeight: 'bold',
+    fontSize: 26,
+    color: 'blue',
+  },
+  saving: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: 'navy',
+  },
+  specsTitle: {
+    textAlign: 'left',
+    marginBottom: theme.spacing(0.5),
+    // fontSize: 16,
+    // fontWeight: 'bold',
+  },
+  specName: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  specButton: {
+    cursor: 'pointer',
+    fontSize: 14,
+    border: '1px solid #0d2f80',
+    borderRadius: '2px',
+    color: '#0d2f80',
+    textAlign: 'center !important',
+    padding: '4px 16px !important',
+    '&:hover': {
+      background: '#f6f0ff',
+    }
+  },
+  specButtonActive: {
+    cursor: 'auto',
+    fontWeight: 'bold',
+    fontSize: 14,
+    border: '1px solid black',
+    borderRadius: '2px',
+    color: 'black',
+    textAlign: 'center !important',
+    padding: '4px 16px !important',
+  },
+  productDesc: {
+    fontSize: 16,
+    textAlign: 'left',
+  }
+});
+
+/*
+export default theme => ({
     root: {
       textAlign: 'initial',
     },
@@ -47,3 +134,4 @@ export default theme => ({
         fontSize: '10px',
       },
 });
+*/

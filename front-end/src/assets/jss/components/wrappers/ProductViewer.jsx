@@ -7,9 +7,9 @@ export default theme => ({
         position: "relative"
     },
     productImages:{
-        width:'80px',
+        width:'60px',
         border: "1px solid #EEE",
-        height: '100px',
+        height: '80px',
         objectFit: 'contain',
         cursor: 'pointer',
         '&:hover': {
@@ -18,8 +18,8 @@ export default theme => ({
     },
     activeImage:{
         border: "1px solid #999",
-        width:'80px',
-        height: '100px',
+        width:'60px',
+        height: '80px',
         objectFit: 'contain'
     },
     slider:{
@@ -27,8 +27,9 @@ export default theme => ({
         top:'calc(50% - 28px / 2)',
     },
     imagesParent:{
+        maxWidth:'70px',
         [theme.breakpoints.down('md')]: {
             maxWidth:'100%'
           },
-    }
+    },
 });
