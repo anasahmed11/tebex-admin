@@ -1,28 +1,42 @@
 export default (theme) => ({
-    root:{
+    root: {
         textAlign:'initial'
     },
-    root2:{
-        textAlign:'initial',
+    orderContainer: {
+        textAlign: 'initial',
         border: '1px solid lightgray',
-        padding:'0px 4px'
+        padding: '10px'
     },
-    ship:{
-        fontSize: '12px',
-        color: 'gray',
+    orderHeader:  {
+        textAlign: 'center',
+        marginBottom: theme.spacing(1),
     },
-    menu: {
-        margin: '0px 4px 10px 0px'
+    divider: {
+        marginBottom: theme.spacing(0.5),
     },
-    font:{
-        fontSize: '12px',
-        height:'100%',
+    section: {
+        marginBottom: theme.spacing(1),
+        display: 'table',
+        '& p': {
+            display: 'table-row',
+        },
+        '& p span': {
+            display: 'table-cell',
+            verticalAlign: 'middle',
+            textAlign: 'left',
+            fontSize: 14,
+            paddingRight: theme.spacing(2),
+        },
     },
-    padding:{
-        padding:'4px 0px'
+    orderSelectMenu: {
+        fontSize: '14px',
+        padding: '8px 30px 8px 24px',
     },
     cleanLink: {
         textDecoration: 'none',
         color: 'navy',
+    },
+    addButton: {
+        fontWeight: 'bold',
     }
 });

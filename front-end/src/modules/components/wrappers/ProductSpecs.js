@@ -9,92 +9,72 @@ import ProductSpec from '../parts/SelectMenu';
 import styles from '../../../assets/jss/components/wrappers/ProductSpecs';
 import RichEditor from '../parts/RichText';
 
+
 const ProductSpecs = props => {
 
-    const { classes, specs, salePrice, price, productSpecs } = props;
+    const { classes, specs, title, salePrice, price, productSpecs } = props;
     return (
-        <Grid container className={classes.root}>
-            
-            <div>
-                <div className={classes.priceDiv}>
-                    {price!==salePrice?
-                        <div className={classes.oldPriceDiv}>
-                        <Typography className={classes.oldPrice} variant="subtitle1">
-                            {price} {props.currency}
-                        </Typography> 
-                        <Typography className={classes.discount} variant="subtitle2">
-                            {Math.round((price - salePrice) * 100 / price)}% {globalVariables.LABEL_PRODUCT_DISCOUNT[globalVariables.LANG]}
-                        </Typography> 
-                        </div>
-                        : null
-                    }
-                    <Typography className={classes.price} variant="h5" gutterBottom>
-                        {salePrice} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
-                    </Typography>
-                </div>
+        <div>
+            <Typography className={classes.title} variant="h6" align="left">
+                {title}
+            </Typography>
+            <div className={classes.section}>
+                <p>
+                    <Typography variant="caption">كــود</Typography>
+                    <Typography  variant="caption">A-MOBILE123-2019</Typography>
+                </p>
+                <p>
+                    <Typography variant="caption">البائع</Typography>
+                    <Typography className={classes.seller} variant="caption">UYC Trades</Typography>
+                </p>
             </div>
 
-            <Grid item xs={12} className={classes.divider}>
-                <Divider />
-            </Grid>
+            <div className={classes.section}>
+                <p>
+                    <Typography variant="caption">قبل الخصم</Typography>
+                    <Typography className={classes.oldPrice} variant="caption">3500 جنيه</Typography>
+                </p>
+                <p>
+                    <Typography variant="caption">السعــر</Typography>
+                    <Typography className={classes.price} variant="caption">3000 جنيه</Typography>
+                </p>
+                <p>
+                    <Typography variant="caption">ستوفـر</Typography>
+                    <Typography className={classes.saving} variant="caption">500 جنيه</Typography>
+                </p>
+            </div>
 
+            <Divider className={classes.divider} />
+            
+            <Typography className={classes.specsTitle} variant="h6">
+                المواصفات
+            </Typography>
+            <div className={classes.section} style={{borderCollapse: 'separate', borderSpacing: '6px',}}>
+                <p>
+                    <Typography className={classes.specName} variant="caption">الذاكرة</Typography>
+                    <Typography variant="caption" className={classes.specButton}>64GB</Typography>
+                    <Typography variant="caption" className={classes.specButtonActive}>128GB</Typography>
+                    <Typography variant="caption" className={classes.specButton}>256GB</Typography>
+                </p>
+                <p>
+                    <Typography className={classes.specName} variant="caption">اللـون</Typography>
+                    <Typography variant="caption" className={classes.specButton}>احمر</Typography>
+                    <Typography variant="caption" className={classes.specButton}>ازرق</Typography>
+                    <Typography variant="caption" className={classes.specButtonActive}>اسود</Typography>
+                    <Typography variant="caption" className={classes.specButton}>ذهبي</Typography>
+                </p>
+            </div>
 
-            {/*Object.keys(specs).length?
-                <React.Fragment>
-                    <Grid item xs={12} className={classes.ndRoot}>
-                        {Object.keys(specs).map((key) =>
-                            <Grid container className={classes.spec}>
-                                <Grid item xs={12}>
-                                    <Typography component="h6" variant="h6" className={classes.specFont}>{key}</Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <ProductSpec 
-                                        name={key}
-                                        values={specs[key]}
-                                        value={productSpecs[key]}
-                                        handleChange={props.handleChange}
-                                    />
-                                </Grid>
-                            </Grid>
-                        )}
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Divider/>
-                    </Grid>
-                </React.Fragment>
-                :null
-            */}
+            <Divider className={classes.divider} />
+            
+            <Typography className={classes.specsTitle} variant="h6">
+                الوصف
+            </Typography>
 
-            <Grid item xs={12} className={classes.ndRoot}>
-                <Grid item xs={12}  style={{ fontSize: 20, marginBottom:'50px' }}>
-                    <Typography variant="title" >المواصفات</Typography>
-                </Grid>
-                {productSpecs.map(productSpec =>
-                    <Grid container className={classes.spec}>
-                        <Grid item xs={12}>
-                            <Typography component="h6" variant="h6" className={classes.specFont}>{productSpec.name}</Typography>
-                        </Grid>
-                        <Grid component='ul' item xs={12}>
-                            {JSON.parse(productSpec.value)['ar']}
-                        </Grid>
-                    </Grid>
-                )}
-            </Grid>
-            <Grid item xs={12}>
-                <Divider />
-            </Grid>
-            <Grid item xs={12}>
-                <Typography variant="title" style={{ fontSize: 20 }} >{globalVariables.LABEL_DESCRIPTION[globalVariables.LANG]}</Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <RichEditor 
-                    intial={props.description}
-                    readOnly 
-                /> 
-            </Grid>
-
-        </Grid>
-
+            <Typography className={classes.productDesc}>
+            هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا هدفنا هو توفير خدمة بيع ممتازة وإرضاء ضيوفنا بافضل خدمة وافضل الاسعار شركة معرفش اسمها ايه مختلة عن اي شركة تسويق اخرى حيث اننا نحاول بلاب بلاب عن طريق توفير بلاب بلاب ويمكنكم زيارة فروعنا في محافظات كذا وكذا
+            </Typography>
+        </div>
     );
 }
 
