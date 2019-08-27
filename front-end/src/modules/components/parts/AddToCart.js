@@ -25,7 +25,7 @@ class AddToCart extends React.Component{
             const cities = res.data.map(item => ({id: item.id, name: item.city_name}));
             this.setState({
                 cities: cities,
-                city: cities[0].id,
+                city: 0,
             })
             this.getShippingPrice(1)
         })
