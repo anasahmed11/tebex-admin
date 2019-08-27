@@ -76,9 +76,7 @@ const AddProduct1 = props => {
         delete data.image
         for (var key in data) formData.append(key, data[key]);
         
-        formData.append('commission','20');
 
-        
         if(valid===false){
             setServerMessage(message);
             setPopup(true);
@@ -88,7 +86,7 @@ const AddProduct1 = props => {
         if(props.edit){
             productsAPI.post(`update/${props.edit}/`,formData)
             .then(res=>{
-                setServerMessage('Data saved successfully');
+                setServerMessage('Data saved successfully, and waiting for admin approval.');
                 setPopup(true);
                 setMessageType('success')
             })

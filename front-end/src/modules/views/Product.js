@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 
-import { withStyles, Grid, Snackbar } from '@material-ui/core';
+import { withStyles, Grid, Snackbar, Typography, Button } from '@material-ui/core';
 import 'typeface-roboto';
 
 import { Helmet } from "react-helmet";
@@ -18,6 +18,34 @@ import { productsAPI, baseURL } from '../../api/api'
 
 import styles from '../../assets/jss/views/Product';
 import globalVariables from '../../global-variables';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
+const styles2 = (theme) => ({
+    root: {
+        padding: `${theme.spacing(12)}px 0px`,
+        minHeight: '500px',
+        position:'relative',
+        textAlign:'center',
+    },
+});
+const ProductNotFound = withStyles(styles2)(function ProductNotFound(props){
+    const {classes} = props;
+    return <Grid container justify='center' alignItems="center" className={classes.root}>
+                <Grid item md={8} xs={10}>
+                    <Grid container justify='center' alignItems="center">
+                        <Grid item md={8} sm={10} xs={12} className={classes.paddingTop}>
+                            <FontAwesomeIcon style={{width:'30%', height:'100%', color:'navy'}} icon="sad-cry" />
+                        </Grid>
+                        <Grid item md={12} xs={12} className={classes.paddingTop}>
+                            <Typography style={{color:'#5D1F62'}} component="h2" variant="h3" gutterBottom >{globalVariables.PRODUCT_NOT_FOUND[globalVariables.LANG]}</Typography>
+                            <Typography style={{color:'#5D1F62'}} component="h2" variant="h6" gutterBottom>{globalVariables.PRODUCT_NOT_FOUND_MESSAGE[globalVariables.LANG]}</Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+})
+
 
 class Product extends React.Component {
     state = {
@@ -26,6 +54,7 @@ class Product extends React.Component {
         specs: {},
         productsSpecs: [],
         isLoading: true,
+        error: false,
     }
 
     // getSimilarProductSpecs = (id, sku) => {
@@ -78,7 +107,10 @@ class Product extends React.Component {
                 //if (withSimilars) this.getSimilarProductSpecs(id, res.data.sku)
             })
             .catch(res => {
-
+                this.setState({
+                    isLoading:false,
+                    error: true,
+                })
             })
 
     }
@@ -137,6 +169,7 @@ class Product extends React.Component {
         }
     }
     render() {
+        
         const { classes, isPopup, serverMessage, handlePopupClose, messageType } = this.props;
         const { specs, isLoading, product, productSpecs } = this.state;
         //console.log(productSpecs);
@@ -163,7 +196,7 @@ class Product extends React.Component {
                     </Grid>
                     :
                     <Grid container justify='center' className={classes.root} spacing={2}>
-
+                        
                         <Snackbar
                             style={{ bottom: '50px' }}
                             anchorOrigin={{
@@ -181,25 +214,31 @@ class Product extends React.Component {
                                 message={serverMessage}
                             />
                         </Snackbar>
+                        {this.state.error?
+                        <ProductNotFound />
+                        :
+                        <React.Fragment>
+                            
+                            <Grid item md={4} xs={11}>
+                                <ProductViewer images={product.images.length ? product.images : tempImages} title={product.name} />
+                            </Grid>
 
-                        <Grid item md={4} xs={11}>
-                            <ProductViewer images={product.images.length ? product.images : tempImages} title={product.name} />
-                        </Grid>
+                            <Grid item md={4} xs={11}>
+                                <ProductSpecs
+                                    specs={specs}
+                                    productSpecs={productSpecs}
+                                    price={product.price}
+                                    salePrice={product.sale_price}
+                                    description={product.description}
+                                    handleChange={this.handleChange}
+                                />
 
-                        <Grid item md={4} xs={11}>
-                            <ProductSpecs
-                                specs={specs}
-                                productSpecs={productSpecs}
-                                price={product.price}
-                                salePrice={product.sale_price}
-                                description={product.description}
-                                handleChange={this.handleChange}
-                            />
-
-                        </Grid>
-                        <Grid item md={3} xs={11}>
-                            <AddToCart addToCart={this.handleAddToCart} quantity={product.quantity} store={{ id: product.store.id, name: product.store.name }} />
-                        </Grid>
+                            </Grid>
+                            <Grid item md={3} xs={11}>
+                                <AddToCart addToCart={this.handleAddToCart} quantity={product.quantity} store={{ id: product.store.id, name: product.store.name }} />
+                            </Grid>
+                        </React.Fragment>
+                        }
 
                     </Grid>
                 }

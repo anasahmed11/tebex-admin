@@ -33,7 +33,7 @@ class ProductController extends Controller
 
     public function product(Product $product)
     {
-        if ($product == null) return response()->json(["error" => "product not found"], 400);
+        if ($product == null || $product->status == "pending") return response()->json(["error" => "product not found"], 400);
         return response()->json($product, 200);
     }
     public function specs(Product $product)
@@ -57,7 +57,7 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $p = new Product($product->except(['category', 'image','description','description_en']));
+            $p = new Product($product->except(['category', 'image', 'description', 'description_en']));
             $p->description = json_decode($product->input('description'));
             $p->description_en = json_decode($product->input('description_en'));
 
@@ -104,7 +104,7 @@ class ProductController extends Controller
         DB::beginTransaction();
         try {
             if ($pid->Store()->first()->User()->first()->id != Auth::user()->id) throw new \Exception('access error');
-            $pid->update($product->except(['category', 'image','description','description_en']));
+            $pid->update($product->except(['category', 'image', 'description', 'description_en']));
             $pid->description = json_decode($product->input('description'));
             $pid->description_en = json_decode($product->input('description_en'));
 

@@ -12,7 +12,6 @@ function NotFound(props) {
         <Grid container justify='center' alignItems="center" className={classes.root}>
             <Helmet>
                 <title>{globalVariables.PAGE_TITLE_NOT_FOUND[globalVariables.LANG]}</title>
-                
             </Helmet>
             <Grid item md={8} xs={10}>
                 <Grid container justify='center' alignItems="center">

@@ -373,6 +373,14 @@ const globalVariables = {
         en: 'Shipping is not supported for this area',
         ar: 'هذه المنطقة غير مدعومة في الشحن'
     },
+    PRODUCT_NOT_FOUND: {
+        en: 'Product Not Found',
+        ar: 'لم يتم العثور على المنتج'
+    },
+    PRODUCT_NOT_FOUND_MESSAGE: {
+        en: '',
+        ar: ''
+    },
 
     // Checkout
     CHECKOUT_SHIPPING_ADDRESS: {
