@@ -89,7 +89,7 @@ class UserDashBoard extends React.Component {
                     <StatsCard title={globalVariables.DASHBOARD_REFERRAL_EARNING[globalVariables.LANG]} highlight={300} desc={globalVariables.DASHBOARD_REFERRAL_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
                     <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_EARNING[globalVariables.LANG]} highlight={155} desc={globalVariables.DASHBOARD_CONFIRMED_EARNING_DESC[globalVariables.LANG]} />
                 </Grid>
-                <Grid container item xs={12} className={classes.statsCardsRoot}>
+                {/*<Grid container item xs={12} className={classes.statsCardsRoot}>
                     <ChartCard title={'ارباح'} highlight={
                         <ChartistGraph
                             className="ct-chart"
@@ -109,7 +109,7 @@ class UserDashBoard extends React.Component {
                             listener={emailsSubscriptionChart.animation}
                         />
                     } desc={'خربانة'} />
-                </Grid>
+                </Grid>*/}
             </Grid>
         );
     }

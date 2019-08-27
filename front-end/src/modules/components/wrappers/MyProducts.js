@@ -18,6 +18,8 @@ const columns = [
     { title: 'Price', field: 'price', type: "numeric" },
     { title: 'Sale Price', field: 'sale_price', type: "numeric" },
     { title: 'Qunatity', field: 'quantity', type: "numeric" },
+    { title: 'Commission', field: 'commission', type: "numeric" },
+    { title: 'Status', field: 'status'},
     { title: 'Created at', field: 'created_at' },
     { title: 'Action', field: 'action' },
 ]

@@ -97,20 +97,21 @@ class CategoryForm extends React.Component {
             .then(res => {
                 const leaves = getLeaves(res.data);
                 if (this.props.edit) {
-                    /*categoryAPI.get(`${this.props.defaultValues.category_id}/specs/`)
+                    categoryAPI.get(`${this.props.defaultValues.category_id}/specs/`)
                         .then(res => {
                             let specsData = {};
-                            for (let spec of this.props.defaultValues.specs) specsData = { ...specsData, [spec.name_en]: spec.pivot.spec_id }
+                            //for (let spec of this.props.defaultValues.specs) specsData = { ...specsData, [spec.name_en]: spec.pivot.spec_id }
                             this.setState({
                                 categorySpecs: res.data.data,
                                 isLoading: false,
                                 CATEGORIES: leaves,
                                 category: this.props.defaultValues.category_id,
-                                ...specsData
+                               // ...specsData
                             })
                         })
                         .catch(err => {
-                        })*/
+                        })
+                    //this.setState({ isLoading: false, CATEGORIES: leaves, category: this.props.defaultValues.category_id });
                 }
                 else {
                     this.setState({ isLoading: false, CATEGORIES: leaves });
