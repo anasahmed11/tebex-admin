@@ -10,7 +10,7 @@ export default theme => ({
     sectionContainer: {
         flexBasis: '32%',
         [theme.breakpoints.down('md')]: {
-            flexBasis: '49%',
+            flexBasis: '48%',
         },
         [theme.breakpoints.down('xs')]: {
             flexBasis: '100%',

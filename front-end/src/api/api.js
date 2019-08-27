@@ -3,6 +3,8 @@ import Cookies from 'universal-cookie';
 import globalVariables from '../global-variables';
 import { initCart } from '../store/actions/shoppingCart';
 import { initUser } from '../store/actions/user';
+import { openPopup } from '../store/actions/site';
+import store from '../store/store'; 
 
 const cookies = new Cookies();
 
@@ -113,13 +115,22 @@ instances.forEach(intance => {
         return response
 
     }, function (err) {
-        // if(err.response)
-        //     console.log("response error",err.response.status)
-
-        if (err.response && err.response.status === 401) {
-            cookies.remove(globalVariables.ACCESS_TOKEN)
-            initCart()
-            initUser()
+        if (err.response ){
+            if(err.response.status === 401){
+                if(cookies.get(globalVariables.ACCESS_TOKEN)!==undefined){
+                    cookies.remove(globalVariables.ACCESS_TOKEN)
+                    setTimeout(()=>window.location.replace('/'),1000);
+                    store.dispatch(openPopup("Your session has been expired, login again")); 
+                }
+               
+                initCart()
+                initUser()
+               
+            }
+        }
+        
+        else if (err.request){
+            store.dispatch(openPopup("Server Connection is lost, try again later", true))
         }
         return Promise.reject(err);
     });

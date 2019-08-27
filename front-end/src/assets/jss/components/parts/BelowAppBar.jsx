@@ -14,8 +14,7 @@ export default theme => ({
     item: {
         marginRight: '24px',
         position: 'relative',
-        paddingTop: '14px',
-        paddingBottom: '14px',
+        padding: '5px 0px',
         '&:hover > div': {
             visibility: 'visible',
             opacity: 1,
