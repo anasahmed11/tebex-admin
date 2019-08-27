@@ -1,8 +1,9 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import globalVariables from '../../../global-variables';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import globalVariables from '../../../global-variables';
 import { withStyles, Grid, Typography, Divider, TextField, Button } from '@material-ui/core';
 import 'typeface-roboto';
 
@@ -174,7 +175,10 @@ class AddToCart extends React.Component{
                     </Button>               
                 </Grid>
             </React.Fragment>
-            :<Grid style={{textAlign:'center', padding:'20px 0px'}}>{globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}</Grid>
+            :<Typography className={classes.outOfStock} align="center">
+                <FontAwesomeIcon  icon={['fas', 'exclamation-triangle']} />
+                {globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}
+            </Typography>
             }
             </div>
             }
