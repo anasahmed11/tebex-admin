@@ -38,5 +38,12 @@ export default (theme) => ({
     },
     addButton: {
         fontWeight: 'bold',
+    },
+    outOfStock: {
+        padding: '24px 0px',
+        color: 'darkslateblue',
+        '& svg': {
+            marginRight: 4,
+        }
     }
 });

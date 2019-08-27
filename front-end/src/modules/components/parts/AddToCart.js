@@ -1,8 +1,9 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import globalVariables from '../../../global-variables';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import globalVariables from '../../../global-variables';
 import { withStyles, Grid, Typography, Divider, TextField, Button } from '@material-ui/core';
 import 'typeface-roboto';
 
@@ -12,7 +13,7 @@ import styles from '../../../assets/jss/components/parts/AddToCart';
 
 class AddToCart extends React.Component{
     state = {
-        city: 0,
+        city: -1,
         cities: [],
         quantity: 1,
         shipping: {},
@@ -25,9 +26,9 @@ class AddToCart extends React.Component{
             const cities = res.data.map(item => ({id: item.id, name: item.city_name}));
             this.setState({
                 cities: cities,
-                city: 0,
+                city: cities[0].id,
             })
-            this.getShippingPrice(1)
+            this.getShippingPrice(cities[0].id)
         })
         .catch(res=>{
             this.setState({isLoading:false})
@@ -67,6 +68,7 @@ class AddToCart extends React.Component{
         const { classes, quantity, store } = this.props;
         const { isLoading } = this.state;
         const QUANTITIES = [...Array(quantity)].map((itme,idx)=>idx+1)
+        console.log(this.state.city)
         return(
             <React.Fragment>
             {isLoading?
@@ -111,7 +113,7 @@ class AddToCart extends React.Component{
                                     },
                                 }}
                                 >
-                                {QUANTITIES.map(n => <option value={n}> {n} </option>)}
+                                {QUANTITIES.map((n,idx) => <option key={idx} value={n}> {n} </option>)}
                             </TextField>
                         </form> 
                     </span>
@@ -134,8 +136,8 @@ class AddToCart extends React.Component{
                                         input: classes.orderSelectMenu,
                                     },
                                 }}>
-                                {this.state.cities.map(city => 
-                                    <option value={city.id}> {city.name} </option>
+                                {this.state.cities.map((city, idx) => 
+                                    <option key={idx} value={city.id}> {city.name} </option>
                                 )}
                             </TextField>
                         </form>
@@ -174,7 +176,10 @@ class AddToCart extends React.Component{
                     </Button>               
                 </Grid>
             </React.Fragment>
-            :<Grid style={{textAlign:'center', padding:'20px 0px'}}>{globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}</Grid>
+            :<Typography className={classes.outOfStock} align="center">
+                <FontAwesomeIcon  icon={['fas', 'exclamation-triangle']} />
+                {globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}
+            </Typography>
             }
             </div>
             }
