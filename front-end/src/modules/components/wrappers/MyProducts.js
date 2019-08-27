@@ -38,7 +38,7 @@ class MyProdcuts extends React.Component {
     
     removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
-    handleEditAction = id => this.props.history.push(`/seller/add-product/${id}`);
+    handleEditAction = id => this.props.history.push(`/seller/edit-product/${id}`);
 
     componentDidMount = () => {
         // data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )

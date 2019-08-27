@@ -36,7 +36,7 @@ import RTL from './Providers/RTL';
 import { userAPI } from './api/api';
 import PopupMessage from './Providers/PopupMessage';
 import theme from './assets/Theme';
-import { stat } from 'fs';
+//import { stat } from 'fs';
 import NetworkError from './modules/components/wrappers/NetworkError';
 const cookies = new Cookies();
 
@@ -64,19 +64,21 @@ class App extends React.Component {
     isLoading: true,
   }
 
-  componentWillMount = () => {
-    document.body.dir = this.state.direction;
-    document.body.style.backgroundColor = 'white';
-  }
+  // componentWillMount = () => {
+  //   document.body.dir = this.state.direction;
+  //   document.body.style.backgroundColor = 'white';
+  // }
 
 
   componentDidMount = () => {
+    document.body.dir = this.state.direction;
+    document.body.style.backgroundColor = 'white';
+    
     this.setState({ isLoading: false })
     this.props.handleInitCart()
     this.props.handleInitUser()
 
     fetchAffiliate()
-    console.log("APP MOUNT")
   }
   componentWillUnmount = () => {
     document.body.dir = null;
@@ -84,7 +86,6 @@ class App extends React.Component {
 
   
   render() {
-    console.log("x:", this.props.x)
     const { isLoading, } = this.state;
 
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
@@ -98,7 +99,7 @@ class App extends React.Component {
         spinnerColor='#FFB3E0'
         textColor='#676767'
       >
-        {isLoading || this.props.userIsLoading ? null :
+        {isLoading || this.props.userIsLoading ? <div></div> :
           <RTL>
 
             <ThemeProvider theme={theme}>

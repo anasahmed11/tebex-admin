@@ -130,7 +130,7 @@ class Product extends React.Component {
     getProduct = (id, withSimilars = false) => {
         productsAPI.get(`${id}`)
             .then(res => {
-                // res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
+                 res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
                 this.setState({
                     product: res.data,
                     isLoading: false,

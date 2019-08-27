@@ -19,7 +19,7 @@ class Payment extends React.Component{
         return(
             <React.Fragment>
                 <Grid item xs={12} >
-                    <Typography inline gutterBottom component='h2' variant='h5'>{globalVariables.LABEL_PAYMENT[globalVariables.LANG]}</Typography>
+                    <Typography display="inline" gutterBottom component='h2' variant='h5'>{globalVariables.LABEL_PAYMENT[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 <Grid item xs={12}>

@@ -62,7 +62,7 @@ export default function auth(state = initialState, action){
                 items: action.cartItems,
             }
         default: 
-            console.log('_DEFAULT_CART');
+            // console.log('_DEFAULT_CART');
         break;
     }
     

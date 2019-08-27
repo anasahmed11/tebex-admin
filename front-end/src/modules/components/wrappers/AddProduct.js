@@ -132,11 +132,15 @@ const AddProduct1 = props => {
             //component: <GeneralDescrptionForm errors={errors} register={register} />
             component:
             [ 
+                <label key={1} htmlFor="description">Descrption (ar)</label>,
                 <RichEditor 
+                    key={2}
                     intial={props.defaultValues.description} 
                     setChildCallback={setDescriptionChildCallback1} 
                 />,  
+                <label key={3} htmlFor="description">Descrption (en)</label>,
                 <RichEditor
+                    key={4}
                     intial={props.defaultValues.description_en} 
                     setChildCallback={setDescriptionChildCallback2} 
                 />

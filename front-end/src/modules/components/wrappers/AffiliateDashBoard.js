@@ -1,17 +1,19 @@
 import React from 'react';
-import ChartistGraph from "react-chartist";
+
 import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Typography, } from '@material-ui/core';
 import 'typeface-roboto';
 
+
+/*import ChartistGraph from "react-chartist";
 import {
     emailsSubscriptionChart,
     completedTasksChart
 } from "../../../charts";
-
+import ChartCard from '../parts/ChartCard';*/
 import StatsCard from '../parts/StatsCard';
-import ChartCard from '../parts/ChartCard';
+
 
 import { userAPI, orderAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';

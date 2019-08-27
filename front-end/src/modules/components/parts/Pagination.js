@@ -1,5 +1,4 @@
 import React from 'react';
-import Pagination from "material-ui-flat-pagination";
 import Paginate from 'react-paginate';
 // import globalVariables from '../../../global-variables';
 

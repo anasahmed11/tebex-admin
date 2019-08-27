@@ -21,7 +21,7 @@ const cookies = new Cookies();
 class PrimarySearchAppBar extends React.Component {
     
     state = {
-        anchorEl: false,
+        anchorEl: null,
         mobileMoreAnchorEl: null,
     };
 

@@ -10,15 +10,18 @@ import globalVariables from "../../../global-variables";
 
 const getLeaves = (cats) => {
     let leaves = [];
+    const f1 = childrenLeave => { leaves.push(childrenLeave); return null; };
+    const f2 = function(childrenLeave){
+        childrenLeave.name = childrenLeave.name + ' <- ' + ((globalVariables.LANG==='ar')?this.cat.name:this.cat.name_en)
+        leaves.push(childrenLeave);
+        return null;
+    }
     for (let cat of cats) {
         if (cat.children.length)
             if (cat.name === "root")
-                getLeaves(cat.children).map(childrenLeave => { leaves.push(childrenLeave) })
+                getLeaves(cat.children).map(f1)
             else
-                getLeaves(cat.children).map(childrenLeave => {
-                    childrenLeave.name = childrenLeave.name + ' <- ' + ((globalVariables.LANG==='ar')?cat.name:cat.name_en)
-                    leaves.push(childrenLeave);
-                })
+                getLeaves(cat.children).map(f2,{cat:cat},)
         else{
             cat.name = globalVariables.LANG==='ar'?cat.name:cat.name_en
             leaves = [...leaves, cat];
@@ -99,7 +102,7 @@ class CategoryForm extends React.Component {
                 if (this.props.edit) {
                     categoryAPI.get(`${this.props.defaultValues.category_id}/specs/`)
                         .then(res => {
-                            let specsData = {};
+                            //let specsData = {};
                             //for (let spec of this.props.defaultValues.specs) specsData = { ...specsData, [spec.name_en]: spec.pivot.spec_id }
                             this.setState({
                                 categorySpecs: res.data.data,
@@ -118,7 +121,7 @@ class CategoryForm extends React.Component {
                 }
             })
             .catch(err => {
-
+                console.log(err);
             })
     }
 

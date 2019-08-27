@@ -27,7 +27,7 @@ export default function auth(state = initialState, action){
                 isPopup: false
             }
         default:
-            console.log('_DEFAULT_SITE');
+            //console.log('_DEFAULT_SITE');
         break;
     }
     
