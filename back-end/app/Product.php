@@ -55,6 +55,9 @@ class Product extends Model
         $price=$this->sale_price?? $this->price;
         return $price*($this->attributes['commission']-2.5)/100;
     }
+    public function getCommPercentAttribute(){
+        return $this->attributes['commission'];
+    }
 
     public function Specs(){
         return $this->belongsToMany(Spec::class,'product_specs');
