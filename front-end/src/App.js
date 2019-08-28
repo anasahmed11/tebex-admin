@@ -109,7 +109,7 @@ class App extends React.Component {
                   <Route exact path='/checkout' component={withRouter(Checkout)} />
 
                   <Route exact path='/home' component={withRouter(Home)} />
-                  <Route exact path='/product/:id' component={withRouter(Product)} />
+                  <Route exact path='/product/:id+' component={withRouter(Product)} />
                   <Route exact path='/shop' component={withRouter(Shop)} />
                   <Route exact path='/shop/:slug+' component={withRouter(Shop)} />
                   <Route exact path='/auth' render={props => authenticated ? <Redirect to='/profile' /> : <Auth {...props} />} />

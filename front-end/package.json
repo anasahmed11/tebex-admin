@@ -34,6 +34,7 @@
     "react-helmet": "^5.2.1",
     "react-hook-form": "^3.22.1",
     "react-image-magnifiers": "^1.0.5",
+    "react-image-magnify": "^2.7.4",
     "react-jss": "^8.6.1",
     "react-lazy-load": "^3.0.13",
     "react-loading-screen": "0.0.17",

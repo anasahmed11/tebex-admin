@@ -454,6 +454,30 @@ const globalVariables = {
         en: 'VIEW DETAILS',
         ar: 'التفاصيل',
     },
+    LABEL_PRODUCT_CODE: {
+        en: 'Code',
+        ar: 'كــود',
+    },
+    LABEL_PRODUCT_BEFORE_DISCOUNT: {
+        en: 'Before Discount',
+        ar: 'قبل الخصم',
+    },
+    LABEL_PRODUCT_PRICE: {
+        en: 'Price',
+        ar: 'السعــر',
+    },
+    LABEL_PRODUCT_SAVING: {
+        en: 'You Save',
+        ar: 'ستوفـر',
+    },
+    LABEL_PRODUCT_SPECS: {
+        en: 'Specifications',
+        ar: 'المواصفات',
+    },
+    LABEL_PRODUCT_ADD_PRODUCT: {
+        en: 'Add It',
+        ar: 'لطلب المنتج',
+    },
     LABEL_PAYMENT: {
         en: 'Payment',
         ar: 'الدفع'
@@ -467,8 +491,8 @@ const globalVariables = {
         ar: 'هنا'
     },
     LABEL_SHIPPING_TO: {
-        en: 'Shipping to:',
-        ar: 'الشحن الى:'
+        en: 'Shipping to',
+        ar: 'الشحن الى'
     },
     LABEL_SHIPPING: {
         en: 'Shipping',
@@ -507,7 +531,7 @@ const globalVariables = {
         ar: 'خصم'
     },
     LABEL_PRODUCT_PRICE: {
-        en: 'Product price',
+        en: 'Product Price',
         ar: 'سعر المنتج'
     },
     LABEL_NEXT: {
@@ -774,7 +798,7 @@ const globalVariables = {
         ar: 'المتسلم'
     },
     TRACK_OREDER_TOTAL_PRICE: {
-        en: 'Total price',
+        en: 'Total Price',
         ar: 'اجمالي السعر'
     },
     TRACK_OREDER_DATE: {
@@ -790,7 +814,7 @@ const globalVariables = {
         ar: 'رقم الطلب'
     },
     TRACK_OREDER_DETAIL: {
-        en: 'Order details',
+        en: 'Order Details',
         ar: 'تفاصيل الطلب'
     },
 

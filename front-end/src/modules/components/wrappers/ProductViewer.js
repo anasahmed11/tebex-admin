@@ -1,5 +1,6 @@
 import React from 'react';
 import Magnifier from 'react-magnifier';
+
 import uuid from 'uuid';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -70,9 +71,10 @@ class ProductViewer extends React.Component {
                                             src={img}
                                             width='auto'
                                             height={350}
+                                            mgShape="square"
                                             zoomFactor={1}
-                                            mgWidth={220}
-                                            mgHeight={220}
+                                            mgWidth={240}
+                                            mgHeight={300}
                                         />
                                         
                             })

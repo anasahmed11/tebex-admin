@@ -58,17 +58,6 @@ const flattenObject = (obj, _objects=[]) => {
 	return _objects;
 };
 
-const getCategoryID = (categories, slugs, id=1, lvl=0) => {
-    if(!slugs) return 1; // Root category
-    for(let category of categories)
-        if(category.slug === slugs[lvl] && category.parent_id === id){
-            if(lvl + 1 === slugs.length)
-                return category.id;
-            return getCategoryID(categories, slugs, category.id, lvl+1);
-        }
-    return -1; // 404
-}
-
 
 class Product extends React.Component {
     state = {
@@ -120,30 +109,40 @@ class Product extends React.Component {
     
     
     componentDidMount() {
-        const id = this.props.match.params.id
-        this.getProduct(id, true);
+        const url = this.props.match.params.id;
+        let [slug, sku] = url.replace(/^\/|\/$/g, '').split('/');
+        let id = sku.split('-')[0];
+        sku = sku.split('-')[1];
+
+        this.getProduct(id, slug, sku, true);
         //this.getProductSpecs(id);
         this.createCategoryRoute();
 
     }
 
-    getProduct = (id, withSimilars = false) => {
+    getProduct = (id, slug, sku, withSimilars = false) => {
         productsAPI.get(`${id}`)
             .then(res => {
                 // res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
-                this.setState({
-                    product: res.data,
-                    isLoading: false,
-                    productSpecs: res.data.specs
-                })
-
+                const product = res.data;
+                if(product.sku === sku && product.slug === slug)
+                    this.setState({
+                        product: res.data,
+                        isLoading: false,
+                        productSpecs: res.data.specs
+                    });
+                else
+                    this.setState({
+                        isLoading: false,
+                        error: true,
+                    })
                 //if (withSimilars) this.getSimilarProductSpecs(id, res.data.sku)
             })
             .catch(res => {
                 this.setState({
-                    isLoading:false,
+                    isLoading: false,
                     error: true,
-                })
+                });
             })
 
     }
@@ -198,13 +197,13 @@ class Product extends React.Component {
         let productSpecs = { ...this.state.productSpecs };
         productSpecs[key] = value
         const idx = this.state.productsSpecs.findIndex(product => {
-            console.log(product)
+            // console.log(product)
             let flag = true;
             product.specs.forEach(spec => {
                 if (productSpecs[spec.name] !== spec.value) flag = false;
-                console.log(spec)
-            })
-            console.log("flag:", flag)
+                // console.log(spec)
+            });
+            // console.log("flag:", flag)
             return flag
         })
         if (idx === -1) {
@@ -238,7 +237,7 @@ class Product extends React.Component {
     render() {
         
         const { classes, isPopup, serverMessage, handlePopupClose, messageType } = this.props;
-        const { specs, isLoading, product, productSpecs } = this.state;
+        const { isLoading, product, productSpecs } = this.state;
         //console.log(productSpecs);
         
         return (
@@ -303,12 +302,8 @@ class Product extends React.Component {
 
                         <Grid item lg={4} md={6} xs={11}>
                             <ProductSpecs
-                                title={product.name}
-                                specs={specs}
+                                product={product}
                                 productSpecs={productSpecs}
-                                price={product.price}
-                                salePrice={product.sale_price}
-                                description={product.description}
                                 handleChange={this.handleChange}
                             />
                         </Grid>

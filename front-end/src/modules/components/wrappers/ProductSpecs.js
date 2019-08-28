@@ -12,11 +12,12 @@ import RichEditor from '../parts/RichText';
 
 const ProductSpecs = props => {
 
-    const { classes, specs, title, salePrice, price, productSpecs } = props;
+    const { classes, productSpecs } = props;
+    const { name, name_en, sku, } = props.product;
     return (
         <div>
             <Typography className={classes.title} variant="h6" align="left">
-                {title}
+                {name}
             </Typography>
             <div className={classes.section}>
                 <p>
@@ -51,13 +52,18 @@ const ProductSpecs = props => {
             </Typography>
             <div className={classes.section} style={{borderCollapse: 'separate', borderSpacing: '6px',}}>
                 <p>
-                    <Typography className={classes.specName} variant="caption">الذاكرة</Typography>
+                    <Typography className={classes.specName} variant="caption" style={{verticalAlign: 'initial'}}>الذاكرة</Typography>
                     <Typography variant="caption" className={classes.specButton}>64GB</Typography>
                     <Typography variant="caption" className={classes.specButtonActive}>128GB</Typography>
                     <Typography variant="caption" className={classes.specButton}>256GB</Typography>
+                    <Typography variant="caption" className={classes.specButton}>256GB</Typography>
+                    <Typography variant="caption" className={classes.specButton}>256GB</Typography>
+                    <Typography variant="caption" className={classes.specButton}>256GB</Typography>
+                    <Typography variant="caption" className={classes.specButton}>256GB</Typography>
+                    <Typography variant="caption" className={classes.specButton}>256GB</Typography>
                 </p>
                 <p>
-                    <Typography className={classes.specName} variant="caption">اللـون</Typography>
+                    <Typography className={classes.specName} variant="caption" style={{verticalAlign: 'initial'}}>اللـون</Typography>
                     <Typography variant="caption" className={classes.specButton}>احمر</Typography>
                     <Typography variant="caption" className={classes.specButton}>ازرق</Typography>
                     <Typography variant="caption" className={classes.specButtonActive}>اسود</Typography>

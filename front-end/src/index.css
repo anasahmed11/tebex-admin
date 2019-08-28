@@ -63,3 +63,8 @@ textarea {
 .magnifier-image {
   object-fit: contain;
 }
+
+/*
+.magnifying-glass.circle{
+  border-radius: 0;
+}*/

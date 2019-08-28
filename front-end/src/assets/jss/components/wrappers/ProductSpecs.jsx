@@ -15,6 +15,7 @@ export default theme => ({
     display: 'table',
     '& p': {
       display: 'table-row',
+      textAlign: 'start',
     },
     '& p span': {
       display: 'table-cell',
@@ -38,7 +39,7 @@ export default theme => ({
   },
   price: {
     fontWeight: 'bold',
-    fontSize: 26,
+    fontSize: 30,
     color: 'blue',
   },
   saving: {
@@ -57,6 +58,7 @@ export default theme => ({
     fontWeight: 'bold',
   },
   specButton: {
+    display: 'inline-block !important',
     cursor: 'pointer',
     fontSize: 14,
     border: '1px solid #0d2f80',
@@ -64,11 +66,13 @@ export default theme => ({
     color: '#0d2f80',
     textAlign: 'center !important',
     padding: '4px 16px !important',
+    margin: 2,
     '&:hover': {
       background: '#f6f0ff',
     }
   },
   specButtonActive: {
+    display: 'inline-block !important',
     cursor: 'auto',
     fontWeight: 'bold',
     fontSize: 14,
@@ -77,6 +81,7 @@ export default theme => ({
     color: 'black',
     textAlign: 'center !important',
     padding: '4px 16px !important',
+    margin: 2,
   },
   productDesc: {
     fontSize: 16,
