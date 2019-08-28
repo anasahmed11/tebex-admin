@@ -15,6 +15,7 @@ export default theme => ({
     
   categoryTrace: {
       display: 'flex',
+      flexWrap: 'wrap',
       flexGrow: 1,
       /*
       border: '1px solid grey',

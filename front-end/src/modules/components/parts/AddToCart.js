@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import uuid from 'uuid';
 
 import globalVariables from '../../../global-variables';
 import { withStyles, Grid, Typography, Divider, TextField, Button } from '@material-ui/core';
@@ -10,6 +11,41 @@ import 'typeface-roboto';
 import { locationAPI,  } from '../../../api/api';
 
 import styles from '../../../assets/jss/components/parts/AddToCart';
+
+const supportSection = [
+    {
+        title: {en: 'BEST PRODUCTS', ar: 'أفضل المنتجات'},
+        desc: {
+            en: 'We only invest in high quality products and bring them to you at best prices',
+            ar: 'نحن نستثمر فقط في المنتجات عالية الجودة ونوفرهم لكم بأفضل الأسعار'
+        },
+        icon: 'gem',
+    },
+    {
+        title: {en: 'FAST DELIVERY', ar: 'شحن سريع'},
+        desc: {
+            en: 'Our delivery is a professional that service you can trust',
+            ar: 'خدمة الشحن لدينا خدمة مميزة احترافية يمكنك الوثوق بها'
+        },
+        icon: 'shipping-fast',
+    },
+    {
+        title: {en: 'SECURED ORDERS', ar: 'طلبات آمنة'},
+        desc: {
+            en: 'Your data and orders privacy is always protected',
+            ar: 'المعلومات والطلبات الخاصة بك محمية بشكلٍ دائم'
+        },
+        icon: 'user-shield',
+    },
+    {
+        title: {en: 'EASY REPLACEMENTS', ar: 'استبدال سهل'},
+        desc: {
+            en: 'Never worry about your online shopping experience with us, we help you return and replace applicable products',
+            ar: 'لا تقلق على تجربة الشراء اونلاين معنا، نحن نوفر لك استرجاع واستبدال سهل للمنتجات الخاضعة لذلك'
+        },
+        icon: 'sync-alt',
+    }
+]
 
 class AddToCart extends React.Component{
     state = {
@@ -183,6 +219,19 @@ class AddToCart extends React.Component{
             }
             </div>
             }
+            <div className={classes.supportSection}>
+                {supportSection.map(item =>
+                    <section key={uuid()} className={classes.infoSection}>
+                        <div className={classes.iconContainer}>
+                            <FontAwesomeIcon className={classes.icon} icon={['fas', item.icon]} />
+                        </div>
+                        <div className={classes.infoText}>
+                            <Typography align='left' className={classes.title} variant='h6'>{item.title[globalVariables.LANG]}</Typography>
+                            <Typography align='left' className={classes.desc} variant='subtitle1'>{item.desc[globalVariables.LANG]}</Typography>
+                        </div>
+                    </section>
+                )}
+            </div>
             </React.Fragment>
         );
     }

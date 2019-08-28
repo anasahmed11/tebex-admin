@@ -6,6 +6,7 @@ export default theme => ({
     fontWeight: 'bold',
     fontSize: 22,
     marginBottom: theme.spacing(0.5),
+    textTransform: 'uppercase',
   },
   divider: {
     marginBottom: theme.spacing(1),
@@ -23,9 +24,10 @@ export default theme => ({
       textAlign: 'left',
       paddingRight: theme.spacing(2),
     },
-    '& p span:firstChild': {
-      fontSize: 14,
+    '& p span:first-child': {
+      fontSize: 12,
       color: 'gray',
+      textTransform: 'uppercase',
     }
   },
   seller: {

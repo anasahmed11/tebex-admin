@@ -45,5 +45,42 @@ export default (theme) => ({
         '& svg': {
             marginRight: 4,
         }
+    },
+
+
+
+    supportSection: {
+        padding: theme.spacing(2),
+        marginTop: theme.spacing(2),
+        borderLeft: '1px solid lightgray',
+    },
+    infoSection: {
+        display: 'flex',
+        marginBottom: theme.spacing(2.5),
+    },
+    iconContainer: {
+        marginRight: theme.spacing(1),
+        flexBasis: '10%',
+    },
+    icon: {
+        color: '#0a0a9f',
+        fontSize: '30px',
+        // background: 'green',
+        padding: theme.spacing(0.5),
+        width: '30px !important',
+    },
+    infoText: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexBasis: '90%',
+    },
+    title: {
+        color: '#0a0a9f',
+        fontWeight: 'bold',
+        fontSize: 12,
+    },
+    desc: {
+        color: '#555',
+        fontSize: 11,
     }
 });

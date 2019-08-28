@@ -462,7 +462,7 @@ const globalVariables = {
         en: 'Before Discount',
         ar: 'قبل الخصم',
     },
-    LABEL_PRODUCT_PRICE: {
+    LABEL_PRODUCT_PRICE2: {
         en: 'Price',
         ar: 'السعــر',
     },
