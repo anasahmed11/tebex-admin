@@ -40,12 +40,12 @@ class ProductController extends Controller
     {
         if ($product == null)
             return response()->json(["error" => "product not found"], 400);
-        return response()->json($product->Specs()->get(), 200);
+        return response()->json($product->toArray()['specs'], 200);
     }
     public function sku($product, $sku)
     {
         return response()->json(Product::where('sku', $sku)->get()->map(function ($e) {
-            return ['id' => $e->id, 'specs' => $e->Specs()->get()];
+            return ['id' => $e->id, 'specs' => $e->toArray()['specs']];
         }));
     }
 
