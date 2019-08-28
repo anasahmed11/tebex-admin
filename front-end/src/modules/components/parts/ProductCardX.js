@@ -29,7 +29,7 @@ const ProductCard = (props) => {
                 <div className={slider? classes.productFrontSlider : classes.productFront}>
                     <Loading loading={loading} />
                     <LazyLoad offsetTop={200} onContentVisible={() => setLoading(false)}>
-                    <div class={classes.imageContainer}>
+                    <div className={classes.imageContainer}>
                         <img className={slider? classes.productImageSlider : classes.productImage} src={props.img} alt={props.title} />
                     </div>
                     </LazyLoad>

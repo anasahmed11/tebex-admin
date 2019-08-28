@@ -18,6 +18,8 @@ const columns = [
     { title: 'Price', field: 'price', type: "numeric" },
     { title: 'Sale Price', field: 'sale_price', type: "numeric" },
     { title: 'Qunatity', field: 'quantity', type: "numeric" },
+    { title: 'Commission', field: 'commission', type: "numeric" },
+    { title: 'Status', field: 'status'},
     { title: 'Created at', field: 'created_at' },
     { title: 'Action', field: 'action' },
 ]
@@ -36,7 +38,7 @@ class MyProdcuts extends React.Component {
     
     removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
-    handleEditAction = id => this.props.history.push(`/seller/add-product/${id}`);
+    handleEditAction = id => this.props.history.push(`/seller/edit-product/${id}`);
 
     componentDidMount = () => {
         // data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )

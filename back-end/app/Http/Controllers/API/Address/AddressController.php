@@ -43,7 +43,8 @@ class AddressController extends Controller
 
     }
     public function shipping(Address $address){
-        $location=$address->Location();
+        $location=$address->Location()->first();
+
         $shipping=Shipping::where('shipper_id',1)
             ->where('city_id',$location instanceof City ? $location->id : $location->City()->first()->id)
             ->first();

@@ -3,6 +3,7 @@ import { ClipLoader } from 'react-spinners';
 import Cookies from 'universal-cookie';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
+import { withRouter } from 'react-router-dom';
 
 import { withStyles, Grid, Typography, Button, TextField, MenuItem } from '@material-ui/core';
 import 'typeface-roboto';
@@ -10,64 +11,77 @@ import 'typeface-roboto';
 import ExapndPanel from './ExapndPanel';
 
 import styles from '../../../assets/jss/components/wrappers/Profile';
+import { userAPI } from '../../../api/api';
+import { connect } from 'react-redux';
 
-const LANGUAGES = ['English','العربية']
+const LANGUAGES = ['English', 'العربية']
 
 const REGIONS = [
-    'الإسكندرية','الإسماعيلية','الأقصر','البحر الاحمر',
-'البحيرة','الجيزة','الدقهلية','السويس','الشرقية','الغربية','الفيوم','القاهرة','القليوبية','المنوفية','المنيا'
-,'الوادي الجديد','أسوان','أسيوط','بني سويف','بورسعيد','جنوب سيناء','دمياط','سوهاج','شمال سيناء','قنا','كفر الشيخ','مطروح']
+    'الإسكندرية', 'الإسماعيلية', 'الأقصر', 'البحر الاحمر',
+    'البحيرة', 'الجيزة', 'الدقهلية', 'السويس', 'الشرقية', 'الغربية', 'الفيوم', 'القاهرة', 'القليوبية', 'المنوفية', 'المنيا'
+    , 'الوادي الجديد', 'أسوان', 'أسيوط', 'بني سويف', 'بورسعيد', 'جنوب سيناء', 'دمياط', 'سوهاج', 'شمال سيناء', 'قنا', 'كفر الشيخ', 'مطروح']
 
 
 const cookies = new Cookies();
+const currLanguage = cookies.get(globalVariables.LANGUGAE) === "en" ? "English" : "العربية";
 
-class MainSettingsFrom extends React.Component{
+
+class MainSettingsFrom extends React.Component {
     state = {
-        firstname: '',
+        firstname: this.props.user.first_name,
         firstnameErr: '',
-        
-        lastname: '',
+
+        lastname: this.props.user.last_name,
         lastnameErr: '',
 
         isLoading: true,
+
+        language: currLanguage
     }
 
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
     };
 
+
     handleMainSettings = () => {
         const data = {
             first_name: this.state.firstname,
             last_name: this.state.lastname,
         }
-        if(this.state.language === "English") cookies.set('lang','en');
-        else cookies.set('lang','ar');
-        
+        if (this.state.language === "English") cookies.set(globalVariables.LANGUGAE, 'en');
+        else cookies.set(globalVariables.LANGUGAE, 'ar');
+
         let valid = true;
 
-        if(this.state.firstname === "") { this.setState({firstnameErr: 'Cann\'t be empty'}); valid=false; }
-        if(this.state.lastname === "") { this.setState({lastnameErr: 'Cann\'t be empty'}); valid=false; }
+        if (this.state.firstname === "") { this.setState({ firstnameErr: 'Cann\'t be empty' }); valid = false; }
+        if (this.state.lastname === "") { this.setState({ lastnameErr: 'Cann\'t be empty' }); valid = false; }
+        if (valid)
+            userAPI.post('settings/main', data)
+            .then(res=>{
+                
+            })
+            .catch(res=>{
 
-        // console.log(data);
+            })
     }
-    render(){
+    render() {
         const { classes } = this.props;
-        const { isLoading } = this.state;
-        return(
+        
+        return (
             <React.Fragment>
                 <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
-    
+
                     <Grid item sm={4} xs={11} className={classes.padding}>
                         <TextField
                             className={classes.margin}
                             id={uuid()}
                             label={globalVariables.FORM_REGISTER_LABEL_FIRST_NAME[globalVariables.LANG]}
                             helperText={this.state.firstnameErr}
-                            value={this.state.fitstname}
+                            value={this.state.firstname}
                             onChange={this.handleChange('firstname')}
                             fullWidth
-                            error={this.state.firstnameErr!==""}
+                            error={this.state.firstnameErr !== ""}
                             InputLabelProps={{
                                 shrink: true,
                             }}
@@ -80,19 +94,19 @@ class MainSettingsFrom extends React.Component{
                             id={uuid()}
                             label={globalVariables.FORM_REGISTER_LABEL_LAST_NAME[globalVariables.LANG]}
                             type="text"
-                        
+
                             helperText={this.state.lastnameErr}
                             value={this.state.lastname}
                             onChange={this.handleChange('lastname')}
                             fullWidth
-                            error={this.state.lastnameErr!==""}
+                            error={this.state.lastnameErr !== ""}
                             InputLabelProps={{
                                 shrink: true,
                             }}
                             required
                         />
                     </Grid>
-                
+
                     <Grid item sm={3} xs={5} className={classes.padding}>
                         <TextField
                             className={classes.margin}
@@ -116,11 +130,11 @@ class MainSettingsFrom extends React.Component{
                                 </MenuItem>
                             ))}
                         </TextField>
-                    </Grid>                
+                    </Grid>
                 </Grid>
                 <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
                     <Button color='primary' variant='contained' onClick={this.handleMainSettings} >
-                            {globalVariables.LABEL_SAVE_CHANGES[globalVariables.LANG]}
+                        {globalVariables.LABEL_SAVE_CHANGES[globalVariables.LANG]}
                     </Button>
                 </Grid>
             </React.Fragment>
@@ -128,14 +142,20 @@ class MainSettingsFrom extends React.Component{
     }
 }
 
-const MainSettings = withStyles(styles)(MainSettingsFrom);
 
-class AddressSettingsForm extends React.Component{
-    state ={
+const mapStateToProps = state => {
+    return {
+        user: state.user.user,
+    }
+}
+const MainSettings = withRouter( connect(mapStateToProps)(withStyles(styles)(MainSettingsFrom)));
+
+class AddressSettingsForm extends React.Component {
+    state = {
         mobile: '',
         street: '',
         appartment: '',
-        region: 'الإسكندرية',        
+        region: 'الإسكندرية',
         expanded: 1,
         isLoading: true,
     }
@@ -145,19 +165,19 @@ class AddressSettingsForm extends React.Component{
     };
 
     handleSave = () => {
-        const data = {
-            mobile: this.state.mobile,
-        }
+        // const data = {
+        //     mobile: this.state.mobile,
+        // }
     }
 
-    render(){
-        const {classes, } = this.props;
-        const { isLoading } = this.state;
-        return(
+    render() {
+        const { classes, } = this.props;
+        // const { isLoading } = this.state;
+        return (
             <React.Fragment>
                 <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
-                    
-                    <Grid item  xs={10}>
+
+                    <Grid item xs={10}>
                         <TextField
                             className={classes.margin}
                             id={uuid()}
@@ -181,7 +201,7 @@ class AddressSettingsForm extends React.Component{
                             ))}
                         </TextField>
                     </Grid>
-                    
+
                     <Grid item xs={10}>
                         <TextField
                             className={classes.margin}
@@ -199,7 +219,7 @@ class AddressSettingsForm extends React.Component{
                             required
                         />
                     </Grid>
-                    <Grid item  xs={10}>
+                    <Grid item xs={10}>
                         <TextField
                             className={classes.margin}
                             id={uuid()}
@@ -216,9 +236,9 @@ class AddressSettingsForm extends React.Component{
                             required
                         />
                     </Grid>
-                    <Grid item  xs={10}>
+                    <Grid item xs={10}>
                         <TextField
-                                
+
                             id={uuid()}
                             label="رقم الهاتف"
                             type="text"
@@ -232,9 +252,9 @@ class AddressSettingsForm extends React.Component{
                             }}
                             required
                         />
-                           
-                    </Grid>        
-                
+
+                    </Grid>
+
                 </Grid>
                 <Grid container justify="flex-end" alignItems="center" className={classes.padding}>
                     <Button color='primary' variant='contained' onClick={this.handleAddressSettings}>
@@ -247,8 +267,8 @@ class AddressSettingsForm extends React.Component{
 }
 const AddressSettings = withStyles(styles)(AddressSettingsForm);
 
-class SecuritySettingsForm extends React.Component{
-    state ={
+class SecuritySettingsForm extends React.Component {
+    state = {
         email: '',
         password: '',
         isLoading: true,
@@ -258,13 +278,13 @@ class SecuritySettingsForm extends React.Component{
         this.setState({ [prop]: event.target.value });
     };
 
-    render(){
-        const {classes } = this.props;
-        const { isLoading } = this.state;
-        return(
+    render() {
+        const { classes } = this.props;
+        //const { isLoading } = this.state;
+        return (
             <React.Fragment>
                 <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
-                    
+
                     <Grid item xs={10} >
                         <TextField
                             className={classes.margin}
@@ -272,7 +292,7 @@ class SecuritySettingsForm extends React.Component{
                             label={globalVariables.FORM_LOGIN_LABEL_EMAIL[globalVariables.LANG]}
                             type="email"
                             autoComplete="email"
-                            error={this.state.emailError?true:false}
+                            error={this.state.emailError ? true : false}
                             helperText={this.state.emailError}
                             value={this.state.email}
                             onChange={this.handleChange('email')}
@@ -292,7 +312,7 @@ class SecuritySettingsForm extends React.Component{
                             label={globalVariables.FORM_REGISTER_LABEL_PASSWORD[globalVariables.LANG]}
                             type="password"
                             autoComplete="current-password"
-                            error={this.state.passError?true:false}
+                            error={this.state.passError ? true : false}
                             helperText={this.state.passError}
                             onChange={this.handleChange('password')}
                             fullWidth
@@ -315,13 +335,13 @@ class SecuritySettingsForm extends React.Component{
 }
 const SecuritySettings = withStyles(styles)(SecuritySettingsForm);
 
-class Profile extends React.Component{
+class Profile extends React.Component {
     state = {
         expanded: 1,
         isLoading: true,
     }
 
-    componentDidMount = () => this.setState({isLoading: false});
+    componentDidMount = () => this.setState({ isLoading: false });
 
     handleChange = prop => event => {
         this.setState({ [prop]: event.target.value });
@@ -329,49 +349,49 @@ class Profile extends React.Component{
 
     handlePanelChange = panel => event => {
         this.setState({
-          expanded: panel,
+            expanded: panel,
         });
     };
 
-    render(){
+    render() {
         const { classes } = this.props;
         const { isLoading } = this.state;
         const components = [
             {
                 title: globalVariables.PROFILE_MAIN_SETTINGS[globalVariables.LANG],
-                component: <MainSettings  />
+                component: <MainSettings />
             },
             {
-                title:'العنوان',
+                title: 'العنوان',
                 component: <AddressSettings />
             },
             {
                 title: globalVariables.PROFILE_SECURITY_SETTINGS[globalVariables.LANG],
-                component: <SecuritySettings  />
+                component: <SecuritySettings />
             },
         ];
 
-        return (  
+        return (
             <Grid container item alignItems='center' justify="center" xs={11}>
-                
+
                 <Grid item xs={12}>
                     <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_PROFILE[globalVariables.LANG]}</Typography>
                 </Grid>
 
-                {isLoading?
-                <Grid container alignItems="center" justify="center" >
-                    <ClipLoader
-                        sizeUnit={"px"}
-                        size={75}
-                        color={'#123abc'}
-                        loading={isLoading}
-                    />
-                </Grid> :
-                <Grid item xs={12}>
-                    <ExapndPanel components={components} />
-                </Grid>
-                }     
-            </Grid>      
+                {isLoading ?
+                    <Grid container alignItems="center" justify="center" >
+                        <ClipLoader
+                            sizeUnit={"px"}
+                            size={75}
+                            color={'#123abc'}
+                            loading={isLoading}
+                        />
+                    </Grid> :
+                    <Grid item xs={12}>
+                        <ExapndPanel components={components} />
+                    </Grid>
+                }
+            </Grid>
         );
     }
 }

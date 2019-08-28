@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertFromRaw } from 'draft-js';
 import './styles/richText.css';
 
 export default class RichEditor extends React.Component {
@@ -109,7 +109,7 @@ export default class RichEditor extends React.Component {
 }
 
 // Custom overrides for "code" style.
-const styleMap = {
+/*const styleMap = {
     CODE: {
         backgroundColor: 'rgba(0, 0, 0, 0.05)',
         fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
@@ -123,7 +123,7 @@ function getBlockStyle(block) {
         case 'blockquote': return 'RichEditor-blockquote';
         default: return null;
     }
-}
+}*/
 
 class StyleButton extends React.Component {
     constructor() {

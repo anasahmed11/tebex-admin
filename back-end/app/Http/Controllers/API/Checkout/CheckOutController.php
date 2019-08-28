@@ -41,7 +41,7 @@ class CheckOutController extends Controller
                 $referral = User::find($request->referral);
                 $order->Referral()->associate($referral);
             }
-            $location = $address->Location();
+            $location = $address->Location()->first();
             $shipping = Shipping::where('shipper_id', $shipper->id)
                 ->where('city_id', $location instanceof City ? $location->id : $location->City()->first()->id)
                 ->first();

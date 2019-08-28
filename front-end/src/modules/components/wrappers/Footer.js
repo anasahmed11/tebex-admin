@@ -73,14 +73,14 @@ const Footer = props => {
     return (
         <div className={classes.root}>
         <Grid container className={classes.footer}>
-            {footerSections.map(section =>
-                <div className={classes.footerSection}>
+            {footerSections.map((section,idx) =>
+                <div key={idx} className={classes.footerSection}>
                     <Typography variant='subtitle1' className={classes.sectionTitle}>
                                 <b>{section.title[lang]}</b>
                     </Typography>
                     <ul className={classes.list}>
-                        {section.links.map(item => 
-                            <li className={classes.listItem}>
+                        {section.links.map((item,idx) => 
+                            <li key={idx} className={classes.listItem}>
                                 <Link to={item.link} className={classes.footerLink}>
                                     <Typography className={classes.textStyle}>
                                         {item.title[lang]}

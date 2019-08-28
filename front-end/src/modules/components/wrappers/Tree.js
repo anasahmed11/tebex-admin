@@ -42,6 +42,7 @@ class Tree extends React.Component {
                     user.name = user.first_name + ' ' + user.last_name;
                     user.parentId = user.parent_id;
                     user.created_at = new Date(user.created_at).toDateString("yyyy-MM-dd");
+                    return null;
                 });
                 this.setState({ team: res.data, isLoading: false })
             })

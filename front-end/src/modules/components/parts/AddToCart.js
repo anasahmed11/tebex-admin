@@ -13,7 +13,7 @@ import styles from '../../../assets/jss/components/parts/AddToCart';
 
 class AddToCart extends React.Component{
     state = {
-        city: 0,
+        city: -1,
         cities: [],
         quantity: 1,
         shipping: {},
@@ -28,7 +28,7 @@ class AddToCart extends React.Component{
                 cities: cities,
                 city: cities[0].id,
             })
-            this.getShippingPrice(1)
+            this.getShippingPrice(cities[0].id)
         })
         .catch(res=>{
             this.setState({isLoading:false})
@@ -68,6 +68,7 @@ class AddToCart extends React.Component{
         const { classes, quantity, store } = this.props;
         const { isLoading } = this.state;
         const QUANTITIES = [...Array(quantity)].map((itme,idx)=>idx+1)
+        console.log(this.state.city)
         return(
             <React.Fragment>
             {isLoading?
@@ -112,7 +113,7 @@ class AddToCart extends React.Component{
                                     },
                                 }}
                                 >
-                                {QUANTITIES.map(n => <option value={n}> {n} </option>)}
+                                {QUANTITIES.map((n,idx) => <option key={idx} value={n}> {n} </option>)}
                             </TextField>
                         </form> 
                     </span>
@@ -135,8 +136,8 @@ class AddToCart extends React.Component{
                                         input: classes.orderSelectMenu,
                                     },
                                 }}>
-                                {this.state.cities.map(city => 
-                                    <option value={city.id}> {city.name} </option>
+                                {this.state.cities.map((city, idx) => 
+                                    <option key={idx} value={city.id}> {city.name} </option>
                                 )}
                             </TextField>
                         </form>

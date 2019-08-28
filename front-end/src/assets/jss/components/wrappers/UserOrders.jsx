@@ -18,14 +18,14 @@ export default theme => ({
     },
 
 
-    root:{
-        borderRadius:'0',
-        flex:'1 1 auto',
-        "&:hover":{
-            backgroundColor:'#FF6B6B',
-        },
+    // root:{
+    //     borderRadius:'0',
+    //     flex:'1 1 auto',
+    //     "&:hover":{
+    //         backgroundColor:'#FF6B6B',
+    //     },
         
-    },
+    // },
     textPrimary: {
         color: 'white !important'
     },

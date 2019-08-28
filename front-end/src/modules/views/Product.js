@@ -34,9 +34,9 @@ const ProductNotFound = withStyles(styles2)(function ProductNotFound(props){
     const {classes} = props;
     return <Grid container justify='center' alignItems="center" className={classes.root}>
                 <Grid item md={8} xs={10}>
-                    <Grid container justify='center' alignItems="center">
+                    <Grid container justify='center' spacing={3} alignItems="center">
                         <Grid item md={8} sm={10} xs={12} className={classes.paddingTop}>
-                            <FontAwesomeIcon style={{width:'30%', height:'100%', color:'navy'}} icon="sad-cry" />
+                            <FontAwesomeIcon style={{width:'30%', height:'100%', color:'navy'}} icon={['fas', 'exclamation-circle']} />
                         </Grid>
                         <Grid item md={12} xs={12} className={classes.paddingTop}>
                             <Typography style={{color:'#5D1F62'}} component="h2" variant="h3" gutterBottom >{globalVariables.PRODUCT_NOT_FOUND[globalVariables.LANG]}</Typography>

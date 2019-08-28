@@ -79,7 +79,7 @@ export default function auth(state = initialState, action){
                 popup: true
             }
         default:
-            console.log('_DEFAULT_AUTH');
+            // console.log('_DEFAULT_AUTH');
         break;
     }
     

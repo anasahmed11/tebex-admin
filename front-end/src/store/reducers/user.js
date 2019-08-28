@@ -24,7 +24,7 @@ export default function auth(state = initialState, action){
                 isLoading: false
             }
         default: 
-            console.log('_DEFAULT_USER');
+            //console.log('_DEFAULT_USER');
         break;
     }
     

@@ -97,8 +97,8 @@ const SlickSlider = props => {
         </div>
     );
 }
-SlickSlider.propTypes = {
-classes: PropTypes.object.isRequired,
-};
+// SlickSlider.propTypes = {
+// classes: PropTypes.object.isRequired,
+// };
 
 export default SlickSlider;

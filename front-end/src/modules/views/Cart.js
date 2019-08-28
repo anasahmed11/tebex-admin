@@ -58,8 +58,8 @@ class Cart extends React.Component{
                 <Grid item md={10} sm={10} xs={11}>
                     <Grid container justify="center">
                         <Grid item xs={12} className={classes.root2} style={{backgroundColor:'transparent'}}>
-                            <Typography inline gutterBottom component='h2' variant='h5'>{globalVariables.CART_TITLE[globalVariables.LANG]}</Typography>
-                            <Typography inline component='h2' variant='caption' style={{color:'gray'}}> ({totalItems} {globalVariables.LABEL_PRODUCT[globalVariables.LANG]})</Typography>
+                            <Typography display="inline" gutterBottom component='h2' variant='h5'>{globalVariables.CART_TITLE[globalVariables.LANG]}</Typography>
+                            <Typography display="inline" component='h2' variant='caption' style={{color:'gray'}}> ({totalItems} {globalVariables.LABEL_PRODUCT[globalVariables.LANG]})</Typography>
                         </Grid>
                         <Grid item xs={12} className={classes.root2}>
                             {isLoading?

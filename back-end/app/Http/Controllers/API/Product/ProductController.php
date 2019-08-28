@@ -105,6 +105,7 @@ class ProductController extends Controller
         try {
             if ($pid->Store()->first()->User()->first()->id != Auth::user()->id) throw new \Exception('access error');
             $pid->update($product->except(['category', 'image', 'description', 'description_en']));
+            $pid->status = "pending";
             $pid->description = json_decode($product->input('description'));
             $pid->description_en = json_decode($product->input('description_en'));
 

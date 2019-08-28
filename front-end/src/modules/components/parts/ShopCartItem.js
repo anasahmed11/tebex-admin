@@ -29,7 +29,7 @@ class ShopCartItem extends Component{
     }
 
     render(){
-        const { classes, item, previewOnly, handelDelete } = this.props;
+        const { classes, item, previewOnly, handleDelete } = this.props;
         
         let product = previewOnly? item.product : item;
         const price = previewOnly? item.price : item.sale_price;
@@ -102,7 +102,7 @@ class ShopCartItem extends Component{
                     </Grid>
                     <Grid item xs={1}>
                         <Typography gutterBottom variant='h6' className={classes.textSection} style={{textAlign:'right'}}>
-                            <IconButton aria-label="Cart" style={{padding:'0px',marginTop:'-3px', color:'darkred'}} onClick={() => handelDelete(product.id)}>
+                            <IconButton aria-label="Cart" style={{padding:'0px',marginTop:'-3px', color:'darkred'}} onClick={() => handleDelete(product.id)}>
                                     <DeleteForever  />
                             </IconButton>
                         </Typography>

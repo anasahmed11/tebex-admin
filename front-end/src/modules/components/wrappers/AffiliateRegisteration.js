@@ -1,5 +1,4 @@
 import React from 'react';
-import { ClipLoader } from 'react-spinners';
 import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Snackbar, } from '@material-ui/core';
