@@ -137,6 +137,7 @@ class Product extends React.Component {
                         error: true,
                     })
                 //if (withSimilars) this.getSimilarProductSpecs(id, res.data.sku)
+                if(withSimilars) this.getSimilars(id, slug, sku);
             })
             .catch(res => {
                 this.setState({
@@ -145,6 +146,17 @@ class Product extends React.Component {
                 });
             })
 
+    }
+
+
+    getSimilars = (id, slug, sku) => {
+        productsAPI.get(`${id}/${sku}/sku`)
+            .then(res => {
+
+            })
+            .catch(res => {
+
+            });
     }
 
     createCategoryRoute = () => {

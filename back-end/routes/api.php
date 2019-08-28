@@ -75,6 +75,8 @@ Route::prefix('product')->group(function () {
     Route::post('', 'API\Product\ProductController@add');
     Route::post('update/{pid}', 'API\Product\ProductController@update');
 
+    // Route::post('{sku}/match', 'API\Product\ProductController@skuSpecs');
+
     Route::post('/search', 'API\Product\ProductController@search');
     Route::get('{product}/specs', 'API\Product\ProductController@specs');
     Route::get('{product}/{sku}/sku', 'API\Product\ProductController@sku');

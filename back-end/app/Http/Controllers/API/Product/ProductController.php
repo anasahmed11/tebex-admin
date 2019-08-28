@@ -48,6 +48,26 @@ class ProductController extends Controller
             return ['id' => $e->id, 'specs' => $e->Specs()->get()];
         }));
     }
+
+    /*
+    // This function takes sku and specs and returns matching products if exist.
+    public function skuSpecs($sku, Request $request)
+    {
+        // print_r($sku);
+        $specs = $request->input('specs');
+        $p = Product::select(['id','sku','slug']);
+        $p->where('sku', '=', $sku);
+        foreach($specs as $spec){
+            $p->whereIn('id', function($query) use ($spec){
+                $query->select('product_id')->from('product_specs');
+                $query->where('spec_id', '=', $spec['id']);
+                $query->where('value', '=', $spec['value']);
+            });
+        }
+        return response()->json($p->get());
+    }
+    */
+
     public function search(Request $request)
     {
         $products = Product::search($request->input('q'))->paginate(10);
