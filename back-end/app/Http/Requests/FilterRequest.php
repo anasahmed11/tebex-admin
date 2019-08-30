@@ -25,9 +25,9 @@ class FilterRequest extends FormRequest
     {
         return [
             'settings.*.id'=>'in:pp,pr,sr',
-            'settings.*.values'=>'present',
-            'specs.*.id'=>'in:pp,pr,sr',
-            'specs.*.values'=>'present',
+            'settings.*.values'=>'nullable',
+            'specs.*.id'=>'exists:specs,id',
+            'specs.*.values'=>'present|array',
 
         ];
     }
