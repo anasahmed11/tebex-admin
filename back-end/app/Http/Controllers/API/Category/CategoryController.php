@@ -74,7 +74,7 @@ class CategoryController extends Controller
         return response()->json(["data"=>$specs]);
     }
     public function products(Category $category,FilterRequest $filters){
-              $cats=Category::descendantsAndSelf($category)->toFlatTree();
+        $cats=Category::descendantsAndSelf($category)->toFlatTree();
         $func = function($value) {
             return $value['id'];
         };
@@ -88,19 +88,18 @@ class CategoryController extends Controller
             $specsfilters = [];
             foreach ($specs as $spec) {
                 if (count($spec['values'])==0) continue;
-                $sp = Spec::find(2);
-                $fil = [];
+                $sp = Spec::find($spec['id']);
+                #$fil = [];
                 foreach ($spec['values'] as $value) {
                     $v["ar"] = $sp->values["ar"][$value];
                     $v["en"] = $sp->values["en"][$value];
-                    $fil[] = json_encode($v);
+                    #$fil[] = trim(str_replace([":\"",","],[": \"",", "],json_encode($v)));
+                    $specsfilters[]=trim(str_replace([":\"",","],[": \"",", "],json_encode($v)));
                 }
-                $specsfilters[]=[$sp->id,$fil];
             }
             $products->whereHas('Specs', function ($q) use ($specsfilters) {
-                foreach ($specsfilters as $specsfilter){
-                   $q->whereIn('values',$specsfilter[1]);
-                }
+                if (count($specsfilters))
+                $q->whereIn('value',$specsfilters);
             })->whereBetween('price', $setting[0]['values']);
         }
         /*$products=$cats[0]->Product()->get();

@@ -15,7 +15,7 @@ class CartController extends Controller
         return response()->json(Auth::User()->Cart()->get(),200);
     }
     public function add(Request $request){
-        $product=Product::find($request->product['id'])->first();
+        $product=Product::find($request->product['id']);
         $cart= Cart::firstOrNew(['user_id'=>Auth::user()->id,'product_id'=>$request->product['id']]);
         $cart->quantity=($product->quantity>= $request->product['quantity'])? $request->product['quantity']:$product->quantity;
         $cart->save();

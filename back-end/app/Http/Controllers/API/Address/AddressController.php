@@ -28,7 +28,7 @@ class AddressController extends Controller
     public function create(AddressRequest $request){
         $address=new Address($request->except('area','city','country'));
         $address->_token=Str::random(20);
-        $address->Location()->associate(Area::find($request->only('area'))->first() ?? City::find($request->only('city'))->first());
+        $address->Location()->associate(Area::find($request->only('area')) ?? City::find($request->only('city'))->first());
         $address->User()->associate(Auth('api')->user());
         $address->save();
         return response()->json($address,200);
