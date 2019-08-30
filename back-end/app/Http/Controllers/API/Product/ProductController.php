@@ -45,7 +45,7 @@ class ProductController extends Controller
     public function sku($product, $sku)
     {
         return response()->json(Product::where('sku', $sku)->get()->map(function ($e) {
-            return ['id' => $e->id, 'specs' => $e->toArray()['specs']];
+            return ['id' => $e->id, 'slug' => $e->slug, 'specs' => $e->toArray()['specs']];
         }));
     }
 
