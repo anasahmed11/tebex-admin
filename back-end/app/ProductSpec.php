@@ -14,7 +14,6 @@ class ProductSpec extends Model
 
     protected $casts = [
         'value' => 'json',
-
     ];
     public function Spec(){
         return $this->belongsTo(Spec::class);

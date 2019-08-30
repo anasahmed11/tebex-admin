@@ -25,7 +25,6 @@ use PHPUnit\Util\Json;
 
 class CheckOutController extends Controller
 {
-
     public function index(Request $request){
         DB::beginTransaction();
         try {
@@ -74,7 +73,11 @@ class CheckOutController extends Controller
             $order->commission=OrderProduct::where(["order_id" => $order->id])->get()->sum(function($t){
                 return $t->quantity * $t->commission;
             });
-            $order->Referral()->associate(User::find(5));
+            if (Auth::check() && Auth::user()->Affiliate()->where('status','approved')->first())
+                $order->Referral()->associate(Auth::user());
+            else
+                $order->Referral()->associate(User::find($request->only('referral'))??User::find(1));
+
             $order->save();
             OrderJob::dispatch($order)->delay(now()->addWeek(2));
             DB::commit();

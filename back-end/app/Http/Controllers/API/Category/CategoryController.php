@@ -74,12 +74,35 @@ class CategoryController extends Controller
         return response()->json(["data"=>$specs]);
     }
     public function products(Category $category,FilterRequest $filters){
-        $cats=Category::descendantsAndSelf($category)->toFlatTree();
+              $cats=Category::descendantsAndSelf($category)->toFlatTree();
         $func = function($value) {
             return $value['id'];
         };
+
         $cats=array_map($func,$cats->toArray());
         $products=Product::whereIn('category_id',$cats);
+
+        if ($filters->isMethod('post')) {
+            $setting = $filters->only('settings')['settings'];
+            $specs = $filters->only('specs')['specs'];
+            $specsfilters = [];
+            foreach ($specs as $spec) {
+                if (count($spec['values'])==0) continue;
+                $sp = Spec::find(2);
+                $fil = [];
+                foreach ($spec['values'] as $value) {
+                    $v["ar"] = $sp->values["ar"][$value];
+                    $v["en"] = $sp->values["en"][$value];
+                    $fil[] = json_encode($v);
+                }
+                $specsfilters[]=[$sp->id,$fil];
+            }
+            $products->whereHas('Specs', function ($q) use ($specsfilters) {
+                foreach ($specsfilters as $specsfilter){
+                   $q->whereIn('values',$specsfilter[1]);
+                }
+            })->whereBetween('price', $setting[0]['values']);
+        }
         /*$products=$cats[0]->Product()->get();
         for ($i=1;$i < $cats->count();$i++){
            $products=$products->merge($cats[$i]->Product()->get());
@@ -90,8 +113,9 @@ class CategoryController extends Controller
         $response['paging']['current']=$pages->currentPage();
         $response['paging']['last']=$pages->lastPage();
         $response['paging']['items']=$pages->total();*/
+
         $prices=["max_price" => $products->max('price'),"min_price" => $products->min('price')];
-        return response()->json(array_merge($products->paginate(Input::get("perpage")??30)->toArray(),$prices));
+        return response()->json(array_merge($products->paginate(isset($setting)  ? $setting[1]['values']: 30)->toArray(),$prices));
     }
     public function filter(Category $category){
         return response()->json($category->Product()->get());
