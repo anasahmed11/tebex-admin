@@ -185,6 +185,7 @@ class Store extends Component {
     fetchProducts = () => {
 
         const { categoryID, query, queryDefaults, filterPanels } = this.state;
+        
         let filtersObject = { specs: [], settings: [] }
         if(filterPanels){
             for(let filter of filterPanels){
@@ -198,9 +199,9 @@ class Store extends Component {
                     filtersObject.settings.push({ id: 'pr', values: filter.values});
                 }
             }
-            filtersObject.settings.push({ id: 'pp', values: query.perPage});
-            filtersObject.settings.push({ id: 'sr', values: query.sort});
-            // console.log('shit', filtersObject)
+            filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
+            filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
+            console.log('shit', filtersObject)
         }
 
         // Get products of current category for current page
@@ -309,8 +310,9 @@ class Store extends Component {
     }
 
     updateFilters = (init = false) => {
+        
         try {
-            const { filterPanels, query } = this.state;
+            const { filterPanels, query, queryDefaults } = this.state;
             for(let filter of filterPanels){
                 if(filter.type !== 'menu')
                     continue;
@@ -321,11 +323,19 @@ class Store extends Component {
                         filter.values[i][1] = false;
                 }
             }
+            let priceIndex = filterPanels.findIndex(v => v.type === 'text');
+            if(priceIndex > -1){
+                filterPanels[priceIndex].values[0] = query.minPrice? query.minPrice : queryDefaults.minPrice;
+                filterPanels[priceIndex].values[1] = query.maxPrice? query.maxPrice : queryDefaults.maxPrice;
+            }
+
             this.setState({
                 filterPanels: filterPanels,
                 _isLoading: false,
+            }, () => {
+                if(init) this.setState({ _isLoadingProducts: false })
+                else this.fetchProducts();
             });
-            if(init) this.setState({ _isLoadingProducts: false })
 
         } catch (err) { console.log('WARNING: Filters update failed.\n', err); }
     }
@@ -353,7 +363,6 @@ class Store extends Component {
         }, () => {
                 this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
                 this.updateFilters();
-                this.fetchProducts();
         });
     }
 
@@ -376,7 +385,7 @@ class Store extends Component {
             _isLoadingProducts: true,
         }, () => {
             this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
-            this.fetchProducts();
+            this.updateFilters();
         });
     }
 
@@ -396,7 +405,7 @@ class Store extends Component {
             _isLoadingProducts: true,
         }, () => {
             this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
-            this.fetchProducts();
+            this.updateFilters();
         });
     }
 
@@ -421,7 +430,7 @@ class Store extends Component {
             _isLoadingProducts: true,
         }, () => {
             this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
-            this.fetchProducts();
+            this.updateFilters();
         });
     }
 
