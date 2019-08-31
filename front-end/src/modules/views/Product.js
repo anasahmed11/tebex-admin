@@ -114,7 +114,7 @@ class Product extends React.Component {
         let id = sku.split('-')[0];
         sku = sku.split('-')[1];
 
-        this.getProduct(id, slug, sku, true);
+        this.getProduct(id, slug, sku, false);
         //this.getProductSpecs(id);
         this.createCategoryRoute();
 
@@ -128,7 +128,7 @@ class Product extends React.Component {
                 if(product.sku === sku && product.slug === slug)
                     this.setState({
                         product: res.data,
-                        isLoading: false,
+                        isLoading: withSimilars? true : false,
                         productSpecs: res.data.specs
                     });
                 else
@@ -137,6 +137,7 @@ class Product extends React.Component {
                         error: true,
                     })
                 //if (withSimilars) this.getSimilarProductSpecs(id, res.data.sku)
+                if(withSimilars) this.getSimilars(id, slug, sku);
             })
             .catch(res => {
                 this.setState({
@@ -145,6 +146,47 @@ class Product extends React.Component {
                 });
             })
 
+    }
+
+
+    getSimilars = (id, slug, sku) => {
+        productsAPI.get(`${id}/${sku}/sku`)
+            .then(res => {
+                const similarProducts = res.data;
+                let variations = null;
+                try{
+                    variations = { products: [], allspecs: [] };
+                    for(let product of similarProducts){
+                        // if(product.id === this.state.product.id) continue;
+                        const specs = [];
+                        for(let spec of product.specs){
+                            let specIdx = variations.allspecs.findIndex(v => v.id === spec.spec_id);
+                            if(specIdx < 0){
+                                variations.allspecs.push({id: spec.spec_id, name: spec.name_en, values: [] });
+                                specIdx = variations.allspecs.length - 1;
+                            }
+                            specs.push({ id: spec.spec_id, name: spec.name_en, value: JSON.parse(spec.value).en });
+                            if(variations.allspecs[specIdx].values.findIndex(v => v === JSON.parse(spec.value).en) < 0){
+                                variations.allspecs[specIdx].values.push(JSON.parse(spec.value).en);
+                            }
+                        }
+                        variations.products.push({
+                            id: product.id,
+                            link: `/product/${product.slug}/${product.id}-${sku}`,
+                            specs: specs,
+                        });
+                    }
+                } catch(error) {
+                    console.log('Error fetching similar products:', error);
+                }
+                this.setState({
+                    variations: variations,
+                    isLoading: false,
+                });
+            })
+            .catch(res => {
+                console.log(res.data);
+            });
     }
 
     createCategoryRoute = () => {
@@ -237,7 +279,7 @@ class Product extends React.Component {
     render() {
         
         const { classes, isPopup, serverMessage, handlePopupClose, messageType } = this.props;
-        const { isLoading, product, productSpecs } = this.state;
+        const { isLoading, product, productSpecs, variations } = this.state;
         //console.log(productSpecs);
         
         return (
@@ -304,6 +346,7 @@ class Product extends React.Component {
                             <ProductSpecs
                                 product={product}
                                 productSpecs={productSpecs}
+                                variations={variations}
                                 handleChange={this.handleChange}
                             />
                         </Grid>

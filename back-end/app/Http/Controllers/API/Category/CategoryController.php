@@ -78,8 +78,30 @@ class CategoryController extends Controller
         $func = function($value) {
             return $value['id'];
         };
+
         $cats=array_map($func,$cats->toArray());
         $products=Product::whereIn('category_id',$cats);
+
+        if ($filters->isMethod('post')) {
+            $setting = $filters->only('settings')['settings'];
+            $specs = $filters->only('specs')['specs'];
+            $specsfilters = [];
+            foreach ($specs as $spec) {
+                if (count($spec['values'])==0) continue;
+                $sp = Spec::find($spec['id']);
+                #$fil = [];
+                foreach ($spec['values'] as $value) {
+                    $v["ar"] = $sp->values["ar"][$value];
+                    $v["en"] = $sp->values["en"][$value];
+                    #$fil[] = trim(str_replace([":\"",","],[": \"",", "],json_encode($v)));
+                    $specsfilters[]=trim(str_replace([":\"",","],[": \"",", "],json_encode($v)));
+                }
+            }
+            $products->whereHas('Specs', function ($q) use ($specsfilters) {
+                if (count($specsfilters))
+                $q->whereIn('value',$specsfilters);
+            })->whereBetween('price', $setting[0]['values']);
+        }
         /*$products=$cats[0]->Product()->get();
         for ($i=1;$i < $cats->count();$i++){
            $products=$products->merge($cats[$i]->Product()->get());
@@ -90,8 +112,9 @@ class CategoryController extends Controller
         $response['paging']['current']=$pages->currentPage();
         $response['paging']['last']=$pages->lastPage();
         $response['paging']['items']=$pages->total();*/
+
         $prices=["max_price" => $products->max('price'),"min_price" => $products->min('price')];
-        return response()->json(array_merge($products->paginate(Input::get("perpage")??30)->toArray(),$prices));
+        return response()->json(array_merge($products->paginate(isset($setting)  ? $setting[1]['values']: 30)->toArray(),$prices));
     }
     public function filter(Category $category){
         return response()->json($category->Product()->get());
