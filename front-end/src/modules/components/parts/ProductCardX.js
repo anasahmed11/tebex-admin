@@ -22,6 +22,7 @@ const ProductCard = (props) => {
     <Grid container justify="center" className={classes.loading} style={{display: loading? 'block':'none'}} >
         <MoonLoader css={`margin: auto`} color={'#594589'} loading={props.loading} />
     </Grid>
+    console.log(props.product)
 
     return (
         <div className={slider? classes.make3DspaceSlider : classes.make3Dspace}>

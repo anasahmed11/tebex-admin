@@ -20,10 +20,10 @@ const Loading = (props) =>
   </Grid>
 
 function MediaCard(props) {
-  
+  console.log(props.product)
+
   const { classes } = props;
   const [loading, setLoading] = useState(true);
-
   return (
     <Card className={classes.card} style={props.flex? {width: '100%'} : props.slider? {maxWidth: 290, margin: 'auto'} : {}}>
       <Link style={{textDecorationLine: 'none'}} to={`/product/${props.id}`}>

@@ -9,10 +9,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Grid, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-import { productsAPI } from '../../../api/api';
+import { productsAPI, baseURL } from '../../../api/api';
 
 import './searchBar.css';
 import styles from '../../../assets/jss/components/parts/SearchBar';
+import globalVariables, { noImage } from '../../../global-variables';
 
 // const languages = [
 //     {
@@ -121,7 +122,7 @@ const renderSuggestion = (suggestion) => {
 
                         style={{
                             textAlign: 'center',
-                            backgroundImage: "url('https://ss7.vzw.com/is/image/VerizonWireless/iphone7-front-matblk?$device-lg$')",
+                            backgroundImage: `url('${suggestion.image}')`,
                             backgroundPosition: "center",
                             backgroundSize: "contain",
                             backgroundRepeat: "no-repeat"
@@ -147,7 +148,7 @@ const renderSuggestion = (suggestion) => {
 
 
 const renderSectionTitle = section => {
-    if (section.title.slice(0,15) === 'See All Results')
+    if (section.seeAll)
         return (
             <Grid container justify="center" component={Button}>{section.title}</Grid>
         );
@@ -185,15 +186,15 @@ class CustomizedInputBase extends React.Component {
                         .map(product =>({
                                     id: product.id,
                                     type: 1,
-                                    name: product.name,
+                                    name: globalVariables.LANG==='ar'?product.name:product.name_en,
                                     price: product.price,
                                     salePrice: product.sale_price,
-                                    image: "",
+                                    image: product.images[0]? baseURL+product.images[0].slice(1):noImage,
                                 })
                         );
-                    const productSuggestions = {data: products, title: "products"};
+                    const productSuggestions = {data: products, title: globalVariables.SEARCHBAR_SECTION_TITLE[globalVariables.LANG]};
                     
-                    this.setState({ suggestions: [productSuggestions, {data: [], title: `See All Results(${res.data.total})`}] });
+                    this.setState({ suggestions: [productSuggestions, {data: [], title: `${globalVariables.SEARCHBAR_SEE_ALL[globalVariables.LANG]} (${res.data.total})`, seeAll:true}] });
                 })
                 .catch(error=>{this.setState({ suggestions: [] });})
         }, 1000);

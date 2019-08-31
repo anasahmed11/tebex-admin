@@ -43,7 +43,12 @@ class UserDashBoard extends React.Component {
 
         wrappedPromise.promise
             .then(res => { this.setState({ numTeamMembers: res.data.length,}) })
-            .then(() => this.removePendingPromise(wrappedPromise))        
+            .then(() => this.removePendingPromise(wrappedPromise))    
+            .catch(err=> {
+                if (!err.isCanceled) {
+                    this.setState({ numTeamMembers: "error!",})
+                }
+            })    
     }
 
     getAffiliateClicks = () => {
@@ -53,6 +58,11 @@ class UserDashBoard extends React.Component {
         wrappedPromise.promise
             .then(res => { this.setState({ numClicks: res.data.clicks,}) })
             .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(err=> {
+                if (!err.isCanceled) {
+                    this.setState({ numClicks: "error!",})
+                }
+            }) 
     }
 
     getAffiliateOrders = () => {
@@ -62,6 +72,11 @@ class UserDashBoard extends React.Component {
         wrappedPromise.promise
             .then(res => { this.setState({ affTotalOrders: res.data.totalOrders, affDeliveredOrders: res.data.totalDeiveredOrders}) })
             .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(err=> {
+                if (!err.isCanceled) {
+                    this.setState({ affTotalOrders: "error!", affDeliveredOrders: "error"})
+                }
+            }) 
     }
     
     componentDidMount() {

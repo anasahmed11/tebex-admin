@@ -2,7 +2,7 @@ import React from 'react';
 import { forwardRef } from 'react';
 import globalVariables from '../../../global-variables';
 
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableFilterRow } from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Check from '@material-ui/icons/Check';
@@ -50,6 +50,15 @@ const MaterialTableDemo = props => {
             data={props.data}
             parentChildData={props.tree ? (row, rows) => rows.find(a => a.id === row.parentId) : undefined}
             style={{ width: '100%', marginBottom: '20px' }}
+            options={{filtering: props.filtering}}
+            // Testgin
+            // components={{
+            //     FilterRow:props => (
+            //         <span style={{ height:'100px',backgroundColor: '#e8eaf5' }}>
+            //             <MTableFilterRow {...props} />
+            //         </span>    
+            //     )
+            // }}
             localization={{
                 pagination: {
                     labelDisplayedRows: `{from}-{to} ${globalVariables.LABEL_OF[globalVariables.LANG]} {count}`,

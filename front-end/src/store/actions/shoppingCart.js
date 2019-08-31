@@ -41,7 +41,7 @@ export const cartFail = (message) => {
 export const addToCart = (product, quantity, messageShow=true, isModifiyOperation=false) =>{
     return dispatch => {
         dispatch(cartStart())
-        
+        console.log(product)
         if(cookies.get(globalVariables.ACCESS_TOKEN)){
 
             let data=

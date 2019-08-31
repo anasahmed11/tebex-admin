@@ -116,7 +116,15 @@ const globalVariables = {
         en: 'Add Products',
         ar: 'اضافة منتجات',
     },
-
+    // Searchbar
+    SEARCHBAR_SEE_ALL: {
+        en: 'SEE ALL RESULTS',
+        ar: 'جميع النتائج'
+    },
+    SEARCHBAR_SECTION_TITLE: {
+        en: 'Products',
+        ar: 'المنتجات'
+    },
     //Afiliate
     AFFILIATE_PAGE1: {
         en: 'Your registration request has been submitted successfully and will be reviewed soon.',
@@ -384,6 +392,10 @@ const globalVariables = {
     PRODUCT_OUT_OF_STOCK:{
         en: 'Product out of stock',
         ar: 'المنتج غير متوفر حاليا'
+    },
+    PRODUCT_ADD_NEW_SPEC:{
+        en: 'Add New Spec Value',
+        ar: 'اضافة قيمة مواصفات جديدة'
     },
 
     // Checkout
@@ -877,4 +889,5 @@ const globalVariables = {
 
 
 }
+export const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
 export default globalVariables;
