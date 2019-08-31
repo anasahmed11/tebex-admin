@@ -70,7 +70,7 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $products = Product::search($request->input('q'))->paginate(10);
+        $products = Product::search($request->input('q'))->where('status','approved')->paginate(10);
         return response()->json($products);
     }
     public function add(ProductRequest $product)

@@ -35,6 +35,11 @@ class ProductSlider extends Component {
             title: {ar: item.name, en: item.name_en},
             price: item.price,
             salePrice: item.sale_price,
+            quantity: item.quantity,
+            
+            sale_price: item.sale_price,
+            images: item.images,
+            store: item.store,
           });
         }
         this.setState({
@@ -50,15 +55,17 @@ class ProductSlider extends Component {
     
     const { classes } = this.props
 
-    const products = this.state.products.map(item =>
+    const products = this.state.products.map(product =>
         <div key={uuid()}>
           <ProductCard 
-            id={item.id}
-            title={item.title[globalVariables.LANG]} 
-            price={item.salePrice? item.salePrice : item.price}
-            oldPrice={item.salePrice? item.price : false}
+            id={product.id}
+            title={product.title[globalVariables.LANG]} 
+            price={product.salePrice? product.salePrice : product.price}
+            oldPrice={product.salePrice? product.price : false}
             currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
-            img={item.img? item.img : noImage}
+            img={product.img? product.img : noImage}
+            
+            product={product}
             slider
           />
         </div>

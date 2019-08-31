@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
 import { 
@@ -30,12 +29,12 @@ class ShopCartItem extends Component{
 
     render(){
         const { classes, item, previewOnly, handleDelete } = this.props;
-        
+        console.log( item);
         let product = previewOnly? item.product : item;
         const price = previewOnly? item.price : item.sale_price;
         const quantity = previewOnly? item.quantity : item.cart.quantity;
         const options = previewOnly? 
-            null : [...Array(item.quantity + 1).keys()].slice(1).map(n => <option key={uuid()} value={n}> {n} </option>);
+            null : [...Array(item.quantity + 1).keys()].slice(1).map((n,idx) => <option key={idx} value={n}> {n} </option>);
         
         return(
             <Grid item xs={12} className={classes.root}>
@@ -101,7 +100,7 @@ class ShopCartItem extends Component{
                         <Typography gutterBottom variant='h6' className={classes.textSection}>|</Typography>
                     </Grid>
                     <Grid item xs={1}>
-                        <Typography gutterBottom variant='h6' className={classes.textSection} style={{textAlign:'right'}}>
+                        <Typography gutterBottom variant='h6' className={classes.textSection}>
                             <IconButton aria-label="Cart" style={{padding:'0px',marginTop:'-3px', color:'darkred'}} onClick={() => handleDelete(product.id)}>
                                     <DeleteForever  />
                             </IconButton>

@@ -101,6 +101,12 @@ export const userAPI = axios.create({
 });
 instances.push(userAPI)
 
+export const specAPI = axios.create({
+    baseURL: `${apiURL}specs/`,
+    headers: headers
+});
+instances.push(specAPI)
+
 instances.forEach(intance => {
     intance.interceptors.request.use(function (config) {
         config.headers.Authorization = cookies.get(globalVariables.ACCESS_TOKEN) ? `Bearer ${cookies.get(globalVariables.ACCESS_TOKEN)}` : '';

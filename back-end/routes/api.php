@@ -86,6 +86,13 @@ Route::prefix('cart')->middleware('auth:api')->group(function () {
     Route::post('/add', 'API\Cart\CartController@add');
     Route::post('/remove', 'API\Cart\CartController@remove');
 });
+
+
+Route::prefix('specs')->middleware('auth:api')->group(function () {
+    Route::post('/{spec}', 'API\Spec\SpecController@addSpec');
+
+});
+
 Route::prefix('orders')->group(function () {
     Route::get('/', 'API\Order\OrderController@index');
     Route::get('/affiliate', 'API\Order\OrderController@numAffiliateOrders');

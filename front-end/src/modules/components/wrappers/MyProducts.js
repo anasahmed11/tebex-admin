@@ -13,15 +13,15 @@ import { productsAPI } from '../../../api/api';
 import styles from '../../../assets/jss/components/wrappers/MyProducts';
 
 const columns = [
-    { title: 'Name', field: 'name' },
-    { title: 'SKU', field: 'sku' },
-    { title: 'Price', field: 'price', type: "numeric" },
-    { title: 'Sale Price', field: 'sale_price', type: "numeric" },
-    { title: 'Qunatity', field: 'quantity', type: "numeric" },
-    { title: 'Commission', field: 'commission', type: "numeric" },
-    { title: 'Status', field: 'status'},
-    { title: 'Created at', field: 'created_at' },
-    { title: 'Action', field: 'action' },
+    { title: 'Name', field: 'name',filtering: false },
+    { title: 'SKU', field: 'sku',filtering: false },
+    { title: 'Price', field: 'price', type: "numeric",filtering: false },
+    { title: 'Sale Price', field: 'sale_price', type: "numeric",filtering: false },
+    { title: 'Qunatity', field: 'quantity', type: "numeric",filtering: false },
+    { title: 'Commission', field: 'commission', type: "numeric",filtering: false },
+    { title: 'Status', field: 'status', lookup: { 'approved': 'approved', 'pending': 'pending', 'refused': 'refused' },},
+    { title: 'Created at', field: 'created_at',filtering: false },
+    { title: 'Action', field: 'action', filtering: false },
 ]
 
 class MyProdcuts extends React.Component {
@@ -84,7 +84,7 @@ class MyProdcuts extends React.Component {
                                 loading={isLoading}
                             />
                         </Grid> :
-                        <CustomMaterialTabl title={'منتجاتي'} /*onRowUpdatePromise={this.handleEdit}*/ data={this.state.products} columns={columns} />
+                        <CustomMaterialTabl title={'منتجاتي'} filtering data={this.state.products} columns={columns} />
                     }
                 </Grid>
             </Grid>
