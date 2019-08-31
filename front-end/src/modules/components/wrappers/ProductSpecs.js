@@ -90,7 +90,7 @@ class ProductSpecs extends Component {
     render(){
         const { isLoading, specs } = this.state;
         const { classes, productSpecs } = this.props;
-        const { name, name_en, sku, store, price, salePrice, description } = this.props.product;
+        const { name, name_en, sku, store, price, sale_price, description } = this.props.product;
         const lng = globalVariables.LANG
 
         return isLoading? null :
@@ -114,7 +114,7 @@ class ProductSpecs extends Component {
                     </p>
                 </div>
 
-                {salePrice?
+                {sale_price?
                     <div className={classes.section}>
                         <p>
                             <Typography variant="caption">{globalVariables.LABEL_PRODUCT_BEFORE_DISCOUNT[lng]}</Typography>
@@ -125,13 +125,13 @@ class ProductSpecs extends Component {
                         <p>
                             <Typography variant="caption">{globalVariables.LABEL_PRODUCT_PRICE2[lng]}</Typography>
                             <Typography className={classes.price} variant="caption">
-                            {lng === 'en'? `${globalVariables.LABEL_CURRENCY[lng]} ${salePrice}` : `${salePrice} ${globalVariables.LABEL_CURRENCY[lng]}`}
+                            {lng === 'en'? `${globalVariables.LABEL_CURRENCY[lng]} ${sale_price}` : `${sale_price} ${globalVariables.LABEL_CURRENCY[lng]}`}
                             </Typography>
                         </p>
                         <p>
                             <Typography variant="caption">{globalVariables.LABEL_PRODUCT_SAVING[lng]}</Typography>
                             <Typography className={classes.saving} variant="caption">
-                            {lng === 'en'? `${globalVariables.LABEL_CURRENCY[lng]} ${price - salePrice}` : `${price - salePrice} ${globalVariables.LABEL_CURRENCY[lng]}`}
+                            {lng === 'en'? `${globalVariables.LABEL_CURRENCY[lng]} ${price - sale_price}` : `${price - sale_price} ${globalVariables.LABEL_CURRENCY[lng]}`}
                             </Typography>
                         </p>
                     </div>

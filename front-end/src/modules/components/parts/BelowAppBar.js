@@ -113,9 +113,11 @@ class BelowAppBar extends Component {
         return <Grid container justify='center' className={classes.root}>
                 <Grid container item spacing={1} xs={10}>
                     {isLoading? <Loading /> : categories.map(cat => <Grid key={uuid()} className={classes.item}>
-                        <Link className={classes.navLink} to={`shop/${cat.slug}`} >
-                            {cat.name}
-                        </Link>
+                        <Typography>
+                            <Link className={classes.navLink} to={`shop/${cat.slug}`} >
+                                {cat.name}
+                            </Link>
+                        </Typography>
                         {cat.children.length? <HoverList cat={cat} /> : null}
                     </Grid>)}
                 </Grid>

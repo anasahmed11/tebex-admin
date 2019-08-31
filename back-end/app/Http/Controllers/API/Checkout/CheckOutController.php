@@ -76,7 +76,7 @@ class CheckOutController extends Controller
             if (Auth::check() && Auth::user()->Affiliate()->where('status','approved')->first())
                 $order->Referral()->associate(Auth::user());
             else
-                $order->Referral()->associate(User::find($request->only('referral'))??User::find(1));
+                $order->Referral()->associate(User::find($request->only('referral')['referral'])??User::find(1));
 
             $order->save();
             OrderJob::dispatch($order)->delay(now()->addWeek(2));

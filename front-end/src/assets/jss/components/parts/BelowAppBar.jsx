@@ -7,6 +7,8 @@ export default theme => ({
             display: 'none',
         },
         minHeight: 30,
+        boxShadow: '0px 2px 3px 0px rgba(55,55,55,0.5)',
+        display: 'relative',
     },
     linksBar: {
         display: 'flex',
@@ -15,7 +17,7 @@ export default theme => ({
     item: {
         marginRight: '24px',
         position: 'relative',
-        padding: '8px 0px',
+        padding: '10px 0px',
         '&:hover > div': {
             visibility: 'visible',
             opacity: 1,
@@ -23,8 +25,8 @@ export default theme => ({
     },
     navLink: {
         position: 'inherit',
-        fontSize: '18px',
-        textTransform: 'capitalize',
+        fontSize: '16px',
+        textTransform: 'uppercase',
         textDecorationLine: 'none',
         transition: theme.transitions.create(),
         color: COLORS.HOME.CategoriesBar.Links.primary,
@@ -38,7 +40,7 @@ export default theme => ({
             position: 'absolute',
             left: 0,
             right: 0,
-            bottom: 0,
+            bottom: '8px',
             height: '3px',
             transition: theme.transitions.create(),
             backgroundColor: 'yellow',
@@ -57,7 +59,7 @@ export default theme => ({
         position: 'absolute',
         zIndex: 10,
         right: 0,
-        top: '36px',
+        top: '40px',
         left:'0px',
         width: '400px',
         transition: theme.transitions.create(),
@@ -68,6 +70,7 @@ export default theme => ({
         textTransform: 'uppercase',
         textDecorationLine: 'none',
         color: 'navy',
+        fontSize: 16,
         marginBottom: theme.spacing(1),
         '& a': {
             textTransform: 'uppercase',
@@ -79,6 +82,9 @@ export default theme => ({
         margin: 0,
         listStyle: 'none',
         padding: '0px 4px 0px 0px',
+        '& > li > p': {
+            fontSize: 14,
+        }
       },
     listItem: {
         paddingTop: theme.spacing(1), //it was theme.spacing.unit / 2
