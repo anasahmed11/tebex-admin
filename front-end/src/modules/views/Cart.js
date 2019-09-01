@@ -74,13 +74,13 @@ class Cart extends React.Component{
                             }
                             {isLoading?null:
                             <Grid container justify="center" className={classes.root3}>
-
                                 <Grid item md={8} xs={10} style={{padding:'0px 4px'}}>
                                     {
-                                        totalItems===0?<CartEmpty />:
+                                        totalItems === 0?
+                                        <CartEmpty />:
                                         this.props.items.map((item=>
                                             <ShopCartItem key={item.id} item={item} handleDelete={this.handleDelete}/>
-                                            ))
+                                        ))
                                     }
                                 </Grid>
 

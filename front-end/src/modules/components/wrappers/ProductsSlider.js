@@ -26,22 +26,9 @@ class ProductSlider extends Component {
     categoryAPI.get('1/products')
     .then(res => {
         const { products } = this.state;
-        for (let item of res.data.data){
-          // First image for this product
-          products.push({
-            id: item.id,
-            img: item.images[0],
-            link: item.slug,
-            title: {ar: item.name, en: item.name_en},
-            price: item.price,
-            salePrice: item.sale_price,
-            quantity: item.quantity,
-            
-            sale_price: item.sale_price,
-            images: item.images,
-            store: item.store,
-          });
-        }
+        for (let item of res.data.data)
+          products.push(item);
+    
         this.setState({
           products: products,
         })
@@ -59,12 +46,11 @@ class ProductSlider extends Component {
         <div key={uuid()}>
           <ProductCard 
             id={product.id}
-            title={product.title[globalVariables.LANG]} 
+            title={globalVariables.LANG === 'ar'? product.name : product.name_en} 
             price={product.salePrice? product.salePrice : product.price}
             oldPrice={product.salePrice? product.price : false}
             currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
-            img={product.img? product.img : noImage}
-            
+            img={product.images.length? product.images[0] : noImage}
             product={product}
             slider
           />

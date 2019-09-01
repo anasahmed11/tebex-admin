@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, withRouter, Link } from 'react-router-dom';
 import queryString from 'query-string';
 import Scroll from 'react-scroll';
-import globalVariables from '../../../global-variables';
+import globalVariables, { noImage } from '../../../global-variables';
 import uuid from 'uuid';
 
 import { ClipLoader } from "react-spinners";
@@ -209,16 +209,8 @@ class Store extends Component {
         categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
         .then(res => {
             const products = [];
-            for (let item of res.data.data){
-                products.push({
-                    id: item.id,
-                    img: item.images[0],
-                    slug: item.slug,
-                    title: {ar: item.name, en: item.name_en},
-                    price: item.price,
-                    salePrice: item.sale_price,
-                });
-            }
+            for (let item of res.data.data)
+                products.push(item);
 
             // Set min and max price
             if(res.data.min_price)
@@ -473,11 +465,12 @@ class Store extends Component {
             <Grid key={uuid()} md={4} sm={6} xs={12}>
                     <ProductCard
                         id={product.id}
-                        title={product.title[globalVariables.LANG]}
+                        title={globalVariables.LANG === 'ar'? product.name : product.name_en} 
                         price={product.salePrice? product.salePrice : product.price}
                         oldPrice={product.salePrice? product.price : false}
                         currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
-                        img={product.img}
+                        img={product.images.length? product.images[0] : noImage}
+                        product={product}
                     /> 
             </Grid>
         )

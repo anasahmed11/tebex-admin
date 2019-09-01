@@ -17,21 +17,27 @@ import Stepper from "./Stepper";
 import styles from '../../../assets/jss/components/parts/Order';
 
 const Order = props => {
-    
     const { order, classes } = props;
+
+    const lng = globalVariables.LANG;
+    let [status, step] = globalVariables.GET_PRODUCT_STATUS(order.status);
+    let disabled = step > 3;
+
     return (
         <Grid component={Paper} item container className={classes.root} justify='center' xs={12}>
-
-            <Grid item className={classes.orderInfoSection} xs={12}>
-                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_NUMBER[globalVariables.LANG]}: #{order.id}</Typography>
-                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_DATE[globalVariables.LANG]}: {order.created_at}</Typography>
-                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_RECIPIENT[[globalVariables.LANG]]}: {order.address.first_name + ' ' + order.address.last_name}</Typography>
-                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_STATUS[[globalVariables.LANG]]}: {order.status}</Typography>
+            
+            <Grid item className={classes.orderInfoSection} xs={11}>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_NUMBER[lng]}: #{order.id}</Typography>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_DATE[lng]}: {order.created_at}</Typography>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_RECIPIENT[lng]}: {order.address.first_name + ' ' + order.address.last_name}</Typography>
+                <Typography gutterBottom className={classes.orderInfoItem}>{globalVariables.TRACK_OREDER_STATUS[lng]}: {status[lng]}</Typography>
                 <Typography gutterBottom className={classes.orderInfoItem}>
                     {globalVariables.TRACK_OREDER_TOTAL_PRICE[globalVariables.LANG]}: {order.products.reduce((total, product) => total + product.price * product.quantity, 0) + order.shipping_fees}
                 </Typography>
                 <Typography gutterBottom className={classes.orderInfoItem}>
-                    <Link to={`orders/${order.id}/${order._token}`}>{globalVariables.TRACK_OREDER_DETAIL[globalVariables.LANG]}</Link>
+                    <Link to={`orders/${order.id}/${order._token}`}>
+                        {globalVariables.TRACK_OREDER_DETAIL[globalVariables.LANG]}
+                    </Link>
                 </Typography>
             </Grid>
 
@@ -40,7 +46,7 @@ const Order = props => {
                     <ShopCartItem key={uuid()} item={item} previewOnly />
                 ))}
             </Grid>
-            <Stepper steps={['انا', 'في', 'الساحة', 'واقف', 'لوحدي']} stepIndex={order.state} />
+            <Stepper steps={globalVariables.PRODUCT_STATUS_STATES[lng]} stepIndex={step} disabled={disabled} />
         </Grid>
 
     );

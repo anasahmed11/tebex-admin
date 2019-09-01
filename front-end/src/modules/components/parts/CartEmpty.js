@@ -6,7 +6,14 @@ import { Typography, Grid,   } from '@material-ui/core';
 
 function CartEmpty(){
     return (
-        <Grid container item justify="center" alignItems="center" spacing={2} xs={10} style={{textAlign:'center',position:'relative', overflow:"hidden"}}>
+        <Grid
+            container item
+            justify="center"
+            alignItems="center"
+            spacing={2}
+            xs={10}
+            style={{textAlign:'center',position:'relative', overflow:"hidden", margin: 'auto'}}
+        >
             <Grid item xs={11}>
                 <Typography variant="h4" gutterBottom>{globalVariables.CART_EMPTY[globalVariables.LANG]}</Typography>
                 <Typography variant="h6">
