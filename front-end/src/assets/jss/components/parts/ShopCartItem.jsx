@@ -14,6 +14,7 @@ export default  theme => ({
     image:{
         width: '50%',
         maxHeight:'200px',
+        objectFit: 'contain',
     },
     textSection:{
         fontWeight:'500',

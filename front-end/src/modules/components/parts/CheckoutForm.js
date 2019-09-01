@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import { locationAPI as axios } from '../../../api/api';
+import { locationAPI } from '../../../api/api';
 
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
@@ -22,7 +22,6 @@ class CheckoutForm extends React.Component {
         first_name: '',
         last_name: '',
         address: '',
-        street: '',
         landmark: '',
         phone: '',
         email: '',
@@ -47,19 +46,57 @@ class CheckoutForm extends React.Component {
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
 
-
+    getCountries = (defaultCountry = '') => {
+        const wrappedPromise = cancelablePromise(locationAPI.get('countries/'));
+        this.appendPendingPromise(wrappedPromise);
+        wrappedPromise
+            .promise
+            .then(res => { this.setState({ COUNTRIES: res.data, country: defaultCountry }) })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(res => { })
+    }
     componentDidMount() {
-        const wrappedPromise = cancelablePromise(axios.get('countries/'));
+        this.getCountries(1)
+        this.getCities(1)
+    }
+    onComponentUpdate = () => {
+        if (this.props.edit) {
+            this.setState({
+                first_name: this.props.intialData.first_name,
+                last_name: this.props.intialData.last_name,
+                address: this.props.intialData.address,
+                phone: this.props.intialData.phone,
+                landmark: this.props.intialData.landmark,
+                email: this.props.intialData.email,
+                notes: this.props.intialData.notes,
+                id: this.props.intialData.id,
+                city: this.props.intialData.location.city_name !== undefined ? this.props.intialData.location.id : this.state.city,
+                area: this.props.intialData.location.area_name !== undefined ? this.props.intialData.location.id : '',
+            })
+        }
+    }
+    handleEditAddress = (callbackFn) => {
+        let data = { ...this.state }
+        delete data.CITIES
+        delete data.AREAS
+        delete data.COUNTRIES
+        if (data.area === '') delete data.area
+
+        if (!this.verifyData()) {
+            console.log("required field")
+            return
+        }
+
+        const wrappedPromise = cancelablePromise(locationAPI.post('/' + this.state.id, data));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
             .promise
-            .then(res => { this.setState({ COUNTRIES: res.data, country: '', CITIES: [], city: '', AREAS: [], area: '' }) })
+            .then(res => { callbackFn(this.state.id, res.data) })
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(res => { })
 
     }
-
 
     handleCreateAddress(callbackFn) {
         let data = { ...this.state }
@@ -68,7 +105,11 @@ class CheckoutForm extends React.Component {
         delete data.COUNTRIES
         if (data.area === '') delete data.area
 
-        const wrappedPromise = cancelablePromise(axios.post('create/', data));
+        if (!this.verifyData()) {
+            console.log("required field")
+            return
+        }
+        const wrappedPromise = cancelablePromise(locationAPI.post('/', data));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
@@ -82,7 +123,6 @@ class CheckoutForm extends React.Component {
         return (this.state.first_name &&
             this.state.last_name &&
             this.state.address &&
-            this.state.street &&
             this.state.phone &&
             this.state.email &&
             this.state.notes
@@ -93,43 +133,59 @@ class CheckoutForm extends React.Component {
         this.setState({ [prop]: event.target.value });
     };
 
-    handleCountryChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
-
-        const wrappedPromise = cancelablePromise(axios.get('cities/' + event.target.value));
+    getCities = (country, defaultCity = '') => {
+        const wrappedPromise = cancelablePromise(locationAPI.get('cities/' + country));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
             .promise
-            .then(res => { this.setState({ CITIES: res.data, city: '', AREAS: [], area: '0' }) })
+            .then(res => { this.setState({ CITIES: res.data, city: defaultCity }) })
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(res => { })
     }
 
-    handleCityChange = prop => event => {
-        this.setState({ [prop]: event.target.value });
+    handleCountryChange = prop => event => {
+        this.setState({ [prop]: event.target.value }, () => this.getCities(event.target.value));
 
-        const wrappedPromise = cancelablePromise(axios.get('areas/' + event.target.value));
+
+    }
+
+    getAreas = (city, defaultArea = '') => {
+        const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + city));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+            .promise
+            .then(res => { this.setState({ AREAS: res.data, area: defaultArea }) })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(res => { })
+
+    }
+    handleCityChange = prop => event => {
+        this.setState({ [prop]: event.target.value }, () => this.getAreas(event.target.value));
+
+        /*const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + event.target.value));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
             .promise
             .then(res => { this.setState({ AREAS: res.data, area: '' }) })
             .then(() => this.removePendingPromise(wrappedPromise))
-            .catch(res => { })
+            .catch(res => { })*/
     }
+
     render() {
         const { classes, } = this.props
         return (
 
             <Dialog
-                
+                onEnter={this.onComponentUpdate}
                 open={this.props.open}
                 onClose={this.props.onClose}
                 aria-labelledby="form-dialog-title"
             >
                 <DialogTitle id="form-dialog-title">{this.props.title}</DialogTitle>
-                <DialogContent style={{overflow:'hidden'}}>
+                <DialogContent style={{ overflow: 'hidden' }}>
                     {this.props.desc ?
                         <DialogContentText style={{ marginBottom: 4, }}>
                             {this.props.desc}
@@ -346,11 +402,6 @@ class CheckoutForm extends React.Component {
                                 rows="4"
                             />
                         </Grid>
-
-
-
-
-
                     </Grid>
 
 
@@ -359,12 +410,23 @@ class CheckoutForm extends React.Component {
                     <Button onClick={this.props.onClose} color="primary">
                         {globalVariables.FORM_ADDRESS_LABEL_BACK[globalVariables.LANG]}
                     </Button>
-                    <Button
-                        onClick={() => this.handleCreateAddress(this.props.formAction)}
-                        color="primary"
-                    >
-                        {globalVariables.FORM_ADDRESS_LABEL_OK[globalVariables.LANG]}
-                    </Button>
+                    {this.props.edit ?
+                        <Button
+                            onClick={() => this.handleEditAddress(this.props.formEditAction)}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {globalVariables.LABEL_EDIT[globalVariables.LANG]}
+                        </Button>
+                        :
+                        <Button
+                            onClick={() => this.handleCreateAddress(this.props.formAction)}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {globalVariables.FORM_ADDRESS_LABEL_OK[globalVariables.LANG]}
+                        </Button>
+                    }
                 </DialogActions>
             </Dialog>
 

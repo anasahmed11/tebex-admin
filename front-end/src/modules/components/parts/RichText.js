@@ -194,7 +194,7 @@ var INLINE_STYLES = [
 const InlineStyleControls = (props) => {
     var currentStyle = props.editorState.getCurrentInlineStyle();
     return (
-        <div className="RichEditor-controls">
+        <div className="RichEditor-controls" id="RichEditor-controls-second">
             {!props.readOnly ? INLINE_STYLES.map(type =>
                 <StyleButton
                     key={type.label}

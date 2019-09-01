@@ -15,6 +15,7 @@ import { productsAPI } from '../../../api/api';
 
 import styles from '../../../assets/jss/components/wrappers/AddProduct';
 import RichEditor from '../parts/RichText';
+import MyClipLoader from '../parts/MyClipLoader';
 
 let getChildData;
 let getImageChildData;
@@ -30,6 +31,7 @@ const AddProduct1 = props => {
     const [isPopup, setPopup] = React.useState(false);
     const [serverMessage, setServerMessage] = React.useState('');
     const [messageType, setMessageType] = React.useState('error');
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const { classes, } = props;
 
@@ -39,7 +41,8 @@ const AddProduct1 = props => {
     const setDescriptionChildCallback2 = (callback) => { getDescription2 = callback }
 
     const onSubmit = data => {
-        
+        setIsLoading(true)
+
         let message = '';
         let valid = true;
         let formData = new FormData();
@@ -81,6 +84,7 @@ const AddProduct1 = props => {
             setServerMessage(message);
             setPopup(true);
             setMessageType('error')
+            setIsLoading(false)
             return
         }
         if(props.edit){
@@ -88,11 +92,13 @@ const AddProduct1 = props => {
             .then(res=>{
                 setServerMessage('Data saved successfully, and waiting for admin approval.');
                 setPopup(true);
+                setIsLoading(false)
                 setMessageType('success')
             })
             .catch(err => {
                 setServerMessage('A problem with serever occured, contact seller support');
                 setPopup(true);
+                setIsLoading(false)
                 setMessageType('error')
             });
         }
@@ -101,12 +107,14 @@ const AddProduct1 = props => {
                 .then(res => {
                     setServerMessage('Data saved successfully');
                     setPopup(true);
+                    setIsLoading(false)
                     setMessageType('success')
 
                 })
                 .catch(err => {
                     setServerMessage('A problem with serever occured, contact seller support');
                     setPopup(true);
+                    setIsLoading(false)
                     setMessageType('error')
                 });
         
@@ -131,19 +139,21 @@ const AddProduct1 = props => {
             title: 'General Description',
             //component: <GeneralDescrptionForm errors={errors} register={register} />
             component:
-            [ 
-                <label key={1} htmlFor="description">Descrption (ar)</label>,
-                <RichEditor 
-                    key={2}
-                    intial={props.defaultValues.description} 
-                    setChildCallback={setDescriptionChildCallback1} 
-                />,  
-                <label key={3} htmlFor="description">Descrption (en)</label>,
-                <RichEditor
-                    key={4}
-                    intial={props.defaultValues.description_en} 
-                    setChildCallback={setDescriptionChildCallback2} 
-                />
+            [
+                <div key={1} style={{marginBottom:'20px'}}>
+                    <label htmlFor="description">Descrption (ar)</label>
+                    <RichEditor 
+                        intial={props.defaultValues.description} 
+                        setChildCallback={setDescriptionChildCallback1} 
+                    />  
+                </div>, 
+                <div key={2}>
+                    <label htmlFor="description">Descrption (en)</label>
+                    <RichEditor
+                        intial={props.defaultValues.description_en} 
+                        setChildCallback={setDescriptionChildCallback2} 
+                    />
+                </div>
             ]
         },
 
@@ -152,6 +162,8 @@ const AddProduct1 = props => {
 
     return (
         <Grid container item justify='center' xs={11}>
+
+            <MyClipLoader isLoading={isLoading} />
              <Snackbar
                     style={{bottom:'50px'}}   
                     anchorOrigin={{

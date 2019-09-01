@@ -397,6 +397,23 @@ const globalVariables = {
         en: 'Add New Spec Value',
         ar: 'اضافة قيمة مواصفات جديدة'
     },
+    PRODUCT_MAIN_INFO: {
+        en: 'MAIN INFORMATION',
+        ar: 'العلومات الرئيسية'
+    },
+    PRODUCT_IMAGES: {
+        en: 'IMAGES CONTROL',
+        ar: 'التحكم في الصور'
+    },
+    PRODUCT_CATEGORIES: {
+        en: 'Category and Specs',
+        ar: 'الفئة والمواصفات'
+    },
+    PRODUCT_DESCRIPTION: {
+        en: '',
+        ar: ''
+    },
+    
 
     // Checkout
     CHECKOUT_SHIPPING_ADDRESS: {
@@ -646,6 +663,10 @@ const globalVariables = {
     LABEL_REFRESH: {
         en: 'Refresh',
         ar: 'اعادة التحميل'
+    },
+    LABEL_EDIT: {
+        en: 'Edit',
+        ar: 'تعديل'
     },
 
 

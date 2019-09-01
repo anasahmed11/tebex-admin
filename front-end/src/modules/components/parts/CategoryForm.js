@@ -88,7 +88,7 @@ class CategoryForm extends React.Component {
 
         for (let spec of this.state.categorySpecs) {
             const id = spec.id;
-            const name = spec.name_en;
+            const name = spec.name;
             
             const value = this.state[name];
             if (value === undefined) {
@@ -155,12 +155,12 @@ class CategoryForm extends React.Component {
                 categorySpecs[idx].values.ar.push(data['ar'])
                 categorySpecs[idx].values.en.push(data['en'])
 
-                this.setState({ categorySpecs: categorySpecs, specName: false, }, () => {
+                this.setState({ categorySpecs: categorySpecs, [specName]: false, }, () => {
                     this.setState({ [categorySpecs[idx].name]: categorySpecs[idx].values.ar.length - 1 })
                 })
             })
             .catch(err => {
-                this.setState({ specName: false })
+                this.setState({ [specName]: false })
             })
 
     }

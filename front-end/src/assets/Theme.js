@@ -17,7 +17,8 @@ const theme = createMuiTheme({
         },
         MuiExpansionPanel: {
             root: {
-                border: '1px solid #5f4378',
+                //border: '1px solid #5f4378',
+                //margin: '-1px',
             }
         },
         MuiExpansionPanelDetails: {

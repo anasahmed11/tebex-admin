@@ -30,7 +30,7 @@ const SimpleCard = props => {
           <Typography gutterBottom className={classes.rowVal}>{props.phone}</Typography>
         </div>
       </div>
-      <Button size="small">{globalVariables.LABEL_DETAILS[globalVariables.LANG]}</Button>
+      <Button size="small" onClick={() => props.handleDetailsButton(props.id)}>{globalVariables.LABEL_DETAILS[globalVariables.LANG]}</Button>
     </Paper>
   );
 }

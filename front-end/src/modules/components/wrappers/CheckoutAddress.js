@@ -4,13 +4,16 @@ import globalVariables from '../../../global-variables';
 
 import { Typography, withStyles, Grid, Button, } from '@material-ui/core';
 import 'typeface-roboto';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {
+    CSSTransition,
+    TransitionGroup,
+} from 'react-transition-group';
 
 import CheckoutForm from '../parts/CheckoutForm';
 import AddressCard from '../parts/MiniTable';
 import ButtonCard from '../parts/TextButtonCard';
 import './styles/componentAddDelete.css';
-import { locationAPI as axios } from '../../../api/api';
+import { locationAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
 
@@ -21,7 +24,8 @@ class CheckoutAddress extends React.Component {
         addForm: false,
         selectedAddress: 0,
         addresses: [],
-        isLoading: true
+        isLoading: true,
+        editIdx: null
     }
 
     pendingPromises = [];
@@ -33,7 +37,7 @@ class CheckoutAddress extends React.Component {
     removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
     componentDidMount() {
-        const wrappedPromise = cancelablePromise(axios.get('/'));
+        const wrappedPromise = cancelablePromise(locationAPI.get('/'));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
@@ -53,6 +57,7 @@ class CheckoutAddress extends React.Component {
         const dialog = this.state.addForm;
         this.setState({
             addForm: !dialog,
+            editIdx: null,
         });
     }
 
@@ -64,10 +69,24 @@ class CheckoutAddress extends React.Component {
             addresses: addresses,
         });
     }
+    formEditAction = (id, data) => {
+        console.log(id, data)
+        this.addAddressDialogToggle();
+        let addresses = [...this.state.addresses];
+        const idx = addresses.findIndex(item => item.id === id);
+        addresses[idx] = data;
+        this.setState({ addresses: addresses })
 
+    }
+    handleDetailsButton = (id) => {
+        const idx = [...this.state.addresses].findIndex(item => item.id === id)
+
+        this.setState({ editIdx: idx, addForm: true });
+
+    }
     handleDelete = (id) => {
         let addresses = [...this.state.addresses]
-        const wrappedPromise = cancelablePromise(axios.get(`${id}/delete`));
+        const wrappedPromise = cancelablePromise(locationAPI.delete(`${id}`));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
@@ -106,38 +125,44 @@ class CheckoutAddress extends React.Component {
                 {isLoading ? null :
                     <Grid item xs={12} >
                         <Grid container justify="center" className={classes.root}>
-
-                            <ReactCSSTransitionGroup
+                            <TransitionGroup
                                 component={Grid}
-                                item 
-                                xs={12} 
+                                item
+                                xs={12}
                                 className={classes.addressCardsRoot}
                                 container
-                                transitionEnterTimeout={500}
-                                transitionLeaveTimeout={500}
-                                transitionName="componentAddDelete"
                             >
                                 {addresses.map((obj, index) =>
-                                    <AddressCard
-                                        id={obj.id}
-                                        key={obj.id}
-                                        name={obj.first_name + ' ' + obj.last_name}
-                                        address={'Egypt, ' + (obj.location.city_name !== undefined ? obj.location.city_name : obj.location.area_name) + ', ' + obj.address}
-                                        phone={obj.phone}
-                                        selected={this.state.selectedAddress === index ? true : false}
-                                        onClick={this.addressClickHandler.bind(this, index)}
-                                        handleDelete={this.handleDelete}
-                                    />
+                                    <CSSTransition
+                                        key={index}
+                                        timeout={500}
+                                        classNames="componentAddDelete"
+                                    >
+                                        <AddressCard
+                                            id={obj.id}
+                                            key={index}
+                                            name={obj.first_name + ' ' + obj.last_name}
+                                            address={'Egypt, ' + (obj.location.city_name !== undefined ? obj.location.city_name : obj.location.area_name) + ', ' + obj.address}
+                                            phone={obj.phone}
+                                            selected={this.state.selectedAddress === index ? true : false}
+                                            onClick={this.addressClickHandler.bind(this, index)}
+                                            handleDelete={this.handleDelete}
+                                            handleDetailsButton={this.handleDetailsButton}
+                                        />
+                                    </CSSTransition>
                                 )}
-                            
+
                                 <ButtonCard onClick={this.addAddressDialogToggle} text={"+ " + globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]} />
-                            </ReactCSSTransitionGroup>
+                            </TransitionGroup>
 
                             <CheckoutForm
                                 open={this.state.addForm}
                                 title={globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]}
                                 onClose={this.addAddressDialogToggle.bind(this)}
                                 formAction={this.formActionHandler.bind(this)}
+                                formEditAction={this.formEditAction}
+                                edit={Boolean(this.state.editIdx) || this.state.editIdx === 0}
+                                intialData={this.state.addresses[this.state.editIdx]}
                             />
 
 

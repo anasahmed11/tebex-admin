@@ -59,8 +59,9 @@ Route::prefix('user')->group(function () {
 });
 Route::prefix('address')->group(function () {
     Route::get('/', 'API\Address\AddressController@show');
-    Route::post('create', 'API\Address\AddressController@create');
-    Route::get('{address}/delete', 'API\Address\AddressController@delete');
+    Route::post('/', 'API\Address\AddressController@create');
+    Route::post('/{address}', 'API\Address\AddressController@edit');
+    Route::delete('{address}', 'API\Address\AddressController@delete');
     Route::get('{address}/shipping', 'API\Address\AddressController@shipping');
     Route::get('{city}/shipping/city', 'API\Address\AddressController@city_shipping');
 
@@ -134,4 +135,9 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('checkout')->group(function () {
     Route::post('/', 'API\Checkout\CheckOutController@index');
+});
+
+Route::prefix('affiliate')->group(function () {
+    Route::get('/earning', 'API\Affiliate\AffiliateController@affiliateEarning');
+
 });

@@ -107,6 +107,12 @@ export const specAPI = axios.create({
 });
 instances.push(specAPI)
 
+export const affiliateAPI = axios.create({
+    baseURL: `${apiURL}affiliate/`,
+    headers: headers
+});
+instances.push(affiliateAPI)
+
 instances.forEach(intance => {
     intance.interceptors.request.use(function (config) {
         config.headers.Authorization = cookies.get(globalVariables.ACCESS_TOKEN) ? `Bearer ${cookies.get(globalVariables.ACCESS_TOKEN)}` : '';

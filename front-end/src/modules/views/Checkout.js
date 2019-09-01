@@ -142,8 +142,12 @@ class Checkout extends React.Component {
         wrappedPromise
             .promise
             .then(res => {
+                const url = res.data.url.split("/")
+                const token = url.pop();
+                const id = url.pop();
+                
                 this.props.handleClearCart()
-                const trackOrder = "orders/" + res.data.url.split("/").pop()
+                const trackOrder = "orders/" + id + '/' + token;
                 this.setState({ trackOrder: trackOrder, isLoading: false })
                 this.stepAdvance()
                 this.props.handleCartSuccess("العملية تمت بنجاح")

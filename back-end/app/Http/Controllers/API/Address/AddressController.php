@@ -18,63 +18,81 @@ class AddressController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api')->only('show','delete');
-
+        $this->middleware('auth:api')->only('show', 'delete', 'edit');
     }
 
-    public function show (){
-        return response()->json(Auth::User()->Addresses()->get(),200);
+    public function show()
+    {
+        return response()->json(Auth::User()->Addresses()->get(), 200);
     }
-    public function create(AddressRequest $request){
-        $address=new Address($request->except('area','city','country'));
-        $address->_token=Str::random(20);
-        $address->Location()->associate(Area::find($request->only('area')['area']) ?? City::find($request->only('city')['city']));
+    public function create(AddressRequest $request)
+    {
+        $address = new Address($request->except('area', 'city', 'country'));
+        $address->_token = Str::random(20);
+        $address->Location()->associate($request->only('area') ? Area::find($request->only('area')['area']) : City::find($request->only('city')['city']));
         $address->User()->associate(Auth('api')->user());
         $address->save();
-        return response()->json($address,200);
-
+        return response()->json($address, 200);
     }
-    public function delete($id){
-      $res= Auth::User()->Addresses()->find($id);
-      if($res !=null && $res->delete())
-          return response()->json(["message"=>"Address deleted successfully"]);
-      else
-          return response()->json(["message"=>"Can't be deleted"]);
+    public function edit(AddressRequest $request, Address $address)
+    {
+        if ($address == null)
+            return response()->json(["message" => "Address not found"], 400);
 
+        if ($address->user()->first(['id'])->id != Auth::user()->id)
+            return response()->json(["message" => "Address belong to another user!"], 400);
+
+
+        $address->update($request->all());
+        $address->save();
+
+        return response()->json($address, 200);
     }
-    public function shipping(Address $address){
-        $location=$address->Location()->first();
+    public function delete($id)
+    {
+        $res = Auth::User()->Addresses()->find($id);
+        if ($res != null && $res->delete())
+            return response()->json(["message" => "Address deleted successfully"]);
+        else
+            return response()->json(["message" => "Can't be deleted"], 400);
+    }
+    public function shipping(Address $address)
+    {
+        $location = $address->Location()->first();
 
-        $shipping=Shipping::where('shipper_id',1)
-            ->where('city_id',$location instanceof City ? $location->id : $location->City()->first()->id)
+        $shipping = Shipping::where('shipper_id', 1)
+            ->where('city_id', $location instanceof City ? $location->id : $location->City()->first()->id)
             ->first();
-        if($shipping !=null)
+        if ($shipping != null)
             return response()->json($shipping);
-        else{
-            return response()->json(["error"=>"shipping to this address not available"],400);
+        else {
+            return response()->json(["error" => "shipping to this address not available"], 400);
         }
     }
-    public function city_shipping( $location){
-        $shipping=Shipping::where('shipper_id',1)
-            ->where('city_id',$location)
+    public function city_shipping($location)
+    {
+        $shipping = Shipping::where('shipper_id', 1)
+            ->where('city_id', $location)
             ->first();
-        if($shipping !=null)
+        if ($shipping != null)
             return response()->json($shipping);
-        else{
-            return response()->json(["error"=>"shipping to this address not available"],400);
+        else {
+            return response()->json(["error" => "shipping to this address not available"], 400);
         }
     }
 
-    public function countries(){
-        return response()->json(Country::all(),200);
-
+    public function countries()
+    {
+        return response()->json(Country::all(), 200);
     }
-    public function cities(Country $country){
-        return response()->json($country->cities()->whereHas('shipping',function($query){
+    public function cities(Country $country)
+    {
+        return response()->json($country->cities()->whereHas('shipping', function ($query) {
             $query->whereNotNull('id');
-        })->get(),200);
+        })->get(), 200);
     }
-    public function areas(City $city){
-        return response()->json($city->areas()->get(),200);
+    public function areas(City $city)
+    {
+        return response()->json($city->areas()->get(), 200);
     }
 }
