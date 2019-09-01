@@ -20,6 +20,9 @@ export default theme => ({
         flex: '1 0 50%',
         [theme.breakpoints.down('sm')]: {
             flex: '1 0 100%',
+        },
+        '& a': {
+            textDecorationLine: 'none'
         }
     },
 });

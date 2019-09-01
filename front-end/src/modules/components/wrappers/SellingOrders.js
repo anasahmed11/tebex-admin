@@ -12,6 +12,7 @@ import styles from '../../../assets/jss/components/wrappers/SellingOrders';
 import { orderAPI } from '../../../api/api';
 import { Link } from 'react-router-dom'
 import MySnackbar from '../parts/MySnackbar';
+import globalVariables from '../../../global-variables';
 
 
 const columns = [
@@ -150,6 +151,8 @@ class SellingOrders extends React.Component {
 
         const { classes } = this.props;
         const { isLoading, isPopup, messageType, serverMessage } = this.state;
+        let lng = globalVariables.LANG;
+        
         return (
             <Grid container item justify='center' xs={11}>
 
@@ -186,9 +189,9 @@ class SellingOrders extends React.Component {
                                 loading={isLoading}
                             />
                         </Grid> : <React.Fragment>
-                            <CustomMaterialTable data={this.state.pendingProducts} columns={[...columns, { title: '', field: 'action' }]} title={'الاوردرات المعلقة'} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
-                            <CustomMaterialTable data={this.state.processingProducts} columns={columns} title={'الاودرات في الشحن'} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
-                            <CustomMaterialTable data={this.state.completedProducts} columns={columns} title={'الاودرات المكتملة'} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
+                            <CustomMaterialTable data={this.state.pendingProducts} columns={[...columns, { title: '', field: 'action' }]} title={globalVariables.LABEL_SELLING_ORDERS_PENDING[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
+                            <CustomMaterialTable data={this.state.processingProducts} columns={columns} title={globalVariables.LABEL_SELLING_ORDERS_SHIPPING[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
+                            <CustomMaterialTable data={this.state.completedProducts} columns={columns} title={globalVariables.LABEL_SELLING_ORDERS_DONE[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
                         </React.Fragment>
                     }
                 </Grid>

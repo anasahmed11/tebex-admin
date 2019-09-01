@@ -11,8 +11,6 @@ import LinedTitle from '../parts/TwoLinesSectionTitle';
  
 import styles from '../../../assets/jss/components/wrappers/BrandsSlider';
 
-const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
-
 
 const someBrands = [
     'https://www.mobilaty.com/wp-content/uploads/2018/11/download.png',
@@ -36,7 +34,7 @@ const BrandsSlider = props => {
           <LinedTitle>
             {globalVariables.LABEL_HOME_BRANDS_SLIDER[globalVariables.LANG]}
           </LinedTitle>
-          <SlickSlider arrowColor="#FFF" className={classes.sliderLayout}>
+          <SlickSlider squares arrowColor="#FFF" className={classes.sliderLayout}>
             {brands}
             {brands}
             {brands}

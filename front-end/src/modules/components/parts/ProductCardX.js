@@ -15,14 +15,14 @@ import styles from '../../../assets/jss/components/parts/ProductCardX';
 
 const ProductCard = (props) => {
   
-    const { classes, slider } = props;
+    const { classes, slider, product } = props;
     const [loading, setLoading] = useState(true);
 
     const Loading = () => 
     <Grid container justify="center" className={classes.loading} style={{display: loading? 'block':'none'}} >
         <MoonLoader css={`margin: auto`} color={'#594589'} loading={props.loading} />
     </Grid>
-    console.log(props.product)
+    // console.log(props.product)
 
     return (
         <div className={slider? classes.make3DspaceSlider : classes.make3Dspace}>
@@ -31,12 +31,12 @@ const ProductCard = (props) => {
                     <Loading loading={loading} />
                     <LazyLoad offsetTop={200} onContentVisible={() => setLoading(false)}>
                     <div className={classes.imageContainer}>
-                        <img className={slider? classes.productImageSlider : classes.productImage} src={props.img} alt={props.title} />
+                        <img className={slider? classes.productImageSlider : classes.productImage} src={globalVariables.SERVER_BASE_URL + props.img} alt={props.title} />
                     </div>
                     </LazyLoad>
                     <div className={classes.shadow}></div>
                     <div className={classes.imageOverlay}></div>
-                    <Link className={classes.link} to={`/product/${props.id}`}>
+                    <Link className={classes.link} to={`/product/${product.slug}/${product.id}-${product.sku}`}>
                         <Typography variant='h6' className={slider? classes.viewDetailsSlider : classes.viewDetails}>
                             {globalVariables.LABEL_SHOP_VIEW_DETAILS[globalVariables.LANG]}
                         </Typography>

@@ -10,7 +10,7 @@ export default theme => ({
         marginBottom: theme.spacing(4),
     },
     iconContainer: {
-        marginRight: theme.spacing(2),
+        marginRight: theme.spacing(2),  
         flexBasis: '10%',
     },
     icon: {
@@ -18,7 +18,9 @@ export default theme => ({
         fontSize: '12vh',
         background: COLORS.HOME.InfoSection.Icons.secondary,
         padding: theme.spacing(2),
-        width: '12vh !important',
+        width: '54px !important',
+        height: '54px !important',
+        borderRadius: '50%',
     },
     infoText: {
         display: 'flex',

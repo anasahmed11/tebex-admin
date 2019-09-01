@@ -14,9 +14,9 @@ export default theme => ({
     },
     brandDiv: {
       background: COLORS.HOME.BrandsSection.Icons.secondary,
-      border: `5px solid gray ${COLORS.HOME.BrandsSection.Icons.primary}`,
-      width: 'auto !important',
-      height: 'auto !important',
+      // border: `5px solid ${COLORS.HOME.BrandsSection.Icons.primary}`,
+      width: '120px !important',
+      height: '120px !important',
       padding: theme.spacing(4)
     },
     brandImg: {

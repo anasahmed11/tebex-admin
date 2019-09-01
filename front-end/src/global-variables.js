@@ -1,20 +1,42 @@
 import Cookies from 'universal-cookie';
 
-
 const cookies = new Cookies();
 const LANGUGAE = 'langlang'
-if (cookies.get(LANGUGAE) === undefined) cookies.set(LANGUGAE, 'ar');
 
+if (cookies.get(LANGUGAE) === undefined) cookies.set(LANGUGAE, 'ar');
 if (cookies.get(LANGUGAE) !== 'ar' && cookies.get(LANGUGAE) !== 'en') cookies.set(LANGUGAE, 'ar');
 
 const globalVariables = {
     LANG: cookies.get(LANGUGAE),
+    
     // VARIABLES
     ACCESS_TOKEN: 'access_token',
     LANGUGAE: LANGUGAE,
     AFFILIATE_PARAM: 'ref',
     AFFILIATE_COOKIE: 'ref',
     AVATAR_COLOR_COOKIE: 'avatar_color',
+    SERVER_BASE_URL: "http://127.0.0.1:8000",
+    PRODUCT_STATUS_STATES: {
+        en: ['Pending', 'Preparing', 'Shipping', 'Delivery'],
+        ar: ['المراجعة', 'التجهيز', 'الشحن', 'التسليم'],
+    },
+    GET_PRODUCT_STATUS: (status) => {
+        
+        const STATES = [
+            {en: 'Pending', ar: 'قيد الإنتظار'},
+            {en: 'Active', ar: 'يتم تجهيزه'},
+            {en: 'Shipped', ar: 'تم الشحن'},
+            {en: 'Delivered', ar: 'تم الإستلام'},
+            {en: 'Cancelled', ar: 'تم إلغاؤه'},
+            {en: 'Returned', ar: 'تم الإسترجاع'},
+        ]
+        
+        // status_states as registered in databaste and returned from server.
+        let status_states = ['pending', 'active', 'shipped', 'delivered', 'canceled', 'returned'];
+        let index = status_states.findIndex(s => s === status);
+        return index > -1? [STATES[index], index] :[{en: '-', ar: '-'}, index];
+    },
+
     // MESSAGES
     MSG_LOGIN_FAIL: {
         en: 'Login failed.',
@@ -670,6 +692,20 @@ const globalVariables = {
     },
 
 
+
+    // Tables
+    LABEL_SELLING_ORDERS_PENDING: {
+        en: 'Pending Orders',
+        ar: 'الاوردرات المعلقة',
+    },
+    LABEL_SELLING_ORDERS_SHIPPING: {
+        en: 'Shipping Orders',
+        ar: 'الاودرات في الشحن',
+    },
+    LABEL_SELLING_ORDERS_DONE: {
+        en: 'Finished Orders',
+        ar: 'الاودرات المكتملة',
+    },
 
     // Link Genrator Page
     LINK_GENERATOR_TITLE: {

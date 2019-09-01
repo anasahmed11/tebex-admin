@@ -1,12 +1,12 @@
 import React from 'react';
-import { ClipLoader } from 'react-spinners';
-import { Grid } from '@material-ui/core';
-
-import { orderAPI } from '../../api/api';
+import globalVariables from '../../global-variables';
 import { Helmet } from "react-helmet";
 
+import { Grid } from '@material-ui/core';
+import { ClipLoader } from 'react-spinners';
+
+import { orderAPI } from '../../api/api';
 import Order from '../components/parts/Order'
-import globalVariables from '../../global-variables';
 
 class TrackOrder extends React.Component {
 
@@ -31,7 +31,6 @@ class TrackOrder extends React.Component {
             <Grid container justify="center" style={{ minHeight: '600px' }}>
                 <Helmet>
                     <title>{globalVariables.PAGE_TITLE_TRACK_ORDER[globalVariables.LANG]}</title>
-                    
                 </Helmet>
                 {isLoading ?
                     <Grid container alignItems="center" justify="center" >
