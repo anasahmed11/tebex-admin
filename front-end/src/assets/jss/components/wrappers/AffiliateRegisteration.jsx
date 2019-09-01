@@ -38,6 +38,9 @@ export default theme => ({
         boxShadow: theme.shadows[5],
         padding: theme.spacing(4),
         outline: 'none',
-      },
+    },
+    title: {
+        margin: '20px 0px 60px 0px',
+    }
  
 });

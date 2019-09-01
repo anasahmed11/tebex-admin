@@ -29,7 +29,7 @@ class ShopCartItem extends Component{
 
     render(){
         const { classes, item, previewOnly, handleDelete } = this.props;
-        console.log( item);
+        //console.log( item);
         let product = previewOnly? item.product : item;
         const price = previewOnly? item.price : item.sale_price;
         const quantity = previewOnly? item.quantity : item.cart.quantity;

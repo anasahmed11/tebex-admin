@@ -23,7 +23,7 @@ class AffiliateForm extends React.Component{
     state = {
         vodafone: '',
         etisalat: '',
-        package: 1,
+        //package: 1,
         swiftCode: '',
         bemeficiaryName: '',
         bankName: '',
@@ -185,10 +185,6 @@ class AffiliateForm extends React.Component{
             <Grid container justify='center' style={{textAlign:'center'}}>
                 
                 <Grid item xs = {12} className = {classes.paddingTop}>
-                    <Typography component = "h6" variant = "h6" gutterBottom>{globalVariables.FORM_REGISTER_LABEL_TITLE[globalVariables.LANG]}</Typography>
-                </Grid>
-                
-                <Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         id = "register-payment-way-1212"
                         select
@@ -211,7 +207,7 @@ class AffiliateForm extends React.Component{
 
                {this.getPaymentForm()}
 
-                <Grid item xs = {12} className = {classes.paddingTop}>
+                {/* {<Grid item xs = {12} className = {classes.paddingTop}>
                     <TextField
                         id = "register-package12312"
                         select
@@ -230,7 +226,7 @@ class AffiliateForm extends React.Component{
                         ))}
                     </TextField>
                    
-                </Grid>  
+                </Grid>}   */}
 
 
                 <Grid item xs = {6} className = {classes.paddingTop}>

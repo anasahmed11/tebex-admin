@@ -13,6 +13,7 @@ import AffiliateRegisteration from './AffiliateRegisteration';
 import { initUser } from '../../../store/actions/user';
 
 import styles from '../../../assets/jss/components/wrappers/Affiliate';
+import MyClipLoader from '../parts/MyClipLoader';
 
 const Page1 = props => globalVariables.AFFILIATE_PAGE1[globalVariables.LANG];
 const Page2 = props => globalVariables.AFFILIATE_PAGE2[globalVariables.LANG];
@@ -66,14 +67,9 @@ class Affiliate extends React.Component{
                     <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_AFFILIATE[globalVariables.LANG]}</Typography>
                 </Grid>
                 {isLoading?
-                <Grid container alignItems="center" justify="center" >
-                    <ClipLoader
-                        sizeUnit={"px"}
-                        size={75}
-                        color={'#123abc'}
-                        loading={isLoading}
-                    />
-                </Grid> :
+                
+                <MyClipLoader isloading={isLoading} />
+                :
                 <Grid container item justify='center' alignItems='center' xs={12} className={classes.root}>
                     
                     {this.getPage()}
