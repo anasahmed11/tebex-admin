@@ -12,7 +12,7 @@ import styles from '../../../assets/jss/components/wrappers/SellingOrders';
 import { orderAPI } from '../../../api/api';
 import { Link } from 'react-router-dom'
 import MySnackbar from '../parts/MySnackbar';
-import globalVariables from '../../../global-variables';
+import globalVariables, { getProductURL } from '../../../global-variables';
 
 
 const columns = [
@@ -85,7 +85,7 @@ class SellingOrders extends React.Component {
             .then(res => {
                 res.data.map(item => {
                     item.buyerName = item.order.address.first_name + ' ' + item.order.address.last_name;
-                    item.product.name = <Link to={`/product/${item.product_id}`}>{item.product.name}</Link>
+                    item.product.name = <Link to={`/product/${getProductURL(item.product)}`}>{item.product.name}</Link>
                     item.action = <div>
                         <IconButton onClick={() => this.handleProductAction({ order_id: item.order_id, product_id: item.product_id, status: 'confirmed' })}><FontAwesomeIcon icon="check" /></IconButton>
                         <IconButton onClick={() => this.handleProductAction({ order_id: item.order_id, product_id: item.product_id, status: 'refused' })}><FontAwesomeIcon icon="times" /></IconButton>
@@ -109,7 +109,7 @@ class SellingOrders extends React.Component {
             .then(res => {
                 res.data.map(item => {
                     item.buyerName = item.order.address.first_name + ' ' + item.order.address.last_name;
-                    item.product.name = <Link to={`/product/${item.product_id}`}>{item.product.name}</Link>
+                    item.product.name = <Link to={`/product/${getProductURL(item.product)}`}>{item.product.name}</Link>
                 })
                 this.setState({ processingProducts: res.data, isLoading: false })
             })
@@ -128,7 +128,7 @@ class SellingOrders extends React.Component {
             .then(res => {
                 res.data.map(item => {
                     item.buyerName = item.order.address.first_name + ' ' + item.order.address.last_name;
-                    item.product.name = <Link to={`/product/${item.product_id}`}>{item.product.name}</Link>
+                    item.product.name = <Link to={`/product/${getProductURL(item.product)}`}>{item.product.name}</Link>
                 })
                 this.setState({ completedProducts: res.data, isLoading: false })
             })

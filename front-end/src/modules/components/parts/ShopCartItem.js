@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import globalVariables from '../../../global-variables';
+import globalVariables, { getProductURL } from '../../../global-variables';
 
 import { 
     Typography,
@@ -40,7 +40,7 @@ class ShopCartItem extends Component{
             <Grid item xs={12} className={classes.root}>
                 
                 <Grid container justify="center" className={classes.upperSection}>
-                    <Grid item sm={3} xs={12} component={Link} to={`/product/${product.id}`} className={classes.imageRoot}>
+                    <Grid item sm={3} xs={12} component={Link} to={`/product/${getProductURL(product)}`} className={classes.imageRoot}>
                         <img 
                             className={classes.image} 
                             src={product.images.length?baseURL+product.images[0].slice(1):"https://ss7.vzw.com/is/image/VerizonWireless/iphone7-front-matblk?$device-lg$" } // product.images}
@@ -49,7 +49,7 @@ class ShopCartItem extends Component{
                     <Grid item sm={6} xs={12}>
                         <Grid item>
                             <Typography gutterBottom variant='h6' className={classes.textSection}>
-                                <Link to={`product/${product.id}`} className={classes.cleanLink}><b>{product.name}</b></Link>
+                                <Link to={`product/${getProductURL(product)}`} className={classes.cleanLink}><b>{product.name}</b></Link>
                             </Typography>
                         </Grid>
                         <Grid item>

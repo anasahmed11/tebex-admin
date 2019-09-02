@@ -13,7 +13,7 @@ import { productsAPI, baseURL } from '../../../api/api';
 
 import './searchBar.css';
 import styles from '../../../assets/jss/components/parts/SearchBar';
-import globalVariables, { noImage } from '../../../global-variables';
+import globalVariables, { noImage, getProductURL } from '../../../global-variables';
 
 // const languages = [
 //     {
@@ -64,6 +64,9 @@ const getSuggestions = value => {
                         name: product.name,
                         price: product.price,
                         salePrice: product.sale_price,
+                        sku: product.sku,
+                        slug: product.slug,
+                        
                     }
                 };
             })
@@ -117,7 +120,7 @@ const renderSuggestion = (suggestion) => {
 
         default:
             return (
-                <Grid component={Link} style={{ textDecoration: 'none', color: 'black' }} container to={`/product/${suggestion.id}`}>
+                <Grid component={Link} style={{ textDecoration: 'none', color: 'black' }} container to={`/product/${getProductURL(suggestion)}`}>
                     <Grid item xs={1}
 
                         style={{
@@ -150,7 +153,11 @@ const renderSuggestion = (suggestion) => {
 const renderSectionTitle = section => {
     if (section.seeAll)
         return (
-            <Grid container justify="center" component={Button}>{section.title}</Grid>
+            <Grid container justify="center">
+                <Button component={Link} to={`/shop?q=${section.q}`} >
+                    {section.title}
+                </Button>
+            </Grid>
         );
     return (
         <strong>{section.title}</strong>
@@ -190,11 +197,13 @@ class CustomizedInputBase extends React.Component {
                                     price: product.price,
                                     salePrice: product.sale_price,
                                     image: product.images[0]? baseURL+product.images[0].slice(1):noImage,
+                                    sku: product.sku,
+                                    slug: product.slug,
                                 })
                         );
                     const productSuggestions = {data: products, title: globalVariables.SEARCHBAR_SECTION_TITLE[globalVariables.LANG]};
                     
-                    this.setState({ suggestions: [productSuggestions, {data: [], title: `${globalVariables.SEARCHBAR_SEE_ALL[globalVariables.LANG]} (${res.data.total})`, seeAll:true}] });
+                    this.setState({ suggestions: [productSuggestions, {data: [],q:value , title: `${globalVariables.SEARCHBAR_SEE_ALL[globalVariables.LANG]} (${res.data.total})`, seeAll:true}] });
                 })
                 .catch(error=>{this.setState({ suggestions: [] });})
         }, 1000);

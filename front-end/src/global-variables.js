@@ -8,7 +8,7 @@ if (cookies.get(LANGUGAE) !== 'ar' && cookies.get(LANGUGAE) !== 'en') cookies.se
 
 const globalVariables = {
     LANG: cookies.get(LANGUGAE),
-    
+
     // VARIABLES
     ACCESS_TOKEN: 'access_token',
     LANGUGAE: LANGUGAE,
@@ -21,20 +21,20 @@ const globalVariables = {
         ar: ['المراجعة', 'التجهيز', 'الشحن', 'التسليم'],
     },
     GET_PRODUCT_STATUS: (status) => {
-        
+
         const STATES = [
-            {en: 'Pending', ar: 'قيد الإنتظار'},
-            {en: 'Active', ar: 'يتم تجهيزه'},
-            {en: 'Shipped', ar: 'تم الشحن'},
-            {en: 'Delivered', ar: 'تم الإستلام'},
-            {en: 'Cancelled', ar: 'تم إلغاؤه'},
-            {en: 'Returned', ar: 'تم الإسترجاع'},
+            { en: 'Pending', ar: 'قيد الإنتظار' },
+            { en: 'Active', ar: 'يتم تجهيزه' },
+            { en: 'Shipped', ar: 'تم الشحن' },
+            { en: 'Delivered', ar: 'تم الإستلام' },
+            { en: 'Cancelled', ar: 'تم إلغاؤه' },
+            { en: 'Returned', ar: 'تم الإسترجاع' },
         ]
-        
+
         // status_states as registered in databaste and returned from server.
         let status_states = ['pending', 'active', 'shipped', 'delivered', 'canceled', 'returned'];
         let index = status_states.findIndex(s => s === status);
-        return index > -1? [STATES[index], index] :[{en: '-', ar: '-'}, index];
+        return index > -1 ? [STATES[index], index] : [{ en: '-', ar: '-' }, index];
     },
 
     // MESSAGES
@@ -411,11 +411,11 @@ const globalVariables = {
         en: '',
         ar: ''
     },
-    PRODUCT_OUT_OF_STOCK:{
+    PRODUCT_OUT_OF_STOCK: {
         en: 'Product out of stock',
         ar: 'المنتج غير متوفر حاليا'
     },
-    PRODUCT_ADD_NEW_SPEC:{
+    PRODUCT_ADD_NEW_SPEC: {
         en: 'Add New Spec Value',
         ar: 'اضافة قيمة مواصفات جديدة'
     },
@@ -435,7 +435,7 @@ const globalVariables = {
         en: '',
         ar: ''
     },
-    
+
 
     // Checkout
     CHECKOUT_SHIPPING_ADDRESS: {
@@ -889,9 +889,9 @@ const globalVariables = {
 
 
 
-    PAGE_TITLE_SERVER_ERROR:{
+    PAGE_TITLE_SERVER_ERROR: {
         en: 'Server Unavailable | UYC',
-        ar: 'الخادم غير متوفر | UYC' 
+        ar: 'الخادم غير متوفر | UYC'
     },
     PAGE_TITLE_CART: {
         en: 'Cart | UYC',
@@ -946,5 +946,23 @@ const globalVariables = {
 
 
 }
+
 export const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/temp-inventory-landing.jpg"
+
+
+
+
+
+// functions
+
+export function getProductURL(product){
+    return `${product.slug}/${product.id}-${product.sku}`
+}
+
+
+
+
+
+
+
 export default globalVariables;
