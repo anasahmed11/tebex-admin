@@ -17,5 +17,6 @@ export default theme => ({
         paddingLeft:'0px',
         width: '80%',
         flexWrap: 'wrap',
+        backgroundColor: 'inherit'
     },
 });

@@ -26,11 +26,5 @@ export default theme => ({
     },
     text: {
         color: COLORS.SHOP.TextBanner.Text.primary,
-        [theme.breakpoints.down("sm")]: {
-            fontSize: '4rem',
-        },
-        [theme.breakpoints.down("xs")]: {
-            fontSize: '3rem',
-        }
     }
 })

@@ -21,5 +21,5 @@ export default theme => ({
     },
     brandImg: {
       margin: 'auto'
-    }
+    },
 });

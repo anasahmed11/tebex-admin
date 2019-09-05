@@ -26,10 +26,10 @@ export default theme => ({
     },
     icon: {
         color: 'navy',
-        fontSize: '12vh',
+        //fontSize: '12vh',
         //background: '#38c49d',
         padding: theme.spacing(3),
-        width: '12vh !important',
+        //width: '12vh !important',
     },
     infoText: {
         display: 'flex',

@@ -6,10 +6,10 @@ export default theme => ({
         margin: 'auto',
     },
     stepperContainer: {
-        backgroundColor: '#dadada',
+        backgroundColor: 'transperent',
     },
     stepper: {
-        backgroundColor: '#dadada',
+        backgroundColor: 'inherit',
         margin: 'auto',
         paddingRight: '0px',
         paddingLeft: '0px',

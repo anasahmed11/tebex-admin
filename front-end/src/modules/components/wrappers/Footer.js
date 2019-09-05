@@ -95,10 +95,11 @@ const Footer = props => {
                 <Typography variant='subtitle1' className={classes.sectionTitle}>
                             <b>{lang === 'en'? 'FOLLOW US' : 'تابعنا'}</b>
                 </Typography>
-                <IconLink icon='twitter'  href="https://twitter.com"/>
-                <IconLink icon='youtube'  href="https://youtube.com" />
-                <IconLink icon='linkedin' href="https://linkedin.com"/>
-                <IconLink icon='facebook' href="https://facebook.com"/>
+                
+                <Typography variant='subtitle1' display="inline"><IconLink icon='twitter'  href="https://twitter.com"/></Typography> 
+               <Typography variant='subtitle1' display="inline"><IconLink icon='youtube'  href="https://youtube.com" /></Typography>
+                <Typography variant='subtitle1' display="inline"><IconLink icon='linkedin' href="https://linkedin.com"/></Typography>
+                <Typography variant='subtitle1' display="inline"><IconLink icon='facebook' href="https://facebook.com"/></Typography>
             </div>
         </Grid>
             <div>

@@ -12,4 +12,4 @@ yarn-error.log
 run-after-reset.txt
 .rnd
 
-back-end/storage/*.index
+/storage/*.index

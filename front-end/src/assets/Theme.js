@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes  } from '@material-ui/core/styles';
 import globalVariables from '../global-variables';
 
 const theme = createMuiTheme({
@@ -77,4 +77,4 @@ const theme = createMuiTheme({
     },
     direction: globalVariables.LANG === 'ar' ? 'rtl' : 'ltr',
 });
-export default theme;
+export default responsiveFontSizes(theme);

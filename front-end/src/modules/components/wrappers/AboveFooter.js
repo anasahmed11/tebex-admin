@@ -24,7 +24,7 @@ const AboveFooter = props => {
                         >
                         <section className={classes.infoSection}>
                             <div className={classes.iconContainer}>
-                                <FontAwesomeIcon className={classes.icon} icon={[item.icon.set, item.icon.name]} />
+                                <Typography variant="h1"> <FontAwesomeIcon className={classes.icon} icon={[item.icon.set, item.icon.name]} /></Typography>
                             </div>
                             <div className={classes.infoText}>
                                 <Typography align='center' className={classes.title} variant='h6' gutterBottom>

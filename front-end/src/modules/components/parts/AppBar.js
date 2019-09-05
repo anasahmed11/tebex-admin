@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import globalVariables from '../../../global-variables';
 
 import { Route, withRouter, Link } from 'react-router-dom';
-import { Grid, withStyles, Menu, IconButton, AppBar, MenuItem } from '@material-ui/core';
+import { Grid, withStyles, Menu, IconButton, AppBar, MenuItem, Typography } from '@material-ui/core';
 import { Menu as MenuIcon, AccountCircle } from '@material-ui/icons';
 
 import CartIcon from './CartIcon'
@@ -102,7 +102,9 @@ class PrimarySearchAppBar extends React.Component {
                             justifyContent: 'flex-end',
                             alignItems: 'center',
                         }}>
-                            <Link to="/shop" className={classes.appBarLink} onMouseEnter={this.handleCategoriesList}>{globalVariables.APPBAR_SHOP[globalVariables.LANG]}</Link>
+                            <Typography variant="h5">
+                                <Link to="/shop" className={classes.appBarLink} onMouseEnter={this.handleCategoriesList}>{globalVariables.APPBAR_SHOP[globalVariables.LANG]}</Link>
+                            </Typography>
                             <Route component={CartIcon} />
 
 

@@ -59,7 +59,7 @@ class ProductSlider extends Component {
 
     return (
         <Grid container className={classes.root}>
-          <LinedTitle color="#5D1F62">
+          <LinedTitle style={{color:"#5D1F62"}}>
             {globalVariables.LABEL_HOME_PRODUCTS_SLIDER[globalVariables.LANG]}
           </LinedTitle>
           <SlickSlider variableWidth arrowColor="#5D1F62" className={classes.sliderLayout}>

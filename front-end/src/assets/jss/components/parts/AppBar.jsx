@@ -17,9 +17,9 @@ export default theme => ({
     },
     appBarLink: {
         fontFamily: "'Droid Arabic Kufi', 'Roboto'",
-        fontSize: '24px',
-        marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
+        // fontSize: '24px',
+        // marginLeft: theme.spacing(2),
+        // marginRight: theme.spacing(2),
         color: COLORS.HOME.Appbar.Links.primary,
         transition: theme.transitions.create(['margin'], { duration: '0.3s' }),
         textDecoration: 'none',
@@ -43,7 +43,7 @@ export default theme => ({
         },
     },
     sectionDesktop: {
-        flex: '1 0 220px',
+        flex: '1 0 auto',
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
