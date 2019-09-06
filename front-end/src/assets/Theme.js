@@ -1,6 +1,9 @@
 import { createMuiTheme, responsiveFontSizes  } from '@material-ui/core/styles';
 import globalVariables from '../global-variables';
 
+
+const defaultTheme = createMuiTheme();
+
 const theme = createMuiTheme({
     overrides: {
         MuiButton: {
@@ -74,6 +77,18 @@ const theme = createMuiTheme({
     typography: {
         useNextVariants: true,
         fontFamily: "'Open Sans', 'Droid Arabic Kufi', 'Roboto', 'Helvetica', 'Arial', sans-serif",
+        h6:{
+            // [defaultTheme.breakpoints.down("md")]: {
+            //     fontSize: '1.1rem !important',
+            // },
+            // [defaultTheme.breakpoints.down("sm")]: {
+            //     fontSize: '0.9rem !important',
+            // },
+            // [defaultTheme.breakpoints.down("xs")]: {
+            //     fontSize: '0.7rem !important',
+            // },
+             
+        }
     },
     direction: globalVariables.LANG === 'ar' ? 'rtl' : 'ltr',
 });

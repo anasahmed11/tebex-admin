@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import { productsAPI, baseURL } from '../../../api/api';
@@ -52,31 +52,31 @@ const getSuggestions = value => {
     if (value === '') return [];
 
     productsAPI.post('search/', { q: value })
-    .then(res=>{
+        .then(res => {
 
-        return res.data
-            .map(product => {
-                return {
-                    title: "Products",
-                    data: {
-                        id: product.id,
-                        type: 1,
-                        name: product.name,
-                        price: product.price,
-                        salePrice: product.sale_price,
-                        sku: product.sku,
-                        slug: product.slug,
-                        
-                    }
-                };
-            })
-    })
-    .catch(error=>{
-        return [];
-    })
-    
+            return res.data
+                .map(product => {
+                    return {
+                        title: "Products",
+                        data: {
+                            id: product.id,
+                            type: 1,
+                            name: product.name,
+                            price: product.price,
+                            salePrice: product.sale_price,
+                            sku: product.sku,
+                            slug: product.slug,
 
-    
+                        }
+                    };
+                })
+        })
+        .catch(error => {
+            return [];
+        })
+
+
+
 
     // const regex = new RegExp('^' + value, 'i');
     // return languages
@@ -120,27 +120,26 @@ const renderSuggestion = (suggestion) => {
 
         default:
             return (
-                <Grid component={Link} style={{ textDecoration: 'none', color: 'black' }} container to={`/product/${getProductURL(suggestion)}`}>
-                    <Grid item xs={1}
+                <Grid alignItems="center" spacing={1} component={Link} style={{ textDecoration: 'none', color: 'black' }} container to={`/product/${getProductURL(suggestion)}`}>
 
-                        style={{
-                            textAlign: 'center',
-                            backgroundImage: `url('${suggestion.image}')`,
-                            backgroundPosition: "center",
-                            backgroundSize: "contain",
-                            backgroundRepeat: "no-repeat"
-                        }}
-                    >
+                    <Grid item lg={1} md={1} xs={2} style={{textAlign:'center'}}>
+                        <img
+                            src={`${suggestion.image}`}
+                            style={{
+                                objectFit: 'contain',
+                                width: '100%',
+                                maxWidth: '75px',
 
+
+                            }} />
                     </Grid>
-                    <Grid item xs={10} style={{ marginLeft: '10px' }}>
-                        <div style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            {//(suggestion.name.substring(0,30)) + ((suggestion.name.length>30)?'...':'')
-                                suggestion.name}
-                        </div>
-                        <div>
+                    <Grid item lg={11} md={11} xs={10} >
+                        <Typography variant="h6" style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
+                            {suggestion.name}
+                        </Typography>
+                        <Typography variant="h6">
                             {suggestion.price}$
-                    </div>
+                        </Typography>
                     </Grid>
                 </Grid>
             );
@@ -154,8 +153,9 @@ const renderSectionTitle = section => {
     if (section.seeAll)
         return (
             <Grid container justify="center">
+                
                 <Button component={Link} to={`/shop?q=${section.q}`} >
-                    {section.title}
+                    <Typography variant="h6">{section.title}</Typography>
                 </Button>
             </Grid>
         );
@@ -176,39 +176,39 @@ class CustomizedInputBase extends React.Component {
     onChange = (event, { newValue }) =>
         this.setState({ value: newValue });
 
-    onSuggestionsFetchRequested = ({ value }) =>{
+    onSuggestionsFetchRequested = ({ value }) => {
         value = value.trim().toLowerCase();
 
-        if (value === '') {this.setState({ suggestions: [] }); return;}
+        if (value === '') { this.setState({ suggestions: [] }); return; }
 
         const time = Date.now();
         this.state.lastRequestTime = time;
-            
-        setTimeout(() => {
-            if(this.state.lastRequestTime === time)
-                productsAPI.post('search/', { q: value })
-                .then(res=>{
 
-                    const products = res.data.data
-                        .map(product =>({
-                                    id: product.id,
-                                    type: 1,
-                                    name: globalVariables.LANG==='ar'?product.name:product.name_en,
-                                    price: product.price,
-                                    salePrice: product.sale_price,
-                                    image: product.images[0]? baseURL+product.images[0].slice(1):noImage,
-                                    sku: product.sku,
-                                    slug: product.slug,
-                                })
-                        );
-                    const productSuggestions = {data: products, title: globalVariables.SEARCHBAR_SECTION_TITLE[globalVariables.LANG]};
-                    
-                    this.setState({ suggestions: [productSuggestions, {data: [],q:value , title: `${globalVariables.SEARCHBAR_SEE_ALL[globalVariables.LANG]} (${res.data.total})`, seeAll:true}] });
-                })
-                .catch(error=>{this.setState({ suggestions: [] });})
+        setTimeout(() => {
+            if (this.state.lastRequestTime === time)
+                productsAPI.post('search/', { q: value })
+                    .then(res => {
+
+                        const products = res.data.data
+                            .map(product => ({
+                                id: product.id,
+                                type: 1,
+                                name: globalVariables.LANG === 'ar' ? product.name : product.name_en,
+                                price: product.price,
+                                salePrice: product.sale_price,
+                                image: product.images[0] ? baseURL + product.images[0].slice(1) : noImage,
+                                sku: product.sku,
+                                slug: product.slug,
+                            })
+                            );
+                        const productSuggestions = { data: products, title: globalVariables.SEARCHBAR_SECTION_TITLE[globalVariables.LANG] };
+
+                        this.setState({ suggestions: [productSuggestions, { data: [], q: value, title: `${globalVariables.SEARCHBAR_SEE_ALL[globalVariables.LANG]} (${res.data.total})`, seeAll: true }] });
+                    })
+                    .catch(error => { this.setState({ suggestions: [] }); })
         }, 1000);
     }
-        
+
     onSuggestionsClearRequested = () => this.setState({ suggestions: [] });
 
     render() {

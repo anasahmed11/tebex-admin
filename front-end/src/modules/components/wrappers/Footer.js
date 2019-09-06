@@ -1,69 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles, Grid, Typography } from '@material-ui/core';
-import globalVariables from '../../../global-variables';
+import globalVariables, { footerSections } from '../../../global-variables';
 
 import IconLink from '../parts/IconLink';
 
 import styles from '../../../assets/jss/components/wrappers/Footer';
 
-const footerSections = [
-    {
-        title: {en: 'ABOUT UYC', ar: 'عن UYC'},
-        links: [
-            {
-                title: {en: 'Who We Are?', ar: 'من نحن؟'},
-                link: '/about'
-            },
-            {
-                title: {en: 'Our Goals', ar: 'اهدافنا'},
-                link: '/goals'
-            },
-            {
-                title: {en: 'FAQ', ar: 'اسألة شائعة'},
-                link: '/faq'
-            },
-            {
-                title: {en: 'Contact Us', ar: 'تواصل معنا'},
-                link: '/contact-us'
-            }
-        ]
-    },
-    {
-        title: {en: 'WORK WITH US', ar: 'إعمل معنا'},
-        links: [
-            {
-                title: {en: 'Sell Your Products', ar: 'بيع منتجاتك'},
-                link: '/sell'
-            },
-            {
-                title: {en: 'Affiliate Program', ar: 'التسويق بالعمولة'},
-                link: '/affiliate'
-            },
-            {
-                title: {en: 'Advertising', ar: 'الإعلانات'},
-                link: '/advertising'
-            },
-        ]
-    },
-    {
-        title: {en: 'OUR POLICY', ar: 'سياسات الشركة'},
-        links: [
-            {
-                title: {en: 'Privacy Policy', ar: 'سياسة الخصوصية'},
-                link: '/privacy-policy'
-            },
-            {
-                title: {en: 'Terms and Conditions', ar: 'الشروط والأحكام'},
-                link: '/terms-and-conditions'
-            },
-            {
-                title: {en: 'Return Policy', ar: 'سياسة الإسترجاع'},
-                link: '/return-policy'
-            },
-        ]
-    },
-]
+
 
 const Footer = props => {
 
@@ -76,7 +20,7 @@ const Footer = props => {
             {footerSections.map((section,idx) =>
                 <div key={idx} className={classes.footerSection}>
                     <Typography variant='subtitle1' className={classes.sectionTitle}>
-                                <b>{section.title[lang]}</b>
+                        <b>{section.title[lang]}</b>
                     </Typography>
                     <ul className={classes.list}>
                         {section.links.map((item,idx) => 
@@ -97,7 +41,7 @@ const Footer = props => {
                 </Typography>
                 
                 <Typography variant='subtitle1' display="inline"><IconLink icon='twitter'  href="https://twitter.com"/></Typography> 
-               <Typography variant='subtitle1' display="inline"><IconLink icon='youtube'  href="https://youtube.com" /></Typography>
+                <Typography variant='subtitle1' display="inline"><IconLink icon='youtube'  href="https://youtube.com" /></Typography>
                 <Typography variant='subtitle1' display="inline"><IconLink icon='linkedin' href="https://linkedin.com"/></Typography>
                 <Typography variant='subtitle1' display="inline"><IconLink icon='facebook' href="https://facebook.com"/></Typography>
             </div>

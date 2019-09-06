@@ -18,8 +18,8 @@ const UserPanelSettings = props => {
             <Grid item xs={12} className={classes.avatarDiv}>
                 <ProfileAvatar img={props.user.img} name={props.user.first_name} style={{ margin: 10, width: 60, height: 60,}}/>
                 <div>
-                    <Typography variant='h6' className={classes.textHead}>{props.user.first_name} {props.user.last_name}</Typography>
-                    <Typography variant='subtitle1' className={classes.textMail}>{props.user.email}</Typography>
+                    <Typography variant='subtitle1'>{props.user.first_name} {props.user.last_name}</Typography>
+                    <Typography variant='subtitle1'>{props.user.email}</Typography>
                 </div>
             </Grid>
             <Grid container item xs={12}>

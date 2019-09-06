@@ -1,4 +1,7 @@
 import Cookies from 'universal-cookie';
+import { Inbox, Language, QuestionAnswer, Book, Call, Shop } from '@material-ui/icons';
+import React from 'react';
+import CartIcon from './modules/components/parts/CartIcon';
 
 const cookies = new Cookies();
 const LANGUGAE = 'langlang'
@@ -955,14 +958,114 @@ export const noImage = "https://thefittingsource.com/wp-content/uploads/2017/12/
 
 // functions
 
-export function getProductURL(product){
+export function getProductURL(product) {
     return `${product.slug}/${product.id}-${product.sku}`
 }
 
+export const handleLanguageToggle = () => {
+    globalVariables.LANG = globalVariables.LANG === 'en' ? 'ar' : 'en';
+    cookies.set(globalVariables.LANGUGAE, globalVariables.LANG);
+    window.location.reload();
+}
+
+export const upperLinks = [
+    {
+        title: globalVariables.UPPERBAR_LANGUAGE[globalVariables.LANG],
+        onClick: handleLanguageToggle,
+        icon: <Language /> 
+    },
+    {
+        title: globalVariables.UPPERBAR_US[globalVariables.LANG],
+        link: '/',
+        icon: <Inbox /> 
+    },
+    {
+        title: globalVariables.UPPERBAR_Q[globalVariables.LANG],
+        link: '/',
+        icon: <QuestionAnswer /> 
+    },
+    {
+        title: globalVariables.UPPERBAR_MAGAZINE[globalVariables.LANG],
+        link: '/',
+        icon: <Book /> 
+    },
+    {
+        title: globalVariables.UPPERBAR_CALL_US[globalVariables.LANG],
+        link: '/',
+        icon: <Call /> 
+    },
+];
 
 
+export const bottomLinks = [
+    {
+        title: globalVariables.APPBAR_SHOP[globalVariables.LANG],
+        link: '/shop',
+        icon: <Shop />
+    },    
+    {
+        title: globalVariables.CART_TITLE[globalVariables.LANG],
+        link: '/cart',
+        icon: <CartIcon iconOnly />
+    },    
+];
 
-
-
+export const footerSections = [
+    {
+        title: {en: 'ABOUT UYC', ar: 'عن UYC'},
+        links: [
+            {
+                title: {en: 'Who We Are?', ar: 'من نحن؟'},
+                link: '/about'
+            },
+            {
+                title: {en: 'Our Goals', ar: 'اهدافنا'},
+                link: '/goals'
+            },
+            {
+                title: {en: 'FAQ', ar: 'اسألة شائعة'},
+                link: '/faq'
+            },
+            {
+                title: {en: 'Contact Us', ar: 'تواصل معنا'},
+                link: '/contact-us'
+            }
+        ]
+    },
+    {
+        title: {en: 'WORK WITH US', ar: 'إعمل معنا'},
+        links: [
+            {
+                title: {en: 'Sell Your Products', ar: 'بيع منتجاتك'},
+                link: '/sell'
+            },
+            {
+                title: {en: 'Affiliate Program', ar: 'التسويق بالعمولة'},
+                link: '/affiliate'
+            },
+            {
+                title: {en: 'Advertising', ar: 'الإعلانات'},
+                link: '/advertising'
+            },
+        ]
+    },
+    {
+        title: {en: 'OUR POLICY', ar: 'سياسات الشركة'},
+        links: [
+            {
+                title: {en: 'Privacy Policy', ar: 'سياسة الخصوصية'},
+                link: '/privacy-policy'
+            },
+            {
+                title: {en: 'Terms and Conditions', ar: 'الشروط والأحكام'},
+                link: '/terms-and-conditions'
+            },
+            {
+                title: {en: 'Return Policy', ar: 'سياسة الإسترجاع'},
+                link: '/return-policy'
+            },
+        ]
+    },
+]
 
 export default globalVariables;

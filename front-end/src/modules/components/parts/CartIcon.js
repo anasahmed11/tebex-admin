@@ -7,18 +7,19 @@ import styles from '../../../assets/jss/components/parts/CartIcon';
 
 function CartIcon(props){
     const { classes, itemsCnt } = props;
-    return <IconButton 
+    const icon =  <Badge 
+                badgeContent={itemsCnt} 
+                color="primary" 
+                classes={{ badge: classes.badge }}
+            >
+                <ShoppingCart />
+            </Badge>
+    return props.iconOnly? icon:<IconButton 
             aria-label="Cart" 
             color="inherit" 
             onClick={() => props.history.push('/cart',{pathname:'http://localhost:3000'})}
             >
-                <Badge 
-                    badgeContent={itemsCnt} 
-                    color="primary" 
-                    classes={{ badge: classes.badge }}
-                >
-                    <ShoppingCart />
-                </Badge>
+            {icon}
         </IconButton>
 }
 

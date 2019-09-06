@@ -30,15 +30,5 @@ export default theme => ({
         display: 'flex',
         alignItems: 'center',
     },
-    textHead:{
-        fontWeight:'500',
-        [theme.breakpoints.down('xs')]: {
-            fontSize: 18,
-        }
-    },
-    textMail: {
-        [theme.breakpoints.down('xs')]: {
-            fontSize: 12,
-        }
-    }
+   
 });

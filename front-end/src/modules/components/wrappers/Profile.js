@@ -375,7 +375,7 @@ class Profile extends React.Component {
             <Grid container item alignItems='center' justify="center" xs={11}>
 
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_PROFILE[globalVariables.LANG]}</Typography>
+                    <Typography gutterBottom variant='h4' className={classes.textHead}>{globalVariables.SETTINGS_SECTION_PROFILE[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 {isLoading ?

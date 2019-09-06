@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import globalVariables from '../../../global-variables';
 
@@ -114,7 +113,7 @@ class PrimarySearchAppBar extends React.Component {
                                 onClick={this.handleProfileMenuOpen}
                                 color="inherit"
                             >
-                                {authenticated ? <ProfileAvatar img={this.props.user.img} name={this.props.user.first_name} style={{ margin: 0, width: '30px', height: '30px' }} /> : <AccountCircle />}
+                                {authenticated ? <ProfileAvatar style={{ margin: 0, width: '30px', height: '30px' }} /> : <AccountCircle />}
                             </IconButton>
                         </div>
                     </div>
@@ -137,13 +136,6 @@ PrimarySearchAppBar.propTypes = {
 };
 
 
-const mapStateToProps = state => {
-    return {
-        user: state.user.user,
 
-    }
-}
-
-
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(PrimarySearchAppBar)));
+export default withStyles(styles)(PrimarySearchAppBar);
 
