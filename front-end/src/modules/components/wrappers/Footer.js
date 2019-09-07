@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles, Grid, Typography } from '@material-ui/core';
-import globalVariables, { footerSections } from '../../../global-variables';
+import globalVariables, { footerSections, FOLLOW_US } from '../../../global-variables';
 
 import IconLink from '../parts/IconLink';
 
@@ -39,11 +39,13 @@ const Footer = props => {
                 <Typography variant='subtitle1' className={classes.sectionTitle}>
                             <b>{lang === 'en'? 'FOLLOW US' : 'تابعنا'}</b>
                 </Typography>
-                
-                <Typography variant='subtitle1' display="inline"><IconLink icon='twitter'  href="https://twitter.com"/></Typography> 
-                <Typography variant='subtitle1' display="inline"><IconLink icon='youtube'  href="https://youtube.com" /></Typography>
-                <Typography variant='subtitle1' display="inline"><IconLink icon='linkedin' href="https://linkedin.com"/></Typography>
-                <Typography variant='subtitle1' display="inline"><IconLink icon='facebook' href="https://facebook.com"/></Typography>
+                {
+                    FOLLOW_US.map((item, idx)=>
+                        <Typography key={idx} variant='subtitle1' display="inline">
+                            <IconLink color='white' icon={item.icon}  href={item.link}/>
+                        </Typography> 
+                    )
+                }
             </div>
         </Grid>
             <div>

@@ -9,8 +9,8 @@ import styles from '../../../assets/jss/components/parts/IconLink';
 function IconLink(props) {
   const { classes, href } = props;
   return <Link href={href}>
-          <FontAwesomeIcon className={classes.icon} icon={['fab', props.icon]} />
-      </Link>
+            <FontAwesomeIcon  {...props} className={classes.icon} icon={['fab', props.icon]} />
+        </Link>
 }
 
 IconLink.propTypes = {

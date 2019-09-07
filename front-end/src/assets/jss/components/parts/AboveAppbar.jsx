@@ -3,13 +3,6 @@ import COLORS from '../../../site-colors';
 export default theme => ({
     root: {
       backgroundColor: COLORS.HOME.LinksBar.background.primary,
-      [theme.breakpoints.down('sm')]: {
-        display: 'none',
-      }
-    },
-    linksBar: {
-      display: 'flex',
-      justifyContent: 'flex-end',
     },
     navLink: {
       fontFamily: "'Droid Arabic Kufi', 'Roboto'",

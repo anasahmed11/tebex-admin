@@ -13,7 +13,26 @@ import { orderAPI } from '../../../api/api';
 import { Link } from 'react-router-dom'
 import MySnackbar from '../parts/MySnackbar';
 import globalVariables, { getProductURL } from '../../../global-variables';
+import SelectMenu from '../parts/SelectMenu';
 
+const orderStatusData = globalVariables.LANG === 'ar' ?
+    [
+        { value: 'all', label: 'الكل' },
+        { value: 'active', label: 'نشط' },
+        { value: 'shipped', label: 'في الشحن' },
+        { value: 'delivered', label: 'تم التوصيل' },
+        { value: 'canceled', label: 'الغي' },
+        { value: 'returned', label: 'استرجع' },
+    ]
+    :
+    [
+        { value: 'all', label: 'all' },
+        { value: 'active', label: 'active' },
+        { value: 'shipped', label: 'shipped' },
+        { value: 'delivered', label: 'delivered' },
+        { value: 'canceled', label: 'canceled' },
+        { value: 'returned', label: 'returned' },
+    ];
 
 const columns = [
     { title: 'Name', field: 'product.name' },
@@ -35,6 +54,8 @@ class SellingOrders extends React.Component {
         isPopup: false,
         serverMessage: '',
         messageType: 'success',
+
+        orderStatus: 'all',
     }
 
     pendingPromises = [];
@@ -146,13 +167,17 @@ class SellingOrders extends React.Component {
         this.getCompletedPrdos();
 
     }
+    handleFilterChange = prop => event =>
+        this.setState({ [prop]: event.target.value });
 
     render() {
 
         const { classes } = this.props;
         const { isLoading, isPopup, messageType, serverMessage } = this.state;
         let lng = globalVariables.LANG;
-        
+        const notPendingProds = this.state.orderStatus==='all'? 
+            [...this.state.processingProducts, ...this.state.completedProducts ]:
+            [...this.state.processingProducts, ...this.state.completedProducts ].filter(prod=>prod.order.status===this.state.orderStatus)
         return (
             <Grid container item justify='center' xs={11}>
 
@@ -189,9 +214,21 @@ class SellingOrders extends React.Component {
                                 loading={isLoading}
                             />
                         </Grid> : <React.Fragment>
+                            
                             <CustomMaterialTable data={this.state.pendingProducts} columns={[...columns, { title: '', field: 'action' }]} title={globalVariables.LABEL_SELLING_ORDERS_PENDING[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
-                            <CustomMaterialTable data={this.state.processingProducts} columns={columns} title={globalVariables.LABEL_SELLING_ORDERS_SHIPPING[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
-                            <CustomMaterialTable data={this.state.completedProducts} columns={columns} title={globalVariables.LABEL_SELLING_ORDERS_DONE[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
+                            
+                            <div className={classes.optionMenusSection}>
+                                <SelectMenu
+                                    name="sort"
+                                    onChange={this.handleFilterChange('orderStatus')}
+                                    value={this.state.orderStatus}
+                                    values={orderStatusData}
+                                    sideLabel={"حالة الاوردر"}
+                                    version={2}
+                                />
+                            </div>
+                            <CustomMaterialTable data={notPendingProds} columns={columns} title={globalVariables.LABEL_SELLING_ORDERS_NOT_PENDING[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
+                           
                         </React.Fragment>
                     }
                 </Grid>

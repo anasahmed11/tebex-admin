@@ -7,4 +7,9 @@ export default theme => ({
         fontWeight:'500',
         marginBottom: theme.spacing(4),
     }, 
+    optionMenusSection: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'flex-end',
+  },
 });

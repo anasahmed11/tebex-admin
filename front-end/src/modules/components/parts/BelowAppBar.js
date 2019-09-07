@@ -109,12 +109,12 @@ class BelowAppBar extends Component {
     render () {
         const { classes } = this.props;
         const { isLoading, categories } = this.state;
-
+        console.log(this.state.categories)
         return <Grid container justify='center' className={classes.root}>
                 <Grid container item spacing={1} xs={10}>
                     {isLoading? <Loading /> : categories.map(cat => <Grid key={uuid()} className={classes.item}>
                         <Typography>
-                            <Link className={classes.navLink} to={`shop/${cat.slug}`} >
+                            <Link className={classes.navLink} to={`/shop/${cat.slug}`} >
                                 {cat.name}
                             </Link>
                         </Typography>

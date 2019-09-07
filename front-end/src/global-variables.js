@@ -701,6 +701,10 @@ const globalVariables = {
         en: 'Pending Orders',
         ar: 'الاوردرات المعلقة',
     },
+    LABEL_SELLING_ORDERS_NOT_PENDING: {
+        en: 'Rest Orders',
+        ar: 'بقية الاوردرات'
+    },
     LABEL_SELLING_ORDERS_SHIPPING: {
         en: 'Shipping Orders',
         ar: 'الاودرات في الشحن',
@@ -1067,5 +1071,27 @@ export const footerSections = [
         ]
     },
 ]
-
+export const FOLLOW_US = [
+    {
+        title: '',
+        icon: 'twitter',
+        link: 'https://twitter.com',
+    },
+    {
+        title: '',
+        icon: 'youtube',
+        link: 'https://youtube.com',
+    },
+    {
+        title: '',
+        icon: 'linkedin',
+        link: 'https://linkedin.com',
+    },
+    {
+        title: '',
+        icon: 'facebook',
+        link: 'https://facebook.com',
+    },    
+]
+export const logo = '/logo-ar.png';
 export default globalVariables;
