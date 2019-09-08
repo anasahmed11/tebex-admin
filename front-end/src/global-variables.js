@@ -693,6 +693,14 @@ const globalVariables = {
         en: 'Edit',
         ar: 'تعديل'
     },
+    LABEL_JOIN_NOW: {
+        en: 'Join Now',
+        ar: 'انضم الآن'
+    },
+    LABEL_CHECK_ACCOUNT: {
+        en: 'Check Your Account',
+        ar: 'تفحص حسابك'
+    },
 
 
 
@@ -951,6 +959,118 @@ const globalVariables = {
         ar: 'نحن نعمل على اصلاح المشكلة, اعد المحاولة لاحقا وقم بتحميل الصفحة من جديد'
     },
 
+    HOME_AFFILIATE_TITLE: {
+        en: 'Work With Us',
+        ar: 'اشتغل معانا',
+    },
+    HOME_AFFILIATE: [
+        {
+            title: {
+                en: 'Special Commission Program',
+                ar: 'برنامج عمولات مميز'
+            },
+            description: {
+                en: '',
+                ar: 'مع وجود برنامج مميز للعمولات احصل على عمولات تصل الى 40% على المنتجات التي يتم تسويقها عن طريقك.'
+            },
+            icon: { set: 'fas', name: 'heart' }
+        },
+        {
+            title: {
+                en: 'Build Your Team',
+                ar: 'كون فريقك'
+                
+            },
+            description: {
+                en: '',
+                ar: 'كون فريقك من المسوقين واحصل على عمولات تصل الى 30% من مبيعات فريقك.'
+            },
+            icon: { 
+                set: 'fas', 
+                name: 'calendar-check' 
+            }
+        },
+        {
+            title: {
+                en: 'Training Program',
+                ar: 'برنامج التدريب'
+               
+            },
+            description: {
+                en: '',
+                ar: 'نوفر لك العديد من التدريبات ال Online  وال Offline  على يد خبراء في مجال التسويق بالعمولة والتسويق الالكتروني واللي هتساعدك في زيادة حجم ارباحك الشهرية ل 3 اضعاف على الاقل.'
+            },
+            icon: { 
+                set: 'fas',
+                name: 'layer-group' 
+            }
+        },
+        {
+            title: {
+                en: 'Free Registeration',
+                ar: 'سجل مجانا'
+            },
+            description: {
+                en: '',
+                ar: 'الاشتراك مجاني وبدون اي رسوم او شروط خاصة فقط عن طريق التسجيل.'
+            },
+            icon: { 
+                set: 'fas',
+                name: 'layer-group' 
+            }
+        },
+    ],
+
+
+    HOME_SELLER_TITLE: {
+        en: 'TBEx for Sellers',
+        ar: 'TBEx للتجار',
+    },
+    HOME_SELLER: [
+        {
+            title: {
+                en: '',
+                ar: ''
+            },
+            description: {
+                en: '',
+                ar: 'ضاعف حجم مبيعاتك واحصل على اكثر من 1000 طلب شهريا بمجرد عرض منتجاتك على الموقع.'
+            },
+            icon: { set: 'fas', name: 'heart' }
+        },
+        {
+            title: {
+                en: '',
+                ar: ''
+                
+            },
+            description: {
+                en: '',
+                ar: 'تسليم فوري لمستحقاتك المالية بمجرد وصول الطلب الى العميل.'
+            },
+            icon: { 
+                set: 'fas', 
+                name: 'calendar-check' 
+            }
+        },
+        {
+            title: {
+                en: '',
+                ar: ''
+               
+            },
+            description: {
+                en: '',
+                ar: 'انشئ صفحة خاصة بعلامتك التجارية على الموقع مجانا وبدون اي رسوم فقط مقابل عمولة يتم تحديدها عن طريك.'
+            },
+            icon: { 
+                set: 'fas',
+                name: 'layer-group' 
+            }
+        },
+       
+    ],
+
 
 }
 
@@ -976,27 +1096,27 @@ export const upperLinks = [
     {
         title: globalVariables.UPPERBAR_LANGUAGE[globalVariables.LANG],
         onClick: handleLanguageToggle,
-        icon: <Language /> 
+        icon: <Language />
     },
     {
         title: globalVariables.UPPERBAR_US[globalVariables.LANG],
         link: '/',
-        icon: <Inbox /> 
+        icon: <Inbox />
     },
     {
         title: globalVariables.UPPERBAR_Q[globalVariables.LANG],
         link: '/',
-        icon: <QuestionAnswer /> 
+        icon: <QuestionAnswer />
     },
     {
         title: globalVariables.UPPERBAR_MAGAZINE[globalVariables.LANG],
         link: '/',
-        icon: <Book /> 
+        icon: <Book />
     },
     {
         title: globalVariables.UPPERBAR_CALL_US[globalVariables.LANG],
         link: '/',
-        icon: <Call /> 
+        icon: <Call />
     },
 ];
 
@@ -1006,66 +1126,66 @@ export const bottomLinks = [
         title: globalVariables.APPBAR_SHOP[globalVariables.LANG],
         link: '/shop',
         icon: <Shop />
-    },    
+    },
     {
         title: globalVariables.CART_TITLE[globalVariables.LANG],
         link: '/cart',
         icon: <CartIcon iconOnly />
-    },    
+    },
 ];
 
 export const footerSections = [
     {
-        title: {en: 'ABOUT UYC', ar: 'عن UYC'},
+        title: { en: 'ABOUT UYC', ar: 'عن UYC' },
         links: [
             {
-                title: {en: 'Who We Are?', ar: 'من نحن؟'},
+                title: { en: 'Who We Are?', ar: 'من نحن؟' },
                 link: '/about'
             },
             {
-                title: {en: 'Our Goals', ar: 'اهدافنا'},
+                title: { en: 'Our Goals', ar: 'اهدافنا' },
                 link: '/goals'
             },
             {
-                title: {en: 'FAQ', ar: 'اسألة شائعة'},
+                title: { en: 'FAQ', ar: 'اسألة شائعة' },
                 link: '/faq'
             },
             {
-                title: {en: 'Contact Us', ar: 'تواصل معنا'},
+                title: { en: 'Contact Us', ar: 'تواصل معنا' },
                 link: '/contact-us'
             }
         ]
     },
     {
-        title: {en: 'WORK WITH US', ar: 'إعمل معنا'},
+        title: { en: 'WORK WITH US', ar: 'إعمل معنا' },
         links: [
             {
-                title: {en: 'Sell Your Products', ar: 'بيع منتجاتك'},
+                title: { en: 'Sell Your Products', ar: 'بيع منتجاتك' },
                 link: '/sell'
             },
             {
-                title: {en: 'Affiliate Program', ar: 'التسويق بالعمولة'},
+                title: { en: 'Affiliate Program', ar: 'التسويق بالعمولة' },
                 link: '/affiliate'
             },
             {
-                title: {en: 'Advertising', ar: 'الإعلانات'},
+                title: { en: 'Advertising', ar: 'الإعلانات' },
                 link: '/advertising'
             },
         ]
     },
     {
-        title: {en: 'OUR POLICY', ar: 'سياسات الشركة'},
+        title: { en: 'OUR POLICY', ar: 'سياسات الشركة' },
         links: [
             {
-                title: {en: 'Privacy Policy', ar: 'سياسة الخصوصية'},
+                title: { en: 'Privacy Policy', ar: 'سياسة الخصوصية' },
                 link: '/privacy-policy'
             },
             {
-                title: {en: 'Terms and Conditions', ar: 'الشروط والأحكام'},
+                title: { en: 'Terms and Conditions', ar: 'الشروط والأحكام' },
                 link: '/terms-and-conditions'
             },
             {
-                title: {en: 'Return Policy', ar: 'سياسة الإسترجاع'},
+                title: { en: 'Return Policy', ar: 'سياسة الإسترجاع' },
                 link: '/return-policy'
             },
         ]
@@ -1091,7 +1211,7 @@ export const FOLLOW_US = [
         title: '',
         icon: 'facebook',
         link: 'https://facebook.com',
-    },    
+    },
 ]
 export const logo = '/logo-ar.png';
 export default globalVariables;

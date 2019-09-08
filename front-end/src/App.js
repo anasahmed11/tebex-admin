@@ -73,7 +73,7 @@ class App extends React.Component {
   componentDidMount = () => {
     document.body.dir = this.state.direction;
     document.body.style.backgroundColor = 'white';
-    
+
     this.setState({ isLoading: false })
     this.props.handleInitCart()
     this.props.handleInitUser()
@@ -84,11 +84,12 @@ class App extends React.Component {
     document.body.dir = null;
   }
 
-  
+
   render() {
     const { isLoading, } = this.state;
-
+    
     const authenticated = cookies.get(globalVariables.ACCESS_TOKEN) !== undefined
+
     const affiliate = this.props.program.affiliate === "Approved"
     const seller = this.props.program.seller === "Approved"
     return (
@@ -103,13 +104,12 @@ class App extends React.Component {
           <RTL>
 
             <ThemeProvider theme={theme}>
-              
+
               <Navbar />
               <NetworkError error={this.props.netwrokError}>
                 <Switch>
                   <Route exact path='/checkout' component={withRouter(Checkout)} />
 
-                  <Route exact path='/home' component={withRouter(Home)} />
                   <Route exact path='/product/:id+' component={withRouter(Product)} />
                   <Route exact path='/shop' component={withRouter(Shop)} />
                   <Route exact path='/shop/:slug+' component={withRouter(Shop)} />
@@ -117,7 +117,7 @@ class App extends React.Component {
                   <Route exact path='/verify/:id' component={withRouter(Verify)} />
                   <Route exact path='/cart' component={withRouter(Cart)} />
                   <Route exact path="/(profile|orders)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/auth' />} />
-                  <Route exact path='/' component={withRouter(Home)} />
+                  <Route exact path='/(/|Home)/' render={() => <Home affiliate={affiliate} seller={seller} authenticated={authenticated} />} />
                   <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
 
                   <Route exact path='/(about|privacy-policy|contact)' component={Info} />

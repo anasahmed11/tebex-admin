@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import globalVariables from '../../global-variables';
 
 import Carousel from '../components/parts/Carousel';
@@ -8,9 +8,6 @@ import CompanyInfo from '../components/wrappers/CompanyInfo';
 import AboveFooter from '../components/wrappers/AboveFooter';
 import { Helmet } from "react-helmet";
 
-// import ShopStores from '../components/wrappers/ShopBranches';
-// import LinksMenu from '../components/wrappers/LinksMenu';
-// import TopCustomer from '../components/wrappers/HonorBoard';
 
 import 'typeface-roboto';
 
@@ -36,26 +33,21 @@ const companyInfo = [
 ]
 
 
-class Home extends Component {
+function Home(props) {
+  console.log(props.affiliate)
+  return (
+    <React.Fragment>
+      <Helmet>
+        <title>{globalVariables.PAGE_TITLE_HOME[globalVariables.LANG]}</title>
+      </Helmet>
+      <Carousel />
+      <BrandsSlider />
+      <ProductSlider />
+      <CompanyInfo info={globalVariables.HOME_AFFILIATE} authenticated join={!props.affiliate} link={props.affiliate?'/affiliate/dashboard':'/affiliate'} />
+      <AboveFooter info={globalVariables.HOME_SELLER} authenticated join={!props.seller} link={props.seller?'/seller/waiting-orders':'/seller'} />
+    </React.Fragment>
+  );
 
-  state = {
-
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <Helmet>
-          <title>{globalVariables.PAGE_TITLE_HOME[globalVariables.LANG]}</title>
-        </Helmet>
-        <Carousel />
-        <BrandsSlider />
-        <ProductSlider />
-        <CompanyInfo info={companyInfo} />
-        <AboveFooter info={companyInfo} />
-      </React.Fragment>
-    );
-  }
 }
 
 export default Home;

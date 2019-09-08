@@ -79,17 +79,19 @@ class ImageUploadAndPreview extends React.Component {
         return this.state.files
     }
 
-    handleChange = (event) => {
+    fileReader = (file) => {
         let reader = new FileReader();
-        let file = event.target.files[0];
         reader.onloadend = () => {
             this.setState({
                 files: [...this.state.files, file],
                 images: [...this.state.images, reader.result]
             });
-
         }
         reader.readAsDataURL(file)
+    }
+    handleChange = (event) => { 
+        for(let file of event.target.files)
+            this.fileReader(file)
         event.target.value = ""
     }
     componentDidMount() {
@@ -134,6 +136,7 @@ class ImageUploadAndPreview extends React.Component {
                         onChange={this.handleChange}
                         id="raised-button-file"
                         type="file"
+                        multiple
                     />
                     <label htmlFor="raised-button-file">
                         <Button variant="contained" color="primary" component="span" className={classes.button}>

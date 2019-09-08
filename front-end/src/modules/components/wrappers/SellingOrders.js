@@ -175,9 +175,9 @@ class SellingOrders extends React.Component {
         const { classes } = this.props;
         const { isLoading, isPopup, messageType, serverMessage } = this.state;
         let lng = globalVariables.LANG;
-        const notPendingProds = this.state.orderStatus==='all'? 
-            [...this.state.processingProducts, ...this.state.completedProducts ]:
-            [...this.state.processingProducts, ...this.state.completedProducts ].filter(prod=>prod.order.status===this.state.orderStatus)
+        const notPendingProds = this.state.orderStatus === 'all' ?
+            [...this.state.processingProducts, ...this.state.completedProducts] :
+            [...this.state.processingProducts, ...this.state.completedProducts].filter(prod => prod.order.status === this.state.orderStatus)
         return (
             <Grid container item justify='center' xs={11}>
 
@@ -214,9 +214,13 @@ class SellingOrders extends React.Component {
                                 loading={isLoading}
                             />
                         </Grid> : <React.Fragment>
-                            
-                            <CustomMaterialTable data={this.state.pendingProducts} columns={[...columns, { title: '', field: 'action' }]} title={globalVariables.LABEL_SELLING_ORDERS_PENDING[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
-                            
+
+                            <CustomMaterialTable
+                                data={this.state.pendingProducts}
+                                columns={[...columns, { title: '', field: 'action' }]}
+                                title={globalVariables.LABEL_SELLING_ORDERS_PENDING[lng]}
+                            />
+
                             <div className={classes.optionMenusSection}>
                                 <SelectMenu
                                     name="sort"
@@ -227,8 +231,13 @@ class SellingOrders extends React.Component {
                                     version={2}
                                 />
                             </div>
-                            <CustomMaterialTable data={notPendingProds} columns={columns} title={globalVariables.LABEL_SELLING_ORDERS_NOT_PENDING[lng]} /*onRowUpdatePromise={this.handleEdit} data={data} columns={columns}*/ />
-                           
+                            
+                            <CustomMaterialTable
+                                data={notPendingProds}
+                                columns={columns} t
+                                itle={globalVariables.LABEL_SELLING_ORDERS_NOT_PENDING[lng]}
+                            />
+
                         </React.Fragment>
                     }
                 </Grid>

@@ -4,6 +4,8 @@ export default theme => ({
     root: {
         textAlign:'center',
         background: COLORS.HOME.InfoSection.Background.primary,
+        paddingTop: theme.spacing(10),
+        paddingBottom: theme.spacing(10),
     },
     infoSection: {
         display: 'flex',
@@ -32,5 +34,9 @@ export default theme => ({
     },
     desc: {
         color: COLORS.HOME.InfoSection.Text.secondary,
-    }
+    },
+
+    button: {
+        margin: theme.spacing(1),
+      },
 });
