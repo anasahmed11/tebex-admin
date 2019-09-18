@@ -233,23 +233,23 @@ const globalVariables = {
     },
     FORM_SELLER_LABEL_STORE_ADDRESS: {
         en: 'Store Address',
-        ar: 'عنوان المتجر',
+        ar: 'عنوان المخزن',
     },
     FORM_SELLER_LABEL_STORE_SLUG: {
         en: 'SLUG',
         ar: 'سلاج',
     },
     FORM_SELLER_LABEL_STORE_EMAIL: {
-        en: 'Store Email',
-        ar: 'ايميل المتجر',
+        en: 'Email',
+        ar: 'البريد الالكتروني',
     },
     // FORM_SELLER_LABEL_PICKUP_ADDRESS:{
     //         en:'Pickup Address',
     //         ar:'موقع الشحن',
     //     },
     FORM_SELLER_LABEL_PICKUP_PHONE: {
-        en: 'Store Phone',
-        ar: 'رقم المتجر',
+        en: 'Phone Number',
+        ar: 'رقم الهاتف',
     },
     // User Dashboard
     DASHBOARD_CLICKS: {
@@ -435,9 +435,22 @@ const globalVariables = {
         ar: 'الفئة والمواصفات'
     },
     PRODUCT_DESCRIPTION: {
-        en: '',
-        ar: ''
+        en: 'General Description',
+        ar: 'الوصف العام'
     },
+    PRODUCT_NAME_DESC:{
+        en: 'Will be used as a slug of the product in url. try to make the name expressive about the product',
+        ar: 'سيتم استخدام الاسم كسلاج للمنتج في اللنك. حاول ان تجعل اسم المنتج معبرا عنه'
+    },
+    PRODUCT_COMMISSION_DESC: {
+        en: 'Percentage of commission the affiliate will receive',
+        ar: 'نسبة العمولة التي سيحصل عليها المسوق.'
+    },
+    PRODUCT_SKU_DESC: {
+        en: 'Same SKU is used for similar products that has differ in color, ram for example. use same SKU if you want to navigate to similars in product privew page.',
+        ar: 'يتم استخدام نفس الـsku للمنتجات التي ستيم دمجها كمنتج واحد في صفحة عرض المنتج وهذا يوفر ايضا الوصول لنفس المنتج بخصائصه المختلفة. حيث ان هذه المنتجات تختلف فقط في بعض الخصائص مثل اللون او ذاكرة التخزين على سبيل المثال.'
+    },
+    
 
 
     // Checkout
@@ -564,9 +577,17 @@ const globalVariables = {
         en: 'EGP',
         ar: 'جنيه'
     },
+    LABEL_COMMISSION: {
+        en: 'Commision',
+        ar: 'العمولة'
+    },
     LABEL_PRICE: {
         en: 'Price',
         ar: 'السعر'
+    },
+    LABEL_SALE_PRICE: {
+        en: 'Sale price',
+        ar: 'سعر مخفض'
     },
     LABEL_FREE: {
         en: 'FREE',

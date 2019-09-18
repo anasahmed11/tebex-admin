@@ -20,7 +20,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->only('show', 'delete', 'add', 'update');
+        $this->middleware('auth:api')->only('show', 'delete', 'add', 'update', 'toggle');
     }
 
     public function show()
@@ -33,19 +33,20 @@ class ProductController extends Controller
 
     public function product(Product $product)
     {
-        if ($product == null || $product->status == "pending") return response()->json(["error" => "product not found"], 400);
+        if ($product == null || $product->status == "pending" || $product->active == 0)
+            return response()->json(["error" => "product not found"], 400);
         return response()->json($product, 200);
     }
     public function specs(Product $product)
     {
         if ($product == null)
             return response()->json(["error" => "product not found"], 400);
-        return response()->json($product->Specs()->get(['product_id','spec_id','id', 'value','name','name_en']), 200);
+        return response()->json($product->Specs()->get(['product_id', 'spec_id', 'id', 'value', 'name', 'name_en']), 200);
     }
     public function sku($product, $sku)
     {
         return response()->json(Product::where('sku', $sku)->get()->map(function ($e) {
-            return ['id' => $e->id, 'specs' => $e->Specs()->get(['product_id','spec_id','id', 'value','name','name_en'])];
+            return ['id' => $e->id, 'specs' => $e->Specs()->get(['product_id', 'spec_id', 'id', 'value', 'name', 'name_en'])];
         }));
     }
 
@@ -70,7 +71,7 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        $products = Product::search($request->input('q'))->where('status','approved')->paginate(10);
+        $products = Product::search($request->input('q'))->where('status', 'approved')->where('active', 1)->paginate(10);
         return response()->json($products);
     }
     public function add(ProductRequest $product)

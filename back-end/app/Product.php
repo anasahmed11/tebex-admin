@@ -50,6 +50,7 @@ class Product extends Model
         'description_en'=>'json'
     ];
 
+    protected $appends = ['comm_percent'];
 
     public function getCommissionAttribute(){
         $price=$this->sale_price?? $this->price;

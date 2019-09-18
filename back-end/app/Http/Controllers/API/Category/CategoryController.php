@@ -80,7 +80,7 @@ class CategoryController extends Controller
         };
 
         $cats=array_map($func,$cats->toArray());
-        $products=Product::whereIn('category_id',$cats);
+        $products=Product::where('active',1)->whereIn('category_id',$cats);
 
         if ($filters->isMethod('post')) {
             $setting = $filters->only('settings')['settings'];

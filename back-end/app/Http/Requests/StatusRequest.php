@@ -24,7 +24,8 @@ class StatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|in:approved,refused'
+            'status' => 'required|in:approved,refused',
+            'status_message' => 'required|string',
         ];
     }
 }

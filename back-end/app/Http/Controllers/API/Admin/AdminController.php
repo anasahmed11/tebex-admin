@@ -98,6 +98,7 @@ class AdminController extends Controller
         if ($product == null) return response()->json(['message' => 'Product id not found'], 400);
 
         $product->status = $request->input('status');
+        $product->status_message = $request->input('status_message');
         $product->save();
         return response()->json(['message' => 'ok'], 200);
     }

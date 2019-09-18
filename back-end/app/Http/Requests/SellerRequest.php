@@ -33,9 +33,9 @@ class SellerRequest extends FormRequest
             'address'=>'required|string',
             'phone'=>'required|string',
             'email'=>'string',
-            'slug'=>'required|string|unique:stores',
-            'method'=>'required|enum_key:'. Methods::class,
-            'account'=>'required|json',
+            // 'slug'=>'required|string|unique:stores',
+            // 'method'=>'required|enum_key:'. Methods::class,
+            // 'account'=>'required|json',
 
         ];
     }

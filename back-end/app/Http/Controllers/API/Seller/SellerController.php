@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SellerActionRequest;
 use App\Order;
 use App\OrderProduct;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -17,11 +18,12 @@ class SellerController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function pendingOrders(){
-        $store = Auth::user()->Store()->where('status','approved')->first(['id']);
-        if($store==null) return response()->json(['message'=>'You aren\'t registered in seller program!'], 403);
+    public function pendingOrders()
+    {
+        $store = Auth::user()->Store()->where('status', 'approved')->first(['id']);
+        if ($store == null) return response()->json(['message' => 'You aren\'t registered in seller program!'], 403);
 
-        $orderProds = OrderProduct::query()->where('status','pending')->get();
+        $orderProds = OrderProduct::query()->where('status', 'pending')->get();
 
         $pedningProds = $orderProds->filter(function ($orderProd) use ($store) {
             return $orderProd->product->store->id == $store->id;
@@ -42,95 +44,122 @@ class SellerController extends Controller
 
         // return response()->json($o,200);
     }
-    public function pendingProductAction(SellerActionRequest $request){
+    public function pendingProductAction(SellerActionRequest $request)
+    {
         DB::beginTransaction();
-        try{
+        try {
 
             $orderProd = OrderProduct::query()->where([
-                ['product_id','=',$request->input('product_id')],
-                ['order_id','=',$request->input('order_id')],
-                ['status','=','pending']
+                ['product_id', '=', $request->input('product_id')],
+                ['order_id', '=', $request->input('order_id')],
+                ['status', '=', 'pending']
             ])->first();
 
-            if($orderProd==null) return response()->json(['message'=>'Invalid Data'], 403);
+            if ($orderProd == null) return response()->json(['message' => 'Invalid Data'], 403);
 
+            $store = Auth::user()->Store()->where('status', 'approved')->first();
+            if ($store == null) return response()->json(['message' => 'You aren\'t registered in seller program!'], 403);
 
-            $store = Auth::user()->Store()->where('status','approved')->first();
-            if($store==null) return response()->json(['message'=>'You aren\'t registered in seller program!'], 403);
-
-            if($orderProd->product->store->id != $store->id) return response()->json(['message'=>'The product is not belong to your store'], 403);
-
+            if ($orderProd->product->store->id != $store->id) return response()->json(['message' => 'The product is not belong to your store'], 403);
 
             $orderProd->status = $request->input('status');
             $orderProd->save();
             $message = '';
-            if($orderProd->order->status=='pending'){
-                if($orderProd->status=='confirmed'){
+            if ($orderProd->order->status == 'pending') {
+                if ($orderProd->status == 'confirmed') {
                     $pendingOrdersCnt = OrderProduct::query()->where([
-                        ['order_id','=',$request->input('order_id')],
-                        ['status','=','pending']
+                        ['order_id', '=', $request->input('order_id')],
+                        ['status', '=', 'pending']
                     ])->count();
 
-                    if($pendingOrdersCnt==0){
+                    if ($pendingOrdersCnt == 0) {
                         $order = Order::find($request->input('order_id'));
                         $order->status = 'active';
                         $order->save();
                         $message = 'Order of the product is confirmed and order is active now';
-
                     } else $message = 'Order of the product is confirmed successfully and waiting for other sellers confirmation';
-
-                }
-                else{
+                } else {
                     $order = Order::find($request->input('order_id'));
                     $order->status = 'canceled';
-                    $order->status_message = 'Store: '.$store->name_en.' has refused the order, try to buy from another store.';
+                    $order->status_message = 'Store: ' . $store->name_en . ' has refused the order, try to buy from another store.';
                     $order->save();
                     $message = 'Order of the product is refused';
                 }
-            }
-            else $message = 'Order is already canceled due to a refuse by another seller';
+            } else $message = 'Order is already canceled due to a refuse by another seller';
 
             DB::commit();
-            return response()->json(['message'=>$message],200);
-
-        }catch (\Exception $exception){
+            return response()->json(['message' => $message], 200);
+        } catch (\Exception $exception) {
             DB::rollback();
-            return response()->json(["message"=>'Error occured, try again later or contact with support'],400);
+            return response()->json(["message" => 'Error occured, try again later or contact with support'], 400);
         }
-
-
     }
 
 
 
-    public function processingOrders(){
+    public function processingOrders()
+    {
 
 
-        $store = Auth::user()->Store()->where('status','approved')->first(['id']);
-        if($store==null) return response()->json(['message'=>'You aren\'t registered in seller program!'], 403);
+        $store = Auth::user()->Store()->where('status', 'approved')->first(['id']);
+        if ($store == null) return response()->json(['message' => 'You aren\'t registered in seller program!'], 403);
 
-        $orderProds = OrderProduct::query()->where('status','!=','pending')->get();
+        $orderProds = OrderProduct::query()->where('status', '!=', 'pending')->get();
 
         $processingProds = $orderProds->filter(function ($orderProd) use ($store) {
-            return $orderProd->product->store->id == $store->id && in_array($orderProd->order->status, ['active','shipped','delivered']);
+            return $orderProd->product->store->id == $store->id && in_array($orderProd->order->status, ['active', 'shipped', 'delivered']);
         })->values();
 
         return response()->json($processingProds, 200);
-
     }
 
-    public function completedOrders(){
+    public function completedOrders()
+    {
 
-        $store = Auth::user()->Store()->where('status','approved')->first(['id']);
-        if($store==null) return response()->json(['message'=>'You aren\'t registered in seller program!'], 403);
+        $store = Auth::user()->Store()->where('status', 'approved')->first(['id']);
+        if ($store == null) return response()->json(['message' => 'You aren\'t registered in seller program!'], 403);
 
-        $orderProds = OrderProduct::query()->where('status','!=','pending')->get();
+        $orderProds = OrderProduct::query()->where('status', '!=', 'pending')->get();
 
         $processingProds = $orderProds->filter(function ($orderProd) use ($store) {
-            return $orderProd->product->store->id == $store->id && in_array($orderProd->order->status, ['canceled','returned']);
+            return $orderProd->product->store->id == $store->id && in_array($orderProd->order->status, ['canceled', 'returned']);
         })->values();
 
         return response()->json($processingProds, 200);
+    }
 
+
+
+    public function toggle(Product $product)
+    {
+        if ($product == null)
+            return response()->json(["error" => "product not found"], 400);
+
+        $store = Auth::user()->Store()->where('status', 'approved')->first(['id']);
+        if ($store == null)
+            return response()->json(['message' => 'You aren\'t registered in seller program!'], 403);
+
+        if ($product->store_id != $store->id)
+            return response()->json(['message' => 'This product is not belong to your store!'], 403);
+
+        $product->active = !$product->active;
+        $product->save();
+
+        return response()->json(['message' => 'update successfully'], 204);
+    }
+
+    public function getProduct(Product $product)
+    {
+        if ($product == null)
+        return response()->json(["error" => "product not found"], 400);
+
+        $store = Auth::user()->Store()->where('status', 'approved')->first(['id']);
+        if ($store == null)
+            return response()->json(['message' => 'You aren\'t registered in seller program!'], 403);
+
+        if ($product->store_id != $store->id)
+            return response()->json(['message' => 'This product is not belong to your store!'], 403);
+
+        return response()->json($product, 200);
     }
 }

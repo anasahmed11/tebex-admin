@@ -36,7 +36,7 @@ Route::get('honored', 'API\HonorController@index');
 
 Route::prefix('category')->group(function () {
     Route::get('/', 'API\Category\CategoryController@index');
-    Route::match(['get','post'],'/{category}/products', 'API\Category\CategoryController@products');
+    Route::match(['get', 'post'], '/{category}/products', 'API\Category\CategoryController@products');
     Route::get('/{category}/products/count', 'API\Category\CategoryController@productsCount');
     Route::get('/{category}/specs', 'API\Category\CategoryController@specs');
     Route::get('/{category}/specs/count', 'API\Category\CategoryController@specsCount');
@@ -53,9 +53,6 @@ Route::prefix('user')->group(function () {
 
     Route::post('/program/seller', 'API\User\ProgramController@Stores');
     Route::post('/program/affiliate', 'API\User\ProgramController@Affiliates');
-
-
-
 });
 Route::prefix('address')->group(function () {
     Route::get('/', 'API\Address\AddressController@show');
@@ -81,6 +78,9 @@ Route::prefix('product')->group(function () {
     Route::post('/search', 'API\Product\ProductController@search');
     Route::get('{product}/specs', 'API\Product\ProductController@specs');
     Route::get('{product}/{sku}/sku', 'API\Product\ProductController@sku');
+
+    Route::post('/seller/active-toggle/{product}', 'API\Seller\SellerController@toggle');
+    Route::get('/seller/{product}', 'API\Seller\SellerController@getProduct');
 });
 Route::prefix('cart')->middleware('auth:api')->group(function () {
     Route::get('/', 'API\Cart\CartController@show');
@@ -91,7 +91,6 @@ Route::prefix('cart')->middleware('auth:api')->group(function () {
 
 Route::prefix('specs')->middleware('auth:api')->group(function () {
     Route::post('/{spec}', 'API\Spec\SpecController@addSpec');
-
 });
 
 Route::prefix('orders')->group(function () {
@@ -130,7 +129,6 @@ Route::prefix('admin')->group(function () {
     Route::delete('/shipping/{shipping}', 'API\Admin\AdminController@deleteShipping');
 
     Route::get('/cities/{country}', 'API\Admin\AdminController@getCities');
-
 });
 
 Route::prefix('checkout')->group(function () {
@@ -139,5 +137,4 @@ Route::prefix('checkout')->group(function () {
 
 Route::prefix('affiliate')->group(function () {
     Route::get('/earning', 'API\Affiliate\AffiliateController@affiliateEarning');
-
 });

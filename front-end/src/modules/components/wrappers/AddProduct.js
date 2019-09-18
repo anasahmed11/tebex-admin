@@ -16,6 +16,7 @@ import { productsAPI } from '../../../api/api';
 import styles from '../../../assets/jss/components/wrappers/AddProduct';
 import RichEditor from '../parts/RichText';
 import MyClipLoader from '../parts/MyClipLoader';
+import globalVariables from '../../../global-variables';
 
 let getChildData;
 let getImageChildData;
@@ -124,30 +125,30 @@ const AddProduct1 = props => {
     
     const component = [
         {
-            title: 'Main Information',
+            title: globalVariables.PRODUCT_MAIN_INFO[globalVariables.LANG],
             component: <MainProductInfoForm errors={errors} register={register} />
         },
         {
-            title: 'Images',
+            title: globalVariables.PRODUCT_IMAGES[globalVariables.LANG],
             component: <ImageUploadAndPreview images={props.defaultValues.images} setChildCallback={setImageChildCallback} />
         },
         {
-            title: 'Category and Specs',
+            title: globalVariables.PRODUCT_CATEGORIES[globalVariables.LANG],
             component: <CategoryForm edit={props.edit}  defaultValues={props.defaultValues} setChildCallback={setChildCallback} />
         },
         {
-            title: 'General Description',
+            title: globalVariables.PRODUCT_DESCRIPTION[globalVariables.LANG],
             //component: <GeneralDescrptionForm errors={errors} register={register} />
             component:
             [
                 <div key={1} style={{marginBottom:'20px'}}>
-                    <label htmlFor="description">Descrption (ar)</label>
+                    <label htmlFor="description">الوصف(بالعربي)</label>
                     <RichEditor 
                         intial={props.defaultValues.description} 
                         setChildCallback={setDescriptionChildCallback1} 
                     />  
                 </div>, 
-                <div key={2}>
+                <div key={2} style={{direction:'ltr'}}>
                     <label htmlFor="description">Descrption (en)</label>
                     <RichEditor
                         intial={props.defaultValues.description_en} 
@@ -214,7 +215,7 @@ class Wrapper extends React.Component {
     componentDidMount() {
         const productID = this.props.match.params.id;
         if (productID) {
-            productsAPI.get(productID)
+            productsAPI.get(`seller/${productID}`)
                 .then(res => {
                     this.setState({ data: res.data, isLoading: false })
                 })
