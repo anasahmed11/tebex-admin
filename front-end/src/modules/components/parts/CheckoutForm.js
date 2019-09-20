@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import { locationAPI } from '../../../api/api';
+import { locationAPI, governorateAPI } from '../../../api/api';
 
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
@@ -26,12 +26,15 @@ class CheckoutForm extends React.Component {
         phone: '',
         email: '',
         notes: '',
-        COUNTRIES: [],
-        country: '',
-        CITIES: [],
+        // COUNTRIES: [],
+        // country: '',
+        // CITIES: [],
+        // city: '',
+        // AREAS: [],
+        // area: '',
+        GOVERNORATE: [],
+        governorate: '',
         city: '',
-        AREAS: [],
-        area: '',
     }
 
     pendingPromises = [];
@@ -46,18 +49,30 @@ class CheckoutForm extends React.Component {
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
 
-    getCountries = (defaultCountry = '') => {
-        const wrappedPromise = cancelablePromise(locationAPI.get('countries/'));
+    // getCountries = (defaultCountry = '') => {
+    //     const wrappedPromise = cancelablePromise(locationAPI.get('countries/'));
+    //     this.appendPendingPromise(wrappedPromise);
+    //     wrappedPromise
+    //         .promise
+    //         .then(res => { this.setState({ COUNTRIES: res.data, country: defaultCountry }) })
+    //         .then(() => this.removePendingPromise(wrappedPromise))
+    //         .catch(res => { })
+    // }
+
+    getGovernorate = () => {
+        const wrappedPromise = cancelablePromise(governorateAPI.get('/'));
         this.appendPendingPromise(wrappedPromise);
         wrappedPromise
             .promise
-            .then(res => { this.setState({ COUNTRIES: res.data, country: defaultCountry }) })
+            .then(res => { this.setState({ GOVERNORATE: res.data }) })
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(res => { })
+
     }
     componentDidMount() {
-        this.getCountries(1)
-        this.getCities(1)
+        this.getGovernorate()
+        // this.getCountries(1)
+        // this.getCities(1)
     }
     onComponentUpdate = () => {
         if (this.props.edit) {
@@ -100,13 +115,13 @@ class CheckoutForm extends React.Component {
 
     handleCreateAddress(callbackFn) {
         let data = { ...this.state }
-        delete data.CITIES
-        delete data.AREAS
-        delete data.COUNTRIES
-        if (data.area === '') delete data.area
+        data.governorate_id = data.governorate
+        delete data.GOVERNORATE
+        delete data.governorate
+        
 
         if (!this.verifyData()) {
-            console.log("required field")
+            console.log("required field", data)
             return
         }
         const wrappedPromise = cancelablePromise(locationAPI.post('/', data));
@@ -120,12 +135,14 @@ class CheckoutForm extends React.Component {
     }
 
     verifyData = () => {
-        return (this.state.first_name &&
+        return (
+            this.state.first_name &&
             this.state.last_name &&
             this.state.address &&
+            this.state.city &&
+            this.state.governorate &&
             this.state.phone &&
-            this.state.email &&
-            this.state.notes
+            this.state.email
         )
     }
 
@@ -133,46 +150,46 @@ class CheckoutForm extends React.Component {
         this.setState({ [prop]: event.target.value });
     };
 
-    getCities = (country, defaultCity = '') => {
-        const wrappedPromise = cancelablePromise(locationAPI.get('cities/' + country));
-        this.appendPendingPromise(wrappedPromise);
+    // getCities = (country, defaultCity = '') => {
+    //     const wrappedPromise = cancelablePromise(locationAPI.get('cities/' + country));
+    //     this.appendPendingPromise(wrappedPromise);
 
-        wrappedPromise
-            .promise
-            .then(res => { this.setState({ CITIES: res.data, city: defaultCity }) })
-            .then(() => this.removePendingPromise(wrappedPromise))
-            .catch(res => { })
-    }
+    //     wrappedPromise
+    //         .promise
+    //         .then(res => { this.setState({ CITIES: res.data, city: defaultCity }) })
+    //         .then(() => this.removePendingPromise(wrappedPromise))
+    //         .catch(res => { })
+    // }
 
-    handleCountryChange = prop => event => {
-        this.setState({ [prop]: event.target.value }, () => this.getCities(event.target.value));
+    // handleCountryChange = prop => event => {
+    //     this.setState({ [prop]: event.target.value }, () => this.getCities(event.target.value));
 
 
-    }
+    // }
 
-    getAreas = (city, defaultArea = '') => {
-        const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + city));
-        this.appendPendingPromise(wrappedPromise);
+    // getAreas = (city, defaultArea = '') => {
+    //     const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + city));
+    //     this.appendPendingPromise(wrappedPromise);
 
-        wrappedPromise
-            .promise
-            .then(res => { this.setState({ AREAS: res.data, area: defaultArea }) })
-            .then(() => this.removePendingPromise(wrappedPromise))
-            .catch(res => { })
+    //     wrappedPromise
+    //         .promise
+    //         .then(res => { this.setState({ AREAS: res.data, area: defaultArea }) })
+    //         .then(() => this.removePendingPromise(wrappedPromise))
+    //         .catch(res => { })
 
-    }
-    handleCityChange = prop => event => {
-        this.setState({ [prop]: event.target.value }, () => this.getAreas(event.target.value));
+    // }
+    // handleCityChange = prop => event => {
+    //     this.setState({ [prop]: event.target.value }, () => this.getAreas(event.target.value));
 
-        /*const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + event.target.value));
-        this.appendPendingPromise(wrappedPromise);
+    //     /*const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + event.target.value));
+    //     this.appendPendingPromise(wrappedPromise);
 
-        wrappedPromise
-            .promise
-            .then(res => { this.setState({ AREAS: res.data, area: '' }) })
-            .then(() => this.removePendingPromise(wrappedPromise))
-            .catch(res => { })*/
-    }
+    //     wrappedPromise
+    //         .promise
+    //         .then(res => { this.setState({ AREAS: res.data, area: '' }) })
+    //         .then(() => this.removePendingPromise(wrappedPromise))
+    //         .catch(res => { })*/
+    // }
 
     render() {
         const { classes, } = this.props
@@ -229,7 +246,8 @@ class CheckoutForm extends React.Component {
                         </Grid>
 
 
-                        <Grid item xs={12}>
+                        {
+                        /*<Grid item xs={12}>
                             <TextField
                                 className={classes.margin}
                                 id="outlined-email-input"
@@ -267,8 +285,8 @@ class CheckoutForm extends React.Component {
                                         select
                                         label={globalVariables.FORM_ADDRESS_LABEL_CITY[globalVariables.LANG]}
                                         type="text"
-                                        /*error={this.state.emailError?true:false}
-                                        helperText={this.state.emailError}*/
+                                        // error={this.state.emailError?true:false}
+                                        // helperText={this.state.emailError}
                                         value={this.state.city}
                                         onChange={this.handleCityChange('city')}
                                         fullWidth
@@ -310,9 +328,50 @@ class CheckoutForm extends React.Component {
                                     </TextField>
                                 </Grid> : ''
                             }
-                        </ReactCSSTransitionGroup>
+                        </ReactCSSTransitionGroup>*/}
 
 
+
+                        <Grid item xs={12}>
+                            <TextField
+                                className={classes.margin}
+                                id="outlined-email-input"
+                                select
+                                label={globalVariables.FORM_ADDRESS_LABEL_COUNTRY[globalVariables.LANG]}
+                                type="text"
+
+                                value={this.state.governorate}
+                                onChange={this.handleChange('governorate')}
+                                fullWidth
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                required
+                            >
+                                {this.state.GOVERNORATE.map(option => (
+                                    <MenuItem key={uuid()} value={option.id}>
+                                        {option.governorate_name}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                                className={classes.margin}
+                                id="outlined-appartment-input"
+                                label={globalVariables.FORM_ADDRESS_LABEL_CITY[globalVariables.LANG]}
+                                type="text"
+
+                                value={this.state.city}
+                                onChange={this.handleChange('city')}
+                                fullWidth
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                required
+                            />
+                        </Grid>
 
                         <Grid item xs={12}>
                             <TextField

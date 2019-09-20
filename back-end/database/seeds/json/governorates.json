@@ -1,0 +1,137 @@
+[
+    {
+        "name_en": "Dakahlia",
+        "name_ar": "الدقهلية",
+        "iso_code": "DQH"
+    },
+    {
+        "name_en": "Red Sea",
+        "name_ar": "البحر الأحمر",
+        "iso_code": "BAH"
+    },
+    {
+        "name_en": "Beheira",
+        "name_ar": "البحيرة",
+        "iso_code": "BHR"
+    },
+    {
+        "name_en": "Fayoum",
+        "name_ar": "الفيوم",
+        "iso_code": "FYM"
+    },
+    {
+        "name_en": "Gharbia",
+        "name_ar": "الغربية",
+        "iso_code": "GHB"
+    },
+    {
+        "name_en": "Alexandria",
+        "name_ar": "الإسكندرية",
+        "iso_code": "ISK"
+    },
+    {
+        "name_en": "Ismaïlia",
+        "name_ar": "الإسماعيلية",
+        "iso_code": "ISM"
+    },
+    {
+        "name_en": "Giza",
+        "name_ar": "الجيزة",
+        "iso_code": "JIZ"
+    },
+    {
+        "name_en": "Monufia",
+        "name_ar": "المنوفية",
+        "iso_code": "MNF"
+    },
+    {
+        "name_en": "Al-Minyā",
+        "name_ar": "المنيا",
+        "iso_code": "MNY"
+    },
+    {
+        "name_en": "Cairo",
+        "name_ar": "القاهرة",
+        "iso_code": "QAH"
+    },
+    {
+        "name_en": "Qalyubia",
+        "name_ar": "القليوبية",
+        "iso_code": "QLY"
+    },
+    {
+        "name_en": "Luxor",
+        "name_ar": "الأقصر",
+        "iso_code": "UQS"
+    },
+    {
+        "name_en": "New Valley",
+        "name_ar": "الوادي الجديد",
+        "iso_code": "WJD"
+    },
+    {
+        "name_en": "Sharqia",
+        "name_ar": "الشرقية",
+        "iso_code": "SQY"
+    },
+    {
+        "name_en": "Suez",
+        "name_ar": "السويس",
+        "iso_code": "SWS"
+    },
+    {
+        "name_en": "Aswān",
+        "name_ar": "أسوان",
+        "iso_code": "ASW"
+    },
+    {
+        "name_en": "Asyūt",
+        "name_ar": "أسيوط",
+        "iso_code": "ASY"
+    },
+    {
+        "name_en": "Beni Suef",
+        "name_ar": "بنى سويف",
+        "iso_code": "BSW"
+    },
+    {
+        "name_en": "Port Said",
+        "name_ar": "بور سعيد",
+        "iso_code": "BSD"
+    },
+    {
+        "name_en": "Damietta",
+        "name_ar": "دمياط",
+        "iso_code": "DMY"
+    },
+    {
+        "name_en": "Kafr el-Sheikh",
+        "name_ar": "كفر الشيخ",
+        "iso_code": "KSH"
+    },
+    {
+        "name_en": "Matrouh",
+        "name_ar": "مطروخ",
+        "iso_code": "MTR"
+    },
+    {
+        "name_en": "Qena",
+        "name_ar": "قنا",
+        "iso_code": "QNA"
+    },
+    {
+        "name_en": "Sohag",
+        "name_ar": "سوهاج",
+        "iso_code": "SWJ"
+    },
+    {
+        "name_en": "South Sinai",
+        "name_ar": "جنوب سيناء",
+        "iso_code": "SJN"
+    },
+    {
+        "name_en": "North Sinai",
+        "name_ar": "شمال سيناء",
+        "iso_code": "SSH"
+    }
+]

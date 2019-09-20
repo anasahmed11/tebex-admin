@@ -162,14 +162,14 @@ class SettingsSection extends React.Component{
                                     <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_SELLING_ORDERS[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
-                                {/*<Link to="/seller/dashboard" className={classes.link}>
+                                <Link to="/seller/dashboard" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
                                             <FontAwesomeIcon className={classes.fontawesomeIcon} icon="clipboard-check" />
                                         </ListItemIcon>
                                     <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_SELLING_DASHBOARD[globalVariables.LANG]} /> 
                                     </MenuItem>
-                                </Link>*/}
+                                </Link>
                             </Collapse>:null
                         }
                         {!isSeller?

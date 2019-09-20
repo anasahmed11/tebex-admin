@@ -13,18 +13,18 @@ class CreateCitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cities', function (Blueprint $table) {
-            $table->increments('id');
-            $table->char('iso_code',3);
-            $table->string('city_name');
-            $table->string('city_name_en');
-            $table->integer('country_id')->unsigned();
-            $table->timestamps();
-        });
-        Schema::table('cities', function (Blueprint $table) {
+        // Schema::create('cities', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->char('iso_code',3);
+        //     $table->string('city_name');
+        //     $table->string('city_name_en');
+        //     $table->integer('country_id')->unsigned();
+        //     $table->timestamps();
+        // });
+        // Schema::table('cities', function (Blueprint $table) {
 
-            $table->foreign('country_id')->references('id')->on('countries');
-        });
+        //     $table->foreign('country_id')->references('id')->on('countries');
+        // });
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        // Schema::dropIfExists('cities');
     }
 }

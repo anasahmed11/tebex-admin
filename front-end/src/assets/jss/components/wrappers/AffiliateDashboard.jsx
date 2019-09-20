@@ -11,6 +11,11 @@ export default theme => ({
         flexWrap: 'wrap',
         justifyContent: 'space-between',
     },
+    paymentCards: {
+        
+        position: 'relative',
+        padding: `${theme.spacing(4)}px 0px`,   
+    },
     shit: {
         '& .ct-label': {
             color: 'blue',

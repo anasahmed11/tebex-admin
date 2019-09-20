@@ -91,4 +91,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasManyThrough(Product::class, Store::class);
     }
+    public function Payments(){
+        return $this->hasMany(PaymentAccount::class);
+    }
+    public function Withdraws(){
+        return $this->hasManyThrough(Withdraw::class, PaymentAccount::class);
+    }
 }

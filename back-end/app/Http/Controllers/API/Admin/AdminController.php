@@ -9,11 +9,13 @@ use App\Affiliate;
 use App\Country;
 use App\Http\Requests\ShipperRequest;
 use App\Http\Requests\ShippingRequest;
+use App\Http\Requests\withdrawStatusRequest;
 use App\Order;
 use App\Product;
 use App\Shipper;
 use App\Shipping;
 use App\Store;
+use App\Withdraw;
 use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends Controller
@@ -35,7 +37,7 @@ class AdminController extends Controller
     public function setSellersStatus(StatusRequest $request, $id)
     {
         $store = Store::find($id);
-        if ($store == null) return response()->json(['message' => 'Store id not found'], 400);
+        if ($store == null) return response()->json(['message' => 'Store id not found'], 404);
 
         $store->status = $request->input('status');
         $store->save();
@@ -55,7 +57,7 @@ class AdminController extends Controller
     public function setAffiliatesStatus(StatusRequest $request, $id)
     {
         $affiliate = Affiliate::find($id);
-        if ($affiliate == null) return response()->json(['message' => 'Affiliate id not found'], 400);
+        if ($affiliate == null) return response()->json(['message' => 'Affiliate id not found'], 404);
 
         $affiliate->status = $request->input('status');
         $affiliate->save();
@@ -74,7 +76,7 @@ class AdminController extends Controller
     public function setOrdersStatus(Request $request, $id)
     {
         $order = Order::find($id);
-        if ($order == null) return response()->json(['message' => 'Order id not found'], 400);
+        if ($order == null) return response()->json(['message' => 'Order id not found'], 404);
 
         $order->status = $request->input('status');
         $order->save();
@@ -95,7 +97,7 @@ class AdminController extends Controller
     public function setProductsStatus(StatusRequest $request, $id)
     {
         $product = Product::find($id);
-        if ($product == null) return response()->json(['message' => 'Product id not found'], 400);
+        if ($product == null) return response()->json(['message' => 'Product id not found'], 404);
 
         $product->status = $request->input('status');
         $product->status_message = $request->input('status_message');
@@ -113,7 +115,7 @@ class AdminController extends Controller
     public function editShipper(ShipperRequest $request, $id)
     {
         $shipper = Shipper::find($id);
-        if ($shipper == null) return response()->json(['message' => 'Shipper id not found'], 400);
+        if ($shipper == null) return response()->json(['message' => 'Shipper id not found'], 404);
         $shipper->update($request->all());
         $shipper->save();
         return response()->json(['message' => 'Data updated successfully', 'data' => $shipper], 201);
@@ -122,14 +124,14 @@ class AdminController extends Controller
     public function addShipper(ShipperRequest $request)
     {
         $shipper = new Shipper($request->all());
-        if ($shipper == null) return response()->json(['message' => 'Shipper id not found'], 400);
+        if ($shipper == null) return response()->json(['message' => 'Shipper id not found'], 404);
         $shipper->save();
         return response()->json(['message' => 'Data added successfully', 'data' => $shipper], 201);
     }
     public function deleteShipper($id)
     {
         $shipper = Shipper::find($id);
-        if ($shipper == null) return response()->json(['message' => 'Shipper id not found'], 400);
+        if ($shipper == null) return response()->json(['message' => 'Shipper id not found'], 404);
         $shipper->delete();
         return response()->json(null, 204);
     }
@@ -140,23 +142,23 @@ class AdminController extends Controller
     public function addShipping(ShippingRequest $request)
     {
         $shipping = new Shipping($request->all());
-        if ($shipping == null) return response()->json(['message' => 'Shipping id not found'], 400);
+        if ($shipping == null) return response()->json(['message' => 'Shipping id not found'], 404);
         $shipping->save();
         return response()->json(['message' => 'Data added successfully', 'data' => $shipping], 201);
     }
     public function getShipping()
     {
-        return response()->json(Shipping::with('Shipper', 'City')->get(), 200);
+        return response()->json(Shipping::with('Shipper', 'Governorate')->get(), 200);
     }
     public function editShipping(ShippingRequest $request, Shipping $shipping)
     {
-        if ($shipping == null) return response()->json(['message' => 'Shipping id not found'], 400);
+        if ($shipping == null) return response()->json(['message' => 'Shipping id not found'], 404);
         try {
             $shipping->update($request->all());
             $shipping->save();
         } catch (\Exception $e) {
 
-            return response()->json(['message' => 'Shipping id or Ciry id aren\'t exist'], 400);
+            return response()->json(['message' => 'Shipping id or City id aren\'t exist'], 400);
         }
         return response()->json(['message' => 'Data updated successfully', 'data' => $shipping], 201);
     }
@@ -171,7 +173,27 @@ class AdminController extends Controller
 
 
 
-    public function getCities(Country $country){
-        return response()->json($country->cities()->get(),200);
+    public function getGovernorates(Country $country){
+        return response()->json($country->governorates()->get(),200);
+    }
+
+
+
+    public function getWithdraws(Request $request)
+    {
+        if($request->status)
+            return response()->json(Withdraw::query()->where('status', $request->status), 200);
+
+        return response()->json(Withdraw::all(), 200);
+    }
+    public function setWithdrawStatus(Withdraw $withdraw, withdrawStatusRequest $request)
+    {
+        if($withdraw==null)
+            return response()->json(['message' => 'Withdraw id not found'], 404);
+
+        $withdraw->status = $request->get('status');
+        $withdraw->save();
+
+        return response()->json(['message' => 'ok'], 200);
     }
 }

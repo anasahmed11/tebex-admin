@@ -24,8 +24,9 @@ const SimpleCard = props => {
             loading={true}
         />
     </Grid>
+    
     return (
-        <Card className={classes.card}>
+        <Card {...props} className={props.className?props.className:classes.card}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
                     {props.title}

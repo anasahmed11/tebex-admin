@@ -17,7 +17,8 @@ class CreateAddressesTable extends Migration
             $table->bigIncrements('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->morphs('location');
+            $table->unsignedInteger('governorate_id');
+            $table->string('city');
             $table->string('address');
             $table->string('email');
             $table->string('phone',20);
@@ -30,7 +31,7 @@ class CreateAddressesTable extends Migration
 
         });
         Schema::table('addresses', function (Blueprint $table) {
-
+            $table->foreign('governorate_id')->references('id')->on('governorates');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

@@ -207,6 +207,14 @@ const globalVariables = {
         en: 'Your are already in seller program.',
         ar: 'انت مسجل في البرنامج بالفعل.',
     },
+    SELLER_ADD_NEW_ACCOUNT:{
+        en: 'add new account',
+        ar: 'اضف حساب جديد'
+    },
+    SELLER_PAYMENT_REQUEST:{
+        en: 'Request',
+        ar: 'طلب دفع'
+    },
     FORM_SELLER_LABEL_VODAFONE: {
         en: 'Vodafone Cash',
         ar: 'فودافون كاش',
@@ -251,6 +259,33 @@ const globalVariables = {
         en: 'Phone Number',
         ar: 'رقم الهاتف',
     },
+
+    // Seller Dashboard
+    DASHBOARD_PENDING_EARN: {
+        en: 'Pending Earn',
+        ar: 'الارباح المعلقة'
+    },
+    DASHBOARD_PENDING_EARN_DESC: {
+        en: 'Earning from proudct not deliverd yet',
+        ar: 'الارباح من المنتجات التي لم تصل للعميل'
+    },
+    DASHBOARD_APPROVED_EARN: {
+        en: 'Approved Earn',
+        ar: 'الارباح الحالي'
+    },
+    DASHBOARD_APPROVED_EARN_DESC: {
+        en: 'Earning from products deliverd but still in returnable days',
+        ar: 'الارباح من المنتجات التي تم ايصالها ولكنها قابلة للارجاع'
+    },
+    DASHBOARD_CONFIRMED_EARN: {
+        en: 'Confirmed Earn',
+        ar: 'الارباح'
+    },
+    DASHBOARD_CONFIRMED_EARN_DESC: {
+        en: 'Earning can be withraw',
+        ar: 'الارباح  يمكن سحبها'
+    },
+
     // User Dashboard
     DASHBOARD_CLICKS: {
         en: 'Clikcs',

@@ -162,4 +162,9 @@ class SellerController extends Controller
 
         return response()->json($product, 200);
     }
+    public function sellerEarning()
+    {
+        $seller = Auth::user()->Store()->where('status', 'approved')->first();
+        return response()->json($seller, 200);
+    }
 }

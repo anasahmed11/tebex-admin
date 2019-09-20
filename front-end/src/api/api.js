@@ -39,6 +39,11 @@ export const locationAPI = axios.create({
 })
 instances.push(locationAPI)
 
+export const governorateAPI = axios.create({
+    baseURL: `${apiURL}governorate/`,
+    headers: headers
+})
+instances.push(governorateAPI)
 
 export const storesAPI = axios.create({
     baseURL: `${apiURL}store/`,
@@ -112,6 +117,25 @@ export const affiliateAPI = axios.create({
     headers: headers
 });
 instances.push(affiliateAPI)
+
+export const sellerAPI = axios.create({
+    baseURL: `${apiURL}seller/`,
+    headers: headers
+});
+instances.push(sellerAPI)
+
+export const paymentAPI = axios.create({
+    baseURL: `${apiURL}payment/`,
+    headers: headers
+})
+instances.push(paymentAPI)
+
+export const withdrawAPI = axios.create({
+    baseURL: `${apiURL}withdraw/`,
+    headers: headers
+})
+instances.push(withdrawAPI)
+
 
 instances.forEach(intance => {
     intance.interceptors.request.use(function (config) {

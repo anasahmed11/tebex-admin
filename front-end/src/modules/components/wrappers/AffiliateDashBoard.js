@@ -9,10 +9,21 @@ import 'typeface-roboto';
 import StatsCard from '../parts/StatsCard';
 
 
-import { userAPI, orderAPI, affiliateAPI } from '../../../api/api';
+import { userAPI, orderAPI, affiliateAPI, withdrawAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
 import styles from '../../../assets/jss/components/wrappers/AffiliateDashboard';
+import SellerPaymentRequest from './SellerPaymentRequest';
+import CustomMaterialTabl from '../parts/CustomMaterialTable';
+
+const columns = [
+    { title: 'Status', field: 'status', filtering: false },
+    { title: 'Cash', field: 'cash', filtering: false },
+    { title: 'Method', field: 'payments.method', type: "numeric", filtering: false },
+    { title: 'Account', field: 'payments.account', type: "numeric", filtering: false },
+    { title: 'Created at', field: 'created_at', filtering: false },
+
+]
 
 class UserDashBoard extends React.Component {
     state = {
@@ -20,7 +31,9 @@ class UserDashBoard extends React.Component {
         numTeamMembers: null,
         numClicks: null,
         affTotalOrders: null,
-        affDeliveredOrders: null
+        affDeliveredOrders: null,
+
+        withdraws: []
     }
 
     pendingPromises = [];
@@ -101,7 +114,60 @@ class UserDashBoard extends React.Component {
         this.getAffiliateClicks();
         this.getAffiliateOrders();
         this.getAffiliateEarning();
+        this.getWithdraws()
         this.setState({ isLoading: false });
+        
+    }
+
+    getWithdraws = () => {
+        const wrappedPromise = cancelablePromise(withdrawAPI.get('/'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+            .promise
+            .then(res => {
+                res.data.map(item => {
+                   
+                    item.created_at = new Date(item.created_at).toDateString("yyyy-MM-dd");
+                    item.payments.account = JSON.parse(item.payments.account)
+                    const account = Object.entries(item.payments.account).map(
+                                ([key, value]) => <div>
+                                                    <Typography display='inline' gutterBottom>{key}: </Typography>
+                                                    <Typography display='inline' gutterBottom>{value}</Typography>
+                                                </div>)
+                    item.payments.account = <div>{account}</div>
+                })
+                console.log(res.data)
+                this.setState({ withdraws: res.data })
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(err => {
+                if (!err.isCanceled) {
+                    
+                }
+            });
+    }
+    
+    handleConfirmPayment = (payment) => {
+        let data = {
+            payment_account_id: payment.id,
+            type: 'affiliate'
+        }
+        console.log(data)
+        const wrappedPromise = cancelablePromise(withdrawAPI.post('/', data));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise
+            .promise
+            .then(res => { 
+                this.getWithdraws()
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(err => {
+                if (!err.isCanceled) {
+
+                }
+            });
     }
 
     render() {
@@ -124,27 +190,13 @@ class UserDashBoard extends React.Component {
                     <StatsCard title={globalVariables.DASHBOARD_REFERRAL_EARNING[globalVariables.LANG]} highlight={this.state.suspendedBalance} desc={globalVariables.DASHBOARD_REFERRAL_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
                     <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_EARNING[globalVariables.LANG]} highlight={this.state.activeBalance} desc={globalVariables.DASHBOARD_CONFIRMED_EARNING_DESC[globalVariables.LANG]} />
                 </Grid>
-                {/*<Grid container item xs={12} className={classes.statsCardsRoot}>
-                    <ChartCard title={'ارباح'} highlight={
-                        <ChartistGraph
-                            className="ct-chart"
-                            data={completedTasksChart.data}
-                            type="Line"
-                            options={completedTasksChart.options}
-                            listener={completedTasksChart.animation}
-                        />
-                    } desc={'خربانة'} />
-                    <ChartCard title={'ارباح'} highlight={
-                        <ChartistGraph
-                            className={classes.shit}
-                            data={emailsSubscriptionChart.data}
-                            type="Bar"
-                            options={emailsSubscriptionChart.options}
-                            responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                            listener={emailsSubscriptionChart.animation}
-                        />
-                    } desc={'خربانة'} />
-                </Grid>*/}
+                <Grid container item xs={12} className={classes.paymentCards}>
+                    <SellerPaymentRequest handleConfirmPayment={this.handleConfirmPayment}/>
+                </Grid>
+
+                <Grid container item xs={12} className={classes.paymentCards}>
+                    <CustomMaterialTabl title={'withdraw request'} filtering data={this.state.withdraws} columns={columns} />
+                </Grid>
             </Grid>
         );
     }

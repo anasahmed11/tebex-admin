@@ -28,12 +28,17 @@ export default theme => ({
   row: {
     display: 'flex',
   },
+  rowNested: {
+    display: 'flex',
+    paddingLeft: '20px',
+    
+  },
   rowKey: {
-    flex: '1 0 25%',
+    flex: '1 0 23%',
     fontWeight: 'bold',
   },
   rowVal: {
-    flex: '1 0 75%',
+    flex: '1 0 73%',
   },
   addressContainer: {
     height: '100%',

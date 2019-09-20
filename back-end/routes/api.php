@@ -59,12 +59,21 @@ Route::prefix('address')->group(function () {
     Route::post('/', 'API\Address\AddressController@create');
     Route::post('/{address}', 'API\Address\AddressController@edit');
     Route::delete('{address}', 'API\Address\AddressController@delete');
-    Route::get('{address}/shipping', 'API\Address\AddressController@shipping');
-    Route::get('{city}/shipping/city', 'API\Address\AddressController@city_shipping');
 
-    Route::get('countries', 'API\Address\AddressController@countries');
-    Route::get('cities/{country}', 'API\Address\AddressController@cities');
-    Route::get('areas/{city}', 'API\Address\AddressController@areas');
+    Route::get('{address}/shipping', 'API\Address\AddressController@shipping');
+    // Route::get('{city}/shipping/city', 'API\Address\AddressController@city_shipping');
+
+    // Route::get('countries', 'API\Address\AddressController@countries');
+    // Route::get('cities/{country}', 'API\Address\AddressController@cities');
+    // Route::get('areas/{city}', 'API\Address\AddressController@areas');
+
+
+});
+
+Route::prefix('governorate')->group(function () {
+    Route::get('/', 'API\Governorate\GovernorateController@getGovernorates');
+    Route::get('/{governorate}/shipping', 'API\Governorate\GovernorateController@getGovernorateShippingPrice');
+
 });
 
 Route::prefix('product')->group(function () {
@@ -129,12 +138,37 @@ Route::prefix('admin')->group(function () {
     Route::delete('/shipping/{shipping}', 'API\Admin\AdminController@deleteShipping');
 
     Route::get('/cities/{country}', 'API\Admin\AdminController@getCities');
+
+    Route::get('/withdraws', 'API\Admin\AdminController@getWithdraws');
+    Route::post('/withdraws/{withdraw}', 'API\Admin\AdminController@setWithdrawStatus');
 });
 
 Route::prefix('checkout')->group(function () {
     Route::post('/', 'API\Checkout\CheckOutController@index');
 });
 
+Route::prefix('payment')->group(function () {
+    Route::get('/', 'API\Payment\PaymentController@getPayments');
+    Route::post('/', 'API\Payment\PaymentController@addPayment');
+    Route::post('/{payemnt}/{token}', 'API\Payment\PaymentController@editPayment');
+    Route::delete('/{payment}/{token}', 'API\Payment\PaymentController@deletePayment');
+    // Route::get('/{payment}', 'API\Payment\PaymentController@getPayment');
+});
+
+Route::prefix('withdraw')->group(function () {
+    Route::get('/', 'API\Withdraw\WithdrawController@getWitdraws');
+    Route::post('/', 'API\Withdraw\WithdrawController@addWitdraw');
+    // Route::post('/{payemnt}', 'API\Withdraw\WithdrawController@editPayment');
+    // Route::delete('/{payment}/{token}', 'API\Withdraw\WithdrawController@deletePayment');
+    // Route::get('/{payment}', 'API\Withdraw\WithdrawController@getPayment');
+});
+
+
 Route::prefix('affiliate')->group(function () {
     Route::get('/earning', 'API\Affiliate\AffiliateController@affiliateEarning');
+});
+
+
+Route::prefix('seller')->group(function () {
+    Route::get('/earning', 'API\Seller\SellerController@sellerEarning');
 });

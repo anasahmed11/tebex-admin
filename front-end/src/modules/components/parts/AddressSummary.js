@@ -7,7 +7,6 @@ import styles from '../../../assets/jss/components/parts/AddressSummary';
 
 const CheckoutSummary = props => {
     const { classes, address } = props
-    const addressName = address.location.city_name !== undefined ? address.location.city_name : address.location.area_name
     return (
         <React.Fragment>
             <Grid container justify="center" className={classes.checkoutSummary}>
@@ -38,7 +37,14 @@ const CheckoutSummary = props => {
                             <Typography component='h1' variant='h6' className={classes.textHead}>{globalVariables.LABEL_ADDRESS[[globalVariables.LANG]]}</Typography>
                         </Grid>
                         <Grid item xs={8}>
-                            <Typography gutterBottom component='h1' variant='h6' className={classes.textSection}>{'Egypt, ' + addressName + ', ' + address.address}</Typography>
+                            <Typography 
+                                gutterBottom 
+                                component='h1' 
+                                variant='h6' 
+                                className={classes.textSection}
+                            >
+                                {`Egypt, ${address.governorate.governorate_name}, ${address.city}, ${address.address} `}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Grid>

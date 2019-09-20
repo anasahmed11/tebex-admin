@@ -16,14 +16,14 @@ class CreateShippingPivot extends Migration
         Schema::create('shipping', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('shipper_id')->unsigned();
-            $table->integer('city_id')->unsigned();
+            $table->unsignedInteger('governorate_id');
             $table->integer('min_days');
             $table->integer('max_days')->nullable();
             $table->double('fees');
         });
         Schema::table('shipping', function (Blueprint $table) {
             $table->foreign('shipper_id')->references('id')->on('shippers');
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('governorate_id')->references('id')->on('governorates');
 
         });
     }

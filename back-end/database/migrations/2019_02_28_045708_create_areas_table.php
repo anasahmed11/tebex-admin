@@ -13,17 +13,17 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('area_name');
-            $table->string('area_name_en');
-            $table->integer('city_id')->unsigned();
-            $table->timestamps();
-        });
-        Schema::table('areas', function (Blueprint $table) {
+        // Schema::create('areas', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('area_name');
+        //     $table->string('area_name_en');
+        //     $table->integer('city_id')->unsigned();
+        //     $table->timestamps();
+        // });
+        // Schema::table('areas', function (Blueprint $table) {
 
-            $table->foreign('city_id')->references('id')->on('cities');
-        });
+        //     $table->foreign('city_id')->references('id')->on('cities');
+        // });
     }
 
     /**
@@ -33,6 +33,6 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        // Schema::dropIfExists('areas');
     }
 }

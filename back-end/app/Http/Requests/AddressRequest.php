@@ -24,16 +24,15 @@ class AddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'=>'required|string',
-            'last_name'=>'required|string',
-            'address'=>'required|string',
-            'email'=>'required|string',
-            'phone'=>'required|string',
-            'country'=>'required|integer|exists:countries,id',
-            'city'=>'required|integer|exists:cities,id',
-            'area'=>'integer|exists:areas,id',
-            'landmark'=>'string',
-            'notes'=>'string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'city' => 'required|string',
+            'address' => 'required|string',
+            'email' => 'required|string',
+            'phone' => 'required|string',
+            'governorate_id' => 'required|integer|exists:governorates,id',
+            'landmark' => 'string',
+            'notes' => 'string|nullable',
         ];
     }
 }

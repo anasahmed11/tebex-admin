@@ -117,7 +117,7 @@ class App extends React.Component {
                   <Route exact path='/verify/:id' component={withRouter(Verify)} />
                   <Route exact path='/cart' component={withRouter(Cart)} />
                   <Route exact path="/(profile|orders)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/auth' />} />
-                  <Route exact path='/(/|Home)/' render={() => <Home affiliate={affiliate} seller={seller} authenticated={authenticated} />} />
+                  <Route exact path='/(|Home)/' render={() => <Home affiliate={affiliate} seller={seller} authenticated={authenticated} />} />
                   <Route exact path='/orders/:id/:token' component={withRouter(TrackOrder)} />
 
                   <Route exact path='/(about|privacy-policy|contact)' component={Info} />

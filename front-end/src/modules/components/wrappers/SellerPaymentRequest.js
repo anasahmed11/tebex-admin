@@ -9,11 +9,11 @@ import {
     TransitionGroup,
 } from 'react-transition-group';
 
-import CheckoutForm from '../parts/CheckoutForm';
-import AddressCard from '../parts/MiniTable';
+import PaymentForm from '../parts/PaymentForm';
+import PaymentCard from '../parts/MiniTablePayment';
 import ButtonCard from '../parts/TextButtonCard';
 import './styles/componentAddDelete.css';
-import { locationAPI } from '../../../api/api';
+import { paymentAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
 
@@ -22,8 +22,8 @@ import styles from '../../../assets/jss/components/wrappers/CheckoutAddress';
 class CheckoutAddress extends React.Component {
     state = {
         addForm: false,
-        selectedAddress: 0,
-        addresses: [],
+        selectedPayment: 0,
+        payments: [],
         isLoading: true,
         editIdx: null
     }
@@ -37,12 +37,18 @@ class CheckoutAddress extends React.Component {
     removePendingPromise = promise => this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
     componentDidMount() {
-        const wrappedPromise = cancelablePromise(locationAPI.get('/'));
+        const wrappedPromise = cancelablePromise(paymentAPI.get('/'));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
             .promise
-            .then(res => { this.setState({ addresses: res.data, isLoading: false }) })
+            .then(res => { 
+                res.data.account = res.data.map(payment => {
+                    payment.account = JSON.parse(payment.account)
+                    return payment
+                })
+                this.setState({ payments: res.data, isLoading: false }) 
+            })
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(err => {
                 if (!err.isCanceled) {
@@ -51,7 +57,7 @@ class CheckoutAddress extends React.Component {
             });
     }
 
-    addressClickHandler = idx => this.setState({ selectedAddress: idx });
+    addressClickHandler = idx => this.setState({ selectedPayment: idx });
 
     addAddressDialogToggle = () => {
         const dialog = this.state.addForm;
@@ -63,53 +69,55 @@ class CheckoutAddress extends React.Component {
 
     formActionHandler = obj => {
         this.addAddressDialogToggle();
-        const { addresses } = this.state;
-        addresses.push(obj)
+        const { payments } = this.state;
+        payments.push(obj)
         this.setState({
-            addresses: addresses,
+            payments: payments,
         });
     }
     formEditAction = (id, data) => {
-        //console.log(id, data)
+        console.log(id, data)
         this.addAddressDialogToggle();
-        let addresses = [...this.state.addresses];
-        const idx = addresses.findIndex(item => item.id === id);
-        addresses[idx] = data;
-        this.setState({ addresses: addresses })
+        let payments = [...this.state.payments];
+        const idx = payments.findIndex(item => item.id === id);
+        payments[idx] = data;
+        this.setState({ payments: payments })
 
     }
     handleDetailsButton = (id) => {
-        const idx = [...this.state.addresses].findIndex(item => item.id === id)
+        const idx = [...this.state.payments].findIndex(item => item.id === id)
 
         this.setState({ editIdx: idx, addForm: true });
 
     }
-    handleDelete = (id) => {
-        let addresses = [...this.state.addresses]
-        const wrappedPromise = cancelablePromise(locationAPI.delete(`${id}`));
+    handleDelete = (id,token) => {
+        let payments = [...this.state.payments]
+        const wrappedPromise = cancelablePromise(paymentAPI.delete(`${id}/${token}`));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
             .promise
             .then(res => {
-                const idx = addresses.findIndex(item => item.id === id)
-                addresses.splice(idx, 1)
-                this.setState({ addresses: addresses })
+                const idx = payments.findIndex(item => item.id === id)
+                payments.splice(idx, 1)
+                this.setState({ payments: payments })
             })
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(res => {
             });
     }
 
-    handleNextButton = callbackFunction => callbackFunction(this.state.addresses[this.state.selectedAddress]);
+    handleConfirmPayment = () => {
+        console.log("CONFIRMING")
+    };
 
     render() {
         const { classes } = this.props;
-        const { addresses, isLoading } = this.state;
+        const { payments, isLoading } = this.state;
         return (
             <React.Fragment>
                 <Grid item xs={12}>
-                    <Typography gutterBottom component='h2' variant='h5'>{globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG]}</Typography>
+                    <Typography gutterBottom component='h2' variant='h5'>{globalVariables.FORM_REGISTER_LABEL_TITLE[globalVariables.LANG]}</Typography>
                 </Grid>
 
                 {isLoading ?
@@ -132,47 +140,45 @@ class CheckoutAddress extends React.Component {
                                 className={classes.addressCardsRoot}
                                 container
                             >
-                                {addresses.map((obj, index) =>
+                                {payments.map((obj, index) =>
                                     <CSSTransition
                                         key={index}
                                         timeout={500}
                                         classNames="componentAddDelete"
                                     >
-                                        <AddressCard
+
+                                        <PaymentCard
                                             id={obj.id}
+                                            token={obj._token}
                                             key={index}
-                                            name={obj.first_name + ' ' + obj.last_name}
-                                            address={`Egypt, ${obj.governorate.governorate_name}, ${obj.city}, ${obj.address} `}
-                                            phone={obj.phone}
-                                            selected={this.state.selectedAddress === index ? true : false}
+                                            method={obj.method}
+                                            account={obj.account}
+                                            selected={this.state.selectedPayment === index ? true : false}
                                             onClick={this.addressClickHandler.bind(this, index)}
                                             handleDelete={this.handleDelete}
-                                            handleDetailsButton={this.handleDetailsButton}
+                                            // handleDetailsButton={this.handleDetailsButton}
                                         />
                                     </CSSTransition>
                                 )}
 
-                                <ButtonCard onClick={this.addAddressDialogToggle} text={"+ " + globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]} />
+                                <ButtonCard onClick={this.addAddressDialogToggle} text={"+ " + globalVariables.SELLER_ADD_NEW_ACCOUNT[globalVariables.LANG]} />
                             </TransitionGroup>
 
-                            <CheckoutForm
+                            <PaymentForm
                                 open={this.state.addForm}
                                 title={globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]}
                                 onClose={this.addAddressDialogToggle.bind(this)}
                                 formAction={this.formActionHandler.bind(this)}
                                 formEditAction={this.formEditAction}
                                 edit={Boolean(this.state.editIdx) || this.state.editIdx === 0}
-                                intialData={this.state.addresses[this.state.editIdx]}
+                                intialData={this.state.payments[this.state.editIdx]}
                             />
 
 
-                            <Button color='primary' variant='contained' style={{ margin: '10px' }} onClick={() => this.handleNextButton(this.props.handleNextButton)}>
-                                {globalVariables.LABEL_NEXT[globalVariables.LANG]}
+                            <Button color='primary' variant='contained' style={{ margin: '10px' }} onClick={()=>this.props.handleConfirmPayment(this.state.payments[this.state.selectedPayment])}>
+                                {globalVariables.SELLER_PAYMENT_REQUEST[globalVariables.LANG]}
                             </Button>
-                            <Button color='secondary' disabled variant='contained' style={{ margin: '10px' }}>
-                                {globalVariables.LABEL_PREVIOUS[globalVariables.LANG]}
-                            </Button>
-
+                          
                         </Grid>
 
                     </Grid>

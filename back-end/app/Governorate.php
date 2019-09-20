@@ -4,11 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class Governorate extends Model
 {
-
     protected $fillable = [
-        'iso_code','city_name', 'city_name_en',
+        'iso_code','governorate_name', 'governorate_name_en',
     ];
     protected $hidden = [
         'country_id','created_at','updated_at'
@@ -17,13 +16,10 @@ class City extends Model
         'created_at'=>'datetime',
         'updated_at'=>'datetime',
     ];
-    public function areas(){
-        return $this->hasMany(Area::class);
-    }
     public function country(){
         return $this->belongsTo(Country::class);
     }
-    // public function shipping(){
-    //     return $this->hasMany(Shipping::class);
-    // }
+    public function shipping(){
+        return $this->hasMany(Shipping::class);
+    }
 }

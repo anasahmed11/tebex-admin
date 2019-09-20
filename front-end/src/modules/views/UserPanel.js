@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import globalVariables from '../../global-variables';
 
-import { withStyles, Grid, SnackbarContent, Button } from '@material-ui/core';
+import { withStyles, Grid, SnackbarContent } from '@material-ui/core';
 import 'typeface-roboto';
 
 import Profile from '../components/wrappers/Profile';
 import UserPanelSettings from '../components/wrappers/UserPanelSettings';
 import AffiliateDashboard from '../components/wrappers/AffiliateDashBoard';
+import SellerDashBoard from '../components/wrappers/SellerDashBoard';
+
 import LinkGenerator from '../components/wrappers/LinkGenerator';
 import Tree from '../components/wrappers/Tree';
 import Orders from '../components/wrappers/UserOrders';
@@ -74,7 +76,7 @@ class UserpanelLayout extends React.Component {
                                 <Route exact path='/seller/edit-product/:id' component={AddProduct} />
                                 <Route exact path='/seller/my-products' component={MyProducts} />
                                 <Route exact path='/seller/waiting-orders' component={SellingOrders} />
-                                {/*<Route exact path='/seller/dashboard' component={SellerDashBoard} />*/}
+                                <Route exact path='/seller/dashboard' component={SellerDashBoard} />
                                 <Route component={NotFound} />
                             </Switch>
                         </Grid>

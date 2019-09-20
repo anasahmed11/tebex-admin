@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShippingRequest extends FormRequest
+class withdrawStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class ShippingRequest extends FormRequest
     public function rules()
     {
         return [
-            'shipper_id' => 'required|integer|exists:shippers,id',
-            'governorate_id' => 'required|integer|exists:governorates,id',
-            'min_days' => 'required|integer',
-            'fees'=>'required|integer',
+            'status'=> 'required|in:pending,completed'
         ];
     }
 }

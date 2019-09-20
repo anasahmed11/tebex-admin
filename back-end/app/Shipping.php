@@ -27,8 +27,8 @@ class Shipping extends Model
     {
         return $this->morphTo('location');
     }
-    public function City()
+    public function Governorate()
     {
-        return  $this->belongsTo(City::class);
+        return  $this->belongsTo(Governorate::class);
     }
 }

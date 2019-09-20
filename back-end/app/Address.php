@@ -8,18 +8,18 @@ use Illuminate\Notifications\Notifiable;
 
 class Address extends Model
 {
-    use SoftDeletes,Notifiable;
+    use SoftDeletes, Notifiable;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $with=['Location'];
+    protected $with = ['governorate'];
     protected $fillable = [
-        'first_name','last_name', 'address','email','phone', 'landmark','notes','_token'
+        'first_name', 'last_name', 'city', 'governorate_id', 'address', 'email', 'phone', 'landmark', 'notes', '_token'
     ];
     protected $hidden = [
-        'user_id','created_at','updated_at'
+        'user_id', 'created_at', 'updated_at'
     ];
     /**
      * The attributes that should be cast to native types.
@@ -28,17 +28,24 @@ class Address extends Model
      */
 
     protected $casts = [
-        'deleted_at'=>'datetime',
-        'created_at'=>'datetime',
-        'updated_at'=>'datetime',
+        'deleted_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
-    public function Location(){
-        return $this->morphTo('location');
+    // public function Location()
+    // {
+    //     return $this->morphTo('location');
+    // }
+    public function Governorate()
+    {
+        return $this->belongsTo(Governorate::class);
     }
-    public function User(){
+    public function User()
+    {
         return $this->belongsTo(User::class);
     }
-    public function Orders(){
+    public function Orders()
+    {
         return $this->hasMany(Order::class);
     }
 }

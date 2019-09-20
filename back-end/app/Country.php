@@ -16,7 +16,10 @@ class Country extends Model
         'created_at'=>'datetime',
         'updated_at'=>'datetime',
     ];
-    public function cities(){
+    // public function cities(){
+    //     return $this->hasMany(City::class);
+    // }
+    public function governorates(){
         return $this->hasMany(City::class);
     }
 }

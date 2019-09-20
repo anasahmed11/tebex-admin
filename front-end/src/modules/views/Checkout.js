@@ -102,7 +102,7 @@ class Checkout extends React.Component {
             return
         }
 
-        const wrappedPromise = cancelablePromise(axios.get(`${address.id}/shipping`));
+        const wrappedPromise = cancelablePromise(axios.get(`${address.id}/shipping/`));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise
@@ -112,7 +112,10 @@ class Checkout extends React.Component {
                 this.stepAdvance()
             })
             .then(() => this.removePendingPromise(wrappedPromise))
-            .catch(res => { alert("عنوانك غير مدعوم في الشحن") })
+            .catch(err => { 
+                
+                alert("عنوانك غير مدعوم في الشحن") 
+            })
 
 
     }
