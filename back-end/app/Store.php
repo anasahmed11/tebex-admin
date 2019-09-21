@@ -33,7 +33,8 @@ class Store extends Model
     public function toArray()
     {
         $attr=$this->attributesToArray();
-        unset($attr['balance']);
+        if (!$this->q)
+            unset($attr['balance']);
         return array_merge($attr, $this->relationsToArray());
     }
 

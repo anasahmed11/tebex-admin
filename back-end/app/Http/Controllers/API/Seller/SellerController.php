@@ -165,6 +165,15 @@ class SellerController extends Controller
     public function sellerEarning()
     {
         $seller = Auth::user()->Store()->where('status', 'approved')->first();
+        if ($seller == null) return response()->json(['message' => 'You aren\'t registered in seller program!'], 403);
+
+        $orderProds = OrderProduct::query()->whereHas('Product',function ($q) use ($seller){
+            $q->where('store_id',$seller->id);
+        })->get()->groupBy('status')->map(function ($value){
+            return $value->sum('price');
+        });
+        $seller->q=1;
+        $seller=array_merge($seller->toArray(),$orderProds->toArray());
         return response()->json($seller, 200);
     }
 }
