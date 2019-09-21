@@ -13,10 +13,7 @@ import styles from '../../../assets/jss/components/wrappers/BrandsSlider';
 
 
 const someBrands = [
-    'https://www.mobilaty.com/wp-content/uploads/2018/11/download.png',
-    'https://www.mobilaty.com/wp-content/uploads/2018/10/Xiaomi_logo.png',
-    'https://www.mobilaty.com/wp-content/uploads/2018/11/download.png',
-    'https://www.mobilaty.com/wp-content/uploads/2018/10/Xiaomi_logo.png',
+    globalVariables.SERVER_BASE_URL + globalVariables.IMG_SOON,
 ]
 
 const BrandsSlider = props => {
@@ -25,7 +22,7 @@ const BrandsSlider = props => {
 
     const brands = someBrands.map(item =>
         <div className={classes.brandDiv} key={uuid()}>
-          <img className={classes.brandImg} src={item} alt="img" />
+          <img className={classes.brandImg} src={item} alt="BrandImage" />
         </div>
       );
 

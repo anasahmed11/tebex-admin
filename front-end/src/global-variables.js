@@ -39,6 +39,8 @@ const globalVariables = {
         let index = status_states.findIndex(s => s === status);
         return index > -1 ? [STATES[index], index] : [{ en: '-', ar: '-' }, index];
     },
+    IMG_SOON: '\\storage\\soon.jpg',
+
 
     // MESSAGES
     MSG_LOGIN_FAIL: {

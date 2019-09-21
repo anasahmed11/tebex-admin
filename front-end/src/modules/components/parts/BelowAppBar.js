@@ -58,6 +58,7 @@ class BelowAppBar extends Component {
 
     state = {
         isLoading: true,
+        categories: [],
     }
 
     componentDidMount(){
@@ -67,34 +68,36 @@ class BelowAppBar extends Component {
         categoryAPI.get('/')
         .then(res => {
             const categories = [];
-            let mainCategories = res.data[0].children;
-            for(let mainCat of mainCategories){
-                const subs = [];
-                for(let subCat of mainCat.children){
-                    const leaves = [];
-                    for(let leafCat of subCat.children){
-                        leaves.push({
-                        id: leafCat.id,
-                        name: en? leafCat.name_en : leafCat.name,
-                        subtitle:  en? leafCat.name_en : leafCat.name,
-                        slug: leafCat.slug,
+            if(res.data[0] && res.data[0].children.length > 0){
+                let mainCategories = res.data[0].children;
+                for(let mainCat of mainCategories){
+                    const subs = [];
+                    for(let subCat of mainCat.children){
+                        const leaves = [];
+                        for(let leafCat of subCat.children){
+                            leaves.push({
+                            id: leafCat.id,
+                            name: en? leafCat.name_en : leafCat.name,
+                            subtitle:  en? leafCat.name_en : leafCat.name,
+                            slug: leafCat.slug,
+                            });
+                        }
+                        subs.push({
+                            id: subCat.id,
+                            name: en? subCat.name_en : subCat.name,
+                            subtitle:  en? subCat.name_en : subCat.name,
+                            slug: subCat.slug,
+                            children: leaves,
                         });
                     }
-                    subs.push({
-                        id: subCat.id,
-                        name: en? subCat.name_en : subCat.name,
-                        subtitle:  en? subCat.name_en : subCat.name,
-                        slug: subCat.slug,
-                        children: leaves,
+                    categories.push({
+                        id: mainCat.id,
+                        name: en? mainCat.name_en : mainCat.name,
+                        subtitle:  en? mainCat.name_en : mainCat.name,
+                        slug: mainCat.slug,
+                        children: subs,
                     });
                 }
-                categories.push({
-                    id: mainCat.id,
-                    name: en? mainCat.name_en : mainCat.name,
-                    subtitle:  en? mainCat.name_en : mainCat.name,
-                    slug: mainCat.slug,
-                    children: subs,
-                });
             }
             this.setState({
                 categories: categories,
@@ -109,8 +112,8 @@ class BelowAppBar extends Component {
     render () {
         const { classes } = this.props;
         const { isLoading, categories } = this.state;
-        console.log(this.state.categories)
-        return <Grid container justify='center' className={classes.root}>
+        
+        return categories.length? <Grid container justify='center' className={classes.root}>
                 <Grid container item spacing={1} xs={10}>
                     {isLoading? <Loading /> : categories.map(cat => <Grid key={uuid()} className={classes.item}>
                         <Typography>
@@ -121,7 +124,7 @@ class BelowAppBar extends Component {
                         {cat.children.length? <HoverList cat={cat} /> : null}
                     </Grid>)}
                 </Grid>
-            </Grid>
+            </Grid> : null;
     }
 }
 

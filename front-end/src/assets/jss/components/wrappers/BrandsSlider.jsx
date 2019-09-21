@@ -20,6 +20,7 @@ export default theme => ({
       padding: theme.spacing(4)
     },
     brandImg: {
-      margin: 'auto'
+      margin: 'auto',
+      width: 'inherit',
     },
 });
