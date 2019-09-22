@@ -8,7 +8,7 @@ import 'typeface-roboto';
 import CustomMaterialTabl from '../parts/CustomMaterialTable';
 
 import cancelablePromise from '../../../Providers/CancelablePromise';
-import { productsAPI } from '../../../api/api';
+import { productsAPI, sellerAPI } from '../../../api/api';
 
 import styles from '../../../assets/jss/components/wrappers/MyProducts';
 
@@ -63,7 +63,7 @@ class MyProdcuts extends React.Component {
     }
     componentDidMount = () => {
         // data.map(item=>item.action = <IconButton onClick={()=>this.handleEditAction(item.id)}><FontAwesomeIcon icon="edit" /></IconButton> )
-        const wrappedPromise = cancelablePromise(productsAPI.get('/'));
+        const wrappedPromise = cancelablePromise(sellerAPI.get('/products'));
         this.appendPendingPromise(wrappedPromise);
 
         wrappedPromise.promise
