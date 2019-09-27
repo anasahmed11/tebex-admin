@@ -25,10 +25,10 @@ class ProductController extends Controller
 
     public function show()
     {
-        $store = Auth::User()->Store()->where('status', 'approved')->first();
-        if ((count((array) $store))) return response()->json($store->Products()->get(), 200);
+        // $store = Auth::User()->Store()->where('status', 'approved')->first();
+        // if ((count((array) $store))) return response()->json($store->Products()->get(), 200);
 
-        return response()->json(['message' => 'You Aren\'t Registerd to Seller Program'], 401);
+        // return response()->json(['message' => 'You Aren\'t Registerd to Seller Program'], 401);
     }
 
     public function product(Product $product)

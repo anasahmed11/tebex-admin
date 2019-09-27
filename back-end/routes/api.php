@@ -171,4 +171,5 @@ Route::prefix('affiliate')->group(function () {
 
 Route::prefix('seller')->group(function () {
     Route::get('/earning', 'API\Seller\SellerController@sellerEarning');
+    Route::get('/products', 'API\Seller\SellerController@getProducts');
 });

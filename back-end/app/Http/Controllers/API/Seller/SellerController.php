@@ -18,6 +18,14 @@ class SellerController extends Controller
         $this->middleware('auth:api');
     }
 
+    public function getProducts(){
+        $store = Auth::User()->Store()->where('status', 'approved')->first();
+        if ($store)
+            return response()->json($store->Products()->get(), 200);
+
+        return response()->json(['message' => 'You Aren\'t Registerd to Seller Program'], 401);
+    }
+
     public function pendingOrders()
     {
         $store = Auth::user()->Store()->where('status', 'approved')->first(['id']);
