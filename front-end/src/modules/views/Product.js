@@ -123,6 +123,7 @@ class Product extends React.Component {
     getProduct = (id, slug, sku, withSimilars = false) => {
         productsAPI.get(`${id}`)
             .then(res => {
+                console.log('shit', res)
                 res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
                 const product = res.data;
                 if(product.sku === sku && product.slug === slug)

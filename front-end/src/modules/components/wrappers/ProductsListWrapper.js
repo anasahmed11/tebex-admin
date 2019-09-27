@@ -201,17 +201,20 @@ class Store extends Component {
             }
             filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
             filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
-            console.log('shit', filtersObject)
         }
-
+        else{
+            filtersObject.settings.push({ id: 'pr', values: [queryDefaults.maxPrice, queryDefaults.maxPrice]});
+            filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
+            filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
+        }
+        
         // Get products of current category for current page
-
         categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
         .then(res => {
             const products = [];
             for (let item of res.data.data)
                 products.push(item);
-
+            console.log('shit', res, query.page, filtersObject)
             // Set min and max price
             if(res.data.min_price)
                 queryDefaults.minPrice = res.data.min_price;
@@ -226,7 +229,7 @@ class Store extends Component {
                 _isLoadingProducts: false,
             });
         })
-        .catch(res => console.log(`ERROR: Fetching products [/${categoryID}/products]`, res));
+        .catch(res => console.log(`shit ERROR: Fetching products [/${categoryID}/products]`, res, query.page, filtersObject));
     }
 
     fetchFilters = () => {
