@@ -101,7 +101,6 @@ class Store extends Component {
                      : null;
         if(Array.isArray(slug) && slug.length === 1 && slug[0] === '') slug = null;
         
-        // console.log('shopdidSLUG OG', this.props.match.params.slug, slug)
         const { queryDefaults } = this.state;
         const query = queryString.parse(window.location.search, this.queryParseOptions);
         if(!(query.sort && query.sort > -1 && query.sort < this.sortValues.en.length && query.sort !== queryDefaults.sort))
@@ -201,35 +200,53 @@ class Store extends Component {
             }
             filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
             filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
+
+            // Get products of current category for current page
+            categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
+            .then(res => {
+                const products = [];
+                for (let item of res.data.data)
+                    products.push(item);
+                console.log('shit', res, query.page, filtersObject)
+                // Set min and max price
+                if(res.data.min_price)
+                    queryDefaults.minPrice = res.data.min_price;
+                if(res.data.max_price)
+                    queryDefaults.maxPrice = res.data.max_price;
+                
+                this.setState({
+                    products: products,
+                    queryDefaults: queryDefaults,
+                    totalProducts: res.data.total,
+                    totalPages: Math.ceil(res.data.total/ res.data.per_page),
+                    _isLoadingProducts: false,
+                });
+            })
+            .catch(res => console.log(`shit ERROR: Fetching products [/${categoryID}/products]`, res, query.page, filtersObject));
         }
         else{
-            filtersObject.settings.push({ id: 'pr', values: [queryDefaults.maxPrice, queryDefaults.maxPrice]});
-            filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
-            filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
+            categoryAPI.get(`/${categoryID}/products?page=${query.page}`)
+            .then(res => {
+                const products = [];
+                for (let item of res.data.data)
+                    products.push(item);
+                
+                // Set min and max price
+                if(res.data.min_price)
+                    queryDefaults.minPrice = res.data.min_price;
+                if(res.data.max_price)
+                    queryDefaults.maxPrice = res.data.max_price;
+                
+                this.setState({
+                    products: products,
+                    queryDefaults: queryDefaults,
+                    totalProducts: res.data.total,
+                    totalPages: Math.ceil(res.data.total/ res.data.per_page),
+                    _isLoadingProducts: false,
+                });
+            })
+            .
         }
-        
-        // Get products of current category for current page
-        categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
-        .then(res => {
-            const products = [];
-            for (let item of res.data.data)
-                products.push(item);
-            console.log('shit', res, query.page, filtersObject)
-            // Set min and max price
-            if(res.data.min_price)
-                queryDefaults.minPrice = res.data.min_price;
-            if(res.data.max_price)
-                queryDefaults.maxPrice = res.data.max_price;
-            
-            this.setState({
-                products: products,
-                queryDefaults: queryDefaults,
-                totalProducts: res.data.total,
-                totalPages: Math.ceil(res.data.total/ res.data.per_page),
-                _isLoadingProducts: false,
-            });
-        })
-        .catch(res => console.log(`shit ERROR: Fetching products [/${categoryID}/products]`, res, query.page, filtersObject));
     }
 
     fetchFilters = () => {
