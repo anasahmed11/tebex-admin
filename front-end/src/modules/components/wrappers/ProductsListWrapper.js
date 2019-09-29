@@ -174,8 +174,8 @@ class Store extends Component {
                 slug: slug
             }, () => {
                     this.traceCategory(categories, categoryID);
-                    this.fetchProducts();
                     this.fetchFilters();
+                    this.fetchProducts();
             });
         })
         .catch(res => console.log('ERROR: Fetching categories failed.', res))
