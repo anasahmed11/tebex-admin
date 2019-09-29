@@ -20,6 +20,7 @@ class OrderProducts extends Migration
             $table->double('price');
             $table->integer('quantity');
             $table->double('commission');
+            $table->double('commission_percent');
 
             $table->enum('status',['pending','confirmed','refused'])->default('pending');
         });

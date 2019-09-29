@@ -54,7 +54,7 @@ class Product extends Model
 
     public function getCommissionAttribute(){
         $price=$this->sale_price?? $this->price;
-        return $price*($this->attributes['commission']-2.5)/100;
+        return $price*($this->attributes['commission'] - 2.5)/100;
     }
     public function getCommPercentAttribute(){
         return $this->attributes['commission'];

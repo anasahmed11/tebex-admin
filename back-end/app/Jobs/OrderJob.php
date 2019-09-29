@@ -39,6 +39,10 @@ class OrderJob implements ShouldQueue
     {
         $this->order->returnable=false;
         $this->order->save();
+        foreach ($this->order->Products() as $product){
+            $product->Product()->Store()->first()->balance += ($product->price- ($product->price*($product->commission_percent/100))) * $product->quantity;
+            User::find(1)->Store()->first()->balance += ($product->price * 2.5);
+        }
         $child=new User();
         $current=$this->user??User::find(1);
         while ($current) {

@@ -51,7 +51,7 @@ class CheckOutController extends Controller
             foreach ($products as $product) {
                 $p = Product::find($product['id']);
                 if ($p && $p->quantity >= $product['quantity']) {
-                    $item = new OrderProduct(["order_id" => $order->id, "product_id" => $p->id, "price" => $p->sale_price ?? $p->price, "quantity" => $product['quantity'], "commission"=>$p->commission]);
+                    $item = new OrderProduct(["order_id" => $order->id, "product_id" => $p->id, "price" => $p->sale_price ?? $p->price, "quantity" => $product['quantity'], "commission"=>$p->commission, "commission_percent"=>$p->comm_percent]);
                     $item->save();
                     $p->quantity -= $product['quantity'];
                     $p->save();
@@ -76,7 +76,7 @@ class CheckOutController extends Controller
             if (Auth::check() && Auth::user()->Affiliate()->where('status','approved')->first())
                 $order->Referral()->associate(Auth::user());
             else
-                $order->Referral()->associate(User::find($request->only('referral')['referral'])??User::find(1));
+                $order->Referral()->associate(User::find($request->input('referral'))??User::find(1));
 
             $order->save();
             OrderJob::dispatch($order)->delay(now()->addWeek(2));
