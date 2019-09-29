@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
             // Cities::class,
             // Areas::class,
             Governorates::class,
+            CategorySeeder::class,
+            SpecsSeeder::class,
+            CategorySpecsSeeder::class,
         ]);
     }
 }
