@@ -175,6 +175,7 @@ class Store extends Component {
             }, () => {
                     this.traceCategory(categories, categoryID);
                     this.fetchFilters();
+                    
             });
         })
         .catch(res => console.log('ERROR: Fetching categories failed.', res))
@@ -245,6 +246,7 @@ class Store extends Component {
                     _isLoadingProducts: false,
                 });
             })
+            
         }
     }
 
@@ -315,7 +317,10 @@ class Store extends Component {
 
                 this.setState({
                     filterPanels: filterPanels,
-                }, () => this.updateFilters(true));
+                }, () => { 
+                    this.fetchProducts();
+                    this.updateFilters(true);
+                });
             })
             .catch(res => console.log('ERROR: Fetching specs failed.', res));
     }
