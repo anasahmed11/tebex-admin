@@ -175,7 +175,6 @@ class Store extends Component {
             }, () => {
                     this.traceCategory(categories, categoryID);
                     this.fetchFilters();
-                    this.fetchProducts();
             });
         })
         .catch(res => console.log('ERROR: Fetching categories failed.', res))
@@ -246,7 +245,6 @@ class Store extends Component {
                     _isLoadingProducts: false,
                 });
             })
-            .
         }
     }
 
