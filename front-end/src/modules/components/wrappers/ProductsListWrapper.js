@@ -192,7 +192,8 @@ class Store extends Component {
                     let spec = { id: filter.id, values: []}
                     for(let value of filter.values)
                         if(value[1]) spec.values.push(value[2]);
-                    filtersObject.specs.push(spec);
+                    if(spec.values.length)
+                        filtersObject.specs.push(spec);
                 }
                 else if(filter.type === 'text'){
                     filtersObject.settings.push({ id: 'pr', values: filter.values});
