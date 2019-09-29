@@ -78,13 +78,15 @@ class CategoryController extends Controller
     }
     public function products(Category $category, FilterRequest $filters)
     {
+
         $cats = Category::descendantsAndSelf($category)->toFlatTree();
         $func = function ($value) {
             return $value['id'];
         };
 
         $cats = array_map($func, $cats->toArray());
-        $products = Product::where('active', 1)->whereIn('category_id', $cats);
+
+        $products = Product::where('active', 1)->where('status','approved')->whereIn('category_id', $cats);
 
         if ($filters->isMethod('post')) {
             $setting = $filters->only('settings')['settings'];
@@ -101,11 +103,15 @@ class CategoryController extends Controller
                     $specsfilters[] = trim(str_replace([":\"", ","], [": \"", ", "], json_encode($v)));
                 }
             }
+            if (count($specsfilters)==1)
+                $specsfilters[] = $specsfilters[0];
+
             $products->whereHas('Specs', function ($q) use ($specsfilters) {
                 if (count($specsfilters))
                     $q->whereIn('value', $specsfilters);
             })->whereBetween('price', $setting[0]['values']);
         }
+
         /*$products=$cats[0]->Product()->get();
         for ($i=1;$i < $cats->count();$i++){
            $products=$products->merge($cats[$i]->Product()->get());

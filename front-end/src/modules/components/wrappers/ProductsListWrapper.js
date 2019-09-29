@@ -246,7 +246,7 @@ class Store extends Component {
                     _isLoadingProducts: false,
                 });
             })
-            .
+            
         }
     }
 
