@@ -40,9 +40,9 @@ class CheckOutController extends Controller
                 $referral = User::find($request->referral);
                 $order->Referral()->associate($referral);
             }
-            $location = $address->Location()->first();
+            $location = $address->Governorate()->first();
             $shipping = Shipping::where('shipper_id', $shipper->id)
-                ->where('city_id', $location instanceof City ? $location->id : $location->City()->first()->id)
+                ->where('governorate_id', $location->id)
                 ->first();
             $order->shipping_fees = $shipping->fees;
             $order->save();
@@ -73,9 +73,11 @@ class CheckOutController extends Controller
             $order->commission=OrderProduct::where(["order_id" => $order->id])->get()->sum(function($t){
                 return $t->quantity * $t->commission;
             });
-            if (Auth::check() && Auth::user()->Affiliate()->where('status','approved')->first())
+            if (Auth::check() && Auth::user()->Affiliate()->where('status','approved')->first()) {
                 $order->Referral()->associate(Auth::user());
-            else
+                Auth::user()->Affiliate()->first()->inactive+= Auth::user()->Affiliate()->first()->Plan()->first()->commission * $order->commission;
+                Auth::user()->Affiliate()->first()->save();
+            }else
                 $order->Referral()->associate(User::find($request->input('referral'))??User::find(1));
 
             $order->save();
