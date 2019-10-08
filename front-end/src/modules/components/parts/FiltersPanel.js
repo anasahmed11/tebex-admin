@@ -20,6 +20,7 @@ class InteractiveList extends React.Component {
   handleToggle = (id, idx) => {
     this.props.handleCheck(id, idx);
   };
+
   render() {
     
     const { classes, query, filterPanels, defaultMin, defaultMax } = this.props;
@@ -33,14 +34,14 @@ class InteractiveList extends React.Component {
 
     const priceValidation = event => {
       let value = parseInt(event.target.value);
-      if(value > defaultMax)
-        event.target.value = defaultMax;
-      else if(value < defaultMin)
-        event.target.value = defaultMin;
+      if(value < 0)
+      event.target.value = 0;
+      //else if(value > max)
+        //event.target.value = max;
       return;
     }
 
-    const inputProps = { min: defaultMin, max: defaultMax, step: 100 }
+    const inputProps = { min: 0, step: 100 }
 
     return (
       <div id={this.props.id} className={classes.root}>
@@ -55,7 +56,7 @@ class InteractiveList extends React.Component {
               
               {filterPanels.map((filter) => filter.values.length?
                 <React.Fragment>
-                  <Collapsible open trigger={
+                  <Collapsible transitionTime={200} open trigger={
                     <div className={classes.collapsibleTab}>
                       <Typography variant="subtitle1" className={classes.filterTitle}>
                         {filter.name[globalVariables.LANG]} {/*<Divider />*/}

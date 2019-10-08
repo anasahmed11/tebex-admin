@@ -84,13 +84,14 @@ class Store extends Component {
             perPage: this.perPageValues[0],
              // This will be set to min, max in componentDidMount
             minPrice: 0,
-            maxPrice: 12999,    // Fake safe value
+            maxPrice: 99999,    // Fake safe value
         },
         keepHeight: '40vh',
     }
     
     componentDidMount = () => {
 
+        const { queryDefaults } = this.state;
         const { changingCategory } = this.props.location.state? this.props.location.state : false;
 
         // Parse url after "shop/"
@@ -101,8 +102,8 @@ class Store extends Component {
                      : null;
         if(Array.isArray(slug) && slug.length === 1 && slug[0] === '') slug = null;
         
-        const { queryDefaults } = this.state;
         const query = queryString.parse(window.location.search, this.queryParseOptions);
+        
         if(!(query.sort && query.sort > -1 && query.sort < this.sortValues.en.length && query.sort !== queryDefaults.sort))
             delete query.sort;
         if(!(query.perPage && query.perPage !== queryDefaults.perPage && this.perPageValues.findIndex(v => v === query.perPage) > -1))
@@ -117,7 +118,7 @@ class Store extends Component {
         this.setState({ slug: slug, query: query }, () => this.fetchAllData());
     }
 
-    traceCategory = (categories, id, trace=[]) => {
+    traceCategory = (categories, id, trace = []) => {
         if(id === 1){
             if(trace.length < 1)
                 return;
@@ -186,73 +187,53 @@ class Store extends Component {
         const { categoryID, query, queryDefaults, filterPanels } = this.state;
         
         let filtersObject = { specs: [], settings: [] }
-        if(filterPanels){
-            for(let filter of filterPanels){
-                if(filter.type === 'menu') {
-                    let spec = { id: filter.id, values: []}
-                    for(let value of filter.values)
-                        if(value[1]) spec.values.push(value[2]);
-                    if(spec.values.length)
-                        filtersObject.specs.push(spec);
-                }
-                else if(filter.type === 'text'){
-                    filtersObject.settings.push({ id: 'pr', values: filter.values});
-                }
+        for(let filter of filterPanels){
+            if(filter.type === 'menu') {
+                let spec = { id: filter.id, values: []}
+                for(let value of filter.values)
+                    if(value[1]) spec.values.push(value[2]);
+                if(spec.values.length)
+                    filtersObject.specs.push(spec);
             }
-            filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
-            filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
+            else if(filter.type === 'text'){
+                filtersObject.settings.push({ id: 'pr', values: filter.values});
+            }
+        }
+        filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
+        filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
 
-            // Get products of current category for current page
-            categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
-            .then(res => {
-                const products = [];
-                for (let item of res.data.data)
-                    products.push(item);
-                console.log('shit', res, query.page, filtersObject)
-                // Set min and max price
-                if(res.data.min_price)
-                    queryDefaults.minPrice = res.data.min_price;
-                if(res.data.max_price)
-                    queryDefaults.maxPrice = res.data.max_price;
-                
-                this.setState({
-                    products: products,
-                    queryDefaults: queryDefaults,
-                    totalProducts: res.data.total,
-                    totalPages: Math.ceil(res.data.total/ res.data.per_page),
-                    _isLoadingProducts: false,
-                });
-            })
-            .catch(res => console.log(`shit ERROR: Fetching products [/${categoryID}/products]`, res, query.page, filtersObject));
-        }
-        else{
-            categoryAPI.get(`/${categoryID}/products?page=${query.page}`)
-            .then(res => {
-                const products = [];
-                for (let item of res.data.data)
-                    products.push(item);
-                
-                // Set min and max price
-                if(res.data.min_price)
-                    queryDefaults.minPrice = res.data.min_price;
-                if(res.data.max_price)
-                    queryDefaults.maxPrice = res.data.max_price;
-                
-                this.setState({
-                    products: products,
-                    queryDefaults: queryDefaults,
-                    totalProducts: res.data.total,
-                    totalPages: Math.ceil(res.data.total/ res.data.per_page),
-                    _isLoadingProducts: false,
-                });
-            })
+        // Get products of current category for current page
+        categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
+        .then(res => {
+            const products = [];
+            for (let item of res.data.data)
+                products.push(item);
+            //console.log('shit', res, query.page, filtersObject)
             
-        }
+            // Set min and max price
+            if(res.data.min_price)
+                queryDefaults.minPrice = res.data.min_price;
+            if(res.data.max_price)
+                queryDefaults.maxPrice = res.data.max_price;
+            
+            filterPanels[filterPanels.findIndex(v => v.id === '__price')].values =
+                [query.minPrice || queryDefaults.minPrice, query.maxPrice || queryDefaults.maxPrice];
+            
+            this.setState({
+                products: products,
+                queryDefaults: queryDefaults,
+                totalProducts: res.data.total,
+                filterPanels: filterPanels,
+                totalPages: Math.ceil(res.data.total/ res.data.per_page),
+                _isLoadingProducts: false,
+            });
+        })
+        .catch(res => console.log(`shit ERROR: Fetching products [/${categoryID}/products]`, res, query.page, filtersObject));
     }
 
     fetchFilters = () => {
         
-        const { categoryID, categories, slug, queryDefaults } = this.state;
+        const { categoryID, categories, slug, query, queryDefaults } = this.state;
 
         // Initiate filterPanels with categories
         const filterPanels = [{
@@ -311,7 +292,7 @@ class Store extends Component {
                 filterPanels.push({
                     id: '__price',
                     name: {en: 'Price', ar: 'السعر'},
-                    values: [queryDefaults.minPrice, queryDefaults.maxPrice],
+                    values: [query.minPrice || 0, query.maxPrice || queryDefaults.maxPrice],
                     type: 'text',
                 });
 
@@ -329,18 +310,20 @@ class Store extends Component {
         
         try {
             const { filterPanels, query, queryDefaults } = this.state;
+
             for(let filter of filterPanels){
                 if(filter.type !== 'menu')
                     continue;
-                for(let i=0; i<filter.values.length; i++){
+                for(let i = 0; i < filter.values.length; i++){
                     if(Array.isArray(query[filter.name.en]) && query[filter.name.en].findIndex(v => v === filter.values[i][0].en) > -1)
                         filter.values[i][1] = true;
                     else
                         filter.values[i][1] = false;
                 }
             }
+
             let priceIndex = filterPanels.findIndex(v => v.type === 'text');
-            if(priceIndex > -1){
+            if(!init && priceIndex > -1){
                 filterPanels[priceIndex].values[0] = query.minPrice? query.minPrice : queryDefaults.minPrice;
                 filterPanels[priceIndex].values[1] = query.maxPrice? query.maxPrice : queryDefaults.maxPrice;
             }
@@ -349,8 +332,7 @@ class Store extends Component {
                 filterPanels: filterPanels,
                 _isLoading: false,
             }, () => {
-                if(init) this.setState({ _isLoadingProducts: false })
-                else this.fetchProducts();
+                this.fetchProducts();
             });
 
         } catch (err) { console.log('WARNING: Filters update failed.\n', err); }
@@ -464,6 +446,8 @@ class Store extends Component {
             totalPages
         } = this.state;
 
+        // console.log('haha', queryDefaults.maxPrice)
+        
         const qString = queryString.stringify(query, this.queryParseOptions);
 
         const snack = <Snackbar
