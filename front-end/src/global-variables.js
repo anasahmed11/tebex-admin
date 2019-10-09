@@ -310,16 +310,16 @@ const globalVariables = {
         ar: 'الطلبات المكتملة',
     },
     DASHBOARD_CONFIRMED_ORDERS_DESC: {
-        en: '',
-        ar: '',
+        en: 'Delivered orderrs',
+        ar: 'الطلبات التي وصلت للعميل',
     },
     DASHBOARD_ORDERS_EARNING: {
         en: 'Orders Earning',
         ar: 'ارباح الطلبات',
     },
     DASHBOARD_ORDERS_EARNING_DESC: {
-        en: '',
-        ar: '',
+        en: 'Earnings form delivered orders',
+        ar: 'ارباح الطلبات المكتملة',
     },
     DASHBOARD_TEAM_MEMBERS: {
         en: 'My Team',
@@ -339,19 +339,27 @@ const globalVariables = {
     },
     DASHBOARD_REFERRAL_EARNING: {
         en: 'Refferal Earning',
-        ar: 'ارباح المحول',
+        ar: 'حوافز اضافية',
     },
     DASHBOARD_REFERRAL_EARNING_DESC: {
         en: '',
         ar: '',
     },
     DASHBOARD_CONFIRMED_EARNING: {
-        en: 'Confirmed Earning',
-        ar: 'الارباح',
+        en: 'My Balance',
+        ar: 'رصيدي',
     },
     DASHBOARD_CONFIRMED_EARNING_DESC: {
         en: '',
         ar: '',
+    },
+    DASHBOARD_MY_LEVEL : {
+        en: 'My Level',
+        ar: 'المستوى'
+    },
+    DASHBOARD_MY_LEVEL_DESC: {
+        en: '',
+        ar: ''
     },
 
     //User Profile
@@ -480,8 +488,8 @@ const globalVariables = {
         ar: 'سيتم استخدام الاسم كسلاج للمنتج في اللنك. حاول ان تجعل اسم المنتج معبرا عنه'
     },
     PRODUCT_COMMISSION_DESC: {
-        en: 'Percentage of commission the affiliate will receive',
-        ar: 'نسبة العمولة التي سيحصل عليها المسوق.'
+        en: 'Value of commission the affiliate will receive. increasing this value will increase the probability of product marketing',
+        ar: 'قيمة العمولة التي سيحصل عليها المسوق. عند زيادة قيمة هذه العمولة فانه من المرجح ان يتم تسويق المنتج بشكل اكبر'
     },
     PRODUCT_SKU_DESC: {
         en: 'Same SKU is used for similar products that has differ in color, ram for example. use same SKU if you want to navigate to similars in product privew page.',

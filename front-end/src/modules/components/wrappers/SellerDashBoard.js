@@ -118,21 +118,18 @@ class SellerDashboard extends React.Component {
                 </Grid>
                 <Grid container item xs={12} className={classes.statsCardsRoot}>
                     <StatsCard
-                        className={classes.card}
                         title={globalVariables.DASHBOARD_PENDING_EARN[globalVariables.LANG]}
                         highlight={this.state.pendingEarn}
                         desc={globalVariables.DASHBOARD_PENDING_EARN_DESC[globalVariables.LANG]}
                         currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
                     />
                     <StatsCard
-                        className={classes.card}
                         title={globalVariables.DASHBOARD_APPROVED_EARN[globalVariables.LANG]}
                         highlight={this.state.approvedEarn}
                         desc={globalVariables.DASHBOARD_APPROVED_EARN_DESC[globalVariables.LANG]}
                         currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
                     />
                     <StatsCard
-                        className={classes.card}
                         title={globalVariables.DASHBOARD_CONFIRMED_EARN[globalVariables.LANG]}
                         highlight={this.state.confirmedEarn}
                         desc={globalVariables.DASHBOARD_CONFIRMED_EARN_DESC[globalVariables.LANG]}

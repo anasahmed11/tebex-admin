@@ -38,7 +38,7 @@ const form = props => {
 
             <div>
                 <label htmlFor="commission">{globalVariables.LABEL_COMMISSION[globalVariables.LANG]}</label>
-                <input type="text" placeholder="" name="commission" ref={register({ required: true, pattern: /^\d+$/, max: 40, min: 20 })} />
+                <input type="text" placeholder="" name="commission" ref={register({ required: true, pattern: /^\d+$/ })} />
                 <p class="desc">{globalVariables.PRODUCT_COMMISSION_DESC[globalVariables.LANG]}</p>
                 {errors.commission && <p>This field is required and has to be a number between 20, 40 %</p>}
             </div>

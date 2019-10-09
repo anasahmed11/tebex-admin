@@ -136,16 +136,21 @@ export const withdrawAPI = axios.create({
 })
 instances.push(withdrawAPI)
 
+export const returnAPI = axios.create({
+    baseURL: `${apiURL}return/`,
+    headers: headers
+})
+instances.push(returnAPI)
 
-instances.forEach(intance => {
-    intance.interceptors.request.use(function (config) {
+instances.forEach(instance => {
+    instance.interceptors.request.use(function (config) {
         config.headers.Authorization = cookies.get(globalVariables.ACCESS_TOKEN) ? `Bearer ${cookies.get(globalVariables.ACCESS_TOKEN)}` : '';
 
         return config;
     }, function (err) {
         return Promise.reject(err);
     });
-    intance.interceptors.response.use(function (response) {
+    instance.interceptors.response.use(function (response) {
         //console.log("response",response)
 
         return response

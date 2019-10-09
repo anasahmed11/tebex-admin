@@ -166,10 +166,15 @@ Route::prefix('withdraw')->group(function () {
 
 Route::prefix('affiliate')->group(function () {
     Route::get('/earning', 'API\Affiliate\AffiliateController@affiliateEarning');
+    Route::get('/level', 'API\Affiliate\AffiliateController@getAffiliateLevel');
 });
 
 
 Route::prefix('seller')->group(function () {
     Route::get('/earning', 'API\Seller\SellerController@sellerEarning');
     Route::get('/products', 'API\Seller\SellerController@getProducts');
+});
+
+Route::prefix('return')->group(function () {
+    Route::get('/reasons', 'API\Returning\ReturnController@getReturnReasons');
 });

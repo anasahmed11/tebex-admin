@@ -26,7 +26,7 @@ class AffiliateRequest extends FormRequest
     public function rules()
     {
         return [
-            'plan_id'=>'required|integer',
+            'plan_id'=>'required|integer|exists:plans,id',
             'method'=>'required|enum_key:'. Methods::class,
             'account'=>'required|json',
         ];

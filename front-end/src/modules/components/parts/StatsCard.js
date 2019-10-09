@@ -28,13 +28,13 @@ const SimpleCard = props => {
     return (
         <Card {...props} className={props.className?props.className:classes.card}>
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                <Typography variant="h6" className={classes.title} color="textSecondary" gutterBottom>
                     {props.title}
                 </Typography>
                 <Typography variant="h5" component="h2">
                     {props.highlight || props.highlight===0 ? props.highlight : Loader} <Typography color="textSecondary" inline="true" className={classes.currency}>{props.currency}</Typography>
                 </Typography>
-                <Typography className={classes.pos} color="textSecondary">
+                <Typography variant="overline" className={classes.pos} color="textSecondary">
                     {props.desc}
                 </Typography>
             </CardContent>

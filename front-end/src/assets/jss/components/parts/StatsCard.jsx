@@ -1,6 +1,8 @@
 export default theme => ({
     card: {
         marginBottom: theme.spacing(2),
+        flexGrow: 1,
+        margin: '10px',
         flexBasis: 'calc(25% - 15px)',
         [theme.breakpoints.down('md')]: {
             flexBasis: 'calc(50% - 15px)'
@@ -9,13 +11,7 @@ export default theme => ({
             flexBasis: '100%'
         },
     },
-    title: {
-        fontSize: 14,
-    },
     currency: {
         fontSize: 14,
-    },
-    pos: {
-
     },
 });

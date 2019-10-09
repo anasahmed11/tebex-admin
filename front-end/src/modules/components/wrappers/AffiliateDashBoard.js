@@ -14,7 +14,7 @@ import cancelablePromise from '../../../Providers/CancelablePromise';
 
 import styles from '../../../assets/jss/components/wrappers/AffiliateDashboard';
 import SellerPaymentRequest from './SellerPaymentRequest';
-import CustomMaterialTabl from '../parts/CustomMaterialTable';
+import CustomMaterialTable from '../parts/CustomMaterialTable';
 
 const columns = [
     { title: 'Status', field: 'status', filtering: false },
@@ -32,6 +32,7 @@ class UserDashBoard extends React.Component {
         numClicks: null,
         affTotalOrders: null,
         affDeliveredOrders: null,
+        level: null,
 
         withdraws: []
     }
@@ -109,11 +110,31 @@ class UserDashBoard extends React.Component {
                 }
             })
     }
+    getAffiliateLevel = () => {
+        const wrappedPromise = cancelablePromise(affiliateAPI.get('level/'));
+        this.appendPendingPromise(wrappedPromise);
+
+        wrappedPromise.promise
+            .then(res => {
+                this.setState({
+                    level: res.data.plan_id
+                })
+            })
+            .then(() => this.removePendingPromise(wrappedPromise))
+            .catch(err => {
+                if (!err.isCanceled) {
+                    this.setState({
+                        level: "error!" ,
+                    })
+                }
+            })
+    }
     componentDidMount() {
         this.getTeamCount();
         this.getAffiliateClicks();
         this.getAffiliateOrders();
         this.getAffiliateEarning();
+        this.getAffiliateLevel();
         this.getWithdraws()
         this.setState({ isLoading: false });
         
@@ -172,7 +193,7 @@ class UserDashBoard extends React.Component {
 
     render() {
         const { classes, } = this.props;
-
+        
         return (
             <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>
@@ -182,20 +203,21 @@ class UserDashBoard extends React.Component {
                     <StatsCard title={globalVariables.DASHBOARD_CLICKS[globalVariables.LANG]} highlight={this.state.numClicks} desc={globalVariables.DASHBOARD_CLICKS_DESC[globalVariables.LANG]} />
                     <StatsCard title={globalVariables.DASHBOARD_TOTAL_ORDERS[globalVariables.LANG]} highlight={this.state.affTotalOrders} desc={globalVariables.DASHBOARD_TOTAL_ORDERS_DESC[globalVariables.LANG]} />
                     <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_ORDERS[globalVariables.LANG]} highlight={this.state.affDeliveredOrders} desc={globalVariables.DASHBOARD_CONFIRMED_ORDERS_DESC[globalVariables.LANG]} />
+
                     <StatsCard title={globalVariables.DASHBOARD_ORDERS_EARNING[globalVariables.LANG]} highlight={this.state.inactiveBalance} desc={globalVariables.DASHBOARD_ORDERS_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
-                </Grid>
-                <Grid container item xs={12} className={classes.statsCardsRoot}>
                     <StatsCard title={globalVariables.DASHBOARD_TEAM_MEMBERS[globalVariables.LANG]} highlight={this.state.numTeamMembers} desc={globalVariables.DASHBOARD_TEAM_MEMBERS_DESC[globalVariables.LANG]} link="/affiliate/tree" />
                     <StatsCard title={globalVariables.DASHBOARD_TEAM_EARNING[globalVariables.LANG]} highlight={'-'} desc={globalVariables.DASHBOARD_TEAM_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
+                    
                     <StatsCard title={globalVariables.DASHBOARD_REFERRAL_EARNING[globalVariables.LANG]} highlight={this.state.suspendedBalance} desc={globalVariables.DASHBOARD_REFERRAL_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]} />
-                    <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_EARNING[globalVariables.LANG]} highlight={this.state.activeBalance} desc={globalVariables.DASHBOARD_CONFIRMED_EARNING_DESC[globalVariables.LANG]} />
+                    <StatsCard title={globalVariables.DASHBOARD_CONFIRMED_EARNING[globalVariables.LANG]} highlight={this.state.activeBalance} desc={globalVariables.DASHBOARD_CONFIRMED_EARNING_DESC[globalVariables.LANG]} currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}/>
+                    <StatsCard title={globalVariables.DASHBOARD_MY_LEVEL[globalVariables.LANG]} highlight={this.state.level} desc={globalVariables.DASHBOARD_MY_LEVEL_DESC[globalVariables.LANG]} />
                 </Grid>
                 <Grid container item xs={12} className={classes.paymentCards}>
                     <SellerPaymentRequest handleConfirmPayment={this.handleConfirmPayment}/>
                 </Grid>
 
                 <Grid container item xs={12} className={classes.paymentCards}>
-                    <CustomMaterialTabl title={'withdraw request'} filtering data={this.state.withdraws} columns={columns} />
+                    <CustomMaterialTable title={'withdraw request'} filtering data={this.state.withdraws} columns={columns} />
                 </Grid>
             </Grid>
         );
