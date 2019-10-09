@@ -15,11 +15,12 @@ class DatabaseSeeder extends Seeder
             Countries::class,
             // Cities::class,
             // Areas::class,
+            ReturnReasonsSeeder::class,
             Governorates::class,
             CategorySeeder::class,
             SpecsSeeder::class,
             CategorySpecsSeeder::class,
-            ReturnReasonsSeeder::class,
+
         ]);
     }
 }
