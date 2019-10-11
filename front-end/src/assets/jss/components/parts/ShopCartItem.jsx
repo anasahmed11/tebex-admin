@@ -21,12 +21,19 @@ export default  theme => ({
         fontSize:'13px',
         color:'rgb(100,100,100)',
     },
-   menu: {
-       width: '60px',
-       margin: '0px 4px 10px 0px'
-   },
-   cleanLink: {
-       textDecoration: 'none',
-       color: 'navy',
-   }
+    menu: {
+        width: '60px',
+        margin: '0px 4px 10px 0px'
+    },
+    cleanLink: {
+        textDecoration: 'none',
+        color: 'navy',
+    },
+    returnButton: {
+        fontSize: 12,
+    },
+    returnInfo: {
+        fontSize: 12,
+        color: 'darkred'
+    },
 });

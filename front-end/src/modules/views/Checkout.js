@@ -174,7 +174,6 @@ class Checkout extends React.Component {
             <React.Fragment>
                 <Helmet>
                     <title>{globalVariables.PAGE_TITLE_CHECKOUT[globalVariables.LANG]}</title>
-                    
                 </Helmet>
                 <Snackbar
                     style={{ bottom: '50px' }}

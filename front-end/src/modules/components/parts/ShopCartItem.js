@@ -9,22 +9,34 @@ import {
     Grid, 
     Divider, 
     IconButton, 
-    TextField
+    TextField,
+    Button
  } from '@material-ui/core';
 
 import { DeleteForever } from '@material-ui/icons';
 import { addToCart } from '../../../store/actions/shoppingCart';
 
+import ReturnForm from './ReturnForm';
+
 import styles from '../../../assets/jss/components/parts/ShopCartItem';
 import { baseURL } from '../../../api/api';
 
 class ShopCartItem extends Component{
-    state = {
 
+    state = {
+        returnFormOpen: false,
+        returned: false,
     }
  
     handleQuantityChange = event => {
         console.log()
+    }
+
+    toggleReturnButton = () =>
+        this.setState({ returnFormOpen: !this.state.returnFormOpen });
+
+    handleReturnRequest = () => {
+        this.setState({ returnFormOpen: false, returned: true });
     }
 
     render(){
@@ -43,7 +55,9 @@ class ShopCartItem extends Component{
                     <Grid item sm={3} xs={12} component={Link} to={`/product/${getProductURL(product)}`} className={classes.imageRoot}>
                         <img 
                             className={classes.image} 
-                            src={product.images.length?baseURL+product.images[0].slice(1):"https://ss7.vzw.com/is/image/VerizonWireless/iphone7-front-matblk?$device-lg$" } // product.images}
+                            src={product.images.length? 
+                                    baseURL + product.images[0].slice(1)
+                                    :"https://ss7.vzw.com/is/image/VerizonWireless/iphone7-front-matblk?$device-lg$" } // product.images}
                             alt="product"/>
                     </Grid>    
                     <Grid item sm={6} xs={12}>
@@ -57,6 +71,27 @@ class ShopCartItem extends Component{
                                 {globalVariables.LABEL_SELLER[globalVariables.LANG]}: <Link to={`shop/${product.store.id}`} className={classes.cleanLink}>{product.store.name}</Link>
                             </Typography>
                         </Grid>
+                        {previewOnly?
+                            this.state.returned?
+                            <Grid item>
+                                <Typography className={classes.returnInfo}>
+                                    {globalVariables.FORM_RETURN_PROCESSING[globalVariables.LANG]}
+                                </Typography>
+                            </Grid>
+                            : <Grid item>
+                                <Button className={classes.returnButton} primary variant="outlined" onClick={this.toggleReturnButton} >
+                                    {globalVariables.FORM_RETURN_LABEL_BUTTON[globalVariables.LANG]}
+                                </Button>
+                                <ReturnForm
+                                    open={this.state.returnFormOpen}
+                                    title={globalVariables.FORM_RETURN_LABEL_TITLE[globalVariables.LANG]}
+                                    onClose={this.toggleReturnButton}
+                                    formAction={this.handleReturnRequest}
+                                    name={product.name}
+                                    quantity={quantity}
+                                    image={baseURL + product.images[0].slice(1)}                                    
+                                />
+                            </Grid> : null}
                     </Grid>
 
                     <Grid item sm={3} xs={12}>

@@ -848,6 +848,8 @@ const globalVariables = {
         en: 'Invalid password.',
         ar: 'كلمة المرور غير صحيح',
     },
+
+
     // Register
     FORM_REGISTER_LABEL_TITLE: {
         en: 'Create new account',
@@ -940,6 +942,28 @@ const globalVariables = {
     FORM_ADDRESS_LABEL_BACK: {
         en: 'Back',
         ar: 'رجوع'
+    },
+
+    //Return Form
+    FORM_RETURN_LABEL_BUTTON: {
+        en: 'Return Product',
+        ar: 'ارجاع المنتج',
+    },
+    FORM_RETURN_LABEL_TITLE: {
+        en: 'Product Return Request',
+        ar: 'طلب ارجاع منتج',
+    },
+    FORM_RETURN_LABEL_REASON: {
+        en: 'Return reason',
+        ar: 'سبب الإرجاع',
+    },
+    FORM_RETURN_LABEL_NOTE: {
+        en: 'Details',
+        ar: 'التفاصيل',
+    },
+    FORM_RETURN_PROCESSING: {
+        en: 'Return Requested',
+        ar: 'تم تقديم طلب الإسترجاع',
     },
 
     // Track Order
