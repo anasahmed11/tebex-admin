@@ -17,5 +17,8 @@ class OrderProduct extends Model
     public function Order(){
         return $this->belongsTo(Order::class);
     }
+    public function ReturnApplication(){
+        return $this->belongsTo(ReturnApplication::class, 'return_id');
+    }
 
 }

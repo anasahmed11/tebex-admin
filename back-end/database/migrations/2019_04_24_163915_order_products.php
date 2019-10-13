@@ -19,8 +19,12 @@ class OrderProducts extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->double('price');
             $table->integer('quantity');
+
             $table->double('commission');
             $table->double('commission_percent');
+
+            $table->unsignedInteger('return_id')->nullable();
+            $table->boolean('returnable')->default(true);
 
             $table->enum('status',['pending','confirmed','refused'])->default('pending');
         });
@@ -28,6 +32,7 @@ class OrderProducts extends Migration
 
             $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('return_id')->references('id')->on('return_applications');
         });
 
     }

@@ -17,7 +17,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Auth::user()->Orders()->with('Address', 'Products.Product.Store', 'Shipper')->paginate(10);
+        $orders = Auth::user()->Orders()->with('Address', 'Products.Product.Store', 'Shipper', 'Products.ReturnApplication')->paginate(10);
 
         // $user = Auth::user()->id;
         // $orders = Order::with('Address', 'Products.Product.Store', 'Shipper')->whereHas('Address.User', function ($q) use ($user) {

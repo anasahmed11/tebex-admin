@@ -177,4 +177,5 @@ Route::prefix('seller')->group(function () {
 
 Route::prefix('return')->group(function () {
     Route::get('/reasons', 'API\Returning\ReturnController@getReturnReasons');
+    Route::post('/', 'API\Returning\ReturnController@setReturnProduct');
 });
