@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReturnApplicationRequest extends FormRequest
+class ReturnApplicationStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class ReturnApplicationRequest extends FormRequest
     public function rules()
     {
         return [
-            'order_id' => 'exists:order_products,order_id',
-            'product_id' => 'exists:order_products,product_id',
-            'reason' => 'required|string|min:3',
-            'note' => 'required|string|min:20'
+            'status'=> 'required|in:pending,active,shipped,returned,canceled',
+            'status_message'
         ];
     }
 }

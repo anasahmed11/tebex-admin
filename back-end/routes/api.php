@@ -141,6 +141,14 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/withdraws', 'API\Admin\AdminController@getWithdraws');
     Route::post('/withdraws/{withdraw}', 'API\Admin\AdminController@setWithdrawStatus');
+
+    Route::get('return', 'API\Admin\AdminController@getReturnApplication');
+    Route::post('return/{returnApplication}', 'API\Admin\AdminController@setReturnApplication');
+
+    Route::get('return/reason', 'API\Admin\AdminController@getReasons');
+    Route::post('return/reason/add', 'API\Admin\AdminController@addReason');
+    Route::post('return/reason/{returnReason}', 'API\Admin\AdminController@setReason');
+    Route::delete('return/reason/{returnReason)', 'API\Admin\AdminController@deleteReason');
 });
 
 Route::prefix('checkout')->group(function () {

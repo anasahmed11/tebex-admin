@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\Returning;
 
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReturnApplicationRequest;
 use App\OrderProduct;
@@ -22,7 +22,11 @@ class ReturnController extends Controller
 
         $orderProduct = OrderProduct::where([['order_id','=', $request->order_id],['product_id','=', $request->product_id]])->first();
         if($orderProduct == null)
-            return response()->json("The product is not associated with specified order", 400);
+            return response()->json("The product is not associated with specified order.", 400);
+        if($orderProduct->return_id != null)
+            return response()->json("A return application already submitted.", 400);
+        if($orderProduct->returnable == false)
+            return response()->json("Product is not returnable.", 400);
 
         try {
             DB::beginTransaction();

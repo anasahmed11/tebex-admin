@@ -7,11 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StatusRequest;
 use App\Affiliate;
 use App\Country;
+use App\Http\Requests\ReturnApplicationStatusRequest;
+use App\Http\Requests\ReturnReasonRequest;
 use App\Http\Requests\ShipperRequest;
 use App\Http\Requests\ShippingRequest;
 use App\Http\Requests\withdrawStatusRequest;
 use App\Order;
 use App\Product;
+use App\ReturnApplication;
+use App\ReturnReason;
 use App\Shipper;
 use App\Shipping;
 use App\Store;
@@ -195,5 +199,65 @@ class AdminController extends Controller
         $withdraw->save();
 
         return response()->json(['message' => 'ok'], 200);
+    }
+
+
+
+
+
+    public function getReturnApplication(Request $request)
+    {
+        if($request->status)
+            return response()->json(ReturnApplication::where('status', $request->status)->with('OrderProduct')->get(), 200);
+
+        return response()->json(ReturnApplication::with('OrderProduct')->get(), 200);
+    }
+
+    public function setReturnApplication(ReturnApplication $returnApplication, ReturnApplicationStatusRequest $request)
+    {
+        if($returnApplication==null)
+            return response()->json(['message' => 'Return application id not found'], 404);
+
+
+        $returnApplication->status = $request->get('status');
+        $returnApplication->status_message = $request->get('status_message');
+        $returnApplication->save();
+
+        if($returnApplication->status == 'canceled'){
+            // Todo Bally
+            // earning for affiliate and seller
+            // product returnable = false
+        }
+        elseif($returnApplication->status == 'returned'){
+            // send money to user
+        }
+
+        return response()->json(['message' => 'ok'], 200);
+    }
+
+
+
+    public function getReasons()
+    {
+        return response()->json(ReturnReason::all(), 200);
+    }
+    public function setReason(ReturnReason $returnReason, ReturnReasonRequest $request)
+    {
+        if($returnReason == null) return response()->json(['message' => 'Reason id not found'], 404);
+        $returnReason->update($request->all());
+        $returnReason->save();
+        return response()->json(['message' => 'Data updated successfully', 'data' => $returnReason], 201);
+    }
+    public function addReason(ReturnReasonRequest $request)
+    {
+        $returnReason = new ReturnReason($request->all());
+        $returnReason->save();
+        return response()->json(['message' => 'Data added successfully', 'data' => $returnReason], 201);
+    }
+    public function deleteReason(ReturnReason $returnReason)
+    {
+        if($returnReason == null) return response()->json(['message' => 'Reason id not found'], 404);
+        $returnReason->delete();
+        return response()->json(null, 204);
     }
 }
