@@ -73,10 +73,8 @@ class CheckOutController extends Controller
             $order->commission=OrderProduct::where(["order_id" => $order->id])->get()->sum(function($t){
                 return $t->quantity * $t->commission;
             });
-            if (Auth::check() && Auth::user()->Affiliate()->where('status','approved')->first()) {
-                $order->Referral()->associate(Auth::user());
-                Auth::user()->Affiliate()->first()->inactive+= Auth::user()->Affiliate()->first()->Plan()->first()->commission * $order->commission;
-                Auth::user()->Affiliate()->first()->save();
+            if (Auth('api')->check() && Auth('api')->user()->Affiliate()->where('status', 'approved')->first()) {
+                $order->Referral()->associate(Auth('api')->user());
             }else
                 $order->Referral()->associate(User::find($request->input('referral'))??User::find(1));
 

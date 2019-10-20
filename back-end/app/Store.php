@@ -23,7 +23,6 @@ class Store extends Model
             ]
         ];
     }
-
     public function Products(){
         return $this->hasMany(Product::class);
     }
