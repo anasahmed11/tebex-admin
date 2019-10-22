@@ -66,13 +66,12 @@ class ReturnForm extends React.Component {
                         <Grid item xs={12}>
                             <TextField
                                 className={classes.margin}
-                                id="outlined-email-input"
+                                id="outlined-reason-input"
                                 select
                                 label={globalVariables.FORM_RETURN_LABEL_REASON[globalVariables.LANG]}
                                 type="text"
-
-                                value={this.state.governorate}
-                                onChange={this.handleChange('governorate')}
+                                value={this.state.reason}
+                                onChange={this.handleChange('reason')}
                                 fullWidth
                                 InputLabelProps={{
                                     shrink: true,
@@ -80,7 +79,7 @@ class ReturnForm extends React.Component {
                                 required
                             >
                                 {this.state.reasons.map(option => (
-                                    <MenuItem key={uuid()} value={option.value}>
+                                    <MenuItem key={uuid()} value={option.en}>
                                         {option[globalVariables.LANG]}
                                     </MenuItem>
                                 ))}
@@ -90,11 +89,11 @@ class ReturnForm extends React.Component {
                         <Grid item xs>
                             <TextField
                                 className={classes.margin}
-                                id="outlined-notes-input"
+                                id="outlined-note-input"
                                 label={globalVariables.FORM_RETURN_LABEL_NOTE[globalVariables.LANG]}
                                 type="text"
-                                value={this.state.notes}
-                                onChange={this.handleChange('notes')}
+                                value={this.state.note}
+                                onChange={this.handleChange('note')}
                                 fullWidth
                                 InputLabelProps={{
                                     shrink: true,
@@ -112,9 +111,10 @@ class ReturnForm extends React.Component {
                         {globalVariables.FORM_ADDRESS_LABEL_BACK[globalVariables.LANG]}
                     </Button>
                     <Button
-                        onClick={this.props.formAction}
+                        onClick={() => this.props.formAction(this.state.reason, this.state.note)}
                         color="primary"
                         variant="outlined"
+                        disabled={this.state.note.length < 20}
                     >
                         {globalVariables.FORM_ADDRESS_LABEL_OK[globalVariables.LANG]}
                     </Button>

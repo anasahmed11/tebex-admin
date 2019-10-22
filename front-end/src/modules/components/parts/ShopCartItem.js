@@ -19,13 +19,13 @@ import { addToCart } from '../../../store/actions/shoppingCart';
 import ReturnForm from './ReturnForm';
 
 import styles from '../../../assets/jss/components/parts/ShopCartItem';
-import { baseURL } from '../../../api/api';
+import { baseURL, returnAPI } from '../../../api/api';
 
 class ShopCartItem extends Component{
 
     state = {
         returnFormOpen: false,
-        returned: false,
+        returned: !this.props.item.product.returnable,
     }
  
     handleQuantityChange = event => {
@@ -35,8 +35,20 @@ class ShopCartItem extends Component{
     toggleReturnButton = () =>
         this.setState({ returnFormOpen: !this.state.returnFormOpen });
 
-    handleReturnRequest = () => {
+    handleReturnRequest = (reason, note) => {
         this.setState({ returnFormOpen: false, returned: true });
+        const content = {
+            order_id: this.props.orderId,
+            product_id: this.props.item.product.id,
+            reason: reason,
+            note: note,
+        }
+        console.log(content);
+        returnAPI.post('/', content)
+        .then(res => {
+            console.log(res);
+        })
+        .catch(err => console.log(err));
     }
 
     render(){
@@ -137,7 +149,7 @@ class ShopCartItem extends Component{
                     <Grid item xs={1}>
                         <Typography gutterBottom variant='h6' className={classes.textSection}>
                             <IconButton aria-label="Cart" style={{padding:'0px',marginTop:'-3px', color:'darkred'}} onClick={() => handleDelete(product.id)}>
-                                    <DeleteForever  />
+                                <DeleteForever  />
                             </IconButton>
                         </Typography>
                     </Grid>

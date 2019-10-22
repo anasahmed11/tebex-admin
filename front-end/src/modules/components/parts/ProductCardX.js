@@ -22,11 +22,11 @@ const ProductCard = (props) => {
     <Grid container justify="center" className={classes.loading} style={{display: loading? 'block':'none'}} >
         <MoonLoader css={`margin: auto`} color={'#594589'} loading={props.loading} />
     </Grid>
-    // console.log(props.product)
 
     return (
         <div className={slider? classes.make3DspaceSlider : classes.make3Dspace}>
             <div className={slider? classes.productCardSlider : classes.productCard}>
+                {product.quantity? null : <div className={classes.outOfStock}></div>}
                 <div className={slider? classes.productFrontSlider : classes.productFront}>
                     <Loading loading={loading} />
                     <LazyLoad offsetTop={200} onContentVisible={() => setLoading(false)}>
@@ -38,7 +38,8 @@ const ProductCard = (props) => {
                     <div className={classes.imageOverlay}></div>
                     <Link className={classes.link} to={`/product/${product.slug}/${product.id}-${product.sku}`}>
                         <Typography variant='h6' className={slider? classes.viewDetailsSlider : classes.viewDetails}>
-                            {globalVariables.LABEL_SHOP_VIEW_DETAILS[globalVariables.LANG]}
+                            {product.quantity? globalVariables.LABEL_SHOP_VIEW_DETAILS[globalVariables.LANG]
+                            : globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}
                         </Typography>
                     </Link>
                     {props.oldPrice?
@@ -53,9 +54,13 @@ const ProductCard = (props) => {
                             {props.oldPrice? props.oldPrice + ' ' + props.currency : ''}
                         </Typography>
                         <Typography variant='h6' className={slider? classes.productPriceSlider : classes.productPrice}>{props.price} {props.currency}</Typography>
+                        {product.quantity?
                         <Typography variant='h6' className={slider? classes.addToCartSlider : classes.addToCart} onClick={() => props.addProductToCart(props.product)}>
                             {globalVariables.LABEL_SHOP_ADD_TO_CART[globalVariables.LANG]}
                         </Typography>
+                        :<Typography variant='h6' className={slider? classes.addToCartSlider : classes.addToCart}>
+                            {globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}
+                        </Typography>}
                     </div>
                 </div>
             </div>	
