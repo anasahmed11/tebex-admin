@@ -1,7 +1,7 @@
 import React from 'react';
 import globalVariables from '../../../global-variables';
 
-import { withStyles, Grid, Typography, } from '@material-ui/core';
+import { withStyles, Grid, Typography, Snackbar, } from '@material-ui/core';
 import 'typeface-roboto';
 
 import StatsCard from '../parts/StatsCard';
@@ -11,6 +11,7 @@ import SellerPaymentRequest from './SellerPaymentRequest';
 import { withdrawAPI, sellerAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 import CustomMaterialTabl from '../parts/CustomMaterialTable';
+import MySnackbar from '../parts/MySnackbar';
 
 const columns = [
     { title: 'Status', field: 'status', filtering: false },
@@ -104,15 +105,35 @@ class SellerDashboard extends React.Component {
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(err => {
                 if (!err.isCanceled) {
-
+                    this.setState({isPopup: true})
                 }
             });
     }
+
+    handlePopupClose = () => this.setState({ isPopup: false });
+    
     render() {
         const { classes, } = this.props;
 
         return (
             <Grid container item justify='center' xs={11}>
+                 <Snackbar
+                    style={{ bottom: '50px' }}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    open={this.state.isPopup}
+                    autoHideDuration={6000}
+                    onClose={this.handlePopupClose}
+                >
+                    <MySnackbar
+                        className={classes.margin}
+                        onClose={this.handlePopupClose}
+                        variant={globalVariables.TYPE_INFO}
+                        message={"رصيدك الحالي صفر"}
+                    />
+                </Snackbar>
                 <Grid item xs={12}>
                     <Typography gutterBottom component='h1' variant='h4' className={classes.textHead}>{globalVariables.LABEL_DASHBOARD[globalVariables.LANG]}</Typography>
                 </Grid>

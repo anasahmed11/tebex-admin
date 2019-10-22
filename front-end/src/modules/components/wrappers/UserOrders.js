@@ -15,6 +15,7 @@ import Pagination from '../parts/Pagination';
 
 import { ThemeProvider } from '@material-ui/styles';
 import MyClipLoader from '../parts/MyClipLoader';
+import MyOrdersEmpty from '../parts/MyOrdersEmpty';
 // border: 1px solid white;
 // border-radius: 2px;
 // text-align: center;
@@ -71,6 +72,7 @@ class UserOrders extends React.Component {
                     current_page: page,
                     isLoading: false,
                     limit: res.data.per_page,
+                    intialLoading: false,
                 })
             })
             .then(() => this.removePendingPromise(wrappedPromise))
@@ -116,15 +118,7 @@ class UserOrders extends React.Component {
                             />
                         </ThemeProvider >
                     </React.Fragment> :
-                    intialLoading ? null :
-                        <Grid container alignItems="center" justify="center" style={{ textAlign: 'center', position: 'relative', overflow: "hidden" }}>
-                            <Grid item xs={12}>
-                                <Typography variant="h4" gutterBottom>{globalVariables.MY_ORDERS_EMPTY[globalVariables.LANG]}</Typography>
-                                <Typography variant="h6">
-                                    {globalVariables.MY_ORDERS_VISIT_STORE[globalVariables.LANG]} <Link to='/shop'> {globalVariables.LABEL_HERE[globalVariables.LANG]}</Link>
-                                </Typography>
-                            </Grid>
-                        </Grid>
+                    intialLoading ? null : <MyOrdersEmpty />
                 }
             </Grid>
 

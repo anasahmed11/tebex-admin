@@ -19,8 +19,6 @@ class CreateAffiliatesTable extends Migration
             $table->double('active_balance')->default(0);
             $table->double('inactive_balance')->default(0);
             $table->double('suspended_balance')->default(0);
-            $table->enum('method',['cash','bank']);
-            $table->json('account');
             $table->bigInteger('user_id')->unsigned();
             $table->enum('status',['approved','refused','pending'])->default('pending');
 

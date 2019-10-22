@@ -20,7 +20,7 @@ const variantIcon = {
 const MySnackbarContent = props => {
     const { classes, className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
-  
+
     return (
       <SnackbarContent
         

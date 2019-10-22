@@ -35,28 +35,28 @@ class ProgramController extends Controller
     }
     public function Affiliates(AffiliateRequest $request)
     {
-        if (Affiliate::where('user_id',Auth('api')->user()->id)->whereIn('status', ['pending', 'approved'])->count() == 0) {
-        if (Affiliate::with('User')->find(Auth::user())->whereIn('status', ['pending', 'approved'])->count() == 0) {
-            DB::beginTransaction();
-            try{
-                $payment = new PaymentAccount($request->except('plan_id'));
-                $payment->_token = Str::random(20);
-                $payment->user_id = Auth::user()->id;
-                $payment->save();
+            if (Affiliate::with('User')->find(Auth::user())->whereIn('status', ['pending', 'approved'])->count() == 0) {
+                DB::beginTransaction();
+                try{
+                    $payment = new PaymentAccount($request->except('plan_id'));
+                    $payment->_token = Str::random(20);
+                    $payment->user_id = Auth::user()->id;
+                    $payment->save();
 
-                $aff = new Affiliate($request->only('plan_id'));
-                $aff->User()->associate(Auth::user());
-                $aff->save();
+                    $aff = new Affiliate($request->only('plan_id'));
+                    $aff->User()->associate(Auth::user());
+                    $aff->save();
 
-                DB::commit();
-                return response()->json(['message' => 'application send successfully']);
-            }
-            catch (\Exception $exception){
-                DB::rollback();
-                return response()->json(['error' => 'error in application']);
-            }
-        } else
-            return response()->json(['error' => 'you have pending request or already approved']);
+                    DB::commit();
+                    return response()->json(['message' => 'application send successfully']);
+                }
+                catch (\Exception $exception){
+                    DB::rollback();
+                    return response()->json(['error' => 'error in application']);
+                }
+            } else
+                return response()->json(['error' => 'you have pending request or already approved']);
+
+
     }
-
 }
