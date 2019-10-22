@@ -38,24 +38,26 @@ class OrderJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->order->returnable=false;
+        $commission=0;
         foreach ($this->products as $product) {
-            $pp=$product->Product()->first()->Store()->first();
-            $pp->balance += (($product->price - $product->commission) * $product->quantity)-10;
-            $pp->save();
-            $ppp = User::find(1)->Store()->first();
-            $ppp->balance += ($product->price * (2.5/ 100))*$product->quantity +10;
-            $ppp->save();
-
+            if(!$product->returen_id) {
+                $commission+=$product->commission*$product->quantity;
+                $pp = $product->Product()->first()->Store()->first();
+                $pp->balance += (($product->price - $product->commission) * $product->quantity) - 10;
+                $pp->save();
+                $ppp = User::find(1)->Store()->first();
+                $ppp->balance += ($product->price * (2.5 / 100)) * $product->quantity + 10;
+                $ppp->save();
+                $product->returnable=false;
+                $product->save();
+            }
         }
-        $this->order->save();
         $child=new User();
         $current=$this->user??User::find(1);
         while ($current) {
-            CommissionJob::dispatch($current->Affiliate()->first(), $child->Affiliate()->first(), $this->order->commission);
+            CommissionJob::dispatch($current->Affiliate()->first(), $child->Affiliate()->first(), $commission);
             $child=$current;
             $current=$current->parent()->first();
-
         }
     }
 }
