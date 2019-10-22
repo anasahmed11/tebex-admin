@@ -207,27 +207,6 @@ class AffiliateForm extends React.Component{
 
                {this.getPaymentForm()}
 
-                {/* {<Grid item xs = {12} className = {classes.paddingTop}>
-                    <TextField
-                        id = "register-package12312"
-                        select
-                        label = {globalVariables.FORM_AFFILIATE_LABEL_PACKAGE[globalVariables.LANG]}
-                        className = {classes.textField}
-                        value = {this.state.package}
-                        onChange = {this.handleChange('package')}
-                        InputLabelProps = {{
-                            shrink: true,
-                        }}
-                    >
-                        {PACKAGE.map(option => (
-                            <MenuItem key = {uuid()} value = {option.value}>
-                                {option.label}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                   
-                </Grid>}   */}
-
 
                 <Grid item xs = {6} className = {classes.paddingTop}>
                     <Button 

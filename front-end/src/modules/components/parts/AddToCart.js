@@ -8,7 +8,7 @@ import globalVariables from '../../../global-variables';
 import { withStyles, Grid, Typography, Divider, TextField, Button } from '@material-ui/core';
 import 'typeface-roboto';
 
-import { locationAPI,  } from '../../../api/api';
+import { locationAPI, governorateAPI,  } from '../../../api/api';
 
 import styles from '../../../assets/jss/components/parts/AddToCart';
 
@@ -49,22 +49,22 @@ const supportSection = [
 
 class AddToCart extends React.Component{
     state = {
-        city: -1,
-        cities: [],
+        governorate: -1,
+        governorates: [],
         quantity: 1,
         shipping: {},
         isLoading: true,
     }
     
     componentDidMount(){
-        locationAPI.get('cities/1')
+        governorateAPI.get('')
         .then(res=>{
-            const cities = res.data.map(item => ({id: item.id, name: item.city_name}));
+            const governorates = res.data.map(item => ({id: item.id, name: globalVariables.LANG==='ar'? item.governorate_name:item.governorate_name_en}));
             this.setState({
-                cities: cities,
-                city: cities[0].id,
+                governorates: governorates,
+                governorate: governorates[0].id,
             })
-            this.getShippingPrice(cities[0].id)
+            this.getShippingPrice(governorates[0].id)
         })
         .catch(res=>{
             this.setState({isLoading:false})
@@ -74,7 +74,7 @@ class AddToCart extends React.Component{
     }
 
     getShippingPrice = (id) =>{
-        locationAPI.get(`${id}/shipping/city`)
+        governorateAPI.get(`${id}/shipping`)
         .then(res=>{
             this.setState({
                 shipping: res.data,
@@ -91,20 +91,20 @@ class AddToCart extends React.Component{
         })
     }
 
-    handleCityChange = event => {
+    handleGovernorateChange = event => {
         // console.log(event.target.value)
         this.setState({ 
-            city: event.target.value, 
+            governorate: event.target.value, 
             isLoading:true 
         });
         this.getShippingPrice(event.target.value)
     };
 
     render(){
-        const { classes, quantity, store } = this.props;
+        const { classes, quantity } = this.props;
         const { isLoading } = this.state;
         const QUANTITIES = [...Array(quantity)].map((itme,idx)=>idx+1)
-        console.log(this.state.city)
+        console.log(this.state.governorate)
         return(
             <React.Fragment>
             {isLoading?
@@ -162,8 +162,8 @@ class AddToCart extends React.Component{
                             <TextField
                                 select
                                 variant="outlined"
-                                value={this.state.city}
-                                onChange={(event) => this.handleCityChange(event)}
+                                value={this.state.governorate}
+                                onChange={(event) => this.handleGovernorateChange(event)}
                                 SelectProps={{
                                     native: true,
                                 }}
@@ -172,8 +172,8 @@ class AddToCart extends React.Component{
                                         input: classes.orderSelectMenu,
                                     },
                                 }}>
-                                {this.state.cities.map((city, idx) => 
-                                    <option key={idx} value={city.id}> {city.name} </option>
+                                {this.state.governorates.map((governorate, idx) => 
+                                    <option key={idx} value={governorate.id}> {governorate.name} </option>
                                 )}
                             </TextField>
                         </form>

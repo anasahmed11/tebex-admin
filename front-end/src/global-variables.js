@@ -376,6 +376,14 @@ const globalVariables = {
         en: 'Security Settings',
         ar: 'معلومات الامان'
     },
+    PROFILE_EDIT_SUCCESS_MESSAGE: {
+        en: 'Changes saved successfully',
+        ar: 'تمت العملية بنجاح'
+    },
+    PROFILE_EDIT_ERROR_MESSAGE: {
+        en: 'Error occured',
+        ar: 'حدث خطا ما'
+    },
 
 
     //Upperbar

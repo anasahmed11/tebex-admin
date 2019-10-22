@@ -5,10 +5,11 @@ import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 import { withRouter } from 'react-router-dom';
 
-import { withStyles, Grid, Typography, Button, TextField, MenuItem } from '@material-ui/core';
+import { withStyles, Grid, Typography, Button, TextField, MenuItem, Snackbar } from '@material-ui/core';
 import 'typeface-roboto';
 
 import ExapndPanel from './ExapndPanel';
+import MySnackbar from '../parts/MySnackbar';
 
 import styles from '../../../assets/jss/components/wrappers/Profile';
 import { userAPI } from '../../../api/api';
@@ -36,7 +37,12 @@ class MainSettingsFrom extends React.Component {
 
         isLoading: true,
 
-        language: currLanguage
+        language: currLanguage,
+
+
+        isPopup: false,
+        messageType: 'info',
+        message: '',
     }
 
     handleChange = prop => event => {
@@ -59,19 +65,47 @@ class MainSettingsFrom extends React.Component {
         if (valid)
             userAPI.post('settings/main', data)
             .then(res=>{
-                
+                this.setState({
+                    messageType: globalVariables.TYPE_SUCCESS,
+                    message: globalVariables.PROFILE_EDIT_SUCCESS_MESSAGE[globalVariables.LANG],
+                    isPopup: true
+                })
             })
             .catch(res=>{
-
+                this.setState({
+                    messageType: globalVariables.TYPE_ERROR,
+                    message: globalVariables.PROFILE_EDIT_ERROR_MESSAGE[globalVariables.LANG],
+                    isPopup: true
+                })
             })
     }
+
+
+    handlePopupClose = () => 
+        this.setState({isPopup:false})
+
+
     render() {
         const { classes } = this.props;
         
         return (
             <React.Fragment>
                 <Grid container item justify="center" xs={12} spacing={2} className={classes.padding}>
-
+                    <Snackbar
+                        style={{bottom:'50px'}}   
+                        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                        open={this.state.isPopup}
+                        autoHideDuration={6000}
+                        onClose={this.handlePopupClose}
+                    >
+                        <MySnackbar 
+                            className={classes.margin}
+                            onClose={this.handlePopupClose}
+                            variant={this.state.messageType}
+                            message={this.state.message}
+                            
+                        />
+                    </Snackbar>
                     <Grid item sm={4} xs={11} className={classes.padding}>
                         <TextField
                             className={classes.margin}

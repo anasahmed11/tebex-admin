@@ -57,5 +57,4 @@ class ProgramController extends Controller
         } else
             return response()->json(['error' => 'you have pending request or already approved']);
     }
-
 }
