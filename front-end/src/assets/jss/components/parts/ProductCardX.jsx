@@ -444,4 +444,11 @@ export default theme => ({
         color: '#8b8b8b',
         textDecorationLine: 'line-through',
     },
+    outOfStock: {
+        background: 'rgba(150, 150, 150, 0.4)',
+        zIndex: 10,
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+    },
 });
