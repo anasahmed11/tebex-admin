@@ -35,7 +35,6 @@ class ProgramController extends Controller
     }
     public function Affiliates(AffiliateRequest $request)
     {
-        if (Affiliate::where('user_id',Auth('api')->user()->id)->whereIn('status', ['pending', 'approved'])->count() == 0) {
         if (Affiliate::with('User')->find(Auth::user())->whereIn('status', ['pending', 'approved'])->count() == 0) {
             DB::beginTransaction();
             try{

@@ -55,7 +55,6 @@ const Loading = (props) => <Grid container justify="center" alignItems="center"
 
 class Store extends Component {
 
-    
     queryParseOptions = {
         arrayFormat: 'bracket',
         parseBooleans: true,
@@ -78,6 +77,7 @@ class Store extends Component {
         categoryID: 1,
         totalPages: 1,
         query: {},
+        totalProducts: 0,
         queryDefaults: {
             page: 0,
             sort: 0,
@@ -103,7 +103,8 @@ class Store extends Component {
         if(Array.isArray(slug) && slug.length === 1 && slug[0] === '') slug = null;
         
         const query = queryString.parse(window.location.search, this.queryParseOptions);
-        
+        if(!query.page) query.page = 1;
+
         if(!(query.sort && query.sort > -1 && query.sort < this.sortValues.en.length && query.sort !== queryDefaults.sort))
             delete query.sort;
         if(!(query.perPage && query.perPage !== queryDefaults.perPage && this.perPageValues.findIndex(v => v === query.perPage) > -1))

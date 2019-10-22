@@ -22,7 +22,6 @@ const columns = [
     { title: 'Method', field: 'payments.method', type: "numeric", filtering: false },
     { title: 'Account', field: 'payments.account', type: "numeric", filtering: false },
     { title: 'Created at', field: 'created_at', filtering: false },
-
 ]
 
 class UserDashBoard extends React.Component {
@@ -217,7 +216,7 @@ class UserDashBoard extends React.Component {
                 </Grid>
 
                 <Grid container item xs={12} className={classes.paymentCards}>
-                    <CustomMaterialTable title={'withdraw request'} filtering data={this.state.withdraws} columns={columns} />
+                    <CustomMaterialTable title={globalVariables.TABLE_WITHDRAW_TITLE[globalVariables.LANG]} filtering data={this.state.withdraws} columns={columns} />
                 </Grid>
             </Grid>
         );

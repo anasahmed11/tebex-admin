@@ -460,8 +460,8 @@ const globalVariables = {
         ar: ''
     },
     PRODUCT_OUT_OF_STOCK: {
-        en: 'Product out of stock',
-        ar: 'المنتج غير متوفر حاليا'
+        en: 'Out of stock',
+        ar: 'غير متوفر حاليا'
     },
     PRODUCT_ADD_NEW_SPEC: {
         en: 'Add New Spec Value',
@@ -788,6 +788,11 @@ const globalVariables = {
         ar: 'الاودرات المكتملة',
     },
 
+    TABLE_WITHDRAW_TITLE: {
+        en: 'Withdraw Requests',
+        ar: 'طلبات السحب'
+    },
+
     // Link Genrator Page
     LINK_GENERATOR_TITLE: {
         en: 'Affiliate Link Generator',
@@ -912,8 +917,8 @@ const globalVariables = {
         ar: 'الجنس'
     },
     FORM_ADDRESS_LABEL_COUNTRY: {
-        en: 'Country',
-        ar: 'الدولة'
+        en: 'Governorate',
+        ar: 'المحافظة'
     },
     FORM_ADDRESS_LABEL_CITY: {
         en: 'City',
@@ -1190,22 +1195,22 @@ export const upperLinks = [
     },
     {
         title: globalVariables.UPPERBAR_US[globalVariables.LANG],
-        link: '/',
+        link: '/About',
         icon: <Inbox />
     },
     {
         title: globalVariables.UPPERBAR_Q[globalVariables.LANG],
-        link: '/',
+        link: '/FAQ',
         icon: <QuestionAnswer />
     },
     {
         title: globalVariables.UPPERBAR_MAGAZINE[globalVariables.LANG],
-        link: '/',
+        link: '/Magazine',
         icon: <Book />
     },
     {
         title: globalVariables.UPPERBAR_CALL_US[globalVariables.LANG],
-        link: '/',
+        link: '/Contact-us',
         icon: <Call />
     },
 ];

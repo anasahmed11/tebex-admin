@@ -15,8 +15,8 @@ import { initUser } from '../../../store/actions/user';
 import styles from '../../../assets/jss/components/wrappers/Affiliate';
 import MyClipLoader from '../parts/MyClipLoader';
 
-const Page1 = props => globalVariables.AFFILIATE_PAGE1[globalVariables.LANG];
-const Page2 = props => globalVariables.AFFILIATE_PAGE2[globalVariables.LANG];
+const Page1 = props => <Typography>{globalVariables.AFFILIATE_PAGE1[globalVariables.LANG]}</Typography>
+const Page2 = props => <Typography>{globalVariables.AFFILIATE_PAGE2[globalVariables.LANG]}</Typography>
 
 const STATES = ['Not Applied','Pending','Approved','Refused']
 

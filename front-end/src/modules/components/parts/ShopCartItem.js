@@ -25,7 +25,7 @@ class ShopCartItem extends Component{
 
     state = {
         returnFormOpen: false,
-        returned: !this.props.item.product.returnable,
+        returned: this.props.previewOnly? !this.props.item.returnable : null,
     }
  
     handleQuantityChange = event => {
@@ -75,12 +75,16 @@ class ShopCartItem extends Component{
                     <Grid item sm={6} xs={12}>
                         <Grid item>
                             <Typography gutterBottom variant='h6' className={classes.textSection}>
-                                <Link to={`product/${getProductURL(product)}`} className={classes.cleanLink}><b>{product.name}</b></Link>
+                                <Link to={`product/${getProductURL(product)}`} className={classes.cleanLink}>
+                                    <b style={{textTransform: 'uppercase'}}>{globalVariables.LANG === 'ar'? product.name : product.name_en}</b>
+                                </Link>
                             </Typography>
                         </Grid>
                         <Grid item>
                             <Typography gutterBottom variant='h6' className={classes.textSection}>
-                                {globalVariables.LABEL_SELLER[globalVariables.LANG]}: <Link to={`shop/${product.store.id}`} className={classes.cleanLink}>{product.store.name}</Link>
+                                {globalVariables.LABEL_SELLER[globalVariables.LANG]}: <Link to={`shop/${product.store.id}`} className={classes.cleanLink}>
+                                {globalVariables.LANG === 'ar'? product.store.name : product.store.name_en}
+                                </Link>
                             </Typography>
                         </Grid>
                         {previewOnly?
@@ -100,6 +104,7 @@ class ShopCartItem extends Component{
                                     onClose={this.toggleReturnButton}
                                     formAction={this.handleReturnRequest}
                                     name={product.name}
+                                    name_en={product.name_en}
                                     quantity={quantity}
                                     image={baseURL + product.images[0].slice(1)}                                    
                                 />

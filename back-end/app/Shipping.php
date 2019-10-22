@@ -8,7 +8,7 @@ class Shipping extends Model
 {
     protected $table = 'shipping';
     protected $fillable = [
-        'min_days', 'max_days', 'fees', 'shipper_id', 'city_id'
+        'min_days', 'max_days', 'fees', 'shipper_id', 'governorate_id'
     ];
     protected $casts = [
         'created_at' => 'datetime',

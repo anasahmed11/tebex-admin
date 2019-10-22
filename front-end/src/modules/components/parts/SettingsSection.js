@@ -138,12 +138,12 @@ class SettingsSection extends React.Component{
                         }
                         {isSeller?
                             <Collapse in={this.state.sellerOpen} timeout="auto" unmountOnExit>
-                                <Link to="/seller/add-product" className={classes.link}>
+                                <Link to="/seller/dashboard" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
-                                            <FontAwesomeIcon className={classes.fontawesomeIcon} icon="plus" />
+                                            <DashboardIcon />
                                         </ListItemIcon>
-                                    <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_ADD_PRODUCTS[globalVariables.LANG]} /> 
+                                    <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_SELLING_DASHBOARD[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
                                 <Link to="/seller/my-products" className={classes.link}>
@@ -162,12 +162,12 @@ class SettingsSection extends React.Component{
                                     <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_SELLING_ORDERS[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
-                                <Link to="/seller/dashboard" className={classes.link}>
+                                <Link to="/seller/add-product" className={classes.link}>
                                     <MenuItem className={classes.nested}>
                                         <ListItemIcon className={classes.icon}>
-                                            <FontAwesomeIcon className={classes.fontawesomeIcon} icon="clipboard-check" />
+                                            <FontAwesomeIcon className={classes.fontawesomeIcon} icon="plus" />
                                         </ListItemIcon>
-                                    <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_SELLING_DASHBOARD[globalVariables.LANG]} /> 
+                                    <ListItemText className={classes.primary} inset primary={globalVariables.SETTINGS_SECTION_ADD_PRODUCTS[globalVariables.LANG]} /> 
                                     </MenuItem>
                                 </Link>
                             </Collapse>:null

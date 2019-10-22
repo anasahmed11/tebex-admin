@@ -13,12 +13,12 @@ import styles from '../../../assets/jss/components/wrappers/AffiliateRegisterati
 import MyClipLoader from '../parts/MyClipLoader';
 
 
-
-
 const packages = [
     { color: "#5d6a9a", title: 'Silver', price: '1000', border: '#474f6f' }, 
     { color: "#eac80d", title: 'gold', price: '3000', border: '#bfa30c' }, 
-    { color: "#1abc9c", title: 'bronze', price: 'free', border: '#18937b' }];
+    { color: "#1abc9c", title: 'bronze', price: 'free', border: '#18937b' }
+];
+
 class AffiliateRegisteration extends React.Component {
     state = {
         isLoading: false,

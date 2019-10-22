@@ -29,7 +29,7 @@ class CategoryController extends Controller
         $cats = Category::descendantsAndSelf($category)->toFlatTree();
         $count = 0;
         foreach ($cats as $cat) {
-            $count += $cat->Product()->count();
+            $count += $cat->Product()->where('status','approved')->where('active','1')->count();
         }
         return response()->json(["data" => ["count" => $count]]);
     }
@@ -41,7 +41,7 @@ class CategoryController extends Controller
             $catids[] = $cat->id;
         }
         return response()->json(["data" => ProductSpec::whereHas('Product', function ($q) use ($catids) {
-            $q->whereIn('category_id', $catids);
+            $q->where('status','approved')->where('active','1')->whereIn('category_id', $catids);
         })->get()->groupBy([
             function ($item) {
                 $spec = Spec::find($item['spec_id']);
@@ -86,7 +86,7 @@ class CategoryController extends Controller
 
         $cats = array_map($func, $cats->toArray());
 
-        $products = Product::where('active', 1)->where('status','approved')->whereIn('category_id', $cats);
+        $products = Product::where('active', '1')->where('status','approved')->whereIn('category_id', $cats);
 
         if ($filters->isMethod('post')) {
             $setting = $filters->only('settings')['settings'];

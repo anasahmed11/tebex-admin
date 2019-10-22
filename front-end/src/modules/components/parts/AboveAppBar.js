@@ -13,10 +13,10 @@ function TopNav(props) {
     return <Grid container className={classes.root} justify='center' alignItems='center'>
               <Hidden smDown>
                 <Grid sm={10} item container justify="flex-end">
-                  {
-                    props.links.map((item,idx) => 
-                    <Link component={RouterLink} onClick={item.onClick} to={item.link} className={classes.navLink} key={idx}>{item.title}</Link>)
-                  }
+                  {props.links.map((item,idx) => 
+                    <Link component={RouterLink} onClick={item.onClick} to={item.link} className={classes.navLink} key={idx}>
+                      {item.title}
+                    </Link>)}
                 </Grid>
             </Hidden>
           </Grid>

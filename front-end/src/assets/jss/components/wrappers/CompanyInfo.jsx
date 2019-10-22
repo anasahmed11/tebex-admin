@@ -13,7 +13,7 @@ export default theme => ({
     },
     iconContainer: {
         marginRight: theme.spacing(2),  
-        flexBasis: '10%',
+        // flexBasis: '10%',
     },
     icon: {
         color: COLORS.HOME.InfoSection.Icons.primary,

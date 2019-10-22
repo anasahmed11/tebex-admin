@@ -33,7 +33,7 @@ class ProductController extends Controller
 
     public function product(Product $product)
     {
-        if ($product == null || $product->status == "pending" || $product->active == 0)
+        if ($product == null || $product->status != "approved" || $product->active == 0)
             return response()->json(["error" => "product not found"], 400);
         return response()->json($product, 200);
     }

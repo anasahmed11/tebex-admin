@@ -8,8 +8,6 @@ import SupportNavbar from '../parts/AboveAppBar';
 import BelowAppBar from '../parts/BelowAppBar';
 
 
-
-
 class Navbar extends Component {
 
   state = {

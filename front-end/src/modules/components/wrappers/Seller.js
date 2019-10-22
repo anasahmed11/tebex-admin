@@ -13,8 +13,8 @@ import { initUser } from '../../../store/actions/user';
 
 import styles from '../../../assets/jss/components/wrappers/Seller';
 
-const Page1 = props => globalVariables.SELLER_PAGE1[globalVariables.LANG];
-const Page2 = props => globalVariables.SELLER_PAGE2[globalVariables.LANG];
+const Page1 = props => <Typography>{globalVariables.SELLER_PAGE1[globalVariables.LANG]}</Typography>;
+const Page2 = props => <Typography>{globalVariables.SELLER_PAGE2[globalVariables.LANG]}</Typography>;
 
 const STATES = ['Not Applied','Pending','Approved','Refused']
 

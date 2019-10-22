@@ -14,17 +14,12 @@ const AboveFooter = props => {
     const { classes, info } = props;
     let joinUs = null;
     if (props.authenticated)
-        joinUs = <Grid container item xs={11} justify="flex-end" alignItems='center'>
-            <Grid item xs={5}>
+        joinUs = <Grid container item xs={11} justify="center" alignItems='center'>
                 <Button size="large" variant="contained" color="secondary" component={Link} to={props.link} className={classes.button}>
                     <Typography variant="h6">
-                        {
-                            props.join?globalVariables.LABEL_JOIN_NOW[globalVariables.LANG]: globalVariables.LABEL_CHECK_ACCOUNT[globalVariables.LANG]
-                        }
-                        
+                        {props.join?globalVariables.LABEL_JOIN_NOW[globalVariables.LANG]: globalVariables.LABEL_CHECK_ACCOUNT[globalVariables.LANG]}
                     </Typography>
                 </Button>
-            </Grid>
         </Grid>
 
     return <Grid container justify='center' alignItems='center' className={classes.root} >

@@ -133,7 +133,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('/shippers/{id}', 'API\Admin\AdminController@deleteShipper');
 
     Route::get('/shipping', 'API\Admin\AdminController@getShipping');
-    Route::post('/shippers', 'API\Admin\AdminController@addShipping');
+    Route::post('/shipping', 'API\Admin\AdminController@addShipping');
     Route::post('/shipping/{shipping}', 'API\Admin\AdminController@editShipping');
     Route::delete('/shipping/{shipping}', 'API\Admin\AdminController@deleteShipping');
 

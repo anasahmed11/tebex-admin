@@ -35,7 +35,7 @@ class ProductRequest extends FormRequest
             'price'=>'required|numeric',
             'sale_price'=>'numeric',
             'quantity'=>'required|integer',
-            'commission'=>'required|integer|between:20,40',
+            'commission'=>'required|numeric|gt:0',
             'category'=>'required|exists:categories,id',
             'specs.*.id'=>'required|exists:specs',
             'specs.*.value'=>'required|integer'

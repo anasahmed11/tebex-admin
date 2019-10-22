@@ -37,7 +37,7 @@ const ProductCard = (props) => {
                     <div className={classes.shadow}></div>
                     <div className={classes.imageOverlay}></div>
                     <Link className={classes.link} to={`/product/${product.slug}/${product.id}-${product.sku}`}>
-                        <Typography variant='h6' className={slider? classes.viewDetailsSlider : classes.viewDetails}>
+                        <Typography variant='h6' style={{textTransform: 'uppercase'}} className={slider? classes.viewDetailsSlider : classes.viewDetails}>
                             {product.quantity? globalVariables.LABEL_SHOP_VIEW_DETAILS[globalVariables.LANG]
                             : globalVariables.PRODUCT_OUT_OF_STOCK[globalVariables.LANG]}
                         </Typography>

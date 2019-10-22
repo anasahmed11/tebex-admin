@@ -1,5 +1,6 @@
 export default theme => ({
   root: {
+    fontFamily: "'Droid Arabic Kufi', 'Ubuntu', 'Roboto'",
     '& input': {
       display: 'block',
       boxSizing: 'border-box',
@@ -29,7 +30,7 @@ export default theme => ({
       display: 'block',
       color: 'rgba(0, 0, 0, 1)',
       fontSize: '1rem',
-
+      fontFamily: "'Droid Arabic Kufi', 'Ubuntu', 'Roboto'",
     },
     '& p': {
       color: '#bf1650',

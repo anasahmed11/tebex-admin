@@ -11,7 +11,7 @@ const form = props => {
     return (
         <div className={classes.root}>
             <div>
-                <label htmlFor="name_en">Name (english)</label>
+                <label htmlFor="name_en">Name (English)</label>
                 <input style={{direction:'ltr'}} type="text" placeholder="" name="name_en" ref={register({ required: true, minLength: 15 })} />
                 <p class="desc">{globalVariables.PRODUCT_NAME_DESC[globalVariables.LANG]}</p>
                 {errors.name_en && <p>This field is required and length bigger than 15</p>}
@@ -40,7 +40,7 @@ const form = props => {
                 <label htmlFor="commission">{globalVariables.LABEL_COMMISSION[globalVariables.LANG]}</label>
                 <input type="text" placeholder="" name="commission" ref={register({ required: true, pattern: /^\d+$/ })} />
                 <p class="desc">{globalVariables.PRODUCT_COMMISSION_DESC[globalVariables.LANG]}</p>
-                {errors.commission && <p>This field is required and has to be a number between 20, 40 %</p>}
+                {errors.commission && <p>This field is required and has to be a number greater than 0.</p>}
             </div>
 
             <div>
@@ -55,27 +55,7 @@ const form = props => {
                 <p class="desc">{globalVariables.PRODUCT_SKU_DESC[globalVariables.LANG]}</p>
                 {errors.sku && <p>This field is required</p>}
             </div>
-
-
-            {
-                // <div>
-                //   <label htmlFor="brand">Brand</label>
-                //   <input name="brand" placeholder="" ref={register({required: true})} />
-                // </div>
-
-                // <div>
-                //   <label htmlFor="model_number">Model Number</label>
-                //   <input name="model_number" placeholder="" ref={register} />
-                // </div>
-                // <div>
-                //   <label htmlFor="made_in">Made In</label>
-                //   <input name="made_in" placeholder="" ref={register({required: true})} />
-                // </div>
-                // <div>
-                //   <label htmlFor="material">Material</label>
-                //   <input name="material" placeholder="" ref={register} />
-                // </div>
-            }
+            
         </div>
     );
 }
