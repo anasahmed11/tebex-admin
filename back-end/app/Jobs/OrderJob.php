@@ -16,7 +16,7 @@ use Symfony\Component\Debug\Debug;
 class OrderJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $order,$user;
+    protected $order,$user,$products;
 
     /**
      * Create a new job instance.
@@ -27,6 +27,7 @@ class OrderJob implements ShouldQueue
     public function __construct(Order $order)
     {
         $this->order=$order;
+        $this->products=$order->Products()->get();
         $this->user=$this->order->Referral()->first();
     }
 
@@ -37,19 +38,26 @@ class OrderJob implements ShouldQueue
      */
     public function handle()
     {
-        $this->order->returnable=false;
-        $this->order->save();
-        foreach ($this->order->Products() as $product){
-            $product->Product()->Store()->first()->balance += ($product->price- ($product->price*($product->commission_percent/100))) * $product->quantity;
-            User::find(1)->Store()->first()->balance += ($product->price * 2.5);
+        $commission=0;
+        foreach ($this->products as $product) {
+            if(!$product->returen_id) {
+                $commission+=$product->commission*$product->quantity;
+                $pp = $product->Product()->first()->Store()->first();
+                $pp->balance += (($product->price - $product->commission) * $product->quantity) - 10;
+                $pp->save();
+                $ppp = User::find(1)->Store()->first();
+                $ppp->balance += ($product->price * (2.5 / 100)) * $product->quantity + 10;
+                $ppp->save();
+                $product->returnable=false;
+                $product->save();
+            }
         }
         $child=new User();
         $current=$this->user??User::find(1);
         while ($current) {
-            CommissionJob::dispatch($current->Affiliate()->first(), $child->Affiliate()->first(), $this->order->commission);
+            CommissionJob::dispatch($current->Affiliate()->first(), $child->Affiliate()->first(), $commission);
             $child=$current;
             $current=$current->parent()->first();
-
         }
     }
 }

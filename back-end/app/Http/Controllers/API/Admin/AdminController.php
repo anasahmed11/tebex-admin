@@ -12,6 +12,7 @@ use App\Http\Requests\ReturnReasonRequest;
 use App\Http\Requests\ShipperRequest;
 use App\Http\Requests\ShippingRequest;
 use App\Http\Requests\withdrawStatusRequest;
+use App\Jobs\CommissionJob;
 use App\Order;
 use App\Product;
 use App\ReturnApplication;
@@ -19,6 +20,7 @@ use App\ReturnReason;
 use App\Shipper;
 use App\Shipping;
 use App\Store;
+use App\User;
 use App\Withdraw;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -225,8 +227,23 @@ class AdminController extends Controller
 
         if($returnApplication->status == 'canceled'){
             // Todo Bally
+            $product=$returnApplication->OrderProduct()->first();
+            $pp = $product->Product()->first()->Store()->first();
+            $pp->balance += (($product->price - $product->commission) * $product->quantity) - 10;
+            $pp->save();
+            $ppp = User::find(1)->Store()->first();
+            $ppp->balance += ($product->price * (2.5 / 100)) * $product->quantity + 10;
+            $ppp->save();
             // earning for affiliate and seller
-            // product returnable = false
+            $product->returnable=false;
+            $product->save();
+            $child=new User();
+            $current=$product->Order()->get()->Referral()->first()??User::find(1);
+            while ($current){
+                CommissionJob::dispatch($current->Affiliate()->first(), $child->Affiliate()->first(), $product->commission*$product->quantity);
+                $child=$current;
+                $current=$current->parent()->first();
+            }
         }
         elseif($returnApplication->status == 'returned'){
             // send money to user

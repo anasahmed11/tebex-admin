@@ -23,7 +23,7 @@ class ProgramController extends Controller
 
     public function Stores(SellerRequest $request)
     {
-        if (Store::with('User')->find(Auth::user())->whereIn('status', ['pending', 'approved'])->count() == 0) {
+        if (Store::where('user_id',Auth('api')->user()->id)->whereIn('status', ['pending', 'approved'])->count() == 0) {
             $store = new Store($request->all());
             $store->User()->associate(Auth::user());
             if ($store->save())
@@ -35,6 +35,7 @@ class ProgramController extends Controller
     }
     public function Affiliates(AffiliateRequest $request)
     {
+        if (Affiliate::where('user_id',Auth('api')->user()->id)->whereIn('status', ['pending', 'approved'])->count() == 0) {
         if (Affiliate::with('User')->find(Auth::user())->whereIn('status', ['pending', 'approved'])->count() == 0) {
             DB::beginTransaction();
             try{
