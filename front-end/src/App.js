@@ -123,10 +123,10 @@ class App extends React.Component {
                   <Route exact path='/(about|privacy-policy|contact)' component={Info} />
 
 
-                  <Route exact path="/affiliate" render={props => !affiliate ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+                  <Route exact path="/affiliate" render={props => !affiliate ? (authenticated? <UserPanel {...props} />:<Redirect to='/auth?#login' />) : <Redirect to='/affiliate/dashboard' />} />
 
 
-                  <Route exact path="/seller" render={props => !seller ? <UserPanel {...props} /> : <Redirect to='/404' />} />
+                  <Route exact path="/seller" render={props => !seller ? (authenticated? <UserPanel {...props} />:<Redirect to='/auth?#login' />) : <Redirect to='/seller/dashboard' />} />
                   <Route path="/(seller|affiliate)/" render={props => authenticated ? <UserPanel {...props} /> : <Redirect to='/404' />} />
 
 
