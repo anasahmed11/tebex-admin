@@ -75,7 +75,11 @@ class SellerDashboard extends React.Component {
         wrappedPromise
             .promise
             .then(res => {
-                this.setState({ confirmedEarn: res.data.balance })
+                this.setState({ 
+                    confirmedEarn: res.data.confirmed_earn,
+                    pendingEarn:res.data.pending_earn,
+                    approvedEarn:res.data.approved_earn,
+                })
             })
             .then(() => this.removePendingPromise(wrappedPromise))
             .catch(err => {

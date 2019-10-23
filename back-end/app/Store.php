@@ -14,6 +14,7 @@ class Store extends Model
         'updated_at'=>'datetime',
     ];
 
+    protected $hidden = ['balance'];
 
     public function sluggable()
     {
@@ -29,12 +30,6 @@ class Store extends Model
     public function User(){
         return $this->belongsTo(User::class);
     }
-    public function toArray()
-    {
-        $attr=$this->attributesToArray();
-        if (!$this->q)
-            unset($attr['balance']);
-        return array_merge($attr, $this->relationsToArray());
-    }
+
 
 }
