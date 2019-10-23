@@ -1263,7 +1263,7 @@ export const footerSections = [
         links: [
             {
                 title: { en: 'Sell Your Products', ar: 'بيع منتجاتك' },
-                link: '/sell'
+                link: '/seller'
             },
             {
                 title: { en: 'Affiliate Program', ar: 'التسويق بالعمولة' },
