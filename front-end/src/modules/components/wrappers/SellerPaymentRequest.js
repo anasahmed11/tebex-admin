@@ -2,7 +2,7 @@ import React from 'react';
 import { ClipLoader } from 'react-spinners';
 import globalVariables from '../../../global-variables';
 
-import { Typography, withStyles, Grid, Button, } from '@material-ui/core';
+import { Typography, withStyles, Grid, Button, Snackbar } from '@material-ui/core';
 import 'typeface-roboto';
 import {
     CSSTransition,
@@ -16,6 +16,7 @@ import './styles/componentAddDelete.css';
 import { paymentAPI } from '../../../api/api';
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
+import MySnackbar from '../parts/MySnackbar';
 
 import styles from '../../../assets/jss/components/wrappers/CheckoutAddress';
 
@@ -25,7 +26,10 @@ class CheckoutAddress extends React.Component {
         selectedPayment: 0,
         payments: [],
         isLoading: true,
-        editIdx: null
+        editIdx: null,
+        isPopup: false,
+        messageType: globalVariables.TYPE_INFO,
+        message: '',
     }
 
     pendingPromises = [];
@@ -85,10 +89,11 @@ class CheckoutAddress extends React.Component {
 
     }
     handleDetailsButton = (id) => {
-        const idx = [...this.state.payments].findIndex(item => item.id === id)
-
-        this.setState({ editIdx: idx, addForm: true });
-
+        this.setState({
+            isPopup: true,
+            messageType: globalVariables.TYPE_INFO,
+            message: 'not working in this version'
+        })
     }
     handleDelete = (id,token) => {
         let payments = [...this.state.payments]
@@ -107,9 +112,8 @@ class CheckoutAddress extends React.Component {
             });
     }
 
-    handleConfirmPayment = () => {
-        console.log("CONFIRMING")
-    };
+    handlePopupClose = () => 
+        this.setState({isPopup:false})
 
     render() {
         const { classes } = this.props;
@@ -119,6 +123,25 @@ class CheckoutAddress extends React.Component {
                 <Grid item xs={12}>
                     <Typography gutterBottom component='h2' variant='h5'>{globalVariables.FORM_REGISTER_LABEL_TITLE[globalVariables.LANG]}</Typography>
                 </Grid>
+                
+                <Snackbar
+                    style={{bottom:'50px'}}   
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                    }}
+                    open={this.state.isPopup}
+                    autoHideDuration={6000}
+                    onClose={this.handlePopupClose}
+                >
+                    <MySnackbar 
+                        className={classes.margin}
+                        onClose={this.handlePopupClose}
+                        variant={this.state.messageType}
+                        message={this.state.message}
+                        
+                    />
+                </Snackbar>
 
                 {isLoading ?
                     <Grid container alignItems="center" justify="center" >
@@ -156,7 +179,7 @@ class CheckoutAddress extends React.Component {
                                             selected={this.state.selectedPayment === index ? true : false}
                                             onClick={this.addressClickHandler.bind(this, index)}
                                             handleDelete={this.handleDelete}
-                                            // handleDetailsButton={this.handleDetailsButton}
+                                            handleDetailsButton={this.handleDetailsButton}
                                         />
                                     </CSSTransition>
                                 )}
