@@ -76,7 +76,7 @@ class CheckOutController extends Controller
                 $order->Referral()->associate(User::find($request->input('referral'))??User::find(1));
 
             $order->save();
-            OrderJob::dispatch($order)->delay(now()->addWeek(2));
+            // OrderJob::dispatch($order)->delay(now()->addWeek(2));
             DB::commit();
             $address->notify(new OrderPlaced($order));
             return response()->json(["success" => "order placed successfully",

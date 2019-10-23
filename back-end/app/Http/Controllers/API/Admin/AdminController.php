@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Admin;
 
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StatusRequest;
@@ -13,6 +14,7 @@ use App\Http\Requests\ShipperRequest;
 use App\Http\Requests\ShippingRequest;
 use App\Http\Requests\withdrawStatusRequest;
 use App\Jobs\CommissionJob;
+use App\Jobs\OrderJob;
 use App\Order;
 use App\Product;
 use App\ReturnApplication;
@@ -84,8 +86,22 @@ class AdminController extends Controller
         $order = Order::find($id);
         if ($order == null) return response()->json(['message' => 'Order id not found'], 404);
 
-        $order->status = $request->input('status');
-        $order->save();
+        DB::beginTransaction();
+        try {
+            $order->status = $request->input('status');
+            $order->save();
+
+            if($order->status == 'delivered')
+                OrderJob::dispatch($order)->delay(now()->addWeek(2));
+
+            DB::commit();
+        }catch (\Exception $exception){
+
+            DB::rollback();
+            return response()->json(["error" => "An error occurred"], 400);
+        }
+
+
         return response()->json(['message' => 'ok'], 200);
     }
 
