@@ -1190,8 +1190,7 @@ export function getProductURL(product) {
 }
 
 export const handleLanguageToggle = () => {
-    globalVariables.LANG = globalVariables.LANG === 'en' ? 'ar' : 'en';
-    cookies.set(globalVariables.LANGUGAE, globalVariables.LANG);
+    cookies.set(globalVariables.LANGUGAE,  globalVariables.LANG === 'en' ? 'ar' : 'en');
     window.location.reload();
 }
 
