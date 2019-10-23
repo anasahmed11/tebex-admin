@@ -25,7 +25,6 @@ class ShopCartItem extends Component{
 
     state = {
         returnFormOpen: false,
-        returned: this.props.previewOnly? !this.props.item.returnable : null,
     }
  
     handleQuantityChange = event => {
@@ -59,7 +58,7 @@ class ShopCartItem extends Component{
         const quantity = previewOnly? item.quantity : item.cart.quantity;
         const options = previewOnly? 
             null : [...Array(item.quantity + 1).keys()].slice(1).map((n,idx) => <option key={idx} value={n}> {n} </option>);
-        
+        console.log(this.props.item)
         return(
             <Grid item xs={12} className={classes.root}>
                 
@@ -88,13 +87,14 @@ class ShopCartItem extends Component{
                             </Typography>
                         </Grid>
                         {previewOnly?
-                            this.state.returned?
+                            this.props.item.return_application?
                             <Grid item>
                                 <Typography className={classes.returnInfo}>
-                                    {globalVariables.FORM_RETURN_PROCESSING[globalVariables.LANG]}
+                                    {this.props.item.return_application.status_message}
                                 </Typography>
                             </Grid>
-                            : <Grid item>
+                            : this.props.item.returnable?
+                            <Grid item>
                                 <Button className={classes.returnButton} primary variant="outlined" onClick={this.toggleReturnButton} >
                                     {globalVariables.FORM_RETURN_LABEL_BUTTON[globalVariables.LANG]}
                                 </Button>
@@ -108,7 +108,9 @@ class ShopCartItem extends Component{
                                     quantity={quantity}
                                     image={baseURL + product.images[0].slice(1)}                                    
                                 />
-                            </Grid> : null}
+                            </Grid>
+                            : null
+                        : null }
                     </Grid>
 
                     <Grid item sm={3} xs={12}>
