@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default (theme) => ({
     checkoutSummary: {
         padding: `${theme.spacing(2)}px 0px`,
@@ -10,11 +12,11 @@ export default (theme) => ({
     textSection: {
         fontWeight: '500',
         fontSize: '13px',
-        color: 'rgb(120,120,120)',
+        color: palette.dark,
     },
     textHead: {
         fontWeight: 'bold',
         fontSize: '15px',
-        color: 'rgb(120,120,120)',
+        color: palette.dark,
     },
 });

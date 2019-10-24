@@ -30,6 +30,7 @@ const styles2 = (theme) => ({
         textAlign:'center',
     },
 });
+
 const ProductNotFound = withStyles(styles2)(function ProductNotFound(props){
     const {classes} = props;
     return <Grid container justify='center' alignItems="center" className={classes.root}>

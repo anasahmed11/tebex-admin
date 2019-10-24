@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
   root: {
     position: 'relative',
@@ -17,7 +19,7 @@ export default theme => ({
       flexBasis: '100%'
     },
     '&:hover': {
-      backgroundColor: '#fefafa',
+      backgroundColor: palette.gray,
     },
   
     
@@ -50,7 +52,7 @@ export default theme => ({
     backgroundColor: 'white',
     transitionProperty: 'transform, color',
     '&:hover': {
-      color: 'darkred',
+      color: palette.second,
       transform: 'scale(1.2,1.2)',
     },
   }

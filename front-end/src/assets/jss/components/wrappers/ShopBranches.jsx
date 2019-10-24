@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
     root: {
         display: 'flex',
@@ -6,6 +8,6 @@ export default theme => ({
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(6),
         justifyContent:'center',
-        backgroundColor: '#1E3953',
+        backgroundColor: palette.first,
     }, 
 });

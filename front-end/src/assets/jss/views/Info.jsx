@@ -1,3 +1,5 @@
+import palette from "../../site-colors";
+
 export default theme => ({
     root: {
         paddingTop: theme.spacing(10),
@@ -10,14 +12,17 @@ export default theme => ({
     },
     listIcon: {
         alignSelf: 'flex-start',
-        color: 'purple',
+        color: palette.darksecond,
         marginTop: theme.spacing(1),
     },
     title: {
-        
+        color: palette.darkfirst,
     },
     textTitle: {
         fontWeight: 'bold',
-        color: 'purple',
+        color: palette.darksecond,
+    },
+    text: {
+        color: palette.dark,
     }
 });

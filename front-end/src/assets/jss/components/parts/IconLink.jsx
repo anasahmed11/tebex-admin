@@ -1,4 +1,4 @@
-import COLORS from '../../../site-colors';
+import palette from "../../../site-colors";
 
 export default theme => ({
     icon: {
@@ -6,7 +6,7 @@ export default theme => ({
       fontSize: '30px',
       transition: theme.transitions.create('color'),
       '&:hover':{
-          color: COLORS.HOME.Footer.Links.hover
+          color: palette.second,
       }
     },
     input: {

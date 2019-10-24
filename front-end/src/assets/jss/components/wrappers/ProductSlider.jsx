@@ -1,8 +1,8 @@
-import COLORS from '../../../site-colors';
+import palette from '../../../site-colors';
 
 export default theme => ({
     root: {
-      backgroundColor: COLORS.HOME.ProductsSection.Background.primary,
+      backgroundColor: palette.white,
       paddingTop: theme.spacing(14),
       paddingBottom: theme.spacing(10),
       minHeight: 600,

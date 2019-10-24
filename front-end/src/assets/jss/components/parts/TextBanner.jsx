@@ -1,9 +1,9 @@
-import COLORS from '../../../site-colors';
+import palette from "../../../site-colors";
 
 export default theme => ({
     root: {
         // backgroundImage: 'radial-gradient(25% 100%,#30b8ff 0,#0077b5 100%)',
-        backgroundImage: `radial-gradient(25% 100%, ${COLORS.SHOP.TextBanner.Background.primary} 0, ${COLORS.SHOP.TextBanner.Background.secondary} 100%)`,
+        backgroundImage: `radial-gradient(25% 100%, ${palette.first} 0, ${palette.blue} 100%)`,
         justifyContent: 'center',
         alignItems: 'center',
         height: '70vh',
@@ -25,6 +25,6 @@ export default theme => ({
         } */
     },
     text: {
-        color: COLORS.SHOP.TextBanner.Text.primary,
+        color: palette.white,
     }
 })

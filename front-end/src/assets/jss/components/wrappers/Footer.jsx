@@ -1,8 +1,8 @@
-import COLORS from '../../../site-colors';
+import palette from '../../../site-colors';
 
 export default theme => ({
     root: {
-        backgroundColor: COLORS.HOME.Footer.Background.primary,
+        backgroundColor: palette.darkfirst,
         paddingTop: theme.spacing(2),
         paddingBottom: theme.spacing(1),
     },
@@ -28,7 +28,7 @@ export default theme => ({
         },
     },
     sectionTitle: {
-        color: COLORS.HOME.Footer.Text.primary,
+        color: palette.second,
     },
     list: {
         margin: 0,
@@ -40,10 +40,10 @@ export default theme => ({
         paddingBottom: theme.spacing(0.5),
     },
     footerLink: {
-        color: COLORS.HOME.Footer.Links.primary,
+        color: palette.gray,
         textDecorationLine: 'none',
         '&:hover': {
-            color: COLORS.HOME.Footer.Links.hover,
+            color: palette.yellow,
         }
     }
 });

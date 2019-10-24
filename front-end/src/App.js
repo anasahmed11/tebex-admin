@@ -96,9 +96,9 @@ class App extends React.Component {
 
       <LoadingScreen
         loading={isLoading || this.props.userIsLoading}
-        bgColor='#5D1F62'
-        spinnerColor='#FFB3E0'
-        textColor='#676767'
+        bgColor='#2c3c5c'
+        spinnerColor='#54B6B9'
+        textColor='#EFF2F7'
       >
         {isLoading || this.props.userIsLoading ? <div></div> :
           <RTL>

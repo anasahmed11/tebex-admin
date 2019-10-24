@@ -1,8 +1,8 @@
-import COLORS from '../../../site-colors';
+import palette from '../../../site-colors';
 
 export default theme => ({
     root: {
-      backgroundColor: COLORS.HOME.BrandsSection.Background.primary,
+      backgroundColor: palette.first,
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
     },
@@ -13,7 +13,7 @@ export default theme => ({
       marginBottom: -theme.spacing(10),
     },
     brandDiv: {
-      background: COLORS.HOME.BrandsSection.Icons.secondary,
+      background: palette.second,
       // border: `5px solid ${COLORS.HOME.BrandsSection.Icons.primary}`,
       width: '120px !important',
       height: '120px !important',

@@ -1,3 +1,5 @@
+import palette from '../../site-colors';
+
 export default theme => ({
     root: {
       backgroundColor: 'white ',
@@ -37,9 +39,9 @@ export default theme => ({
   },
   categoryLink: {
       textDecorationLine: 'none',
-      color: 'grey',
+      color: palette.darkfirst,
       '&:hover': {
-          color: 'blue',
+          color: palette.darksecond,
       },
   },
 });

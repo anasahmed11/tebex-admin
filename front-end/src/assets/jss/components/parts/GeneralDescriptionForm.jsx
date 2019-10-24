@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
   root: {
     fontFamily: "'Droid Arabic Kufi', 'Ubuntu', 'Roboto'",
@@ -8,7 +10,7 @@ export default theme => ({
       borderRadius: '4px',
       border: '0',
       borderRadius: '0%',
-      borderBottom: '1px solid gray',
+      borderBottom: `1px solid ${palette.darkgray}`,
       padding: '10px 15px',
       marginBottom: '10px',
       fontSize: '16px',
@@ -17,7 +19,7 @@ export default theme => ({
       },
       '&:focus': {
         outline: 'none',
-        borderBottom: '2px solid #303f9f',
+        borderBottom: `2px solid ${palette.blue}`,
         borderBottomWidth: '2px'
       },
       '&:disabled': {
@@ -33,7 +35,7 @@ export default theme => ({
       fontFamily: "'Droid Arabic Kufi', 'Ubuntu', 'Roboto'",
     },
     '& p': {
-      color: '#bf1650',
+      color: palette.second,
       marginBottom: '10px',
       fontSize: '14px',
       marginTop: '-10px',
@@ -55,45 +57,3 @@ export default theme => ({
     }
   },
 });
-
-
-  // button[type="submit"],
-  // input[type="submit"] {
-  //   background: #ec5990;
-  //   color: white;
-  //   text-transform: uppercase;
-  //   border: none;
-  //   margin-top: 40px;
-  //   padding: 20px;
-  //   font-size: 16px;
-  //   font-weight: 100;
-  //   letter-spacing: 10px;
-  // }
-
-  // button[type="submit"]:hover,
-  // input[type="submit"]:hover {
-  //   background: #bf1650;
-  // }
-
-  // button[type="submit"]:active,
-  // input[type="button"]:active,
-  // input[type="submit"]:active {
-  //   transition: 0.3s all;
-  //   transform: translateY(3px);
-  //   border: 1px solid transparent;
-  //   opacity: 0.8;
-  // }
-
-  // input:disabled {
-  //   opacity: 0.4;
-  // }
-
-  // input[type="button"]:hover {
-  //   transition: 0.3s all;
-  // }
-
-  // button[type="submit"],
-  // input[type="button"],
-  // input[type="submit"] {
-  //   -webkit-appearance: none;
-  // }  

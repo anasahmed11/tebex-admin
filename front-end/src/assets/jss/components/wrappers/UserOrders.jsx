@@ -1,6 +1,8 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
     root: {
-        backgroundColor: 'white ',
+        backgroundColor: palette.white,
         padding: `${theme.spacing(4)}px 0px`,
     },
     textHead: {
@@ -17,31 +19,22 @@ export default theme => ({
         color: 'rgb(100,100,100)',
     },
 
-
-    // root:{
-    //     borderRadius:'0',
-    //     flex:'1 1 auto',
-    //     "&:hover":{
-    //         backgroundColor:'#FF6B6B',
-    //     },
-        
-    // },
     textPrimary: {
-        color: 'white !important'
+        color: `${palette.white} !important`
     },
     label:{
         whiteSpace: 'nowrap',
     },
     disabled:{
         whiteSpace: 'nowrap',
-        color: 'white'
+        color: palette.white,
     },
     rootCurrent:{
         borderRadius:'0',
-        backgroundColor:'#FF6B6B',
-        flex:'1 1 auto',
-        "&:hover":{
-            backgroundColor:'#FF6B6B',
+        backgroundColor: palette.second,
+        flex: '1 1 auto',
+        "&:hover": {
+            backgroundColor: palette.second,
         },
     }
 });

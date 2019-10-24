@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
     root: {
       minWidth: 'fit-content',
@@ -18,7 +20,7 @@ export default theme => ({
           flexBasis: '100%'
       },
       '&:hover': {
-        backgroundColor: '#fefafa',
+        backgroundColor: palette.gray,
       }
     },
 });

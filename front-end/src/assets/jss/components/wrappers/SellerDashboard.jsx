@@ -1,6 +1,8 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
     root: {
-      backgroundColor: 'white ',
+      backgroundColor: palette.white,
       padding: `${theme.spacing(4)}px 0px`,
     },
     textHead:{
@@ -30,10 +32,10 @@ export default theme => ({
         // backgroundColor: 'green',
         // padding: theme.spacing(2),
         '& .ct-label': { 
-            color: 'blue',
+            color: palette.blue,
         },
         '& line.ct-bar': {
-            stroke: 'gray',
+            stroke: palette.gray,
         }
     }
 });

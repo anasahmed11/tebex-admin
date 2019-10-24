@@ -1,4 +1,4 @@
-// import COLORS from '../../../site-colors';
+import palette from "../../../site-colors";
 
 export const styles = theme => ({
     root: {
@@ -7,8 +7,8 @@ export const styles = theme => ({
     },
     demo: {
       // backgroundColor: '#fbfdff',
-      backgroundColor: 'white',
-      border: `1px solid #5f4378`,
+      backgroundColor: palette.white,
+      border: `1px solid ${palette.first}`,
       [theme.breakpoints.down("md")]: {
         marginTop: 0,
       }
@@ -22,10 +22,10 @@ export const styles = theme => ({
       }
     },
     mobileToggle: {
-      backgroundColor: '#3b1b57',
+      backgroundColor: palette.blue,
       // border: '1px solid #5f4378',
       textAlign: 'center',
-      color: 'white',
+      color: palette.white,
       fontWeight: '700',
       textTransform: 'uppercase',
       padding: theme.spacing(2),
@@ -36,14 +36,14 @@ export const styles = theme => ({
     },
     collapsibleTab: {
       cursor: 'pointer',
-      background: '#5f4378',
+      background: palette.blue,
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       '& svg': {
         marginRight: theme.spacing(2),
         fontSize: '20px',
-        color: 'white',
+        color: palette.white,
       }
     },
     filterTitle: {
@@ -51,23 +51,23 @@ export const styles = theme => ({
       cursor: 'pointer',
       textTransform: 'uppercase',
       fontWeight: '700',
-      color: 'white',
+      color: palette.white,
     },
     listHeader: {
-      backgroundColor: 'navy',
+      backgroundColor: palette.first,
     },
     listItem: {
       '&:hover': {
-        background: '#a188a9',
-        color: 'white',
+        background: palette.gray,
+        color: palette.white,
       },
       '&:hover $listItemText span': {
-        color: 'white',
+        color: palette.white,
       }
     },
     listItemText: {
       textAlign: 'left',
-      color: '#5f4378'
+      color: palette.blue,
     },
     link: {
       textDecorationLine: 'none',
@@ -97,7 +97,7 @@ export const styles = theme => ({
       fontWeight: '700',
     },
     checkbox: {
-      color: 'purple !important',
+      color: `${palette.first} !important`,
     }
   });
   

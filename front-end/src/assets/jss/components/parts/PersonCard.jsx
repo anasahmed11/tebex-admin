@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default {
     root:{
     },
@@ -8,7 +10,7 @@ export default {
         height: '300px',
     },
     CardContent: {
-        backgroundColor: '#f50057',
+        backgroundColor: palette.second,
         color:'white'
     }
 };

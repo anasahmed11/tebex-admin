@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
     padding: {
         padding: `%{theme.spacing(2)}px 0px`,
@@ -13,7 +15,7 @@ export default theme => ({
 
         transitionProperty: 'transform, color',
         '&:hover': {
-            color: 'darkred',
+            color: palette.second,
             transform: 'scale(1.2,1.2)',
         },
     },

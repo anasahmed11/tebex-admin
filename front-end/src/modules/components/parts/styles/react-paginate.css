@@ -31,7 +31,7 @@
     position: relative;
     margin-left: -1px;
     border: 1px solid #dee2e6;
-    color: #5D1F62;
+    color: #2E4676;
     text-decoration: none;
     background-color: transparent;
 }
@@ -44,10 +44,10 @@
     cursor: auto;
     z-index: 1;
     color: #fff;
-    background-color: #5D1F62;
-    border-color: #5D1F62;
+    background-color: #2E4676;
+    border-color: #2E4676;
 }
 
 #react-paginate .active a:hover {
-    background: #5D1F62;
+    background: #2E4676;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import globalVariables from '../../../global-variables';
 
-import { Route, withRouter, Link } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 import { Grid, withStyles, Menu, IconButton, AppBar, MenuItem, Typography } from '@material-ui/core';
 import { Menu as MenuIcon, AccountCircle } from '@material-ui/icons';
 
@@ -94,27 +94,23 @@ class PrimarySearchAppBar extends React.Component {
                         <SearchBar placeholder={globalVariables.APPBAR_SEARCH[globalVariables.LANG]} searchIcon />
                     </div>
                     <div className={classes.sectionDesktop}>
-                        <div style={{
-                            width: '90%',
-                            margin: 'auto',
-                            display: 'flex',
-                            justifyContent: 'flex-end',
-                            alignItems: 'center',
-                        }}>
-                            <Typography variant="h5">
-                                <Link to="/shop" className={classes.appBarLink} onMouseEnter={this.handleCategoriesList}>{globalVariables.APPBAR_SHOP[globalVariables.LANG]}</Link>
-                            </Typography>
-                            <Route component={CartIcon} />
-
-
-                            <IconButton
-                                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                                aria-haspopup="true"
-                                onClick={this.handleProfileMenuOpen}
-                                color="inherit"
-                            >
-                                {authenticated ? <ProfileAvatar style={{ margin: 0, width: '30px', height: '30px' }} /> : <AccountCircle />}
-                            </IconButton>
+                        <div className={classes.sectionDesktopInner}>
+                            <div className={classes.sectionDesktopLinks}>
+                                <Typography variant="h5">
+                                    <Link to="/shop" className={classes.appBarLink} onMouseEnter={this.handleCategoriesList}>{globalVariables.APPBAR_SHOP[globalVariables.LANG]}</Link>
+                                </Typography>
+                            </div>
+                            <div className={classes.sectionDesktopIcons}>
+                                <Route component={CartIcon} />
+                                <IconButton
+                                    aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                                    aria-haspopup="true"
+                                    onClick={this.handleProfileMenuOpen}
+                                    color="inherit"
+                                >
+                                    {authenticated ? <ProfileAvatar style={{ margin: 0, width: '30px', height: '30px' }} /> : <AccountCircle />}
+                                </IconButton>
+                            </div>
                         </div>
                     </div>
                     <div className={classes.sectionMobile}>

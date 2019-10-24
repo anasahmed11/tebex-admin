@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
     card: {
       display: 'flex',
@@ -10,8 +12,8 @@ export default theme => ({
     },
     content: {
       flex: '1 0 auto',
-      backgroundColor: '#f50057',
-      color:'white',
+      backgroundColor: palette.second,
+      color: palette.white,
     },
     cover: {
       width: '100%',

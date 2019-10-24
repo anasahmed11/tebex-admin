@@ -1,6 +1,6 @@
 import { createMuiTheme, responsiveFontSizes  } from '@material-ui/core/styles';
 import globalVariables from '../global-variables';
-
+import palette from './site-colors';
 
 const defaultTheme = createMuiTheme();
 
@@ -11,9 +11,15 @@ const theme = createMuiTheme({
                 color: 'white',
             },
             containedPrimary: {
-                backgroundColor: '#65477e',
+                backgroundColor: palette.first,
                 '&:hover': {
-                    backgroundColor: '#412a55'
+                    backgroundColor: palette.darkfirst,
+                }
+            },
+            containedSecondary: {
+                backgroundColor: palette.second,
+                '&:hover': {
+                    backgroundColor: palette.darksecond,
                 }
             },
 
@@ -31,7 +37,7 @@ const theme = createMuiTheme({
         },
         MuiExpansionPanelSummary: {
             root: {
-                backgroundColor: '#5f4378',
+                backgroundColor: palette.first,
                 color: 'white'
             },
             expandIcon: {
@@ -42,7 +48,7 @@ const theme = createMuiTheme({
         MuiIconButton: {
             root: {
                 '&:hover': {
-                    backgroundColor: '#FFBAED',
+                    backgroundColor: palette.second,
                 }
             }
         },
@@ -50,24 +56,24 @@ const theme = createMuiTheme({
             underline: {
                 '&:hover': {
                     '&:before': {
-                        borderBottom: '2px solid #65477e',
+                        borderBottom: `2px solid ${palette.first}`,
                     },
                     '&:after': {
-                        borderBottom: '2px solid #412a55',
+                        borderBottom: `2px solid ${palette.darkfirst}`,
                     },
                     '&:not(.Mui-disabled):before': {
-                        borderBottom: '2px solid #65477e',
+                        borderBottom: `2px solid ${palette.first}`,
                     },
 
                 },
                 '&:not(.Mui-disabled):before': {
-                    borderBottom: '1px solid #65477e',
+                    borderBottom: `1px solid ${palette.first}`,
                 },
                 '&:before': {
-                    borderBottom: '1px solid #65477e',
+                    borderBottom: `1px solid ${palette.first}`,
                 },
                 '&:after': {
-                    borderBottom: '1px solid #412a55',
+                    borderBottom: `1px solid ${palette.darkfirst}`,
                 },
             }
         }

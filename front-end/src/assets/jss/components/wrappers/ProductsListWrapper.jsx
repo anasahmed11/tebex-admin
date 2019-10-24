@@ -1,8 +1,8 @@
-// import COLORS from '../../../site-colors';
+import palette from "../../../site-colors";
 
 export default theme => ({
     root: {
-        backgroundColor: '#fff',
+        backgroundColor: palette.white,
     },
     productsSection: {
         // marginTop: theme.spacing(5),
@@ -50,9 +50,9 @@ export default theme => ({
     },
     categoryLink: {
         textDecorationLine: 'none',
-        color: 'grey',
+        color: palette.darkfirst,
         '&:hover': {
-            color: 'blue',
+            color: palette.darksecond,
         },
     },
     shopComponent: {

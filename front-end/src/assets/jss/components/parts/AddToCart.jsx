@@ -1,10 +1,12 @@
+import palette from "../../../site-colors";
+
 export default (theme) => ({
     root: {
         textAlign:'initial'
     },
     orderContainer: {
         textAlign: 'initial',
-        border: '1px solid lightgray',
+        border: `1px solid ${palette.gray}`,
         padding: '10px'
     },
     orderHeader:  {
@@ -34,25 +36,23 @@ export default (theme) => ({
     },
     cleanLink: {
         textDecoration: 'none',
-        color: 'navy',
+        color: palette.first,
     },
     addButton: {
         fontWeight: 'bold',
     },
     outOfStock: {
         padding: '24px 0px',
-        color: 'darkslateblue',
+        color: palette.first,
         '& svg': {
             marginRight: 4,
         }
     },
 
-
-
     supportSection: {
         padding: theme.spacing(2),
         marginTop: theme.spacing(2),
-        borderLeft: '1px solid lightgray',
+        borderLeft: `1px solid ${palette.gray}`,
     },
     infoSection: {
         display: 'flex',
@@ -63,7 +63,7 @@ export default (theme) => ({
         flexBasis: '10%',
     },
     icon: {
-        color: '#0a0a9f',
+        color: palette.blue,
         fontSize: '30px',
         // background: 'green',
         padding: theme.spacing(0.5),
@@ -75,12 +75,12 @@ export default (theme) => ({
         flexBasis: '90%',
     },
     title: {
-        color: '#0a0a9f',
+        color: palette.blue,
         fontWeight: 'bold',
         fontSize: 12,
     },
     desc: {
-        color: '#555',
+        color: palette.darkgray,
         fontSize: 11,
     }
 });

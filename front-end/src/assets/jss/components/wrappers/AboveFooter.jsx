@@ -1,9 +1,9 @@
-import COLORS from '../../../site-colors';
+import palette from '../../../site-colors';
 
 export default theme => ({
     root: {
         textAlign:'center',
-        background: COLORS.HOME.AboveFooter.Background.primary,
+        background: palette.white,
         paddingTop: theme.spacing(10),
         paddingBottom: theme.spacing(10),
     },
@@ -25,7 +25,7 @@ export default theme => ({
         marginBottom: theme.spacing(2),
     },
     icon: {
-        color: 'navy',
+        color: palette.first,
         //fontSize: '12vh',
         //background: '#38c49d',
         padding: theme.spacing(3),
@@ -36,9 +36,9 @@ export default theme => ({
         flexDirection: 'column',
     },
     title: {
-        color: COLORS.HOME.AboveFooter.Text.primary,
+        color: palette.first,
     },
     desc: {
-        color: COLORS.HOME.AboveFooter.Text.secondary,
+        color: palette.dark,
     }
 });

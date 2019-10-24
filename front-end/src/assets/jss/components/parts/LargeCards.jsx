@@ -23,7 +23,6 @@ export default theme => ({
             
             marginRight: theme.spacing(1),
             marginBottom: theme.spacing(1),
-            
         },
         '&:hover, &$focusVisible': {
             zIndex: 1,

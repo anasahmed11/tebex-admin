@@ -1,8 +1,8 @@
-import COLORS from '../../../site-colors';
+import palette from "../../../site-colors";
 
 export default theme => ({
     root: {
-        backgroundColor: COLORS.HOME.CategoriesBar.Background.primary,
+        backgroundColor: palette.second,
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
@@ -29,11 +29,12 @@ export default theme => ({
         textTransform: 'uppercase',
         textDecorationLine: 'none',
         transition: theme.transitions.create(),
-        color: COLORS.HOME.CategoriesBar.Links.primary,
+        color: palette.darkfirst,
+        fontWeight: 'bold',
         '&:hover': {
             cursor: 'pointer',
             textDecoration: 'none',
-            color: COLORS.HOME.CategoriesBar.Links.hover,
+            color: palette.white,
         },
         '&:after': {
             content: '""',
@@ -43,7 +44,7 @@ export default theme => ({
             bottom: '8px',
             height: '3px',
             transition: theme.transitions.create(),
-            backgroundColor: 'yellow',
+            backgroundColor: palette.yellow,
             marginBottom: theme.spacing(-0.5),
             opacity: 0,
         },
@@ -92,9 +93,9 @@ export default theme => ({
     },
     listLinkStyle: {
         textDecorationLine: 'none',
-        color: 'blue',
+        color: palette.blue,
         '&:hover': {
-            color: 'lightblue',
+            color: palette.gray,
         }
     },
     // footer

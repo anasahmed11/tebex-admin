@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default theme => ({
     stepperContainer:{
         position: 'relative',
@@ -6,7 +8,7 @@ export default theme => ({
         position: 'absolute',
         zIndex: 2,
         fontSize: 40,
-        color: 'darkred',
+        color: palette.second,
         top: 'calc(50% - 30px)',
         right: 'calc(50% - 30px)',
         left: 'calc(50% - 30px)',

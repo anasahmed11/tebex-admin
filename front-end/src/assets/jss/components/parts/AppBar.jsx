@@ -1,8 +1,8 @@
-import COLORS from '../../../site-colors';
+import palette from "../../../site-colors";
 
 export default theme => ({
     root: {
-        backgroundColor: COLORS.HOME.Appbar.Background.primary,
+        backgroundColor: palette.first,
         alignItems: 'center',
         paddingTop: theme.spacing(1.5),
         paddingBottom: theme.spacing(1.5),
@@ -20,12 +20,12 @@ export default theme => ({
         // fontSize: '24px',
         // marginLeft: theme.spacing(2),
         // marginRight: theme.spacing(2),
-        color: COLORS.HOME.Appbar.Links.primary,
+        color: palette.white,
         transition: theme.transitions.create(['margin'], { duration: '0.3s' }),
         textDecoration: 'none',
         '&:hover': {
             cursor: 'pointer',
-            color: COLORS.HOME.Appbar.Links.hover,
+            color: palette.yellow,
             textDecoration: 'none',
         }
     },
@@ -35,7 +35,8 @@ export default theme => ({
         alignItems: 'inherit',
     },
     searchBar: {
-        flex: '1 0 calc(100% - 220px - 15%)',
+        // flex: '1 0 calc(100% - 220px - 15%)',
+        flex: '1 0 65%',
         alignItems: 'center',
         justifyContent: 'center',
         [theme.breakpoints.down('sm')]: {
@@ -43,13 +44,20 @@ export default theme => ({
         },
     },
     sectionDesktop: {
-        flex: '1 0 auto',
+        flex: '1 0 15%',
         display: 'flex',
         justifyContent: 'flex-end',
         alignItems: 'center',
         [theme.breakpoints.down('sm')]: {
             display: 'none',
         },
+    },
+    sectionDesktopInner: {
+        width: '90%',
+        margin: 'auto',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     sectionMobile: {
         display: 'none',

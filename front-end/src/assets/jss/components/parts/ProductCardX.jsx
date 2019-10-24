@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 // import COLORS from '../../../site-colors';
 
 export default theme => ({
@@ -14,7 +16,7 @@ export default theme => ({
     productFront: {
         // width: '335px',
         height: '500px',
-        // background: '#fff',
+        // background: palette.white,
         // position: 'absolute',
         // left: '-5px',
         // top: '-5px',
@@ -28,7 +30,7 @@ export default theme => ({
         justifyContent: 'center',
     },
     productImage: {
-        position: 'absolute',
+        // position: 'absolute',
         height: '342px',
         zIndex: '-100',
     },
@@ -92,10 +94,11 @@ export default theme => ({
         },
     },
     statsContainer: {
-        background: '#fff',
-        position: 'relative', // position: 'absolute',
+        background: palette.white,
+        position: 'absolute', // position: 'absolute',
         top: '342px',
         left: '0',
+        right: '0',
         // width: '265px',
         height: '300px',
         padding: '7px 35px 35px', // padding: '27px 35px 35px',
@@ -105,18 +108,18 @@ export default theme => ({
                 transition: 'all 300ms ease-out',
         '& p': {
             fontSize: '16px',
-            color: '#b1b1b3',
+            color: palette.darkgray,
             padding: '2px 0 20px 0',
         },
     },
     productBrand: {
         fontSize: '16px',
-        color: '#b1b1b3',
+        color: palette.darkgray,
         height: '22px',
     },
     productName: {
         fontSize: '22px',
-        color: '#393c45',
+        color: palette.dark,
         height: '64px',
         lineHeight: '1.4',
         display: '-webkit-box',
@@ -126,7 +129,7 @@ export default theme => ({
     },
     productPrice: {
         // float: 'right',
-        color: '#594589', // color: '#48cfad',
+        color: palette.blue, // color: '#48cfad',
         fontSize: '22px',
         fontWeight: '600',
     },
@@ -136,18 +139,18 @@ export default theme => ({
         left: '0',
         width: '100%',
         height: '100%',
-        background: '#594589', // background: '#48daa1',
+        background: palette.first, // background: '#48daa1',
         opacity: '0',
     },
     productOptions: {
         padding: '2px 0 0',
         '& strong': {
             fontWeight: '700',
-            color: '#393c45',
+            color: palette.dark,
             fontSize: '14px',
         },
         '& span': {
-            color: '#969699',
+            color: palette.darkgray,
             fontSize: '14px',
             display: 'block',
             marginBottom: '8px',
@@ -158,8 +161,8 @@ export default theme => ({
         top: '112px',
         left: '50%',
         marginLeft: '-85px',
-        border: '2px solid #fff',
-        color: '#fff',
+        border: `2px solid ${palette.white}`,
+        color: palette.white,
         fontSize: '19px',
         textAlign: 'center',
         textTransform: 'uppercase',
@@ -172,15 +175,15 @@ export default theme => ({
              "-o-transition": 'all 300ms ease-out',
                 transition: 'all 300ms ease-out',
         '&:hover': {
-            background: '#fff',
-            color: '#594589', // color: '#48cfad',
+            background: palette.white,
+            color: palette.first, // color: '#48cfad',
             cursor: 'pointer',
         }
     },
     addToCart: {
         margin: 'auto',
-        border: '2px solid #594589',
-        color: '#594589',
+        border: `2px solid ${palette.first}`,
+        color: palette.first,
         fontSize: '19px',
         textAlign: 'center',
         textTransform: 'uppercase',
@@ -193,12 +196,12 @@ export default theme => ({
              "-o-transition": 'all 300ms ease-out',
                 transition: 'all 300ms ease-out',
         '&:hover': {
-            background: '#594589 radial-gradient(circle, transparent 1%, #594589 1%) center/15000%;',
-            color: '#fff',
+            background: `${palette.first} radial-gradient(circle, transparent 1%, ${palette.first} 1%) center/15000%;`,
+            color: palette.white,
             cursor: 'pointer',
         },
         '&:active': {
-            backgroundColor: '#8e7ac0',
+            backgroundColor: palette.blue,
             backgroundSize: '100%',
             transition: 'background 0s',
         }
@@ -217,8 +220,8 @@ export default theme => ({
     discount: {
         position: 'absolute',
         left: '12px',
-        color: '#fff',
-        background: '#5D1F62',
+        color: palette.white,
+        background: palette.second,
         textAlign: 'center',
         textTransform: 'uppercase',
         fontWeight: '700',
@@ -231,7 +234,7 @@ export default theme => ({
     productOldPrice: {
         fontSize: '16px',
         height: '16px',
-        color: '#8b8b8b',
+        color: palette.darkgray,
         textDecorationLine: 'line-through',
     },
     loading: {
@@ -261,7 +264,7 @@ export default theme => ({
     productFrontSlider: {
         // width: '335px',
         height: '380px',
-        // background: '#fff',
+        // background: palette.white,
         // position: 'absolute',
         // left: '-5px',
         // top: '-5px',
@@ -330,14 +333,15 @@ export default theme => ({
         },
     },
     productImageSlider: {
-        position: 'absolute',
+        // position: 'absolute',
         height: '284px',
         zIndex: '-100',
     },
     statsContainerSlider: {
-        background: '#fff',
-        position: 'relative', // position: 'absolute',
+        background: palette.white,
+        position: 'absolute', // position: 'absolute',
         top: '284px',
+        right: '0',
         left: '0',
         // width: '265px',
         height: '300px',
@@ -348,18 +352,18 @@ export default theme => ({
                 transition: 'all 300ms ease-out',
         '& p': {
             fontSize: '16px',
-            color: '#b1b1b3',
+            color: palette.darkgray,
             padding: '2px 0 20px 0',
         },
     },
     productBrandSlider: {
         fontSize: '12px',
-        color: '#b1b1b3',
+        color: palette.darkgray,
         height: '15px',
     },
     productNameSlider: {
         fontSize: '14px',
-        color: '#393c45',
+        color: palette.dark,
         height: '40px',
         lineHeight: '1.4',
         display: '-webkit-box',
@@ -369,7 +373,7 @@ export default theme => ({
     },
     productPriceSlider: {
         // float: 'right',
-        color: '#594589', // color: '#48cfad',
+        color: palette.first, // color: '#48cfad',
         fontSize: '16px',
         fontWeight: '600',
     },
@@ -378,8 +382,8 @@ export default theme => ({
         top: '112px',
         left: '50%',
         marginLeft: '-85px',
-        border: '2px solid #fff',
-        color: '#fff',
+        border: `2px solid ${palette.white}`,
+        color: palette.white,
         fontSize: '15px',
         textAlign: 'center',
         textTransform: 'uppercase',
@@ -392,8 +396,8 @@ export default theme => ({
              "-o-transition": 'all 300ms ease-out',
                 transition: 'all 300ms ease-out',
         '&:hover': {
-            background: '#fff',
-            color: '#594589', // color: '#48cfad',
+            background: palette.white,
+            color: palette.first, // color: '#48cfad',
             cursor: 'pointer',
         }
     },
@@ -401,8 +405,8 @@ export default theme => ({
         position: 'absolute',
         fontSize: '18px',
         left: '12px',
-        color: '#fff',
-        background: '#5D1F62',
+        color: palette.white,
+        background: palette.second,
         textAlign: 'center',
         textTransform: 'uppercase',
         fontWeight: '700',
@@ -414,8 +418,8 @@ export default theme => ({
     },
     addToCartSlider: {
         margin: 'auto',
-        border: '2px solid #594589',
-        color: '#594589',
+        border: `2px solid ${palette.first}`,
+        color: palette.first,
         fontSize: '16px',
         textAlign: 'center',
         textTransform: 'uppercase',
@@ -428,12 +432,12 @@ export default theme => ({
              "-o-transition": 'all 300ms ease-out',
                 transition: 'all 300ms ease-out',
         '&:hover': {
-            background: '#594589 radial-gradient(circle, transparent 1%, #594589 1%) center/15000%;',
-            color: '#fff',
+            background: `${palette.first} radial-gradient(circle, transparent 1%, ${palette.first} 1%) center/15000%;`,
+            color: palette.white,
             cursor: 'pointer',
         },
         '&:active': {
-            backgroundColor: '#8e7ac0',
+            backgroundColor: palette.gray,
             backgroundSize: '100%',
             transition: 'background 0s',
         }
@@ -441,7 +445,7 @@ export default theme => ({
     productOldPriceSlider: {
         fontSize: '13px',
         height: '15px',
-        color: '#8b8b8b',
+        color: palette.darkgray,
         textDecorationLine: 'line-through',
     },
     outOfStock: {

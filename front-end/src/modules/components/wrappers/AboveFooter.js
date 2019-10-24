@@ -23,7 +23,7 @@ const AboveFooter = props => {
         </Grid>
 
     return <Grid container justify='center' alignItems='center' className={classes.root} >
-        <LinedTitle style={{ color: 'navy' }}>
+        <LinedTitle style={{ color: '#2E4676' }}>
             {globalVariables.HOME_SELLER_TITLE[globalVariables.LANG]}
         </LinedTitle>
         <Grid container justify="space-around" item md={10} xs={11}>

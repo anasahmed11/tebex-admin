@@ -1,3 +1,5 @@
+import palette from "../../../site-colors";
+
 export default  theme => ({
     root: {
         border:'1px solid rgba(0,0,0,0.1)',
@@ -19,7 +21,7 @@ export default  theme => ({
     textSection:{
         fontWeight:'500',
         fontSize:'13px',
-        color:'rgb(100,100,100)',
+        color: palette.darkgray,
     },
     menu: {
         width: '60px',
@@ -27,13 +29,13 @@ export default  theme => ({
     },
     cleanLink: {
         textDecoration: 'none',
-        color: 'navy',
+        color: palette.blue,
     },
     returnButton: {
         fontSize: 12,
     },
     returnInfo: {
         fontSize: 12,
-        color: 'darkred'
+        color: palette.second
     },
 });

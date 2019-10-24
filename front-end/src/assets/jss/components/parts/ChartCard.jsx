@@ -12,7 +12,4 @@ export default theme => ({
     title: {
         fontSize: 14,
     },
-    pos: {
-      
-    },
 });

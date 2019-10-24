@@ -99,7 +99,7 @@ class InteractiveList extends React.Component {
                           fullWidth
                           className={classes.priceSectionButton}
                           variant="contained"
-                          color="primary"
+                          color="secondary"
                           onClick={this.props.handlePrice}
                         >
                             {globalVariables.LABEL_SHOP_APPLY[globalVariables.LANG]}
