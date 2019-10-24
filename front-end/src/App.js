@@ -99,6 +99,7 @@ class App extends React.Component {
         bgColor='#2c3c5c'
         spinnerColor='#54B6B9'
         textColor='#EFF2F7'
+        logoSrc='/logo-ar.png'
       >
         {isLoading || this.props.userIsLoading ? <div></div> :
           <RTL>

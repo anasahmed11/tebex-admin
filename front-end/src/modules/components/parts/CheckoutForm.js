@@ -2,19 +2,19 @@ import React from 'react';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
-import { withStyles, Grid, TextField, MenuItem, Button } from '@material-ui/core';
+import { withStyles, Grid, TextField, MenuItem, Button, Snackbar } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { locationAPI, governorateAPI } from '../../../api/api';
 
 import cancelablePromise from '../../../Providers/CancelablePromise';
 
 import styles from '../../../assets/jss/components/parts/CheckoutForm';
+import MySnackbar from './MySnackbar';
 
 class CheckoutForm extends React.Component {
 
@@ -26,15 +26,13 @@ class CheckoutForm extends React.Component {
         phone: '',
         email: '',
         notes: '',
-        // COUNTRIES: [],
-        // country: '',
-        // CITIES: [],
-        // city: '',
-        // AREAS: [],
-        // area: '',
         GOVERNORATE: [],
         governorate: '',
         city: '',
+
+        isPopup: false,
+        messageType: '',
+        message: '',
     }
 
     pendingPromises = [];
@@ -48,17 +46,6 @@ class CheckoutForm extends React.Component {
     removePendingPromise = promise =>
         this.pendingPromises = this.pendingPromises.filter(p => p !== promise);
 
-
-    // getCountries = (defaultCountry = '') => {
-    //     const wrappedPromise = cancelablePromise(locationAPI.get('countries/'));
-    //     this.appendPendingPromise(wrappedPromise);
-    //     wrappedPromise
-    //         .promise
-    //         .then(res => { this.setState({ COUNTRIES: res.data, country: defaultCountry }) })
-    //         .then(() => this.removePendingPromise(wrappedPromise))
-    //         .catch(res => { })
-    // }
-
     getGovernorate = () => {
         const wrappedPromise = cancelablePromise(governorateAPI.get('/'));
         this.appendPendingPromise(wrappedPromise);
@@ -71,8 +58,6 @@ class CheckoutForm extends React.Component {
     }
     componentDidMount() {
         this.getGovernorate()
-        // this.getCountries(1)
-        // this.getCities(1)
     }
     onComponentUpdate = () => {
         if (this.props.edit) {
@@ -85,20 +70,19 @@ class CheckoutForm extends React.Component {
                 email: this.props.intialData.email,
                 notes: this.props.intialData.notes,
                 id: this.props.intialData.id,
-                city: this.props.intialData.location.city_name !== undefined ? this.props.intialData.location.id : this.state.city,
-                area: this.props.intialData.location.area_name !== undefined ? this.props.intialData.location.id : '',
+                city: this.props.intialData.city !== undefined ? this.props.intialData.city : this.state.city,
+                governorate: this.props.intialData.governorate !== undefined? this.props.intialData.governorate.id : this.state.governorate,
             })
         }
     }
     handleEditAddress = (callbackFn) => {
         let data = { ...this.state }
-        delete data.CITIES
-        delete data.AREAS
-        delete data.COUNTRIES
-        if (data.area === '') delete data.area
+        data.governorate_id = data.governorate
+        delete data.GOVERNORATE
+        delete data.governorate
 
         if (!this.verifyData()) {
-            console.log("required field")
+            this.setState({message: globalVariables.LABEL_EMPTY_FIELDS[globalVariables.LANG], messageType: globalVariables.TYPE_ERROR, isPopup: true})
             return
         }
 
@@ -121,7 +105,7 @@ class CheckoutForm extends React.Component {
         
 
         if (!this.verifyData()) {
-            console.log("required field", data)
+            this.setState({message: globalVariables.LABEL_EMPTY_FIELDS[globalVariables.LANG], messageType: globalVariables.TYPE_ERROR, isPopup: true})
             return
         }
         const wrappedPromise = cancelablePromise(locationAPI.post('/', data));
@@ -150,46 +134,8 @@ class CheckoutForm extends React.Component {
         this.setState({ [prop]: event.target.value });
     };
 
-    // getCities = (country, defaultCity = '') => {
-    //     const wrappedPromise = cancelablePromise(locationAPI.get('cities/' + country));
-    //     this.appendPendingPromise(wrappedPromise);
-
-    //     wrappedPromise
-    //         .promise
-    //         .then(res => { this.setState({ CITIES: res.data, city: defaultCity }) })
-    //         .then(() => this.removePendingPromise(wrappedPromise))
-    //         .catch(res => { })
-    // }
-
-    // handleCountryChange = prop => event => {
-    //     this.setState({ [prop]: event.target.value }, () => this.getCities(event.target.value));
-
-
-    // }
-
-    // getAreas = (city, defaultArea = '') => {
-    //     const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + city));
-    //     this.appendPendingPromise(wrappedPromise);
-
-    //     wrappedPromise
-    //         .promise
-    //         .then(res => { this.setState({ AREAS: res.data, area: defaultArea }) })
-    //         .then(() => this.removePendingPromise(wrappedPromise))
-    //         .catch(res => { })
-
-    // }
-    // handleCityChange = prop => event => {
-    //     this.setState({ [prop]: event.target.value }, () => this.getAreas(event.target.value));
-
-    //     /*const wrappedPromise = cancelablePromise(locationAPI.get('areas/' + event.target.value));
-    //     this.appendPendingPromise(wrappedPromise);
-
-    //     wrappedPromise
-    //         .promise
-    //         .then(res => { this.setState({ AREAS: res.data, area: '' }) })
-    //         .then(() => this.removePendingPromise(wrappedPromise))
-    //         .catch(res => { })*/
-    // }
+    handlePopupClose = () => 
+        this.setState({isPopup:false})
 
     render() {
         const { classes, } = this.props
@@ -201,6 +147,21 @@ class CheckoutForm extends React.Component {
                 onClose={this.props.onClose}
                 aria-labelledby="form-dialog-title"
             >
+                <Snackbar
+                    style={{bottom:'50px'}}   
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                    open={this.state.isPopup}
+                    autoHideDuration={6000}
+                    onClose={this.handlePopupClose}
+                >
+                    <MySnackbar 
+                        className={classes.margin}
+                        onClose={this.handlePopupClose}
+                        variant={this.state.messageType}
+                        message={this.state.message}
+                        
+                    />
+                </Snackbar>
                 <DialogTitle id="form-dialog-title">{this.props.title}</DialogTitle>
                 <DialogContent style={{ overflow: 'hidden' }}>
                     {this.props.desc ?
@@ -244,93 +205,6 @@ class CheckoutForm extends React.Component {
                                 required
                             />
                         </Grid>
-
-
-                        {
-                        /*<Grid item xs={12}>
-                            <TextField
-                                className={classes.margin}
-                                id="outlined-email-input"
-                                select
-                                label={globalVariables.FORM_ADDRESS_LABEL_COUNTRY[globalVariables.LANG]}
-                                type="text"
-
-                                value={this.state.country}
-                                onChange={this.handleCountryChange('country')}
-                                fullWidth
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                required
-                            >
-                                {this.state.COUNTRIES.map(option => (
-                                    <MenuItem key={uuid()} value={option.id}>
-                                        {option.country_name}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </Grid>
-                        <ReactCSSTransitionGroup
-                            component={Grid}
-                            container
-                            transitionEnterTimeout={500}
-                            transitionLeaveTimeout={500}
-                            transitionName="componentAddDelete"
-                        >
-                            {this.state.CITIES.length ?
-                                <Grid item xs={12}>
-                                    <TextField
-                                        className={classes.margin}
-                                        id="outlined-email-input"
-                                        select
-                                        label={globalVariables.FORM_ADDRESS_LABEL_CITY[globalVariables.LANG]}
-                                        type="text"
-                                        // error={this.state.emailError?true:false}
-                                        // helperText={this.state.emailError}
-                                        value={this.state.city}
-                                        onChange={this.handleCityChange('city')}
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        required
-                                    >
-                                        {this.state.CITIES.map(option => (
-                                            <MenuItem key={uuid()} value={option.id}>
-                                                {option.city_name}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </Grid> : ''
-                            }
-
-                            {this.state.AREAS.length ?
-                                <Grid item xs={12}>
-                                    <TextField
-                                        className={classes.margin}
-                                        id="outlined-email-input"
-                                        select
-                                        label={globalVariables.FORM_ADDRESS_LABEL_AREA[globalVariables.LANG]}
-                                        type="text"
-                                        value={this.state.area}
-                                        onChange={this.handleChange('area')}
-                                        fullWidth
-                                        InputLabelProps={{
-                                            shrink: true,
-                                        }}
-                                        required
-                                    >
-                                        {this.state.AREAS.map(option => (
-                                            <MenuItem key={uuid()} value={option.id}>
-                                                {option.area_name}
-                                            </MenuItem>
-                                        ))}
-                                    </TextField>
-                                </Grid> : ''
-                            }
-                        </ReactCSSTransitionGroup>*/}
-
-
 
                         <Grid item xs={12}>
                             <TextField
@@ -466,7 +340,7 @@ class CheckoutForm extends React.Component {
 
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.onClose} color="primary">
+                    <Button onClick={this.props.onClose} color="secondary" variant="contained">
                         {globalVariables.FORM_ADDRESS_LABEL_BACK[globalVariables.LANG]}
                     </Button>
                     {this.props.edit ?

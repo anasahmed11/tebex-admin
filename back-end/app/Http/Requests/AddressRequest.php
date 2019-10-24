@@ -26,7 +26,6 @@ class AddressRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'city' => 'required|string',
             'address' => 'required|string',
             'email' => 'required|string',
             'phone' => 'required|string',

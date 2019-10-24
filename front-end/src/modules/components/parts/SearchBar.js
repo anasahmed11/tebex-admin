@@ -15,33 +15,6 @@ import './searchBar.css';
 import styles from '../../../assets/jss/components/parts/SearchBar';
 import globalVariables, { noImage, getProductURL } from '../../../global-variables';
 
-// const languages = [
-//     {
-//         title: 'Categories',
-//         data: [
-//             { id: 1, type: 0, image: "", name: 'Mobiles' },
-//             { id: 1, type: 0, image: "", name: 'Accessories' }
-//         ]
-//     },
-//     {
-//         title: 'Products',
-//         data: [
-//             { id: 1, type: 1, price: 20, image: "", name: 'Mobile titan x red 1600GB xD' },
-//             { id: 2, type: 1, price: 255, image: "", name: 'Mobile 155 and cute' },
-//             { id: 3, type: 1, price: 215, image: "", name: 'Mobile but not a mobile' },
-//             { id: 4, type: 1, price: 441, image: "", name: 'مكتبة جرير ليست مجرد مكتبة' },
-//             { id: 5, type: 1, price: 4000, image: "", name: 'Control system design by prof Tal3at <3' },
-//             { id: 6, type: 1, price: 200, image: "", name: 'Havana oh na na' },
-//             { id: 7, type: 1, price: 90, image: "", name: 'ملوخية لكل ست بيت مصرية' },
-//             { id: 8, type: 1, price: 86, image: "", name: 'ماوس طارق اللي مبيعرفش يلعب فورتنايت' },
-//             { id: 9, type: 1, price: 86, image: "", name: 'بالي النائم' },
-//         ]
-//     },
-//     {
-//         title: 'See All Results',
-//         data: []
-//     },
-// ];
 
 
 // API CALL
@@ -75,18 +48,6 @@ const getSuggestions = value => {
             return [];
         })
 
-
-
-
-    // const regex = new RegExp('^' + value, 'i');
-    // return languages
-    //     .map(section => {
-    //         return {
-    //             title: section.title,
-    //             data: section.data.filter(language => true || regex.test(language.name))
-    //         };
-    //     })
-    //.filter(section => section.data.length > 0);
 }
 
 const getSuggestionValue = suggestion => suggestion.name;

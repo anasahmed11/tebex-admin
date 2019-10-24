@@ -286,7 +286,7 @@ class CheckoutForm extends React.Component {
 
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.onClose} color="primary">
+                    <Button onClick={this.props.onClose} color="secondary" variant="contained">
                         {globalVariables.FORM_ADDRESS_LABEL_BACK[globalVariables.LANG]}
                     </Button>
                     {this.props.edit ?

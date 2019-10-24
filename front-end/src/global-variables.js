@@ -525,7 +525,12 @@ const globalVariables = {
         ar: 'اضف عنوان جديد'
     },
 
+    
     //Labels
+    LABEL_EMPTY_FIELDS: {
+        en: 'There is an empty fields',
+        ar: 'قم بملئ جميع الحقول'
+    },
     LABEL_HOME_BRANDS_SLIDER: {
         en: 'Featured Brands',
         ar: 'ماركات مميزة',
