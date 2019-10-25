@@ -75,7 +75,7 @@ class SellingOrders extends React.Component {
 
         wrappedPromise.promise
             .then(res => {
-                const pendingProducts = this.state.pendingProducts.filter(pendingProduct => pendingProduct.order_id != data.order_id || pendingProduct.product_id != data.product_id)
+                const pendingProducts = this.state.pendingProducts.filter(pendingProduct => pendingProduct.order_id !== data.order_id || pendingProduct.product_id !== data.product_id)
                 this.setState({
                     isPopup: true,
                     serverMessage: res.data.message,

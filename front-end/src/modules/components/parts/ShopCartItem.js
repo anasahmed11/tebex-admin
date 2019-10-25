@@ -1,34 +1,23 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import globalVariables, { getProductURL } from '../../../global-variables';
+import globalVariables, { noImage, getProductURL } from '../../../global-variables';
 
-import { 
-    Typography,
-    withStyles,
-    Grid, 
-    Divider, 
-    IconButton, 
-    TextField,
-    Button
- } from '@material-ui/core';
-
+import {  Typography, withStyles, Grid, Divider, IconButton, TextField, Button } from '@material-ui/core';
 import { DeleteForever } from '@material-ui/icons';
+
+import { baseURL, returnAPI } from '../../../api/api';
 import { addToCart } from '../../../store/actions/shoppingCart';
 
 import ReturnForm from './ReturnForm';
 
 import styles from '../../../assets/jss/components/parts/ShopCartItem';
-import { baseURL, returnAPI } from '../../../api/api';
 
 class ShopCartItem extends Component{
 
     state = {
         returnFormOpen: false,
-    }
- 
-    handleQuantityChange = event => {
-        console.log()
+        returnRequested: false,
     }
 
     toggleReturnButton = () =>
@@ -42,23 +31,25 @@ class ShopCartItem extends Component{
             reason: reason,
             note: note,
         }
-        console.log(content);
         returnAPI.post('/', content)
         .then(res => {
-            console.log(res);
+            // console.log(res);
+            this.setState({
+                returnRequested: true,
+            });
         })
         .catch(err => console.log(err));
     }
 
     render(){
         const { classes, item, previewOnly, handleDelete } = this.props;
-        // console.log( item);
+
         let product = previewOnly? item.product : item;
         const price = previewOnly? item.price : item.sale_price;
         const quantity = previewOnly? item.quantity : item.cart.quantity;
         const options = previewOnly? 
             null : [...Array(item.quantity + 1).keys()].slice(1).map((n,idx) => <option key={idx} value={n}> {n} </option>);
-        console.log(this.props.item)
+        
         return(
             <Grid item xs={12} className={classes.root}>
                 
@@ -68,7 +59,7 @@ class ShopCartItem extends Component{
                             className={classes.image} 
                             src={product.images.length? 
                                     baseURL + product.images[0].slice(1)
-                                    :"https://ss7.vzw.com/is/image/VerizonWireless/iphone7-front-matblk?$device-lg$" } // product.images}
+                                    : noImage }
                             alt="product"/>
                     </Grid>    
                     <Grid item sm={6} xs={12}>
@@ -87,10 +78,10 @@ class ShopCartItem extends Component{
                             </Typography>
                         </Grid>
                         {previewOnly?
-                            this.props.item.return_application?
+                            this.props.item.return_application || this.state.returnRequested?
                             <Grid item>
                                 <Typography className={classes.returnInfo}>
-                                    {this.props.item.return_application.status_message}
+                                    {this.props.item.return_application.status_message || 'Return form sent.'}
                                 </Typography>
                             </Grid>
                             : this.props.item.returnable?
@@ -128,7 +119,7 @@ class ShopCartItem extends Component{
                                             select
                                             className={classes.menu}
                                             value={quantity}
-                                            onChange={(event) => this.props.handleQuantityChange(item,event.target.value)}
+                                            onChange={(event) => this.props.handleQuantityChange(item, event.target.value)}
                                             SelectProps={{
                                                 native: true,
                                             }}

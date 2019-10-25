@@ -38,6 +38,7 @@ export default theme => ({
         padding: theme.spacing(1),
     },
     categoryLinkElement: {
+        textTransform: 'capitalize',
         display: 'flex',
         marginRight: theme.spacing(1),
         '&:after': {
@@ -66,5 +67,14 @@ export default theme => ({
         marginRight: 'auto',
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(4),
+    },
+    searchCancelButton: {
+        fontSize: 16,
+        transition: 'color ease 0.3s',
+        color: palette.darksecond,
+        cursor: 'pointer',
+        '&:hover': {
+            color: 'darkred',
+        }
     }
 })

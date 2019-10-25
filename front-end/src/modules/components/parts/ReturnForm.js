@@ -57,7 +57,7 @@ class ReturnForm extends React.Component {
                     
                     <Grid container item xs={3}>
                         <Typography className={classes.productTitle}>
-                            {`${globalVariables.LANG == 'ar'? this.props.name : this.props.name_en} (${this.props.quantity})`}
+                            {`${globalVariables.LANG === 'ar'? this.props.name : this.props.name_en} (${this.props.quantity})`}
                         </Typography>
                         <img src={`${this.props.image}`} className={classes.productImage} alt="ProductImage" />
                     </Grid>

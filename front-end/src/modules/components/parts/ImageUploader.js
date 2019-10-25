@@ -14,7 +14,7 @@ const ImageBody = withStyles(styles)(props => {
     const src = props.src;
     const { classes } = props;
     
-    if (src.slice(0, 9) === "\/storage")
+    if (src.slice(0, 9) === '/storage')
         return "BBBB"
     
     else return <Grid item lg={4} md={6} xs={12} style={{ position: 'relative' }}>

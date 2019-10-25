@@ -7,7 +7,7 @@ export default theme => ({
       display: 'block',
       boxSizing: 'border-box',
       width: '100%',
-      borderRadius: '4px',
+      // borderRadius: '4px',
       border: '0',
       borderRadius: '0%',
       borderBottom: `1px solid ${palette.darkgray}`,

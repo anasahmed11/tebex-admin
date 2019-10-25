@@ -15,10 +15,7 @@ import './searchBar.css';
 import styles from '../../../assets/jss/components/parts/SearchBar';
 import globalVariables, { noImage, getProductURL } from '../../../global-variables';
 
-
-
 // API CALL
-
 const getSuggestions = value => {
     value = value.trim().toLowerCase();
 
@@ -26,7 +23,6 @@ const getSuggestions = value => {
 
     productsAPI.post('search/', { q: value })
         .then(res => {
-
             return res.data
                 .map(product => {
                     return {
@@ -39,7 +35,6 @@ const getSuggestions = value => {
                             salePrice: product.sale_price,
                             sku: product.sku,
                             slug: product.slug,
-
                         }
                     };
                 })
@@ -86,12 +81,11 @@ const renderSuggestion = (suggestion) => {
                     <Grid item lg={1} md={1} xs={2} style={{textAlign:'center'}}>
                         <img
                             src={`${suggestion.image}`}
+                            alt="Suggestion"
                             style={{
                                 objectFit: 'contain',
                                 width: '100%',
                                 maxWidth: '75px',
-
-
                             }} />
                     </Grid>
                     <Grid item lg={11} md={11} xs={10} >

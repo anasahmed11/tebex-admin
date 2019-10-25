@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import globalVariables from '../../../global-variables';
-import uuid from 'uuid';
 
-import { withStyles, Grid, Typography, Divider } from '@material-ui/core';
+import { withStyles, Typography, Divider } from '@material-ui/core';
 import 'typeface-roboto';
 
 import styles from '../../../assets/jss/components/wrappers/ProductSpecs';
@@ -89,7 +88,7 @@ class ProductSpecs extends Component {
 
     render(){
         const { isLoading, specs } = this.state;
-        const { classes, productSpecs } = this.props;
+        const { classes } = this.props;
         const { name, name_en, sku, store, price, sale_price, description } = this.props.product;
         const lng = globalVariables.LANG
 

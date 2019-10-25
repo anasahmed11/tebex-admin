@@ -1,8 +1,7 @@
 import React from 'react';
-import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
-import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
+import { withStyles, Typography, Grid, Button, TextField } from '@material-ui/core';
 
 import styles from '../../../assets/jss/components/parts/SellerForm';
 

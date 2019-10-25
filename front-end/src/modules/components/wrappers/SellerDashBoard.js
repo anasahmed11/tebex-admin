@@ -48,7 +48,6 @@ class SellerDashboard extends React.Component {
             .promise
             .then(res => {
                 res.data.map(item => {
-
                     item.created_at = new Date(item.created_at).toDateString("yyyy-MM-dd");
                     item.payments.account = JSON.parse(item.payments.account)
                     const account = Object.entries(item.payments.account).map(
@@ -58,7 +57,7 @@ class SellerDashboard extends React.Component {
                         </div>)
                     item.payments.account = <div>{account}</div>
                 })
-                console.log(res.data)
+                // console.log(res.data)
                 this.setState({ withdraws: res.data })
             })
             .then(() => this.removePendingPromise(wrappedPromise))

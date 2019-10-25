@@ -53,7 +53,9 @@ const AddProduct1 = props => {
             message += 'select a category and specs.';
             valid = false;
         }
-        else for (var key in childData) formData.append(key, childData[key]);
+        else
+            for (let key in childData)
+                formData.append(key, childData[key]);
         
         const imageFiles = getImageChildData();
         if (imageFiles === false) {
@@ -76,10 +78,9 @@ const AddProduct1 = props => {
         }
         else formData.append('description_en',JSON.stringify(convertToRaw(description2)));
         
-        
         delete data.image
-        for (var key in data) formData.append(key, data[key]);
-        
+        for (let _key in data)
+            formData.append(_key, data[_key]);
 
         if(valid===false){
             setServerMessage(message);

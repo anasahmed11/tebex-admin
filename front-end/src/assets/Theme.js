@@ -2,8 +2,6 @@ import { createMuiTheme, responsiveFontSizes  } from '@material-ui/core/styles';
 import globalVariables from '../global-variables';
 import palette from './site-colors';
 
-const defaultTheme = createMuiTheme();
-
 const theme = createMuiTheme({
     overrides: {
         MuiButton: {

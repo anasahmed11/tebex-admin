@@ -4,7 +4,7 @@ import Magnifier from 'react-magnifier';
 import uuid from 'uuid';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import { withStyles, Grid, Typography, IconButton } from '@material-ui/core';
+import { withStyles, Grid, IconButton } from '@material-ui/core';
 import { ArrowForwardIos, ArrowBackIos } from '@material-ui/icons';
 import 'typeface-roboto';
 import './styles/productViewer.css';

@@ -9,6 +9,7 @@ import uuid from 'uuid';
 import { ClipLoader } from "react-spinners";
 import { withStyles } from '@material-ui/core/styles';
 import { Snackbar, Grid, Typography } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import { categoryAPI } from '../../../api/api';
 
@@ -20,7 +21,7 @@ import Pagination from "../parts/Pagination";
 
 import { cartFinish } from '../../../store/actions/shoppingCart';
 
-import styles from '../../../assets/jss/components/wrappers/ProductsListWrapper.jsx';
+import styles from '../../../assets/jss/components/wrappers/ProductsListWrapper';
 
 const flattenObject = (obj, _objects=[]) => {
     let {children, ...currentObject} = obj;
@@ -202,7 +203,9 @@ class Store extends Component {
         }
         filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
         filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
-
+        if(query.q)
+            filtersObject.settings.push({ id: 'q', values: query.q});
+        
         // Get products of current category for current page
         categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)
         .then(res => {
@@ -339,6 +342,18 @@ class Store extends Component {
         } catch (err) { console.log('WARNING: Filters update failed.\n', err); }
     }
     
+    searchCancelHandler = () => {
+        const query = this.state.query;
+        delete query.q;
+        this.setState({
+            query: query,
+            _isLoadingProducts: true
+        }, () => {
+            this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
+            this.updateFilters();
+        });
+    }
+
     filterCheckHandler = (specName, checkedValue) => {
         const query = this.state.query;
         if(!query[specName]){
@@ -504,12 +519,16 @@ class Store extends Component {
                                     </Link>
                                 </Typography>
                                 )
-                            :null}
+                            : null}
                             <Typography className={classes.categoryLinkElement} variant="subtitle1">
                                 {globalVariables.LANG === 'en'?
                                     `(Found ${this.state.totalProducts} products)` : `(متوفر ${this.state.totalProducts} منتج)`
                                 }
                             </Typography>
+                            {query.q?
+                                <Typography variant="subtitle1">
+                                    {`${query.q}`} <CancelIcon className={classes.searchCancelButton} onClick={this.searchCancelHandler} />
+                                </Typography> : null}
                         </div>
                         <div className={classes.optionMenusSection}>
                             <SelectMenu 

@@ -80,8 +80,8 @@ class PrimarySearchAppBar extends React.Component {
             </Menu>
         );
 
-
         this.state.anchorEl = null;
+        
         return (
             <AppBar position="static" className={classes.root}>
                 <Grid container className={classes.container}>

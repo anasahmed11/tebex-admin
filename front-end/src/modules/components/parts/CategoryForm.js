@@ -1,7 +1,7 @@
 import React from "react";
 import uuid from 'uuid';
 
-import { withStyles, TextField, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Button, Snackbar } from "@material-ui/core";
+import { withStyles, TextField, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, Button, Snackbar } from "@material-ui/core";
 
 import { categoryAPI, specAPI } from "../../../api/api";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

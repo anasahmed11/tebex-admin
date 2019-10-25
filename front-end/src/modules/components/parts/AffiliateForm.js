@@ -2,16 +2,16 @@ import React from 'react';
 import uuid from 'uuid';
 import globalVariables from '../../../global-variables';
 
-import { withStyles, Typography, Grid, Button, TextField, MenuItem } from '@material-ui/core';
+import { withStyles, Grid, Button, TextField, MenuItem } from '@material-ui/core';
 
 import styles from '../../../assets/jss/components/parts/AffiliateForm';
-
+/*
 const PACKAGE = [
     {value: 1, label: '1'},
     {value: 2, label: '2'},
     {value: 3, label: '3'}
 ]
-
+*/
 const PAYMENT = [
     {value: 0, label: globalVariables.FORM_AFFILIATE_LABEL_VODAFONE[globalVariables.LANG]},
     {value: 1, label: globalVariables.FORM_AFFILIATE_LABEL_ETISALAT[globalVariables.LANG]},

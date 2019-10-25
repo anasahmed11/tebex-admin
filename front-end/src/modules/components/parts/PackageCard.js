@@ -1,9 +1,6 @@
 import React from 'react';
-import uuid from 'uuid'
-import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Paper, Typography, Button, } from '@material-ui/core';
-
 
 const styles = theme => ({
     root: {

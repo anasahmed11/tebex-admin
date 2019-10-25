@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { ClipLoader } from 'react-spinners';
 import globalVariables from '../../../global-variables';
 
 import { withStyles, Grid, Typography,  } from '@material-ui/core';

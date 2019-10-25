@@ -67,7 +67,7 @@ class SettingsSection extends React.Component{
                                 <ListItemIcon className={classes.icon}>
                                     <AccountIcon />
                                 </ListItemIcon>
-                                <ListItemText className={classes.primary} className={classes.link} inset primary={globalVariables.SETTINGS_SECTION_PROFILE[globalVariables.LANG]} /> 
+                                <ListItemText className={classes.link} inset primary={globalVariables.SETTINGS_SECTION_PROFILE[globalVariables.LANG]} /> 
                             </MenuItem>
                         </Link>
                         <Link to="/orders" className={classes.link}>
@@ -75,7 +75,7 @@ class SettingsSection extends React.Component{
                                 <ListItemIcon className={classes.icon}>
                                     <NotesIcon />
                                 </ListItemIcon>
-                                <ListItemText className={classes.primary} className={classes.link} inset primary={globalVariables.SETTINGS_SECTION_ORDERS[globalVariables.LANG]} /> 
+                                <ListItemText className={classes.link} inset primary={globalVariables.SETTINGS_SECTION_ORDERS[globalVariables.LANG]} /> 
                             </MenuItem>
                         </Link>
                         {isAffiliate?

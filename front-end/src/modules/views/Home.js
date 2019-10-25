@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet";
 
 import 'typeface-roboto';
 
+/*
 const companyInfo = [
   {
     title: 'نبذة عن الشركة',
@@ -31,7 +32,7 @@ const companyInfo = [
     icon: { set: 'fas', name: 'layer-group' }
   },
 ]
-
+*/
 
 function Home(props) {
   console.log(props.affiliate)

@@ -2,7 +2,7 @@ import React from 'react';
 import { forwardRef } from 'react';
 import globalVariables from '../../../global-variables';
 
-import MaterialTable, { MTableFilterRow } from 'material-table';
+import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
 import Check from '@material-ui/icons/Check';

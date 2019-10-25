@@ -150,16 +150,15 @@ class UserDashBoard extends React.Component {
             .promise
             .then(res => {
                 res.data.map(item => {
-                   
                     item.created_at = new Date(item.created_at).toDateString("yyyy-MM-dd");
                     item.payments.account = JSON.parse(item.payments.account)
                     const account = Object.entries(item.payments.account).map(
-                                ([key, value]) => <div>
-                                                    <Typography display='inline' gutterBottom>{key}: </Typography>
-                                                    <Typography display='inline' gutterBottom>{value}</Typography>
-                                                </div>)
+                            ([key, value]) => <div>
+                                                <Typography display='inline' gutterBottom>{key}: </Typography>
+                                                <Typography display='inline' gutterBottom>{value}</Typography>
+                                            </div>)
                     item.payments.account = <div>{account}</div>
-                })
+                });
                 console.log(res.data)
                 this.setState({ withdraws: res.data })
             })
