@@ -47,8 +47,8 @@ class ProductSlider extends Component {
           <ProductCard 
             id={product.id}
             title={globalVariables.LANG === 'ar'? product.name : product.name_en} 
-            price={product.salePrice? product.salePrice : product.price}
-            oldPrice={product.salePrice? product.price : false}
+            price={product.sale_price? product.sale_price : product.price}
+            oldPrice={product.sale_price? product.price : false}
             currency={globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
             img={product.images.length? product.images[0] : noImage}
             product={product}

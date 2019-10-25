@@ -12,7 +12,7 @@ import styles from '../../../assets/jss/components/parts/SelectMenu';
 const SelectMenu = props => {
 
     const { classes, values, name, sideLabel, selectedValue, disabled } = props;
-    console.log('SELECTMENU', selectedValue)
+    // console.log('SELECTMENU', selectedValue)
     return (
         <div className={classes.container}>
             {sideLabel ? <Typography>{sideLabel}</Typography> : null}

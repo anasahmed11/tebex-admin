@@ -220,6 +220,7 @@ export default theme => ({
     discount: {
         position: 'absolute',
         left: '12px',
+        top: 0,
         color: palette.white,
         background: palette.second,
         textAlign: 'center',
@@ -403,6 +404,7 @@ export default theme => ({
     },
     discountSlider: {
         position: 'absolute',
+        top: 0,
         fontSize: '18px',
         left: '12px',
         color: palette.white,
