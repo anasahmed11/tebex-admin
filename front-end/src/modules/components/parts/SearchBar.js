@@ -85,15 +85,17 @@ const renderSuggestion = (suggestion) => {
                             style={{
                                 objectFit: 'contain',
                                 width: '100%',
-                                maxWidth: '75px',
+                                maxWidth: '50px',
+                                display: 'flex',
+                                margin: 'auto'
                             }} />
                     </Grid>
                     <Grid item lg={11} md={11} xs={10} >
                         <Typography variant="h6" style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                             {suggestion.name}
                         </Typography>
-                        <Typography variant="h6">
-                            {suggestion.price}$
+                        <Typography variant="subtitle2" >
+                            {suggestion.price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
                         </Typography>
                     </Grid>
                 </Grid>
@@ -125,8 +127,9 @@ class CustomizedInputBase extends React.Component {
     state = {
         value: '',
         suggestions: [],
-        lastRequestTime: 0,
+        
     }
+    lastRequestTime = 0
 
     onChange = (event, { newValue }) =>
         this.setState({ value: newValue });
@@ -137,10 +140,10 @@ class CustomizedInputBase extends React.Component {
         if (value === '') { this.setState({ suggestions: [] }); return; }
 
         const time = Date.now();
-        this.state.lastRequestTime = time;
+        this.lastRequestTime = time;
 
         setTimeout(() => {
-            if (this.state.lastRequestTime === time)
+            if (this.lastRequestTime === time)
                 productsAPI.post('search/', { q: value })
                     .then(res => {
 
@@ -161,7 +164,7 @@ class CustomizedInputBase extends React.Component {
                         this.setState({ suggestions: [productSuggestions, { data: [], q: value, title: `${globalVariables.SEARCHBAR_SEE_ALL[globalVariables.LANG]} (${res.data.total})`, seeAll: true }] });
                     })
                     .catch(error => { this.setState({ suggestions: [] }); })
-        }, 1000);
+        }, 500);
     }
 
     onSuggestionsClearRequested = () => this.setState({ suggestions: [] });
@@ -175,10 +178,10 @@ class CustomizedInputBase extends React.Component {
             onChange: this.onChange
         };
         const searchIconButton = this.props.searchIcon ?
-            <IconButton className={classes.iconButton} aria-label="Search">
+            <IconButton className={classes.iconButton} component={Link} to={`/shop?q=${this.state.value}`} aria-label="Search">
                 <SearchIcon />
             </IconButton> : null;
-
+       
         return (
             <Paper className={classes.root} elevation={1}>
                 <Autosuggest

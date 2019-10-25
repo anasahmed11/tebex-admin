@@ -204,7 +204,7 @@ class Store extends Component {
         filtersObject.settings.push({ id: 'pp', values: query.perPage? query.perPage : queryDefaults.perPage});
         filtersObject.settings.push({ id: 'sr', values: query.sort? query.sort : queryDefaults.sort});
         if(query.q)
-            filtersObject.settings.push({ id: 'q', values: query.q});
+            filtersObject.q = query.q;
         
         // Get products of current category for current page
         categoryAPI.post(`/${categoryID}/products?page=${query.page}`, filtersObject)

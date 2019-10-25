@@ -89,6 +89,10 @@ class CategoryController extends Controller
         $products = Product::where('active', '1')->where('status','approved')->whereIn('category_id', $cats);
 
         if ($filters->isMethod('post')) {
+            if($filters->q){
+                $matching = Product::search($filters->q)->where('active', '1')->where('status','approved')->get('id')->pluck('id');
+                $products = $products->whereIn('id', $matching);
+            }
             $setting = $filters->only('settings')['settings'];
             $specs = $filters->only('specs')['specs'];
             $specsfilters = [];

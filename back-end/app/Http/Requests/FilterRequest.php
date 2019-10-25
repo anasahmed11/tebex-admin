@@ -28,7 +28,7 @@ class FilterRequest extends FormRequest
             'settings.*.values'=>'nullable',
             'specs.*.id'=>'exists:specs,id',
             'specs.*.values'=>'present|array',
-
+            'q'=>'string',
         ];
     }
 }
