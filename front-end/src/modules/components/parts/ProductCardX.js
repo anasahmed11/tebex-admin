@@ -48,7 +48,9 @@ const ProductCard = (props) => {
                         </Typography>
                     :null}
                     <div className={slider? classes.statsContainerSlider : classes.statsContainer}>
-                        <Typography variant='h6' className={slider? classes.productBrandSlider : classes.productBrand}>Brand</Typography>    
+                        <Typography variant='h6' className={slider? classes.productBrandSlider : classes.productBrand}>
+                            {globalVariables.LANG === 'ar'? product.store.name : product.store.name_en}    
+                        </Typography>    
                         <Typography variant='h6' className={slider? classes.productNameSlider : classes.productName}>{props.title}</Typography>    
                         <Typography variant='h6' className={slider? classes.productOldPriceSlider : classes.productOldPrice}>
                             {props.oldPrice? props.oldPrice + ' ' + props.currency : ''}

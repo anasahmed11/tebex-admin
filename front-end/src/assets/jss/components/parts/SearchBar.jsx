@@ -14,5 +14,5 @@ export default theme => ({
         whiteSpace: 'nowrap',
         textOverflow: 'ellipsis',
         overflow: 'hidden'
-    }
+    },
 });

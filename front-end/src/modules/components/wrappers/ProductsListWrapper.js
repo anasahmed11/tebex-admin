@@ -112,7 +112,7 @@ class Store extends Component {
             delete query.perPage;
 
         if(changingCategory){
-            delete query.page;
+            query.page = 1;
             this.updateURLQuery(queryString.stringify(query, this.queryParseOptions));
         }    
 
@@ -215,11 +215,12 @@ class Store extends Component {
             //console.log('shit', res, query.page, filtersObject)
             
             // Set min and max price
+            /*
             if(res.data.min_price)
                 queryDefaults.minPrice = res.data.min_price;
             if(res.data.max_price)
                 queryDefaults.maxPrice = res.data.max_price;
-            
+            */
             filterPanels[filterPanels.findIndex(v => v.id === '__price')].values =
                 [query.minPrice || queryDefaults.minPrice, query.maxPrice || queryDefaults.maxPrice];
             
@@ -381,10 +382,9 @@ class Store extends Component {
     }
 
     paginationHandler = (page) => {
-        
         const { query } = this.state;
 
-        if(page.selected === 0) delete query.page;
+        if(page.selected === 0) query.page = 1;
         else query.page = page.selected + 1;
 
         // SCROLL ANIMATION
@@ -435,7 +435,7 @@ class Store extends Component {
             query.minPrice = minValue;
             query.maxPrice = maxValue;
         }
-        delete query.page;
+        query.page = 1;
 
         let keepHeight =  document.getElementById('filters-panel').children[0].offsetHeight;
         this.setState({

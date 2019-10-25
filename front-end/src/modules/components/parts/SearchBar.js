@@ -16,6 +16,7 @@ import styles from '../../../assets/jss/components/parts/SearchBar';
 import globalVariables, { noImage, getProductURL } from '../../../global-variables';
 
 // API CALL
+/*
 const getSuggestions = value => {
     value = value.trim().toLowerCase();
 
@@ -44,9 +45,9 @@ const getSuggestions = value => {
         })
 
 }
+*/
 
 const getSuggestionValue = suggestion => suggestion.name;
-
 
 const renderSuggestion = (suggestion) => {
     switch (suggestion.type) {
@@ -54,7 +55,6 @@ const renderSuggestion = (suggestion) => {
             return (
                 <Grid container component={Link} style={{ height: '40px', textDecoration: 'none', color: 'black' }} to={`/category/${suggestion.id}`}>
                     <Grid item xs={1}
-
                         style={{
                             textAlign: 'center',
                             backgroundImage: "url('https://cdn2.iconfinder.com/data/icons/rounded-white-basic-ui-set-3/139/List-RoundedWhite-2-512.png')",
@@ -63,13 +63,11 @@ const renderSuggestion = (suggestion) => {
                             backgroundRepeat: "no-repeat"
                         }}
                     >
-
                     </Grid>
                     <Grid item xs={10} style={{ marginLeft: '10px' }}>
                         <div style={styles.oneLineTextDisplay}>
                             {suggestion.name}
                         </div>
-
                     </Grid>
                 </Grid>
             )
@@ -94,9 +92,21 @@ const renderSuggestion = (suggestion) => {
                         <Typography variant="h6" style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
                             {suggestion.name}
                         </Typography>
+                        {suggestion.salePrice?
                         <Typography variant="subtitle2" >
-                            {suggestion.price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
+                            {suggestion.salePrice} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
+                            <span style={{
+                                textDecorationLine: 'line-through',
+                                fontSize: 12,
+                                color: 'gray',
+                                marginLeft: 6,
+                            }}>
+                                {suggestion.price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
+                            </span>
                         </Typography>
+                        : <Typography variant="subtitle2" >
+                            {suggestion.price} {globalVariables.LABEL_CURRENCY[globalVariables.LANG]}
+                        </Typography>}
                     </Grid>
                 </Grid>
             );
@@ -105,14 +115,12 @@ const renderSuggestion = (suggestion) => {
 
 }
 
-
 const renderSectionTitle = section => {
     if (section.seeAll)
         return (
             <Grid container justify="center">
-                
                 <Button component={Link} to={`/shop?q=${section.q}`} >
-                    <Typography variant="h6">{section.title}</Typography>
+                    <Typography variant="subtitle1">{section.title}</Typography>
                 </Button>
             </Grid>
         );
@@ -146,7 +154,6 @@ class CustomizedInputBase extends React.Component {
             if (this.lastRequestTime === time)
                 productsAPI.post('search/', { q: value })
                     .then(res => {
-
                         const products = res.data.data
                             .map(product => ({
                                 id: product.id,

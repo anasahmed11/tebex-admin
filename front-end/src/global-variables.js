@@ -1013,48 +1013,48 @@ const globalVariables = {
 
 
     PAGE_TITLE_SERVER_ERROR: {
-        en: 'Server Unavailable | UYC',
-        ar: 'الخادم غير متوفر | UYC'
+        en: 'Server Unavailable | TEBX',
+        ar: 'الخادم غير متوفر | TEBX'
     },
     PAGE_TITLE_CART: {
-        en: 'Cart | UYC',
-        ar: 'عربة التسوق | UYC'
+        en: 'Cart | TEBX',
+        ar: 'عربة التسوق | TEBX'
     },
     PAGE_TITLE_CHECKOUT: {
-        en: 'Checkout | UYC',
-        ar: 'الدفع | UYC'
+        en: 'Checkout | TEBX',
+        ar: 'الدفع | TEBX'
     },
     PAGE_TITLE_HOME: {
-        en: 'Home | UYC',
-        ar: 'الصفحة الرئيسية | UYC'
+        en: 'Home | TEBX',
+        ar: 'الصفحة الرئيسية | TEBX'
     },
     PAGE_TITLE_NOT_FOUND: {
-        en: 'Page Not Found | UYC',
-        ar: 'الصفحة غير موجودة | UYC'
+        en: 'Page Not Found | TEBX',
+        ar: 'الصفحة غير موجودة | TEBX'
     },
     PAGE_TITLE_PRODUCT: {
-        en: 'Product | UYC',
-        ar: 'منتج | UYC'
+        en: 'Product | TEBX',
+        ar: 'منتج | TEBX'
     },
     PAGE_TITLE_SHOP: {
-        en: 'Shop | UYC',
-        ar: 'المتجر | UYC'
+        en: 'Shop | TEBX',
+        ar: 'المتجر | TEBX'
     },
     PAGE_TITLE_TRACK_ORDER: {
-        en: 'Track Order | UYC',
-        ar: 'تتبع شحنتك | UYC'
+        en: 'Track Order | TEBX',
+        ar: 'تتبع شحنتك | TEBX'
     },
     PAGE_TITLE_VERIFY: {
-        en: 'Verify | UYC',
-        ar: 'تفعيل | UYC'
+        en: 'Verify | TEBX',
+        ar: 'تفعيل | TEBX'
     },
     PAGE_TITLE_AUTH: {
-        en: 'UYC',
-        ar: 'UYC'
+        en: 'TEBX',
+        ar: 'TEBX'
     },
     PAGE_TITLE_USER_PANEL: {
-        en: 'Profile | UYC',
-        ar: 'الصفحة الشخصية | UYC'
+        en: 'Profile | TEBX',
+        ar: 'الصفحة الشخصية | TEBX'
     },
 
     // Network Error
@@ -1243,7 +1243,7 @@ export const bottomLinks = [
 
 export const footerSections = [
     {
-        title: { en: 'ABOUT UYC', ar: 'عن UYC' },
+        title: { en: 'ABOUT TEBX', ar: 'عن TEBX' },
         links: [
             {
                 title: { en: 'Who We Are?', ar: 'من نحن؟' },
