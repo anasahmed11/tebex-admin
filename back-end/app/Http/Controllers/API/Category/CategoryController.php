@@ -4,21 +4,23 @@ namespace App\Http\Controllers\API\Category;
 
 use App\Category;
 use App\Http\Requests\FilterRequest;
-use App\Http\Resources\ProductCollection;
 use App\Product;
 use App\ProductSpec;
 use App\Spec;
-use function foo\func;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 
 class CategoryController extends Controller
 {
+    protected $sortCols = [
+        ['column_name'=>'created_at','direction'=>'desc'],
+        ['column_name'=>'price','direction'=>'desc'],
+        ['column_name'=>'price','direction'=>'asc'],
+        ['column_name'=>'name_en','direction'=>'asc'],
+        ['column_name'=>'name_en','direction'=>'desc'],
+    ];
     public function index()
     {
         Category::fixTree();
@@ -99,11 +101,9 @@ class CategoryController extends Controller
             foreach ($specs as $spec) {
                 if (count($spec['values']) == 0) continue;
                 $sp = Spec::find($spec['id']);
-                #$fil = [];
                 foreach ($spec['values'] as $value) {
                     $v["ar"] = $sp->values["ar"][$value];
                     $v["en"] = $sp->values["en"][$value];
-                    #$fil[] = trim(str_replace([":\"",","],[": \"",", "],json_encode($v)));
                     $specsfilters[] = trim(str_replace([":\"", ","], [": \"", ", "], json_encode($v)));
                 }
             }
@@ -116,19 +116,11 @@ class CategoryController extends Controller
             })->whereBetween('price', $setting[0]['values']);
         }
 
-        /*$products=$cats[0]->Product()->get();
-        for ($i=1;$i < $cats->count();$i++){
-           $products=$products->merge($cats[$i]->Product()->get());
-        }
-        $pages=($this->paginate($products->all(),Input::get("perpage")??30,Input::get("page")??1));
-        $response=[];
-        $response['data']=$pages->all();
-        $response['paging']['current']=$pages->currentPage();
-        $response['paging']['last']=$pages->lastPage();
-        $response['paging']['items']=$pages->total();*/
 
         $prices = ["max_price" => $products->max('price'), "min_price" => $products->min('price')];
-        return response()->json(array_merge($products->paginate(isset($setting)  ? $setting[1]['values'] : 30)->toArray(), $prices));
+
+        $sortCol = $this->sortCols[$setting[2]['values']];
+        return response()->json(array_merge($products->orderBy($sortCol['column_name'], $sortCol['direction'])->paginate(isset($setting)  ? $setting[1]['values'] : 30)->toArray(), $prices));
     }
     public function filter(Category $category)
     {
