@@ -110,7 +110,8 @@ class CategoryController extends Controller
             if (count($specsfilters)==1)
                 $specsfilters[] = $specsfilters[0];
 
-            $products->whereHas('Specs', function ($q) use ($specsfilters) {
+            $sortCol = $this->sortCols[$setting[2]['values']];
+            $products->orderBy($sortCol['column_name'], $sortCol['direction'])->whereHas('Specs', function ($q) use ($specsfilters) {
                 if (count($specsfilters))
                     $q->whereIn('value', $specsfilters);
             })->whereBetween('price', $setting[0]['values']);
@@ -119,8 +120,8 @@ class CategoryController extends Controller
 
         $prices = ["max_price" => $products->max('price'), "min_price" => $products->min('price')];
 
-        $sortCol = $this->sortCols[$setting[2]['values']];
-        return response()->json(array_merge($products->orderBy($sortCol['column_name'], $sortCol['direction'])->paginate(isset($setting)  ? $setting[1]['values'] : 30)->toArray(), $prices));
+
+        return response()->json(array_merge($products->paginate(isset($setting)  ? $setting[1]['values'] : 30)->toArray(), $prices));
     }
     public function filter(Category $category)
     {
