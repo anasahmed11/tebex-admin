@@ -14,11 +14,11 @@
 use App\Jobs\OrderJob;
 use App\User;
 
-Route::get('/', function () {
-    $order=\App\Order::find(26);
-    OrderJob::dispatch($order);
-
-});
+//Route::get('/', function () {
+//    $order=\App\Order::find(26);
+//    OrderJob::dispatch($order);
+//
+//});
 Route::get('/test',function (){
     $order=\App\Order::find(26);
     try {
@@ -41,6 +41,6 @@ Route::get('/verify/email/{id}',function(){
 Route::get('/reset/password/{token}',function (){
     return view('welcome');
 })->name('password.reset');
-Route::get('/{route}',function(){
+Route::get('/{route?}',function(){
     //return view('welcome');
 });

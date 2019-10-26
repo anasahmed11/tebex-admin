@@ -8,10 +8,10 @@ import store from '../store/store';
 
 const cookies = new Cookies();
 
-export const baseURL = "http://localhost:8000/";
+export const baseURL = "http://127.0.0.1:8000/";
 export const apiURL = baseURL + "api/";
 
-export const webURL = "http://localhost:3000"
+export const webURL = "http://127.0.0.1:3000/";
 
 const instances = []
 
