@@ -18,7 +18,7 @@ const globalVariables = {
     AFFILIATE_PARAM: 'ref',
     AFFILIATE_COOKIE: 'ref',
     AVATAR_COLOR_COOKIE: 'avatar_color',
-    SERVER_BASE_URL: "http://127.0.0.1:8000",
+    SERVER_BASE_URL: "http://127.0.0.1:8000/",
     PRODUCT_STATUS_STATES: {
         en: ['Pending', 'Preparing', 'Shipping', 'Delivery'],
         ar: ['المراجعة', 'التجهيز', 'الشحن', 'التسليم'],
