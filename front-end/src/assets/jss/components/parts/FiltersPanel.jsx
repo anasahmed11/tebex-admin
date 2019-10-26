@@ -58,7 +58,7 @@ export const styles = theme => ({
     },
     listItem: {
       '&:hover': {
-        background: palette.gray,
+        background: palette.second,
         color: palette.white,
       },
       '&:hover $listItemText span': {

@@ -39,8 +39,8 @@ export default theme => ({
         flex: '1 0 65%',
         alignItems: 'center',
         justifyContent: 'center',
-        [theme.breakpoints.down('sm')]: {
-            flex: '1 0 calc(60% - 10px)',
+        [theme.breakpoints.down('md')]: {
+            flex: '1 0 50%',
         },
     },
     sectionDesktop: {
