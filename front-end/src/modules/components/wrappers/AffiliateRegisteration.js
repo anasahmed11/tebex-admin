@@ -14,9 +14,9 @@ import MyClipLoader from '../parts/MyClipLoader';
 
 
 const packages = [
-    { color: "#5d6a9a", title: 'Silver', price: '1000', border: '#474f6f' }, 
-    { color: "#eac80d", title: 'gold', price: '3000', border: '#bfa30c' }, 
-    { color: "#1abc9c", title: 'bronze', price: 'free', border: '#18937b' }
+    { color: "#5d6a9a", title: 'Silver', price: '1000', border: '#474f6f', id: 3 }, 
+    { color: "#eac80d", title: 'gold', price: '3000', border: '#bfa30c', id: 5 }, 
+    { color: "#1abc9c", title: 'bronze', price: 'Free', border: '#18937b', id: 1 }
 ];
 
 class AffiliateRegisteration extends React.Component {
@@ -89,9 +89,9 @@ class AffiliateRegisteration extends React.Component {
                                 border={pack.border}
                                 title={pack.title}
                                 price={pack.price}
-                                selected={this.state.pack === (idx+1)}
-                                id={idx+1}
-                                key={idx+1}
+                                selected={this.state.pack === pack.id}
+                                id={pack.id}
+                                key={pack.id}
                                 handleCardSelected={this.handlePackageSelection}
                                 features={globalVariables.Package2_AFFILIATE[globalVariables.LANG]} />
                         </Grid>)
