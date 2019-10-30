@@ -127,7 +127,8 @@ class Product extends React.Component {
                 console.log('shit', res)
                 res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
                 const product = res.data;
-                if(product.sku === sku && product.slug === slug)
+                // if(product.sku === sku && product.slug === slug)
+                if(true)
                     this.setState({
                         product: res.data,
                         isLoading: withSimilars? true : false,

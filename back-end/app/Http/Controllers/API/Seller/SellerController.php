@@ -180,7 +180,7 @@ class SellerController extends Controller
         $pendingEarn = OrderProduct::query()->whereHas('Product',function ($q) use ($seller){
             $q->where('store_id',$seller->id);
         })->whereHas('Order', function ($q){
-            $q->where('status','<>','delivered');
+            $q->where('status','<>','delivered')->where('status','<>','canceled');
         })->selectRaw('SUM(price * quantity) as total')->get()->sum('total');
 
         $approvedEarn = OrderProduct::query()->whereHas('Product',function ($q) use ($seller){
