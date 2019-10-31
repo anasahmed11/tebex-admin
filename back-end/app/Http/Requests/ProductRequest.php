@@ -33,7 +33,7 @@ class ProductRequest extends FormRequest
             'description'=>'required',
             'description_en'=>'required',
             'price'=>'required|numeric',
-            'sale_price'=>'numeric',
+            'sale_price'=>'numeric|nullable',
             'quantity'=>'required|integer',
             'commission'=>'required|numeric|gt:0',
             'category'=>'required|exists:categories,id',
