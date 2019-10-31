@@ -2,11 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\AppStatus;
-use App\Enums\Methods;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SellerRequest extends FormRequest
+class SellerStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +24,8 @@ class SellerRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string',
-            'name_en'=>'required|string',
-            'type'=>'required|string',
-            'url'=>'string',
-            'address'=>'required|string',
-            'phone'=>'required|string',
-            'email'=>'string',
+            'status' => 'required|in:approved,refused,blocked',
+            'status_message' => 'required|string',
         ];
     }
 }

@@ -166,6 +166,11 @@ const globalVariables = {
         ar: 'لقد تم رفض طلبك, تواصل مع الدعم او قم بارسال طلب جديد',
 
     },
+    AFFILIATE_BLOCKED: {
+        en: 'You have been blocked for a while, contact support if you think that shouldn\'t happen',
+        ar: 'لقد تم ايقاف حسابك, تواصل مع الدعم',
+
+    },
     FORM_AFFILIATE_LABEL_VODAFONE: {
         en: 'Vodafone Cash',
         ar: 'فودافون كاش',

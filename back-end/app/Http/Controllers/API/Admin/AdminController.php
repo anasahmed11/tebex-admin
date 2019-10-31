@@ -10,6 +10,7 @@ use App\Affiliate;
 use App\Country;
 use App\Http\Requests\ReturnApplicationStatusRequest;
 use App\Http\Requests\ReturnReasonRequest;
+use App\Http\Requests\SellerStatusRequest;
 use App\Http\Requests\ShipperRequest;
 use App\Http\Requests\ShippingRequest;
 use App\Http\Requests\withdrawStatusRequest;
@@ -42,13 +43,34 @@ class AdminController extends Controller
         if ($request->status == null) return response()->json(Store::orderBy('status', 'desc')->get(), 200);
         return response()->json(Store::query()->where('status', $request->status)->get(), 200);
     }
-    public function setSellersStatus(StatusRequest $request, $id)
+    public function setSellersStatus(SellerStatusRequest $request, $id)
     {
         $store = Store::find($id);
         if ($store == null) return response()->json(['message' => 'Store id not found'], 404);
 
         $store->status = $request->input('status');
         $store->save();
+
+        $storeProds = $store->Products()->get();
+        if($request->status == 'blocked'){
+            $storeProds->map(function($storeProd) {
+                if($storeProd->status == 'approved'){
+                    $storeProd->status = 'blocked';
+                    $storeProd->status_message = 'The product is blocked';
+                    $storeProd->save();
+                }
+            });
+        }
+        elseif($request->status == 'approved'){
+            $storeProds->map(function($storeProd) {
+                if($storeProd->status == 'blocked'){
+                    $storeProd->status = 'approved';
+                    $storeProd->status_message = '';
+                    $storeProd->save();
+                }
+            });
+        }
+
         return response()->json(['message' => 'ok'], 200);
     }
 

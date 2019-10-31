@@ -32,7 +32,7 @@ const form = props => {
 
             <div>
                 <label htmlFor="sale_price">{globalVariables.LABEL_SALE_PRICE[globalVariables.LANG]}</label>
-                <input type="text" placeholder="" name="sale_price" ref={register({ required: true, pattern: /^\d+$/ })} />
+                <input type="text" placeholder="" name="sale_price" ref={register({ pattern: /^\d*$/ })} />
                 {errors.sale_price && <p>This field is required and has to be a number</p>}
             </div>
 
