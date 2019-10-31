@@ -15,8 +15,9 @@ import styles from '../../../assets/jss/components/wrappers/Seller';
 
 const Page1 = props => <Typography>{globalVariables.SELLER_PAGE1[globalVariables.LANG]}</Typography>;
 const Page2 = props => <Typography>{globalVariables.SELLER_PAGE2[globalVariables.LANG]}</Typography>;
+const Page3 = props => <Typography>{globalVariables.AFFILIATE_BLOCKED[globalVariables.LANG]}</Typography>;
 
-const STATES = ['Not Applied','Pending','Approved','Refused']
+const STATES = ['Not Applied','Pending','Approved','Refused','Blocked']
 
 class Seller extends React.Component{
     state = {
@@ -51,6 +52,8 @@ class Seller extends React.Component{
                     </Grid>
                     <SellerRegisteration handleNextStep={this.handleNextStep} />
                 </React.Fragment>
+            case 4:
+                return <Page3 />
             default:
                 return <React.Fragment></React.Fragment>
 
@@ -59,7 +62,7 @@ class Seller extends React.Component{
     render(){
         const {classes } = this.props;
         const { isLoading } = this.state
-        
+        console.log(this.props.program.seller)
         return(
             <Grid container item justify='center' xs={11}>
                 <Grid item xs={12}>

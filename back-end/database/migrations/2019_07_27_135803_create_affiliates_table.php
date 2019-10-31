@@ -21,7 +21,7 @@ class CreateAffiliatesTable extends Migration
             $table->double('suspended_balance')->default(0);
             $table->bigInteger('user_id')->unsigned();
             $table->enum('status',['approved','refused','pending'])->default('pending');
-
+            $table->string('status_message',150)->nullable();
             $table->timestamps();
         });
         Schema::table('affiliates',function(Blueprint $table){

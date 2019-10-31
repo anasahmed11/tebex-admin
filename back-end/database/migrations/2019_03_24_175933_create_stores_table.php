@@ -25,10 +25,9 @@ class CreateStoresTable extends Migration
                 $table->string('email')->nullable();
                 $table->string('slug');
                 $table->double('balance')->default(0);
-                // $table->enum('method',['cash','bank']);
-                // $table->json('account');
                 $table->bigInteger('user_id')->unsigned();
-                $table->enum('status',['approved','refused','pending'])->default('pending');
+                $table->enum('status',['approved','refused','pending','blocked'])->default('pending');
+                $table->string('status_message',150)->nullable();
                 $table->timestamps();
         });
         Schema::table('stores',function(Blueprint $table){

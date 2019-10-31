@@ -28,10 +28,13 @@ class UserController extends Controller
         $sellerStatus = 'Not Applied';
         if ($user->Store()->where('status', 'approved')->count() > 0)
             $sellerStatus = 'Approved';
+        elseif ($user->Store()->where('status', 'blocked')->count() > 0)
+            $sellerStatus = 'Blocked';
         elseif ($user->Store()->where('status', 'pending')->count() > 0)
             $sellerStatus = 'Pending';
         elseif ($user->Store()->where('status', 'refused')->count() > 0)
             $sellerStatus = 'Refused';
+
         $affStatus = 'Not Applied';
         #dd($aff->where('status','pending')->count());
         if ($user->Affiliate()->where('status', 'approved')->count() > 0)
