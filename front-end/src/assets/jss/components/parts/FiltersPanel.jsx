@@ -22,7 +22,7 @@ export const styles = theme => ({
       }
     },
     mobileToggle: {
-      backgroundColor: palette.blue,
+      backgroundColor: palette.darksecond,
       // border: '1px solid #5f4378',
       textAlign: 'center',
       color: palette.white,

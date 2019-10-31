@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Route, withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
+import { Helmet } from "react-helmet";
 import Cookies from 'universal-cookie';
 
 import { Typography, withStyles, Grid, Snackbar } from '@material-ui/core';
@@ -21,7 +22,6 @@ import cancelablePromise from '../../Providers/CancelablePromise';
 
 import styles from '../../assets/jss/views/Checkout';
 import './styles/checkout.css';
-import { Helmet } from "react-helmet";
 
 const cookies = new Cookies();
 
@@ -243,7 +243,6 @@ const mapDispatchToProps = dispatch => {
         handleCartSuccess: (message) => dispatch(cartSuccess(message)),
         handleCartFail: (message) => dispatch(cartFail(message)),
         handlePopupClose: () => dispatch(cartFinish()),
-
     }
 }
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Checkout)));

@@ -38,7 +38,7 @@ const Order = props => {
 
             <Grid container item xs={11}>
                 {order.products.map((item =>
-                    <ShopCartItem key={uuid()} orderId={order.id} item={item} previewOnly />
+                    <ShopCartItem key={uuid()} orderId={order.id} item={item} fromOrder previewOnly />
                 ))}
             </Grid>
             <Stepper steps={globalVariables.PRODUCT_STATUS_STATES[lng]} stepIndex={step} disabled={disabled} />

@@ -6,7 +6,7 @@ export default theme => ({
       fontSize: '30px',
       transition: theme.transitions.create('color'),
       '&:hover':{
-          color: palette.second,
+          color: palette.yellow,
       }
     },
     input: {

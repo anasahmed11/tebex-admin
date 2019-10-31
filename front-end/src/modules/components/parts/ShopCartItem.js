@@ -42,11 +42,11 @@ class ShopCartItem extends Component{
     }
 
     render(){
-        const { classes, item, previewOnly, handleDelete } = this.props;
+        const { classes, item, fromOrder, previewOnly, handleDelete } = this.props;
 
-        let product = previewOnly? item.product : item;
-        const price = previewOnly? item.price : item.sale_price;
-        const quantity = previewOnly? item.quantity : item.cart.quantity;
+        let product = fromOrder? item.product : item;
+        const price = fromOrder? item.price : item.sale_price;
+        const quantity = fromOrder? item.quantity : item.cart.quantity;
         const options = previewOnly? 
             null : [...Array(item.quantity + 1).keys()].slice(1).map((n,idx) => <option key={idx} value={n}> {n} </option>);
         
@@ -77,11 +77,13 @@ class ShopCartItem extends Component{
                                 </Link>
                             </Typography>
                         </Grid>
-                        {previewOnly?
+
+                        {fromOrder?
                             this.props.item.return_application || this.state.returnRequested?
                             <Grid item>
                                 <Typography className={classes.returnInfo}>
-                                    {this.props.item.return_application.status_message || 'Return form sent.'}
+                                    {this.props.item.return_application? 
+                                        this.props.item.return_application.status_message : 'Return form sent'}
                                 </Typography>
                             </Grid>
                             : this.props.item.returnable?

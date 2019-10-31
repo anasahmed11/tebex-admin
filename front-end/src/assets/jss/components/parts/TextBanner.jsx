@@ -6,12 +6,9 @@ export default theme => ({
         backgroundImage: `radial-gradient(25% 100%, ${palette.first} 0, ${palette.blue} 100%)`,
         justifyContent: 'center',
         alignItems: 'center',
-        height: '70vh',
-        minHeight: '375px',
-        maxHeight: '550px',
-        [theme.breakpoints.down("xs")]: {
-            height: '60vh',
-        }
+        height: '40vw',
+        minHeight: '245px',
+        maxHeight: '480px',
     },
     banner: {
         borderRadius: '0px',

@@ -44,4 +44,12 @@ export default theme => ({
           color: palette.darksecond,
       },
   },
+  quickBuyButton: {
+      float: 'right',
+      display: 'none',
+      fontWeight: 'bold',
+      [theme.breakpoints.down('sm')]: {
+          display: 'block'
+      }
+  }
 });

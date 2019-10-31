@@ -47,7 +47,8 @@ class InteractiveList extends React.Component {
       <div id={this.props.id} className={classes.root}>
 
         {filterPanels?
-        <Collapsible open triggerTagName="div" trigger={
+        window.innerWidth < 1280?
+        <Collapsible triggerTagName="div" trigger={
           <Typography variant="h6" className={classes.mobileToggle}>
            <FontAwesomeIcon icon={['fas', 'sliders-h']} /> Filters
           </Typography>}>
@@ -144,6 +145,97 @@ class InteractiveList extends React.Component {
             <Divider />
         </div>
         </Collapsible>
+        : <div className={classes.demo} style={this.props.disabled? disableStyle : {}}>
+          <List className={classes.listLayout} dense={dense}>
+            {filterPanels.map((filter) => filter.values.length?
+              <React.Fragment>
+                <Collapsible transitionTime={200} open trigger={
+                  <div className={classes.collapsibleTab}>
+                    <Typography variant="subtitle1" className={classes.filterTitle}>
+                      {filter.name[globalVariables.LANG]} {/*<Divider />*/}
+                    </Typography>
+                    <FontAwesomeIcon icon={['fas', 'ellipsis-h']} />
+                  </div>
+                  }
+                >
+                { filter.type === 'text'?
+                  <div className={classes.priceSection}>
+                    <form className={classes.priceForm}>
+                      <TextField
+                        className={classes.priceSectionBox}
+                        margin="dense"
+                        variant="outlined"
+                        type="number"
+                        inputProps={inputProps}
+                        onChange={priceValidation}
+                        defaultValue={defaultMin}
+                        id={this.props.minBoxId}
+                      >
+                        {filter.values[1]}
+                      </TextField>
+                      <Typography className={classes.priceSectionText}> 
+                        {globalVariables.LABEL_SHOP_TO[globalVariables.LANG]}
+                      </Typography>
+                      <TextField
+                        className={classes.priceSectionBox}
+                        margin="dense"
+                        variant="outlined"
+                        type="number"
+                        inputProps={inputProps}
+                        onChange={priceValidation}
+                        defaultValue={defaultMax}
+                        id={this.props.maxBoxId}
+                      >
+                        {filter.values[0]}
+                      </TextField>
+                      <Button
+                        fullWidth
+                        className={classes.priceSectionButton}
+                        variant="contained"
+                        color="secondary"
+                        onClick={this.props.handlePrice}
+                      >
+                          {globalVariables.LABEL_SHOP_APPLY[globalVariables.LANG]}
+                        </Button>
+                    </form>
+                  </div>
+                  : filter.type === 'link'? filter.values.map((value) =>
+                    <Link
+                      className={classes.link}
+                      to={{
+                        pathname: query?  `/shop/${value.slug}?${query}` : `/shop/${value.slug}`,
+                        state: { changingCategory: true }
+                      }}>
+                      <ListItem className={classes.listItem} button key={uuid()}>
+                        <ListItemText
+                                primary={`${value.name[globalVariables.LANG]} (${value.total})`}
+                                className={classes.listItemText}
+                        />
+                      </ListItem>
+                    </Link>)
+
+                  : filter.type === 'menu'?
+                      filter.values.map((value, idx) => 
+                      <ListItem key={uuid()}>
+                        <ListItemText
+                            primary={value[0][globalVariables.LANG]}
+                            style={{textAlign: globalVariables.LANG === 'ar'? 'right' : 'left'}}
+                        />
+                        <ListItemSecondaryAction>
+                          <Checkbox
+                            className={classes.checkbox}
+                            onChange={this.handleToggle.bind(this, filter.name.en, value[0].en)}
+                            checked={value[1]}
+                          />
+                        </ListItemSecondaryAction>
+                      </ListItem>) : null }
+                      </Collapsible>
+              </React.Fragment> : null
+            )}
+
+          </List>
+          <Divider />
+        </div>
         : null}
 
       </div>

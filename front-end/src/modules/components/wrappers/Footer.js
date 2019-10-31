@@ -7,8 +7,6 @@ import IconLink from '../parts/IconLink';
 
 import styles from '../../../assets/jss/components/wrappers/Footer';
 
-
-
 const Footer = props => {
 
     const { classes } = props;

@@ -1,11 +1,9 @@
 import * as actionTypes from '../actionTypes';
 import Cookies from 'universal-cookie';
-import {cartAPI} from '../../api/api'
+import { cartAPI } from '../../api/api'
 import globalVariables from '../../global-variables';
 
 const cookies = new Cookies();
-
-
 
 export const cartStart = () => {
     return{
@@ -14,7 +12,7 @@ export const cartStart = () => {
 }
 
 const addToCartOperation = (shopping_cart) => {
-    const numItems = shopping_cart.reduce((total,item)=>total+item.cart.quantity,0)
+    const numItems = shopping_cart.reduce((total,item) => total + item.cart.quantity, 0)
 
     return{
         type:actionTypes.ADD_TO_CART_OPERATION,
@@ -90,13 +88,11 @@ export const addToCart = (product, quantity, messageShow=true, isModifiyOperatio
     
 }
 
-
 export const cartFinish = () => {
     return{
         type:actionTypes.CART_FINISH
     }
 }
-
 
 export const clearCart = () => {
     localStorage.setItem('shopping_cart',JSON.stringify([]))
@@ -106,100 +102,87 @@ export const clearCart = () => {
 }
 
 
-
-
-
-
-
 export const deleteFromCart = (productID,shopping_cart) => {
     return dispatch => {
         dispatch(cartStart())
         //localStorage.setItem('shopping_cart',JSON.stringify([{id:1,quantity:2},{id:2,quantity:2},{id:3,quantity:2}])) //for testing only
         if(cookies.get(globalVariables.ACCESS_TOKEN)){
             let data = {
-                "product":{"id":productID}	
+                "product": {"id": productID}	
             }
-            cartAPI.post('/remove',data)
-            .then(res=>{
-                dispatch(cartSuccess("تم حذف المنتج من السلة"))
-                const idx = shopping_cart.findIndex(item=>item.id===productID)
-                shopping_cart.splice(idx,1)
-                dispatch(addToCartOperation(shopping_cart))
+            cartAPI.post('/remove', data)
+            .then(res => {
+                dispatch(cartSuccess("تم حذف المنتج من السلة"));
+                const idx = shopping_cart.findIndex(item => item.id === productID);
+                shopping_cart.splice(idx, 1);
+                dispatch(addToCartOperation(shopping_cart));
             })
-            .catch(res=>{
-                dispatch(cartFail("فشل في حذف المنتج"))
-            })
-
+            .catch(res => {
+                dispatch(cartFail("فشل في حذف المنتج"));
+            });
         }
          else{
- 
             if(!localStorage.getItem('shopping_cart')) {
-                dispatch(cartFail("Fail"))
-                return 
+                dispatch(cartFail("Fail"));
+                return;
             }
             
-            let shopping_cart = JSON.parse(localStorage.getItem('shopping_cart'))
-            const idx = shopping_cart.findIndex(item=>item.id===productID)
+            let shopping_cart = JSON.parse(localStorage.getItem('shopping_cart'));
+            const idx = shopping_cart.findIndex(item => item.id === productID);
 
-            shopping_cart.splice(idx,1)
+            shopping_cart.splice(idx, 1);
 
-            localStorage.setItem('shopping_cart',JSON.stringify(shopping_cart))
+            localStorage.setItem('shopping_cart', JSON.stringify(shopping_cart));
 
-            dispatch(addToCartOperation(shopping_cart))
-            dispatch(cartSuccess("تم حذف المنتج من السلة"))
-
-           
+            dispatch(addToCartOperation(shopping_cart));
+            dispatch(cartSuccess("تم حذف المنتج من السلة"));
         }
 
     }
 }
-
 
 
 const initCartOperation = (cartItems) => {
-    const numItems = cartItems.reduce((total,item)=>total+item.cart.quantity,0)
+    const numItems = cartItems.reduce((total, item) => total + item.cart.quantity,0)
     return{
-        type:actionTypes.INIT_CATT_OPERATION,
-        cartItems:cartItems,
-        numItems:numItems
+        type: actionTypes.INIT_CATT_OPERATION,
+        cartItems: cartItems,
+        numItems: numItems
     }
 }
 
-export const initCart = (message="") => {
+export const initCart = (message = "") => {
     
     return dispatch => {
         
         dispatch(cartStart())
         if(cookies.get(globalVariables.ACCESS_TOKEN)){
             cartAPI.get('')
-            .then((res)=>{
+            .then((res) => {
                 //console.log(res)
-                let modified=false
+                let modified = false
                 let cartItems = res.data
-                for(let i=0;i<cartItems.length;i++){
-                    if(cartItems[i].quantity<cartItems[i].cart.quantity){
-                        cartItems[i].cart.quantity = cartItems[i].quantity
-                        
-                        dispatch(addToCart({id:cartItems[i]},cartItems[i].quantity, false))
-                        modified=true
+                for(let i=0; i < cartItems.length; i++){
+                    if(cartItems[i].quantity < cartItems[i].cart.quantity){
+                        cartItems[i].cart.quantity = cartItems[i].quantity;
+                        dispatch(addToCart({id:cartItems[i]}, cartItems[i].quantity, false));
+                        modified = true;
                     }
                 }
-                dispatch(initCartOperation(cartItems))
-                if(modified) alert("بعض المنتجات تم تعديلها في السلة, رجاء قم بتفقدها")
-                dispatch(cartSuccess(message))
+                dispatch(initCartOperation(cartItems));
+                if(modified) alert("بعض المنتجات تم تعديلها في السلة, رجاء قم بتفقدها");
+                dispatch(cartSuccess(message));
 
             })
             .catch((res) => {
                 dispatch(cartFail("فشل في تحميل السلة"))
             })
 
-
-        }else{
+        } else{
             if(!localStorage.getItem('shopping_cart')) localStorage.setItem('shopping_cart',JSON.stringify([]))
-            let shoppingCart = JSON.parse(localStorage.getItem('shopping_cart'))
-            dispatch(initCartOperation(shoppingCart))
-            dispatch(cartSuccess(message))
-
+            let shoppingCart = JSON.parse(localStorage.getItem('shopping_cart'));
+            dispatch(initCartOperation(shoppingCart));
+            dispatch(cartSuccess(message));
         }
     }
 

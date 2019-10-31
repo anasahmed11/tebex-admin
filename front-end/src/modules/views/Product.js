@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
+import Scroll from 'react-scroll';
 
-import { withStyles, Grid, Snackbar, Typography } from '@material-ui/core';
+import { withStyles, Grid, Snackbar, Typography, Button } from '@material-ui/core';
+//import { AddShoppingCart } from '@material-ui/icons';
 import 'typeface-roboto';
 
 import { Helmet } from "react-helmet";
@@ -279,10 +281,19 @@ class Product extends React.Component {
             })
         }
     }
+
+    quickBuyHandler = (name) => {
+        let scrollHeight = document.getElementById(name).offsetTop;
+        let scroll = Scroll.animateScroll;
+        scroll.scrollTo(scrollHeight, {smooth: true});
+    }
+
     render() {
         
         const { classes, isPopup, serverMessage, handlePopupClose, messageType } = this.props;
         const { isLoading, product, productSpecs, variations } = this.state;
+        const scrollId = '_addToCartScroll_'
+        
         //console.log(productSpecs);
         
         return (
@@ -306,6 +317,7 @@ class Product extends React.Component {
                         <ProductNotFound />
                         :
                         <React.Fragment>
+                    
                         <Snackbar
                             style={{ bottom: '50px' }}
                             anchorOrigin={{
@@ -338,14 +350,22 @@ class Product extends React.Component {
                                 )}
                             </Grid>
                         :null}
-
+                        
                         <Grid item lg={4} md={5} xs={11}>
-                            <ProductViewer 
+                            <ProductViewer
                                 images={product.images}
                                 title={product.name} />
                         </Grid>
 
                         <Grid item lg={4} md={6} xs={11}>
+                        <Button
+                            onClick={this.quickBuyHandler.bind(this, scrollId)} 
+                            variant="contained"
+                            color="secondary"
+                            className={classes.quickBuyButton}
+                            >
+                                {globalVariables.LABEL_BUY[globalVariables.LANG]}
+                        </Button>
                             <ProductSpecs
                                 product={product}
                                 productSpecs={productSpecs}
@@ -355,7 +375,12 @@ class Product extends React.Component {
                         </Grid>
 
                         <Grid item lg={3} md={11} xs={11}>
-                            <AddToCart addToCart={this.handleAddToCart} quantity={product.quantity} store={{ id: product.store.id, name: product.store.name }} />
+                            <AddToCart
+                                addToCart={this.handleAddToCart}
+                                quantity={product.quantity}
+                                store={{ id: product.store.id, name: product.store.name }}
+                                scrollId={scrollId}
+                                    />
                         </Grid>
                     </React.Fragment>}
                     </Grid>

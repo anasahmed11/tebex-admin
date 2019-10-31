@@ -19,18 +19,19 @@ import styles from '../../assets/jss/views/Cart';
 
 class Cart extends React.Component{
     state = {
-        items:[]
+        items: []
     }
    
-    handleDelete = id => this.props.handleDeleteFromCart(id,this.props.items);
+    handleDelete = id => this.props.handleDeleteFromCart(id, this.props.items);
 
     handleCheckout = () => {
     }
 
     render(){
         const {classes, isPopup, isLoading, serverMessage, messageType, handlePopupClose} = this.props;
-        const totalPrice = this.props.items.reduce((total,item)=>total+item.sale_price*item.cart.quantity,0)
-        const totalItems = this.props.numItems
+        const totalPrice = this.props.items.reduce((total, item) => total + item.sale_price * item.cart.quantity, 0);
+        const totalItems = this.props.numItems;
+        
         return(
             <Grid container justify="center" className={classes.root}>
                 <Helmet>
@@ -114,7 +115,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        handleDeleteFromCart: (id,shopping_cart) => dispatch(deleteFromCart(id,shopping_cart)),
+        handleDeleteFromCart: (id, shopping_cart) => dispatch(deleteFromCart(id, shopping_cart)),
         handlePopupClose: () => dispatch(cartFinish()),
     }
 }
