@@ -113,9 +113,11 @@ class Product extends React.Component {
     
     componentDidMount() {
         const url = this.props.match.params.id;
-        let [slug, sku] = url.replace(/^\/|\/$/g, '').split('/');
-        let id = sku.split('-')[0];
-        sku = sku.split('-')[1];
+        let [slug, _sku] = url.replace(/^\/|\/$/g, '').split('/');
+        
+        let splitIdx = _sku.indexOf('-');
+        let id = _sku.slice(0, splitIdx);
+        let sku = _sku.slice(splitIdx + 1);
 
         this.getProduct(id, slug, sku, false);
         //this.getProductSpecs(id);
@@ -126,11 +128,9 @@ class Product extends React.Component {
     getProduct = (id, slug, sku, withSimilars = false) => {
         productsAPI.get(`${id}`)
             .then(res => {
-                console.log('shit', res)
                 res.data.images = res.data.images.map(image => (baseURL + image.slice(1)));
                 const product = res.data;
-                // if(product.sku === sku && product.slug === slug)
-                if(true)
+                if(product.sku === sku && product.slug === slug)
                     this.setState({
                         product: res.data,
                         isLoading: withSimilars? true : false,
