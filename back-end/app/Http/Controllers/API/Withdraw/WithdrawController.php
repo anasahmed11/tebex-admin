@@ -57,6 +57,16 @@ class WithdrawController extends Controller
             case 'store':
                 $store = Auth::user()->Store()->where('status', 'approved')->first();
                 $balance = $store->balance;
+
+                $balance = OrderProduct::query()->whereHas('Product',function ($q) use ($store){
+                    $q->where('store_id',$store->id);
+                })->where('returnable','0')->whereHas('Order', function ($q){
+                    $q->where('status','delivered');
+                })->selectRaw('SUM(price * quantity) as total')->get()->sum('total');
+
+                // TO DO
+                // balance - commission
+
                 if ($balance == 0)
                     return response()->json(['message' => 'you don\'t have enough balance'], 403);
 
