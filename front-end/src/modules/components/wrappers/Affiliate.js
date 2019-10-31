@@ -14,7 +14,19 @@ import { initUser } from '../../../store/actions/user';
 import styles from '../../../assets/jss/components/wrappers/Affiliate';
 import MyClipLoader from '../parts/MyClipLoader';
 
-const Page1 = props => <Typography>{globalVariables.AFFILIATE_PAGE1[globalVariables.LANG]}</Typography>
+const Page1 = props => <Grid>
+    <Typography gutterBottom>{globalVariables.AFFILIATE_PAGE1[globalVariables.LANG]}</Typography>
+    {props.price?
+        <React.Fragment>
+            <Typography>ويجب عليك دفع مبلغ قدره {props.price} جنيه رسوم التسجيل في اقرب وقت ممكن عن طريق احدى الطرق التالية: </Typography>
+            <Typography ><b>فودافون كاش</b>: 000000</Typography>
+            <Typography><b>اتصالات كاش</b>: 000000</Typography>
+            <Typography><b>حساب بنكي</b>: 000000</Typography>
+        </React.Fragment>
+        :
+        null
+    }
+</Grid>
 const Page2 = props => <Typography>{globalVariables.AFFILIATE_PAGE2[globalVariables.LANG]}</Typography>
 
 const STATES = ['Not Applied','Pending','Approved','Refused']
@@ -40,7 +52,7 @@ class Affiliate extends React.Component{
             case 0:
                 return <AffiliateRegisteration handleNextStep={this.handleNextStep} />
             case 1:
-                return <Page1 />
+                return <Page1 price={this.props.program.affiliate_pack.price}/>
             case 2:
                 return <Page2 />
             case 3:

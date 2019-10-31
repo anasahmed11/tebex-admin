@@ -45,6 +45,10 @@ class UserController extends Controller
             $affStatus = 'Refused';
         $data['program']['seller'] = $sellerStatus;
         $data['program']['affiliate'] = $affStatus;
+
+        if($affStatus == 'Pending')
+            $data['program']['affiliate_pack'] = $user->Affiliate()->where('status', 'pending')->first()->Plan()->first();
+
         return response()->json($data);
     }
 
