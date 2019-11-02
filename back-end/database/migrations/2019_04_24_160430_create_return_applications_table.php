@@ -17,7 +17,7 @@ class CreateReturnApplicationsTable extends Migration
             $table->increments('id');
             $table->string('reason');
             $table->string('note');
-            $table->enum('status',['pending','active','shipped','returned','canceled'])->default('pending');
+            $table->enum('status',['pending','active','shipped','returned','paid','canceled'])->default('pending');
             $table->string('status_message')->default('Waiting for admin approval')->nullable();
             $table->timestamps();
         });

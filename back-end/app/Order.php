@@ -27,4 +27,7 @@ class Order extends Model
     public function Products(){
         return $this->hasMany(OrderProduct::class);
     }
+    public function User(){
+        return $this->hasOneThrough(User::class, Address::class);
+    }
 }

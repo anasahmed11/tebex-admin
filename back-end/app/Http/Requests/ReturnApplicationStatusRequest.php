@@ -24,7 +24,7 @@ class ReturnApplicationStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            'status'=> 'required|in:pending,active,shipped,returned,canceled',
+            'status'=> 'required|in:pending,active,shipped,returned,paid,canceled',
             'status_message'
         ];
     }

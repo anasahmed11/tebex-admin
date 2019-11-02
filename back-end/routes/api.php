@@ -143,6 +143,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/withdraws/{withdraw}', 'API\Admin\AdminController@setWithdrawStatus');
 
     Route::get('return', 'API\Admin\AdminController@getReturnApplication');
+    Route::get('return/owe', 'API\Admin\AdminController@getOwing');
     Route::post('return/{returnApplication}', 'API\Admin\AdminController@setReturnApplication');
 
     Route::get('return/reason', 'API\Admin\AdminController@getReasons');

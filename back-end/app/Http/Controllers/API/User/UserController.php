@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\MainSettings;
 use App\Http\Requests\affiliateLinkClick;
 use App\Affiliate;
-
+use Illuminate\Database\Eloquent\Builder;
 class UserController extends Controller
 {
     public function __construct()
@@ -48,6 +48,19 @@ class UserController extends Controller
 
         if($affStatus == 'Pending')
             $data['program']['affiliate_pack'] = $user->Affiliate()->where('status', 'pending')->first()->Plan()->first();
+
+        # TO DO: Optimize
+        # ->each(function)
+        $sum = 0;
+        foreach($user->Orders()->get() as $order){
+            foreach($order->Products()->get() as $product){
+                $application = $product->ReturnApplication()->first();
+                if($application && $application->status == 'returned'){
+                    $sum += $product->price;
+                }
+            }
+        }
+        $data['returned'] = $sum;
 
         return response()->json($data);
     }

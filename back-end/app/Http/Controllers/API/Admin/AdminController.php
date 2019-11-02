@@ -252,7 +252,18 @@ class AdminController extends Controller
 
         return response()->json(ReturnApplication::with('OrderProduct')->get(), 200);
     }
+    public function getOwing()
+    {
+        $users = [];
+        ReturnApplication::where('status','returned')->each(function($returnApplication) use (&$users) {
+            $user = $returnApplication->OrderProduct()->first()->Order()->first()->Address()->first()->User()->first();
+            if(!array_key_exists($user->id,$users))
+                $users[$user->id] = ['user'=>$user, 'total_returned'=>0];
+            $users[$user->id]['total_returned'] += $returnApplication->OrderProduct()->first()->price;
+        });
 
+        return response()->json($users, 200);
+    }
     public function setReturnApplication(ReturnApplication $returnApplication, ReturnApplicationStatusRequest $request)
     {
         if($returnApplication==null)
@@ -264,7 +275,7 @@ class AdminController extends Controller
         $returnApplication->save();
 
         if($returnApplication->status == 'canceled'){
-            // Todo Bally
+
             $product=$returnApplication->OrderProduct()->first();
             $pp = $product->Product()->first()->Store()->first();
             $pp->balance += (($product->price - $product->commission) * $product->quantity) - 10;
@@ -283,9 +294,7 @@ class AdminController extends Controller
                 $current=$current->parent()->first();
             }
         }
-        elseif($returnApplication->status == 'returned'){
-            // send money to user
-        }
+
 
         return response()->json(['message' => 'ok'], 200);
     }
