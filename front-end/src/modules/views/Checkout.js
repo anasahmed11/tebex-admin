@@ -198,7 +198,7 @@ class Checkout extends React.Component {
                 {cartIsLoading || isLoading || numItems || this.state.stepIndex === 2 ?
                     <React.Fragment>
                         <Stepper steps={this.state.steps} stepIndex={this.state.stepIndex} />
-                        <Grid container item justify="center" className={classes.root} md={10} sm={10} xs={11} spacing={2}>
+                        <Grid container item justify="center" alignItems="center" className={classes.root} md={10} sm={10} xs={11} spacing={2}>
                             {isLoading && this.state.stepIndex === 1 ?
                                 <Grid container alignItems="center" justify="center" >
                                     <ClipLoader

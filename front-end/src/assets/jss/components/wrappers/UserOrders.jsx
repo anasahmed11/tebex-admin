@@ -1,6 +1,20 @@
 import palette from "../../../site-colors";
 
 export default theme => ({
+    searchRoot: {
+        padding: '2px 4px',
+        display: 'flex',
+        alignItems: 'center',
+        
+    },
+    input: {
+        marginLeft: theme.spacing(1),
+        flex: 1,
+    },
+    iconButton: {
+        padding: 10,
+    },
+    
     root: {
         backgroundColor: palette.white,
         padding: `${theme.spacing(4)}px 0px`,

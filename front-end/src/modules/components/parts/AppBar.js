@@ -83,7 +83,7 @@ class PrimarySearchAppBar extends React.Component {
         this.state.anchorEl = null;
         
         return (
-            <AppBar position="static" className={classes.root}>
+            <AppBar position="sticky" className={classes.root}>
                 <Grid container className={classes.container}>
                     <div className={classes.logo}>
                         <div style={{ width: '80%', margin: 'auto' }}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { ClipLoader } from 'react-spinners';
 import globalVariables from '../../../global-variables';
 
-import { Typography, withStyles, Grid, Button, } from '@material-ui/core';
+import { Typography, withStyles, Grid, Button, TextField, Paper, IconButton, InputBase, } from '@material-ui/core';
 import 'typeface-roboto';
 import {
     CSSTransition,
@@ -18,6 +18,32 @@ import cancelablePromise from '../../../Providers/CancelablePromise';
 
 
 import styles from '../../../assets/jss/components/wrappers/CheckoutAddress';
+import { Menu, Search } from '@material-ui/icons';
+
+
+function get_bigrams(string) {
+    var s = string.toLowerCase()
+    var v = s.split('');
+    for (var i = 0; i < v.length; i++) { v[i] = s.slice(i, i + 2); }
+    return v;
+}
+
+function string_similarity(str1, str2) {
+    if (str1.length > 0 && str2.length > 0) {
+        var pairs1 = get_bigrams(str1);
+        var pairs2 = get_bigrams(str2);
+        var union = pairs1.length + pairs2.length;
+        var hits = 0;
+        for (var x = 0; x < pairs1.length; x++) {
+            for (var y = 0; y < pairs2.length; y++) {
+                if (pairs1[x] == pairs2[y]) hits++;
+            }
+        }
+        if (hits > 0) return ((2.0 * hits) / union);
+    }
+    return 0.0
+}
+
 
 class CheckoutAddress extends React.Component {
     state = {
@@ -25,7 +51,8 @@ class CheckoutAddress extends React.Component {
         selectedAddress: 0,
         addresses: [],
         isLoading: true,
-        editIdx: null
+        editIdx: null,
+        searchText: ''
     }
 
     pendingPromises = [];
@@ -102,16 +129,32 @@ class CheckoutAddress extends React.Component {
     }
 
     handleNextButton = callbackFunction => callbackFunction(this.state.addresses[this.state.selectedAddress]);
-
+    handleAddressSearch = event => {
+        this.setState({ searchText: event.target.value });
+    };
     render() {
         const { classes } = this.props;
         const { addresses, isLoading } = this.state;
         return (
             <React.Fragment>
-                <Grid item xs={12}>
+                <Grid item >
                     <Typography gutterBottom component='h2' variant='h5'>{globalVariables.CHECKOUT_SHIPPING_ADDRESS[globalVariables.LANG]}</Typography>
                 </Grid>
+                <Grid item xs={6} >
+                    <Paper className={classes.root}>
+                        <InputBase
+                            className={classes.input}
+                            placeholder="البحث عن عنوان"
+                            inputProps={{ 'aria-label': 'search google maps' }}
+                            onChange={this.handleAddressSearch}
+                            value={this.state.searchText}
+                        />
+                        <div className={classes.iconButton} aria-label="search">
+                            <Search />
+                        </div>
 
+                    </Paper>
+                </Grid>
                 {isLoading ?
                     <Grid container alignItems="center" justify="center" >
                         <ClipLoader
@@ -124,7 +167,8 @@ class CheckoutAddress extends React.Component {
                 }
                 {isLoading ? null :
                     <Grid item xs={12} >
-                        <Grid container justify="center" className={classes.root}>
+                        <Grid container justify="center" >
+
                             <TransitionGroup
                                 component={Grid}
                                 item
@@ -132,25 +176,29 @@ class CheckoutAddress extends React.Component {
                                 className={classes.addressCardsRoot}
                                 container
                             >
-                                {addresses.map((obj, index) =>
-                                    <CSSTransition
-                                        key={index}
-                                        timeout={500}
-                                        classNames="componentAddDelete"
-                                    >
-                                        <AddressCard
-                                            id={obj.id}
+                                {addresses.filter((address => (
+                                    string_similarity(address.phone, this.state.searchText) > 0.5
+                                    || string_similarity(address.first_name, this.state.searchText) > 0.5
+                                    || string_similarity(address.last_name, this.state.searchText) > 0.5
+                                    || this.state.searchText === ''))).map((obj, index) =>
+                                        <CSSTransition
                                             key={index}
-                                            name={obj.first_name + ' ' + obj.last_name}
-                                            address={`Egypt, ${obj.governorate.governorate_name}, ${obj.city}, ${obj.address} `}
-                                            phone={obj.phone}
-                                            selected={this.state.selectedAddress === index ? true : false}
-                                            onClick={this.addressClickHandler.bind(this, index)}
-                                            handleDelete={this.handleDelete}
-                                            handleDetailsButton={this.handleDetailsButton}
-                                        />
-                                    </CSSTransition>
-                                )}
+                                            timeout={500}
+                                            classNames="componentAddDelete"
+                                        >
+                                            <AddressCard
+                                                id={obj.id}
+                                                key={index}
+                                                name={obj.first_name + ' ' + obj.last_name}
+                                                address={`Egypt, ${obj.governorate.governorate_name}, ${obj.city}, ${obj.address} `}
+                                                phone={obj.phone}
+                                                selected={this.state.selectedAddress === index ? true : false}
+                                                onClick={this.addressClickHandler.bind(this, index)}
+                                                handleDelete={this.handleDelete}
+                                                handleDetailsButton={this.handleDetailsButton}
+                                            />
+                                        </CSSTransition>
+                                    )}
 
                                 <ButtonCard onClick={this.addAddressDialogToggle} text={"+ " + globalVariables.CHECKOUT_ADD_NEW_ADDRESS[globalVariables.LANG]} />
                             </TransitionGroup>
