@@ -12,10 +12,10 @@ class OrderProduct extends Model
     protected $fillable=['order_id','product_id','price','quantity','commission','commission_percent'];
 
     public function Product(){
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class,'product_id');
     }
     public function Order(){
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class,'order_id');
     }
     public function ReturnApplication(){
         return $this->belongsTo(ReturnApplication::class, 'return_id');

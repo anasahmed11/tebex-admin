@@ -14,7 +14,6 @@ class Store extends Model
         'updated_at'=>'datetime',
     ];
 
-    protected $hidden = ['balance'];
 
     public function sluggable()
     {

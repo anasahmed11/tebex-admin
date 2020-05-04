@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PaymentAccount extends Model
 {
     use SoftDeletes;
-
+    protected $with=['User'];
     protected $fillable = [
         'method', 'account', '_token'
     ];
@@ -22,7 +22,7 @@ class PaymentAccount extends Model
 
     ];
     public function User(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
     public function Withdraws(){
         return $this->hasMany(Withdraw::class);

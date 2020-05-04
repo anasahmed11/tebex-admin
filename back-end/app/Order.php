@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
-    protected $with = ['Address'];
+    protected $with = ['Address','Referral'];
     protected $fillable=[
         'status','shipping_fees','_token','commission','returnable'
     ];
@@ -16,7 +17,7 @@ class Order extends Model
         'returnable'=>'boolean'
     ];
     public function Address(){
-        return $this->belongsTo(Address::class);
+        return $this->belongsTo(Address::class,'address_id');
     }
     public function Shipper(){
        return  $this->belongsTo(Shipper::class);
@@ -30,4 +31,5 @@ class Order extends Model
     public function User(){
         return $this->hasOneThrough(User::class, Address::class);
     }
+
 }

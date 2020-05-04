@@ -35,7 +35,7 @@ class Product extends Model
 
 
 
-    protected $with=['Store','Specs:product_id,spec_id,id,value,name,name_en'];
+    protected $with=['Store','Specs:product_id,spec_id,id,value,name,name_en','Category'];
     protected $fillable = [
         'name','name_en', 'slug', 'sku','images','description','description_en','price','sale_price','quantity', 'commission'
     ];
@@ -66,10 +66,10 @@ class Product extends Model
             #->select("id","name","name_en","value");
     }
     public function Store(){
-        return $this->belongsTo(Store::class);
+        return $this->belongsTo(Store::class,'store_id');
     }
     public function Category(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'category_id');
     }
     public function Orders(){
         return $this->hasMany(OrderProduct::class);
