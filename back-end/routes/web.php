@@ -16,6 +16,8 @@ use App\User;
 //products
 Route::get('/products-admin','AdminController@index');
 Route::get('/products-admin/{status}','AdminController@status_type');
+Route::get('/products-search/{query}','AdminController@product_search');
+Route::get('/products-search','AdminController@product_search_index');
 Route::Put('/products-admin/{id}', 'AdminController@update_status');
 //orders
 Route::get('/orders-admin','AdminController@index_orders');

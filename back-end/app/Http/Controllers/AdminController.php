@@ -39,10 +39,28 @@ class AdminController extends Controller
         $products=Product::all();
         return view('admin_dash/admin-products')->with('products',$products);
     }
+    public function product_search_index()
+    {
+        $products=Product::all();
+        return response()->json($products);
+    }
     public function status_type($status)
     {
         $data =Product::where('status','=',$status)->get();
         return response()->json($data);
+
+    }
+    public function product_search(Request $request,$query){
+        if($request->ajax()){
+            if($query != '')
+            {
+                $data = Product::where('name_en', 'like', '%'.$query.'%')
+                    ->orderBy('id', 'desc')
+                    ->get();
+                return  response()->json($data);
+
+            }
+        }
 
     }
     /*orders*/

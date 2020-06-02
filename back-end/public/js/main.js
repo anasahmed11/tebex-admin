@@ -88,6 +88,51 @@ $(function() {
 
 
     });
+    /* ------------- status-filter --------------*/
+    $(document).on('keyup','#product-search',function(e){
+        var query=$(this).val();
+        $.ajax({
+            type: 'GET',
+            url: 'products-search/'+query,
+            processData: false,
+            success: function (data) {
+                if((data.errors)){
+                    Swal.fire({
+                        type: 'error',
+                        title: 'عفوا',
+                        text: 'حدثت مشكله ! ',
+                    })
+                }else{
+                    $(".status-table").html(
+                        "<tr></tr>"
+                    );
+                    $.each(data, function(i, item) {
+                        $(".status-table").append(
+                            "<tr>"+
+                            "<td>"+item.id +"</td>"+
+                            "<td>"+item.name +"</td>"+
+                            "<td>"+item.name_en +"</td>"+
+                            "<td>"+item.price +"</td>"+
+                            "<td>"+item.sale_price +"</td>"+
+                            "<td>"+item.quantity +"</td>"+
+                            "<td>"+item.commission+"</td>"+
+                            "<td>"+item.store.name+"</td>"+
+                            "<td>"+item.category.name +"</td>"+
+                            "<td>"+item.status+"</td>"+
+                            "<td><button class='edit-status btn btn-success' data-toggle='modal' data-target='#edit-modal-method' data-id='" + item.id +  "' data-status='" + item.status +  "' >update</button></td>"+
+                            "</tr>"
+                        )
+                    });
+
+                }
+
+            }
+
+        });
+        e.preventDefault();
+
+
+    });
     /* ------------- order-status-filter --------------*/
     $(document).on('click',".order-appr",function(e){
         var status_type=$(this).data('type');

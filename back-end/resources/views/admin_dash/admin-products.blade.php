@@ -13,6 +13,11 @@
 
     </div>
     <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <input type="text" placeholder="search" name="productsearch" class="form-control" id="product-search"><br>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12 c_text login_page col-md-4 wow fadeInRight"data-wow-duration="2s" data-wow-offset="300">
             <table class="doc-table table table-responsive table-striped ">
                 <thead>
