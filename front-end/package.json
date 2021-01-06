@@ -12,7 +12,7 @@
     "@material-ui/styles": "^4.3.3",
     "affiliate": "^3.0.2",
     "animate.css": "^3.7.2",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-plugin-root-import": "^6.4.1",
     "chartist": "^0.11.3",
     "clsx": "^1.0.4",
